@@ -36,8 +36,8 @@ export default () => {
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
                 <p>
-                    We appreciate your contacting us. We will be in touch as
-                    soon as we could.
+                    We appreciate you contacting us. We will be in touch as
+                    soon as possible.
                 </p>
             </Hero>
             <Section>

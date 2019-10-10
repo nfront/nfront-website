@@ -5,9 +5,9 @@ require('dotenv').config({
 
 module.exports = {
     siteMetadata: {
-        title: `NFRONT`,
-        siteUrl: `https://nfront-dev.netlify.`,
-        description: `nFront invests in exceptional startups and builds professional applications.`,
+        title: `nFront`,
+        siteUrl: `https://nfront.io`,
+        description: `nFront - Venture Capital and Software Development.`,
         keywords: ``,
         author: ``,
         social: {
@@ -89,8 +89,8 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `NFRONT`,
-                short_name: `NFRONT`,
+                name: `nFront`,
+                short_name: `nFront`,
                 start_url: `/`,
                 background_color: `#0C1729`,
                 theme_color: `#0C1729`,

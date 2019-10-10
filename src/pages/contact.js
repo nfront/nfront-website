@@ -54,7 +54,7 @@ export default () => {
                         <div className="">
                             <label>Drop us an email at</label>
                             <p>info@nfront.io</p>
-                            <label>Visit us for a coffee at</label>
+                            <label>Visit us at</label>
                             <p>
                                 <ExternalLink href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157

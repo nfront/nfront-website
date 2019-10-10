@@ -171,25 +171,3 @@ export default function Footer(props) {
         </FooterWrapper>
     );
 }
-
-/** 
- * keeping in here just in case you change your mind about it
- * 
- * 
-<StyledContainer>
-    <Copyright>
-        &copy; {new Date().getFullYear()}. Built for{' '}
-        <Link to="/">{data.site.siteMetadata.title}</Link> by{' '}
-        <ExternalLink href="https://www.adamidea.com/">
-            ADAMIDEA
-        </ExternalLink>
-    </Copyright>
-    <SocialIcons>
-        {SOCIAL.map(({ icon, link }) => (
-            <ExternalLink key={icon} href={link}>
-                <img src={icon} alt="link" />
-            </ExternalLink>
-        ))}
-    </SocialIcons>
-</StyledContainer>
- */
