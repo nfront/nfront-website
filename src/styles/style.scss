@@ -1,0 +1,141 @@
+@charset 'utf-8';
+@import 'scss/mixins';
+@import 'scss/variables';
+@import 'scss/form';
+@import 'scss/table';
+@import 'scss/button';
+@import 'scss/pricing';
+@import 'scss/search';
+@import 'scss/overlay';
+@import 'scss/timeline';
+@import 'scss/custom';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    overflow: hidden;
+}
+
+button {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+    cursor: pointer;
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5rem;
+
+    @include breakpoint(sm) {
+        font-size: 2rem;
+    }
+}
+
+p {
+    color: var(--text-color);
+}
+
+blockquote {
+    margin: 0 0 2em;
+    padding: 1rem;
+    border-left: 0.25em solid var(--border-color);
+    color: inherit;
+    background: #faf9f7;
+}
+
+article {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        padding-top: 1.666rem;
+    }
+
+    li {
+        color: var(--text-color);
+        padding-left: 1rem;
+    }
+
+    a {
+        position: relative;
+        font-weight: 500;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--link-color);
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        &:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+    }
+}
+
+label,
+.label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $lightgrey;
+}
+
+strong {
+    color: $black;
+    font-weight: 500;
+}
+
+hr {
+    background: var(--border-color);
+    clear: both;
+}
+
+iframe {
+    @include breakpoint(mobile) {
+        width: 100%;
+        height: auto;
+    }
+}
+
+sub,
+sup {
+    font-size: 60%;
+}

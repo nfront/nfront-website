@@ -1,0 +1,108 @@
+.placeholder {
+    position: relative;
+    cursor: pointer;
+
+    &:hover .overlay {
+        opacity: 1;
+    }
+
+    &:hover .overlay-inner {
+        top: 50%;
+        left: 50%;
+        opacity: 1;
+        z-index: 99;
+    }
+
+    &:hover svg {
+        opacity: 1;
+    }
+
+    svg {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        opacity: 0;
+        -webkit-transition: all 0.4s ease-in-out 0s;
+        -moz-transition: all 0.4s ease-in-out 0s;
+        transition: all 0.4s ease-in-out 0s;
+        z-index: 99;
+    }
+}
+
+.overlay {
+    background: var(--secondary-color);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+    z-index: 99;
+}
+
+.overlay-inner {
+    position: absolute;
+    text-align: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+
+    p,
+    label {
+        color: $white;
+        font-weight: 600;
+        letter-spacing: 0.15rem;
+        line-height: 0.5;
+        margin: 0;
+        text-transform: uppercase;
+    }
+}
+
+.fadeIn-bottom {
+    top: 80%;
+}
+
+.fadeIn-top {
+    top: 20%;
+}
+
+.fadeIn-left {
+    left: 20%;
+}
+
+.fadeIn-right {
+    left: 80%;
+}
+
+.overlay-dark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+    z-index: 99;
+}

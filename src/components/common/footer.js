@@ -1,0 +1,195 @@
+import React from 'react';
+import { Link } from 'gatsby';
+import styled from 'styled-components';
+import { Section, Container } from '@styles/global';
+import ExternalLink from '@utils/externalLink';
+
+/** social icons */
+import Twitter from '@static/icons/twitter.svg';
+import Linkedin from '@static/icons/linkedin.svg';
+import Facebook from '@static/icons/facebook.svg';
+import Email from '@static/icons/email.svg';
+
+const SOCIAL = [
+    {
+        icon: Facebook,
+        link: '/',
+    },
+    {
+        icon: Linkedin,
+        link: '/',
+    },
+    {
+        icon: Twitter,
+        link: '/',
+    },
+    {
+        icon: Email,
+        link: '/contact/',
+    },
+];
+
+const FooterWrapper = styled.footer`
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--alt-color);
+    background-color: var(--footer-color);
+
+    a {
+        color: #af944f;
+    }
+`;
+
+/**
+const StyledContainer = styled(Container)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    ${props =>
+        props.fluid &&
+        `
+        max-width: 100%;
+    `};
+`;
+*/
+
+const SocialIcons = styled.div`
+    img {
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
+    }
+`;
+
+const GRID = styled(Container)`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        flex-direction: row;
+    }
+`;
+
+const StyledSection = styled(Section)`
+    background: var(--footer-alt-color);
+
+    p {
+        color: #6c757d;
+    }
+
+    .label {
+        font-size: 14px;
+        color: var(--accent-color);
+    }
+
+    ul {
+        list-style-type: none;
+        margin-left: 0;
+
+        li {
+            margin-bottom: 5px;
+        }
+    }
+
+    svg {
+        width: 50px;
+    }
+`;
+
+export default function Footer(props) {
+    return (
+        <FooterWrapper {...props}>
+            <StyledSection>
+                <GRID>
+                    <div>
+                        <p className="label">Headquarters</p>
+                        <p>Tollbugata 24, 0157, Oslo, Norway</p>
+                        <p>
+                            Los Angeles, CA
+                            <br />
+                            Warsaw, Poland
+                        </p>
+                    </div>
+                    <div>
+                        <p className="label">NFRONT</p>
+                        <ul>
+                            <li>
+                                <Link to="/venture-capital/">
+                                    Venture Capital
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/outsource-development/">
+                                    Outsourced Development
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/hire-top-developer-teams/">
+                                    Hire Top Developers
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/corporate-innovation/">
+                                    Corporate Innovation
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p className="label">Legal</p>
+                        <ul>
+                            <li>
+                                <Link to="/">Privacy Policy</Link>
+                            </li>
+                            <li>
+                                <Link to="/">GDPR</Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p className="label">Social</p>
+                        <SocialIcons>
+                            {SOCIAL.map(({ icon, link }) => (
+                                <ExternalLink key={icon} href={link}>
+                                    <img src={icon} alt="link" />
+                                </ExternalLink>
+                            ))}
+                        </SocialIcons>
+                    </div>
+                </GRID>
+            </StyledSection>
+        </FooterWrapper>
+    );
+}
+
+/** 
+ * keeping in here just in case you change your mind about it
+ * 
+ * 
+<StyledContainer>
+    <Copyright>
+        &copy; {new Date().getFullYear()}. Built for{' '}
+        <Link to="/">{data.site.siteMetadata.title}</Link> by{' '}
+        <ExternalLink href="https://www.adamidea.com/">
+            ADAMIDEA
+        </ExternalLink>
+    </Copyright>
+    <SocialIcons>
+        {SOCIAL.map(({ icon, link }) => (
+            <ExternalLink key={icon} href={link}>
+                <img src={icon} alt="link" />
+            </ExternalLink>
+        ))}
+    </SocialIcons>
+</StyledContainer>
+ */

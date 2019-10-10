@@ -1,0 +1,68 @@
+/* 
+ *
+ *
+*/ 
+
+:root {
+    --primary-color       : #266590; /** #004E64 */ /** #0C1729 */
+    --secondary-color     : #e74c4c;
+    --alt-color           : #fcfaff;
+    --accent-color        : #eef7f4;
+    --dark-color          : #212121;
+    --yellow              : #f1c40f;
+    --blue                : #0770f3;
+    --alt-blue            : #266590;
+    --heading-color       : #004e64;
+    --text-color          : rgba(0, 0, 0, 0.5);
+    --link-color          : var(--secondary-color);
+    --button-color        : #e74c4c;
+    --border-color        : #e1f1ff;
+    --footer-color        : var(--dark-color);
+    --footer-alt-color    : #212529;
+    --max-width           : 1200px;
+    --primary-font        : Avenir Next, Helvetica Neue;
+    --secondary-font      : -apple-system, BlinkMacSystemFont, sans-serif;
+    --roboto              : 'Roboto', sans-serif;
+    --monserrat           : 'Montserrat', sans-serif;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,900|Inconsolata|Montserrat:900&display=swap');
+
+/*
+ *
+ *
+*/ 
+
+$black                : #242424;
+$white                : #ffffff;
+$silver               : #eaeaea;
+
+$grey                 : rgba(0, 0, 0, 0.6);
+$lightgrey            : rgba(0, 0, 0, 0.45);
+$muted                : rgba(0, 0, 0, 0.3);
+$highlight            : #f8f8f8;
+
+$blue                 : #00c4cc;
+$red                  : #e74c4c;
+$pink                 : #ff1c7a;
+$yellow               : #f1c40f;
+$lightyellow          : #f9e98e;
+$green                : #0ed070;
+$teal                 : #8bd8ed;
+$violet               : #bb8ed8;
+$lightgreen           : #83d3c9;
+
+$google               : #f17c71;
+$twitter              : #77cdf0;
+$facebook             : #537cbe;
+
+$border-width         : 2px;
+
+$alt-text-color       : rgba(0, 0, 0, 0.5);
+$monserrat            : 'Montserrat', sans-serif;
+$inconsolata          : 'Inconsolata', sans-serif;
+
+$box-shadow           : 0 0 32px 4px rgba(0, 0, 0, 0.1);
+$box-shadow-alt       : 0px 10px 13px -6px rgba(0, 0, 0, 0.08),
+    0px 20px 31px 3px rgba(0, 0, 0, 0.09), 0px 8px 20px 7px rgba(0, 0, 0, 0.02);

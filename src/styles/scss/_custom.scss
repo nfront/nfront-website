@@ -1,0 +1,149 @@
+/** gatsby-remark-prismjs **/
+
+.gatsby-highlight {
+    margin-bottom: 1.666rem;
+}
+
+:not(pre) > code[class*='language-'] {
+    padding: 0.1em 0.5em !important;
+    border-radius: 0 !important;
+}
+
+code a {
+    color: var(--alt-color);
+}
+
+/** gatsby-remark-numbered-footnotes **/
+
+.footnotes {
+    ol li {
+        font-size: 15px;
+        color: $alt-text-color;
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+}
+
+/** formix styles **/
+
+input,
+textarea {
+    &:focus {
+        border-color: #fedfb5;
+    }
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.has-error {
+    background-color: lighten(#f8d7da, 5);
+    border-color: #f5c6cb;
+}
+
+.error-message {
+    color: $red;
+}
+
+/** mouse CSS only **/
+
+.mouse {
+    width: 3px;
+    padding: 5px 12px;
+    height: 35px;
+    border: 2px solid var(--accent-color);
+    border-radius: 25px;
+    opacity: 0.75;
+    box-sizing: content-box;
+    position: absolute;
+    bottom: 8%;
+}
+
+.scroller {
+    width: 3px;
+    height: 5px;
+    border-radius: 25%;
+    background-color: var(--accent-color);
+    animation-name: scroll;
+    animation-duration: 2.2s;
+    animation-timing-function: cubic-bezier(0.15, 0.41, 0.69, 0.94);
+    animation-iteration-count: infinite;
+}
+
+@keyframes scroll {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+}
+
+.box {
+    position: relative;
+    @include border(all);
+    border-radius: 5px;
+    padding: 1.5rem;
+
+    &.with-shadow {
+        box-shadow: $box-shadow;
+    }
+}
+
+$numberBgColor: var(--secondary-color);
+$size: 36px;
+
+.number {
+    position: relative;
+    display: block;
+    line-height: 1;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    text-align: center;
+    color: var(--accent-color);
+    font-weight: 600;
+    background-color: $numberBgColor;
+    border-radius: 50%;
+    margin-bottom: 3rem;
+    transition: 0.3s cubic-bezier(0.3, 0.58, 0.55, 1);
+    transform: scale(1);
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        width: $size;
+        height: $size;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -50%;
+        background-color: $numberBgColor;
+        transition: 0.3s cubic-bezier(0.3, 0.58, 0.55, 1);
+    }
+
+    &::before {
+        transform: scale(1.5);
+        opacity: 0.4;
+        z-index: -1;
+    }
+
+    &::after {
+        transform: scale(2);
+        opacity: 0.2;
+        z-index: -2;
+    }
+}

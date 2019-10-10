@@ -1,0 +1,62 @@
+/** Form styles **/
+
+input,
+textarea {
+    appearance: none;
+    box-shadow: none;
+    outline: 0;
+    font: inherit;
+    color: var(--text-color);
+    background-color: inherit;
+    border: $border-width solid;
+    border-color: var(--border-color);
+    padding: 8px 10px;
+    width: 100%;
+
+    &:focus {
+        background-color: transparent;
+        outline: 0 !important;
+    }
+}
+
+textarea {
+    vertical-align: top;
+    resize: none;
+}
+
+select {
+    &:focus {
+        outline: 0;
+        outline-offset: 0;
+    }
+
+    &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 $black;
+    }
+
+    &::-ms-expand {
+        display: none;
+    }
+
+    option:checked {
+        box-shadow: 0 0 10px 100px var(--primary-color) inset;
+    }
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+    display: inline;
+    margin: 10px 10px 0 0;
+    // width: auto;
+    -webkit-appearance: checkbox;
+}
+
+input[type='radio'] {
+    -webkit-appearance: radio;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button {
+    display: none;
+}

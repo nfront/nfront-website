@@ -1,0 +1,124 @@
+/** Prcing table styles **/
+
+$panelPrimaryColor: $red;
+$panelBorderColor: #e1f1ff;
+$panelButtonColor: $red;
+
+.panel {
+    background-color: $white;
+    border-radius: 10px;
+    padding: 30px 0;
+    position: relative;
+    width: 100%;
+    z-index: 10;
+
+    svg {
+        margin: 30px 0;
+    }
+
+    h3 {
+        color: lighten($panelPrimaryColor, 2);
+        font-weight: 600;
+        letter-spacing: 1.5px;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 50px 0 25px;
+    }
+
+    li {
+        color: $panelPrimaryColor;
+        font-size: 12px;
+        line-height: 1.5;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding: 15px 0;
+        margin-bottom: 0;
+        border-top: 1px solid $panelBorderColor;
+
+        &:last-child {
+            border-bottom: 1px solid $panelBorderColor;
+        }
+    }
+}
+
+.panel-grid {
+    * {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    display: grid;
+    grid-template-columns: repeat(1fr);
+
+    &.with-shadow {
+        box-shadow: $box-shadow;
+    }
+
+    @include breakpoint(sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @include breakpoint(md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.panel-item {
+    border-right: 1px solid $panelBorderColor;
+    border-bottom: 1px solid $panelBorderColor;
+
+    @include breakpoint(mobile) {
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    @include breakpoint(sm) {
+        &:last-child,
+        &:nth-child(3) {
+            border-bottom: none;
+        }
+    }
+    @include breakpoint(lg) {
+        border-bottom: none;
+    }
+}
+
+.panel-price {
+    color: $panelPrimaryColor;
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.pricing-button {
+    display: inline-block;
+    margin: 25px 0;
+    padding: 0.5rem 2rem;
+    border: 2px solid $panelButtonColor;
+    border-radius: $buttonBorderRadius;
+    color: $panelPrimaryColor;
+    font-size: 90%;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 150ms ease-in-out;
+
+    &:hover,
+    &:focus {
+        background-color: $panelButtonColor;
+        color: $white;
+    }
+
+    &.is-featured {
+        background-color: $panelButtonColor;
+        color: $white;
+
+        &:hover,
+        &:focus {
+            background-color: transparent;
+            color: $panelButtonColor;
+        }
+    }
+}

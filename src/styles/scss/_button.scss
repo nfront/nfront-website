@@ -1,0 +1,63 @@
+/** Button styles **/
+
+$buttonColor: var(--button-color);
+$secondaryColor: var(--yellow);
+$buttonBorderRadius: 35px;
+
+.button {
+    border: $border-width solid;
+    background-color: $buttonColor;
+    color: $white;
+    cursor: pointer;
+    font-size: 90%;
+    font-weight: 500;
+    padding: 0.5rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    transition: all 0.4s ease;
+    border-color: $buttonColor;
+    border-radius: $buttonBorderRadius;
+
+    &.small {
+        font-size: 80%;
+    }
+
+    &:hover {
+        background-color: transparent;
+        color: $buttonColor;
+    }
+
+    &.primary {
+        color: var(--primary-color);
+        border-color: $secondaryColor;
+        background-color: $secondaryColor;
+        border-radius: $buttonBorderRadius;
+
+        &:hover {
+            background-color: transparent;
+            color: $secondaryColor;
+        }
+
+        &.inverse {
+            color: $secondaryColor;
+            border-color: $secondaryColor;
+            background-color: transparent;
+            border-radius: $buttonBorderRadius;
+
+            &:hover {
+                background-color: $secondaryColor;
+                color: var(--primary-color);
+            }
+        }
+    }
+    &.inverse {
+        border-color: $buttonColor;
+        background-color: transparent;
+        color: $buttonColor;
+
+        &:hover {
+            background-color: $buttonColor;
+            color: $white;
+        }
+    }
+}

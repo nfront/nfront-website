@@ -1,0 +1,114 @@
+table {
+    width: 100%;
+    margin-bottom: 1.666rem;
+    color: var(--text-color);
+    @include border(all);
+    border-bottom: 0;
+
+    thead,
+    tfoot {
+        background: var(--alt-color);
+    }
+
+    tr.even,
+    tr:nth-child(even) {
+        background: var(--alt-color);
+    }
+
+    th,
+    td {
+        width: 100%;
+        padding: 10px 15px;
+        @include border(bottom);
+    }
+    th:first-child,
+    td:first-child {
+        padding-left: 15px;
+    }
+
+    th:last-child,
+    td:last-child {
+        padding-right: 15px;
+    }
+
+    th:not(:first-child),
+    td:not(:first-child) {
+        text-align: right;
+    }
+}
+
+thead,
+tbody,
+tfoot {
+    tr {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        @include breakpoint(mobile) {
+            flex-direction: column;
+        }
+    }
+
+    th {
+        color: var(--secondary-color);
+        // @include label(90%);
+        font-weight: 600;
+    }
+
+    label {
+        display: block;
+        font-weight: normal;
+    }
+}
+
+@media (max-width: 1140px) {
+    table {
+        @include border(top);
+
+        thead {
+            background: transparent !important;
+        }
+
+        sup {
+            display: none !important;
+        }
+
+        th:not(:first-child) {
+            display: none;
+        }
+
+        tr.even,
+        tr:nth-child(even) {
+            background: transparent;
+        }
+
+        td,
+        th {
+            font-size: 90%;
+            padding: 10px 13px 10px 15px;
+        }
+
+        td {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        td:first-child {
+            color: $grey;
+            background: $highlight;
+            justify-content: start;
+        }
+
+        tr td::before {
+            content: attr(data-title) '';
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: none;
+        }
+    }
+}
