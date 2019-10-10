@@ -1,1 +1,0 @@
-{"componentChunkName":"component---src-templates-tag-template-js","path":"/tag/mdx/","webpackCompilationHash":"4e925e3504171983596c","result":{"data":{"allMdx":{"totalCount":1,"edges":[{"node":{"fields":{"slug":"/my-second-post/"},"frontmatter":{"title":"Lorem Ipsum","date":"22 November, 2018"}}}]}},"pageContext":{"isCreatedByStatefulCreatePages":false,"tag":"mdx"}}}
