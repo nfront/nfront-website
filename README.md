@@ -1,18 +1,8 @@
-<p align="center">
-	<a href="https://www.gatsbyjs.org">
-		<img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-	</a>
-</p>
-
 <h1 align="center">
-	MARVELOUS
+	NFRONT
 </h1>
 
-Powered by [**Gatsby**](https://www.gatsbyjs.org/) and [**MDX Markdown**](https://mdxjs.com/), MARVELOUS is a starter template you can use to kick start your blog or personal website.
-
----
-
-Illustration by [Catalyst](https://dribbble.com/catalystvibes/). Images by [Unsplash](https://unsplash.com/) and [Pexels](https://www.pexels.com/).
+nFront helps companies innovate and grow: Capital, Strategy, Software Development
 
 ---
 
