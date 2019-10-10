@@ -38,7 +38,7 @@ export const Nav = styled.nav`
         height: 100vh;
         overflow: hidden;
         a {
-            color: var(--secondary-color);
+            color: var(--primary-color);
         }
         svg {
             fill: var(--primary-color) !important;
@@ -52,29 +52,6 @@ export const Nav = styled.nav`
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-
-    ${props =>
-        props.accent ===
-            'inverse' /** change link color to white on dark background */ &&
-        `
-        a {
-            color: var(--accent-color);
-        }
-
-        svg {
-            fill: var(--accent-color)!important;
-            .logo_svg__inner {
-                fill: var(--primary-color)!important;
-            }
-        }
-
-        ${Hamburger} {
-            span {            
-                background: var(--accent-color);
-            }
-        }
-    }
-    `};
 
     ${props =>
         props.fluid /** stretch menu to 100% width  */ &&
@@ -192,7 +169,7 @@ export const Hamburger = styled.div`
 
     &.is-open {
         span {
-            background: var(--secondary-color);
+            background: var(--primary-color);
         }
         span:first-child {
             transform: translateY(8px) translateY(-50%) rotate(45deg);
