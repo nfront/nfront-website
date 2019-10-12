@@ -76,7 +76,7 @@ export default () => {
     return (
         <StyledSection id="portfolio">
             <SectionTitle>
-                <h2>Case Studies</h2>
+                <h2>Previous Projects</h2>
             </SectionTitle>
             <StyledContainer>
                 {!isMobile ? (

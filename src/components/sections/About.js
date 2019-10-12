@@ -45,7 +45,7 @@ const Art = styled.figure`
 
 const About = () => (
     <>
-        <StyledSection id="services">
+        <StyledSection id="capital">
             <Grid>
                 <div>
                     <h2>Venture Capital</h2>

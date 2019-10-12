@@ -4,6 +4,7 @@ import Fade from 'react-reveal/Fade';
 import BackgroundImage from 'gatsby-background-image';
 import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 /** import AnchorLink from 'react-anchor-link-smooth-scroll'; */
 
@@ -47,6 +48,15 @@ const HeaderText = styled.h1`
         @media (min-width: ${props => props.theme.screen.md}) {
             font-size: 5rem;
         }
+    }
+
+    p {
+      color: white;
+      font-size: 1.2rem;
+      text-transform: none;
+      font-weight: normal;
+      letter-spacing: normal;
+      margin-top: 2rem;
     }
 `;
 
@@ -110,16 +120,22 @@ export default function Header({ fileName }) {
                     <Fade bottom>
                         <HeaderText>
                             innovate <span>+</span> grow
+                            <p>
+                                Specialized in Venture Capital and Software
+                                Development
+                            </p>
                         </HeaderText>
                     </Fade>
 
-                    <Link to="/contact/">
+                    {/* <Link to="/contact/">
                         <button className="button">Get in touch</button>
-                    </Link>
+                    </Link> */}
                 </div>
-                <div class="mouse">
+
+                <AnchorLink href="#capital" class="mouse">
                     <div class="scroller"></div>
-                </div>
+                </AnchorLink>
+                <div class="scroll">SCROLL</div>
             </HeaderWrapper>
         </>
     );
