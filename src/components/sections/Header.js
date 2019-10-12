@@ -50,12 +50,10 @@ const HeaderText = styled.h1`
 
     p {
         color: white;
-        @media (min-width: ${props => props.theme.screen.sm}) {
-            font-size: 1rem;
-        }
         @media (min-width: ${props => props.theme.screen.md}) {
             font-size: 1.2rem;
         }
+        font-size: 1rem;
         text-transform: none;
         font-weight: normal;
         letter-spacing: normal;

@@ -3,7 +3,7 @@
   "private": true,
   "description": "A starter template to build a React and Gatsby-powered blog",
   "version": "1.0.0",
-  "author": "Yan Susanto",
+  "author": "Magnus Gaarder",
   "dependencies": {
     "@svgr/webpack": "^4.1.0",
     "dotenv": "^8.0.0",
