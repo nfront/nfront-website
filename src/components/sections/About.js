@@ -4,11 +4,21 @@ import styled from 'styled-components';
 import { Section, Container } from '@styles/global';
 import InvestmentFocus from '@sections/InvestmentFocus';
 import SoftwareDev from '@sections/SoftwareDev';
-
 import { ReactComponent as ImgOne } from '@images/art/VC.svg';
+// import { ReactComponent as ImgOne } from '@images/logos/nfront-icon.svg';
 import { ReactComponent as ImgTwo } from '@images/art/software.svg';
 
 const StyledSection = styled(Section)``;
+
+// const ArtOne = styled.figure`
+//   text-align: right;
+  
+//   svg {
+//     width: 50%;
+//     height: auto;
+//     margin-right: 15%;
+//   }
+// `;
 
 const Grid = styled(Container)`
     display: grid;
@@ -62,6 +72,19 @@ const About = () => (
                     <ImgOne />
                 </Art>
             </Grid>
+            {/* <Container>
+                <SectionTitle>
+                    <h2>Venture Capital</h2>
+                    <p>
+                        We co-invest in exceptional entrepreneurs and
+                        ground-breaking companies alongside leading venture
+                        capital funds and high-net-worth individuals.
+                    </p>
+                    <Link to="/venture-capital/">
+                        <button className="button small">Find out more</button>
+                    </Link>
+                </SectionTitle>
+            </Container> */}
             <InvestmentFocus />
         </StyledSection>
         <StyledSection accent="alt" id="development">
