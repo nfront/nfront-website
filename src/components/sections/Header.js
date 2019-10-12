@@ -6,8 +6,6 @@ import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
-/** import AnchorLink from 'react-anchor-link-smooth-scroll'; */
-
 const HeaderWrapper = styled(Container)`
     position: absolute;
     left: 0;
