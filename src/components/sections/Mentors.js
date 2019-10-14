@@ -119,7 +119,7 @@ export default () => {
                         company
                         headshot {
                             fixed(height: 200, quality: 100) {
-                                srcWebp
+                                src
                             }
                         }
                     }
@@ -143,10 +143,7 @@ export default () => {
                         return (
                             <Placeholder>
                                 <Art>
-                                    <img
-                                        src={headshot.fixed.srcWebp}
-                                        alt={name}
-                                    />
+                                    <img src={headshot.fixed.src} alt={name} />
                                 </Art>
                                 <Text>
                                     <p>{name}</p>
