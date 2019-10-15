@@ -64,7 +64,7 @@ export default () => {
                     }
                     logo {
                         fluid(maxHeight: 500) {
-                            srcWebp
+                            src
                         }
                     }
                     link
@@ -87,10 +87,7 @@ export default () => {
                             return (
                                 <Slide>
                                     <Art>
-                                        <img
-                                            src={logo.fluid.srcWebp}
-                                            alt={brand}
-                                        />
+                                        <img src={logo.fluid.src} alt={brand} />
                                     </Art>
                                     <Text>
                                         <h2>{brand}</h2>
@@ -118,10 +115,7 @@ export default () => {
                                         <p>{description}</p>
                                     </Text>
                                     <Art>
-                                        <img
-                                            src={logo.fluid.srcWebp}
-                                            alt={brand}
-                                        />
+                                        <img src={logo.fluid.src} alt={brand} />
                                     </Art>
                                     <hr />
                                 </>

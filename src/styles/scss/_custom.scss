@@ -1,29 +1,3 @@
-/** gatsby-remark-prismjs **/
-
-.gatsby-highlight {
-    margin-bottom: 1.666rem;
-}
-
-:not(pre) > code[class*='language-'] {
-    padding: 0.1em 0.5em !important;
-    border-radius: 0 !important;
-}
-
-code a {
-    color: var(--alt-color);
-}
-
-/** gatsby-remark-numbered-footnotes **/
-
-.footnotes {
-    ol li {
-        font-size: 15px;
-        color: $alt-text-color;
-        padding-left: 10px;
-        margin-bottom: 0;
-    }
-}
-
 /** formix styles **/
 
 input,
@@ -62,11 +36,11 @@ textarea {
 }
 
 .scroll {
-  position: absolute;
-  bottom: 3%;
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: white;
+    position: absolute;
+    bottom: 3%;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--accent-color);
 }
 
 .scroller {
