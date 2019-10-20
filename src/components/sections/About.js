@@ -12,7 +12,7 @@ const StyledSection = styled(Section)``;
 
 // const ArtOne = styled.figure`
 //   text-align: right;
-  
+
 //   svg {
 //     width: 50%;
 //     height: auto;
@@ -61,8 +61,11 @@ const About = () => (
                     <h2>Venture Capital</h2>
                     <p>
                         We co-invest in exceptional entrepreneurs and
-                        ground-breaking companies alongside leading venture
-                        capital funds and high-net-worth individuals.
+                        ground-breaking companies. Our thesis is based on deal
+                        sharing and syndication, meaning we always bring in
+                        leading VC funds or HNWs alongside ourselves on a
+                        deal-by-deal basis. This ensures longterm value-add
+                        ownership for our companies.
                     </p>
                     <Link to="/venture-capital/">
                         <button className="button small">Find out more</button>

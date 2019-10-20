@@ -13,14 +13,6 @@ const App = () => (
     <Layout>
         <Navbar fluid />
         <Header fileName="NY.jpg" />
-        {/* <CTA id="about">
-            <h2>About Us</h2>
-            <p>
-                We bring world-class capital to early stage companies and expert
-                software developers to businesses across all stages.
-            </p>
-        </CTA>
-        <Wave /> */}
         <About />
         <Wave />
         <CaseStudy />

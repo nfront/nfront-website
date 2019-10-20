@@ -122,7 +122,7 @@ export default function Header({ fileName }) {
                         <HeaderText>
                             innovate <span>+</span> grow
                             <p>
-                                Specialized in Venture Capital and Software
+                                with Venture Capital and Software
                                 Development
                             </p>
                         </HeaderText>

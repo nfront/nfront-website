@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@common/layout';
 import SEO from '@utils/SEO';
-import Menu from '@common/navbar';
+import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Contact from '@sections/Contact';
@@ -38,7 +38,7 @@ export default () => {
     return (
         <Layout>
             <SEO title={title} />
-            <Menu fluid />
+            <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
                 <p>
