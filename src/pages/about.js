@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { Link } from 'gatsby';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
@@ -8,13 +8,13 @@ import Hero from '@common/hero';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import Wave from '@utils/divider/wave';
-import { Section } from '@styles/global';
+// import { Section } from '@styles/global';
 
-const Highlight = styled.span`
-    background: var(--accent-color);
-    color: var(--primary-color);
-    padding: 2px 5px;
-`;
+// const Highlight = styled.span`
+//     background: var(--accent-color);
+//     color: var(--primary-color);
+//     padding: 2px 5px;
+// `;
 
 export default () => {
     const title = 'About Us';

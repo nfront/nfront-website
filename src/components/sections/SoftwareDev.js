@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Container } from '@styles/global';
 
@@ -32,11 +32,11 @@ const GRID = styled.div`
     }
 `;
 
-const Art = styled.div`
-    padding: 2rem 0;
-    width: 100%;
-    min-height: 200px;
-`;
+// const Art = styled.div`
+//     padding: 2rem 0;
+//     width: 100%;
+//     min-height: 200px;
+// `;
 
 const Text = styled.p`
     height: auto;
@@ -71,33 +71,33 @@ const DATA = [
 ];
 
 export default () => {
-    const data = useStaticQuery(
-        graphql`
-            query {
-                placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "nfront" } }
-                ) {
-                    edges {
-                        node {
-                            relativePath
-                            childImageSharp {
-                                fluid(maxWidth: 885) {
-                                    ...GatsbyImageSharpFluid
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        `
-    );
+    // const data = useStaticQuery(
+    //     graphql`
+    //         query {
+    //             placeholderImage: allFile(
+    //                 filter: { sourceInstanceName: { eq: "nfront" } }
+    //             ) {
+    //                 edges {
+    //                     node {
+    //                         relativePath
+    //                         childImageSharp {
+    //                             fluid(maxWidth: 885) {
+    //                                 ...GatsbyImageSharpFluid
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     `
+    // );
     return (
         <Container>
             <GRID>
                 {DATA.map(({ title, description, image, link }) => {
-                    const img = data.placeholderImage.edges.find(
-                        ({ node }) => node.relativePath === image
-                    ).node;
+                    // const img = data.placeholderImage.edges.find(
+                    //     ({ node }) => node.relativePath === image
+                    // ).node;
                     return (
                         <div className="box with-shadow">
                             <h3>{title}</h3>

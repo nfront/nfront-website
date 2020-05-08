@@ -9,7 +9,7 @@ export const useIsHome = () => {
         } else {
             setIsHome(false);
         }
-    });
+    }, []);
 
     return { isHome };
 };

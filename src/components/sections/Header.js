@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
 import BackgroundImage from 'gatsby-background-image';
 import { Container, Overlay } from '@styles/global';
