@@ -48,7 +48,7 @@ const Column = styled.div`
 export default () => {
     return (
         <>
-            <Section alt>
+            <Section accent="alt">
                 <Container>
                     <SectionTitle>
                         <h2>Our Thesis</h2>

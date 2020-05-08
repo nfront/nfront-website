@@ -16,22 +16,15 @@ const GRID = styled.div`
         grid-template-columns: repeat(3, 1fr);
     }
 
-    h3,
-    h4 {
+    h3 {
+        font-size: 95%;
+        color: var(--yellow) !important;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
-    h3 {
-        margin-bottom: 0.5rem;
-    }
     h4 {
-        color: var(--secondary-color);
-    }
-    svg {
-        fill: var(--secondary-color);
-        width: 100px;
-        height: 100px;
+        color: white;
     }
 
     .box {
@@ -40,6 +33,7 @@ const GRID = styled.div`
         align-items: center;
         justify-content: center;
         border: 1px solid rgba(225, 225, 225, 0.2);
+        padding: 3rem 1.5rem;
     }
 `;
 
@@ -53,6 +47,7 @@ const Text = styled.p`
     @media (min-width: ${props => props.theme.screen.md}) {
         min-height: 170px;
     }
+    margin-bottom: 0px;
 `;
 
 export default () => {
@@ -73,9 +68,9 @@ export default () => {
                     </Text>
                 </div>
                 <div class="box with-shadow">
-                    <Art>
+                    {/* <Art>
                         <IconTwo />
-                    </Art>
+                    </Art> */}
                     <h3>Stage</h3>
                     <h4>Seed to Series-B</h4>
                     <Text>
@@ -85,9 +80,9 @@ export default () => {
                     </Text>
                 </div>
                 <div class="box with-shadow">
-                    <Art>
+                    {/* <Art>
                         <IconThree />
-                    </Art>
+                    </Art> */}
                     <h3>Geographies</h3>
                     <h4>Europe and US</h4>
                     <Text>

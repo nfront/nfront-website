@@ -16,10 +16,9 @@ export default () => (
     <Layout>
         <Navbar fluid />
         <Hero fileName="LA.jpg">
-            <h2>Venture Capital</h2>
+            <h2>nFront Ventures</h2>
             <p>
-                We invest in exceptional entrepreneurs with groundbreaking
-                ideas, ready for international expansion
+                We invest in exceptional entrepreneurs with groundbreaking ideas
             </p>
         </Hero>
         <Thesis />

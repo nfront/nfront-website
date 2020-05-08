@@ -37,12 +37,16 @@ const Grid = styled(Container)`
         grid-template-columns: 1fr;
 
         ${props =>
-            props.inverse &&
-            `
+        props.inverse &&
+        `
             ${Art} {
               order: 2;
             }
         `}
+    }
+
+    @media (min-width: ${props => props.theme.screen.md}) {
+        padding-bottom: 2.334rem;
     }
 `;
 
@@ -55,7 +59,7 @@ const Art = styled.figure`
 
 const About = () => (
     <>
-        <StyledSection id="capital">
+        {/* <StyledSection id="capital">
             <Grid>
                 <div>
                     <h2>Venture Capital</h2>
@@ -75,39 +79,26 @@ const About = () => (
                     <ImgOne />
                 </Art>
             </Grid>
-            {/* <Container>
-                <SectionTitle>
-                    <h2>Venture Capital</h2>
-                    <p>
-                        We co-invest in exceptional entrepreneurs and
-                        ground-breaking companies alongside leading venture
-                        capital funds and high-net-worth individuals.
-                    </p>
-                    <Link to="/venture-capital/">
-                        <button className="button small">Find out more</button>
-                    </Link>
-                </SectionTitle>
-            </Container> */}
             <InvestmentFocus />
-        </StyledSection>
+        </StyledSection> */}
         <StyledSection accent="alt" id="development">
             <Grid inverse>
                 <Art>
                     <ImgTwo />
                 </Art>
                 <div>
-                    <h2>Software Development</h2>
+                    <h2>Support and Capital</h2>
                     <p>
-                        nFront fully handles end-to-end software development
-                        projects ranging from initial app prototypes and
-                        high-quality MVPs, to complex and massively scalable
-                        software platforms. If you prefer to hire pre-vetted
-                        superstar developers for your in-house use, no problem,
-                        we got your back.
+                        nFront provides operational support and capital to a small group of stand-out companies per year. The 5-10 month support programs help exceptional teams prepare and execute strong fundraising processes.
+                        At the end of the process, nFront participates as co-investors.
                     </p>
+                    <Link to="/venture-capital/">
+                        <button className="button small">Find out more</button>
+                    </Link>
                 </div>
             </Grid>
-            <SoftwareDev />
+            {/* <SoftwareDev /> */}
+            <InvestmentFocus />
         </StyledSection>
     </>
 );
