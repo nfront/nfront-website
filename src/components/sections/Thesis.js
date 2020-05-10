@@ -22,6 +22,19 @@ const GRID = styled.div`
     }
 `;
 
+const ThesisDesc = styled.div`
+    text-align: left;
+    h3 {
+        color: var(--secondary-color);
+        margin-bottom: 0rem;
+        font-size: 100%;
+    }
+    p {
+        height: auto;
+        font-size: 17px;
+    }
+`;
+
 const Column = styled.div`
     position: relative;
     display: flex;
@@ -52,18 +65,16 @@ export default () => {
                 <Container>
                     <SectionTitle>
                         <h2>Our Thesis</h2>
-                        <p>
-                            nFront’s strategy is based on co-investing and
-                            deal-sharing.
-                        </p>
-                        <p>
-                            As part of the investment process, nFront brings in
-                            leading Venture Capital funds and strategic
-                            high-net-worth individuals as co-investors. With
-                            smart capital and experienced advisors on board, the
-                            stage is set for explosive growth and capital
-                            efficient expansion.
-                        </p>
+                            <p>
+                                nFront works with a small group of stand-out
+                                companies per year, to enable successful
+                                fundraising rounds. The support is full time, typically over 5-10
+                                months. After a 2-4 month preparation stage, investors
+                                are invited in from a global deal-sharing
+                                network, built over 10 years in VC.
+                                At close, nFront co-invests directly alongside
+                                new investors.
+                            </p>
                         <hr />
                     </SectionTitle>
                 </Container>

@@ -17,14 +17,23 @@ const GRID = styled.div`
     }
 
     h3 {
-        font-size: 95%;
+        font-size: 110%;
         color: var(--yellow) !important;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     h4 {
-        color: white;
+        /* font-family: Roboto, "Helvetica Neue";
+        font-size: 17px;
+        font-weight: 500; */
+        color: var(--accent-color);
+    }
+
+    svg {
+        fill: var(--secondary-color);
+        width: 70px;
+        height: 70px;
     }
 
     .box {
@@ -38,14 +47,14 @@ const GRID = styled.div`
 `;
 
 const Art = styled.div`
-    padding: 2rem 0;
+    padding: 0 0 1.6rem 0;
 `;
 
 const Text = styled.p`
     height: auto;
     font-size: 17px;
     @media (min-width: ${props => props.theme.screen.md}) {
-        min-height: 170px;
+        min-height: 150px;
     }
     margin-bottom: 0px;
 `;
@@ -68,10 +77,10 @@ export default () => {
                     </Text>
                 </div>
                 <div class="box with-shadow">
-                    {/* <Art>
+                    <Art>
                         <IconTwo />
-                    </Art> */}
-                    <h3>Stage</h3>
+                    </Art>
+                    <h3>Stages</h3>
                     <h4>Seed to Series-B</h4>
                     <Text>
                         Our sweet spot is companies raising between €1m and
@@ -80,16 +89,15 @@ export default () => {
                     </Text>
                 </div>
                 <div class="box with-shadow">
-                    {/* <Art>
+                    <Art>
                         <IconThree />
-                    </Art> */}
+                    </Art>
                     <h3>Geographies</h3>
-                    <h4>Europe and US</h4>
+                    <h4>Europe and U.S.</h4>
                     <Text>
-                        Our core markets are northern Europe, Spain and the US.
-                        Regardless of its home country, we only consider
-                        companies with international ambitions and global
-                        potential.
+                        Mainly focused on Europe, but look at U.S. opportunistically.
+                        Regardless of home country, we support businesses with
+                        international ambitions and global potential.
                     </Text>
                 </div>
             </GRID>

@@ -29,19 +29,15 @@ const mainMenu = ['About', 'Development', 'Case Studies'];
 
 const secondaryMenu = [
     {
-        name: 'About',
-        path: '/#about',
+        name: 'Home',
+        path: '/',
     },
     {
-        name: 'Capital',
+        name: 'Support & Capital',
         path: '/venture-capital/',
     },
     {
-        name: 'Development',
-        path: '/#development',
-    },
-    {
-        name: 'Case Studies',
+        name: 'Portfolio',
         path: '/#casestudies',
     },
     {
@@ -65,30 +61,24 @@ export default function Navbar(props) {
             <>
                 {isHome ? (
                     <Scrollspy
-                        items={[
-                            'about',
-                            'capital',
-                            'development',
-                            'casestudies',
-                        ]}
+                        items={['top', 'about', 'casestudies', 'contact']}
                         currentClassName="active"
                     >
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
-                                href="/"
+                                href="#top"
                             >
                                 Home
                             </AnchorLink>
                         </NavItem>
-                        <ListLink to="/about/">About</ListLink>
-                        <ListLink to="/venture-capital/">Capital</ListLink>
+                        {/* <ListLink to="/venture-capital/">Support & Capital</ListLink> */}
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
-                                href="#development"
+                                href="#about"
                             >
-                                Development
+                                Support & Capital
                             </AnchorLink>
                         </NavItem>
                         <NavItem>
@@ -96,10 +86,17 @@ export default function Navbar(props) {
                                 onClick={() => setIsMenuOpen(false)}
                                 href="#casestudies"
                             >
-                                Case Studies
+                                Portfolio
                             </AnchorLink>
                         </NavItem>
-                        <ListLink to="/contact/">Contact</ListLink>
+                        <NavItem>
+                            <AnchorLink
+                                onClick={() => setIsMenuOpen(false)}
+                                href="#contact"
+                            >
+                                Contact
+                            </AnchorLink>
+                        </NavItem>
                     </Scrollspy>
                 ) : (
                     <ul>

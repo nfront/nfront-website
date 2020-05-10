@@ -30,7 +30,8 @@ const Grid = styled(Container)`
     ${props =>
         props.inverse &&
         `
-        grid-template-columns: 2fr 3fr;        
+        // grid-template-columns: 2fr 3fr;
+        grid-template-columns: 3fr 1fr;
     `};
 
     @media (max-width: ${props => props.theme.screen.sm}) {
@@ -45,9 +46,7 @@ const Grid = styled(Container)`
         `}
     }
 
-    @media (min-width: ${props => props.theme.screen.md}) {
-        padding-bottom: 2.334rem;
-    }
+    padding-bottom: 2.334rem;
 `;
 
 const Art = styled.figure`
@@ -59,33 +58,11 @@ const Art = styled.figure`
 
 const About = () => (
     <>
-        {/* <StyledSection id="capital">
-            <Grid>
-                <div>
-                    <h2>Venture Capital</h2>
-                    <p>
-                        We co-invest in exceptional entrepreneurs and
-                        ground-breaking companies. Our thesis is based on deal
-                        sharing and syndication, meaning we always bring in
-                        leading VC funds or HNWs alongside ourselves on a
-                        deal-by-deal basis. This ensures longterm value-add
-                        ownership for our companies.
-                    </p>
-                    <Link to="/venture-capital/">
-                        <button className="button small">Find out more</button>
-                    </Link>
-                </div>
-                <Art>
-                    <ImgOne />
-                </Art>
-            </Grid>
-            <InvestmentFocus />
-        </StyledSection> */}
-        <StyledSection accent="alt" id="development">
+        <StyledSection accent="alt" id="about">
             <Grid inverse>
-                <Art>
+                {/* <Art>
                     <ImgTwo />
-                </Art>
+                </Art> */}
                 <div>
                     <h2>Support and Capital</h2>
                     <p>
@@ -97,7 +74,6 @@ const About = () => (
                     </Link>
                 </div>
             </Grid>
-            {/* <SoftwareDev /> */}
             <InvestmentFocus />
         </StyledSection>
     </>

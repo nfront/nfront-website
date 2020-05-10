@@ -18,7 +18,7 @@ export default () => (
         <Hero fileName="LA.jpg">
             <h2>nFront Ventures</h2>
             <p>
-                We invest in exceptional entrepreneurs with groundbreaking ideas
+                We invest time and capital in exceptional entrepreneurs with groundbreaking ideas
             </p>
         </Hero>
         <Thesis />

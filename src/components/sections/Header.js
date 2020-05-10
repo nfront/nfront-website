@@ -113,7 +113,7 @@ export default function Header({ fileName }) {
             >
                 <Overlay />
             </BackgroundImage>
-            <HeaderWrapper>
+            <HeaderWrapper id='top'>
                 <div>
                     <Fade top>
                         <Text>we help businesses</Text>
@@ -121,9 +121,7 @@ export default function Header({ fileName }) {
                     <Fade bottom>
                         <HeaderText>
                             innovate <span>+</span> grow
-                            <p>
-                                with operational support and capital
-                            </p>
+                            <p>with operational support and capital</p>
                         </HeaderText>
                     </Fade>
 

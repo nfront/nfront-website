@@ -16,7 +16,7 @@ const App = () => (
         <About />
         <Wave />
         <CaseStudy />
-        <CTA>
+        <CTA id='contact'>
             <h2>Contact</h2>
             <p>
                 Are you an early stage company looking for funding or any
