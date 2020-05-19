@@ -24,12 +24,18 @@ export const Container = styled.div`
 `;
 
 export const Section = styled.section`
-    padding: 4rem 0;
+    padding: 6rem 0;
 
     ${props =>
         props.alt &&
         `
         background-color: var(--accent-color);  
+    `};
+
+    ${props =>
+        props.shade &&
+        `
+        background-color: var(--shade-color);  
     `};
 
     ${props =>
@@ -59,6 +65,22 @@ export const SectionTitle = styled.div`
     }
 `;
 
+export const Box = styled.div`
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    /* align-items: center; */
+    justify-content: center;
+    background: var(--alt-color);
+    @include border(all);
+    border-radius: 5px;
+    padding: 1.5rem;
+
+    &.with-shadow {
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+    }
+`;
+
 /**
  *  background overlay color
  *
@@ -80,6 +102,11 @@ export const Overlay = styled.div`
     right: 0;
     opacity: 1;
     transition: all 0.4s ease-in-out 0s;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        width: 70%;
+        clip-path: polygon(0 0, 90% 0, 70% 100%, 0% 100%);
+    }
 `;
 
 export const OverlayText = styled(Container)`

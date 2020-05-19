@@ -7,16 +7,18 @@ import Footer from '@common/footer';
 import Header from '@sections/Header';
 import About from '@sections/About';
 import CaseStudy from '@sections/CaseStudy';
+import Gallery from '@sections/Gallery';
 import Wave from '@utils/divider/wave';
 
 const App = () => (
     <Layout>
         <Navbar fluid />
-        <Header fileName="NY.jpg" />
+        <Header fileName="SH.jpg" />
         <About />
-        <Wave />
+        <Wave shade />
         <CaseStudy />
-        <CTA id='contact'>
+        <Gallery />
+        <CTA id="contact">
             <h2>Contact</h2>
             <p>
                 Are you an early stage company looking for funding or any

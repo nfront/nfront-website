@@ -13,13 +13,11 @@ const HeaderWrapper = styled(Container)`
     bottom: 0;
     right: 0;
     opacity: 1;
-
     width: 100%;
     height: 100%;
     display: flex;
     flex-flow: column;
     justify-content: center;
-    align-items: center;
 `;
 
 const HeaderText = styled.h1`
@@ -57,7 +55,7 @@ const HeaderText = styled.h1`
         text-transform: none;
         font-weight: normal;
         letter-spacing: normal;
-        margin-top: 2rem;
+        margin-top: 0.5rem;
     }
 `;
 
@@ -113,7 +111,7 @@ export default function Header({ fileName }) {
             >
                 <Overlay />
             </BackgroundImage>
-            <HeaderWrapper id='top'>
+            <HeaderWrapper id="top">
                 <div>
                     <Fade top>
                         <Text>we help businesses</Text>

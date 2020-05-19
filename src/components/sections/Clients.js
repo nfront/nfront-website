@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { Section, Container, Box, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
 const GRID = styled.div`
@@ -84,13 +84,13 @@ export default () => {
                             ({ node }) => node.relativePath === image
                         ).node;
                         return (
-                            <div class="box with-shadow">
+                            <Box>
                                 <label>{name}</label>
                                 <Img
                                     fluid={img.childImageSharp.fluid}
                                     alt={name}
                                 />
-                            </div>
+                            </Box>
                         );
                     })}
                 </GRID>

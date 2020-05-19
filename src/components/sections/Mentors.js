@@ -95,7 +95,12 @@ const Art = styled.div`
         border: 5px solid rgba(0, 0, 0, 0.2);
         margin-top: 2rem;
         margin-bottom: 0;
+        transition: 0.5s ease-in-out;
         @media (min-width: ${props => props.theme.screen.sm}) {
+        }
+
+        &:hover {
+            border-color: var(--blue);
         }
     }
 `;
@@ -122,6 +127,7 @@ export default () => {
                                 src
                             }
                         }
+                        link
                     }
                 }
             }
@@ -139,20 +145,27 @@ export default () => {
             </SectionTitle>
             <StyledContainer>
                 <TeamGrid>
-                    {result.map(({ name, designation, company, headshot }) => {
-                        return (
-                            <Placeholder>
-                                <Art>
-                                    <img src={headshot.fixed.src} alt={name} />
-                                </Art>
-                                <Text>
-                                    <p>{name}</p>
-                                    <label>{designation}</label>
-                                    <label>{company}</label>
-                                </Text>
-                            </Placeholder>
-                        );
-                    })}
+                    {result.map(
+                        ({ name, designation, company, headshot, link }) => {
+                            return (
+                                <Placeholder>
+                                    <Art>
+                                        <a href={link} target="_blank">
+                                            <img
+                                                src={headshot.fixed.src}
+                                                alt={name}
+                                            />
+                                        </a>
+                                    </Art>
+                                    <Text>
+                                        <p>{name}</p>
+                                        <label>{designation}</label>
+                                        <label>{company}</label>
+                                    </Text>
+                                </Placeholder>
+                            );
+                        }
+                    )}
                 </TeamGrid>
             </StyledContainer>
         </StyledSection>

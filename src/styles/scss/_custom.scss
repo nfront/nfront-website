@@ -68,17 +68,6 @@ textarea {
     }
 }
 
-.box {
-    position: relative;
-    @include border(all);
-    border-radius: 5px;
-    padding: 1.5rem;
-
-    &.with-shadow {
-        box-shadow: $box-shadow;
-    }
-}
-
 $numberBgColor: var(--secondary-color);
 $size: 36px;
 

@@ -23,6 +23,15 @@ const WaveWrapper = styled.div`
     `};
 
     ${props =>
+        props.shade &&
+        `
+        background: var(--shade-color);
+        svg {
+            fill: #fff;
+        }
+    `};
+
+    ${props =>
         props.alt &&
         `
         svg {

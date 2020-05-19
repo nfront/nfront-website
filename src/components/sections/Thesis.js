@@ -61,20 +61,19 @@ const Column = styled.div`
 export default () => {
     return (
         <>
-            <Section accent="alt">
+            <Section shade>
                 <Container>
                     <SectionTitle>
                         <h2>Our Thesis</h2>
-                            <p>
-                                nFront works with a small group of stand-out
-                                companies per year, to enable successful
-                                fundraising rounds. The support is full time, typically over 5-10
-                                months. After a 2-4 month preparation stage, investors
-                                are invited in from a global deal-sharing
-                                network, built over 10 years in VC.
-                                At close, nFront co-invests directly alongside
-                                new investors.
-                            </p>
+                        <p>
+                            nFront works with a small group of stand-out
+                            companies per year, to enable successful fundraising
+                            rounds. The support is full time, typically over
+                            5-10 months. After a 2-4 month preparation stage,
+                            investors are invited in from a global deal-sharing
+                            network, built over 10 years in VC. At close, nFront
+                            co-invests directly alongside new investors.
+                        </p>
                         <hr />
                     </SectionTitle>
                 </Container>

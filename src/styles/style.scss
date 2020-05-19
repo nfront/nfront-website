@@ -138,3 +138,16 @@ sub,
 sup {
     font-size: 60%;
 }
+
+.text-light {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a:not(.btn),
+    p {
+        color: rgba($white, 0.8);
+    }
+}
