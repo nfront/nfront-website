@@ -41,6 +41,10 @@ const secondaryMenu = [
         path: '/#casestudies',
     },
     {
+        name: 'News',
+        path: '/news/',
+    },
+    {
         name: 'Contact',
         path: '/contact/',
     },
@@ -72,7 +76,7 @@ export default function Navbar(props) {
                                 Home
                             </AnchorLink>
                         </NavItem>
-                        {/* <ListLink to="/venture-capital/">Support & Capital</ListLink> */}
+
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
@@ -89,6 +93,7 @@ export default function Navbar(props) {
                                 Portfolio
                             </AnchorLink>
                         </NavItem>
+                        <ListLink to="/news/">News</ListLink>
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}

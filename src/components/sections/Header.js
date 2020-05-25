@@ -109,7 +109,7 @@ export default function Header({ fileName }) {
                     alignItems: `center`,
                 }}
             >
-                <Overlay />
+                <Overlay alt />
             </BackgroundImage>
             <HeaderWrapper id="top">
                 <div>

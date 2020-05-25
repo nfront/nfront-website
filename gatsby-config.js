@@ -55,6 +55,7 @@ module.exports = {
             options: {
                 spaceId: process.env.CONTENTFUL_SPACE_ID,
                 accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+                forceFullSync: true,
             },
         },
         `gatsby-plugin-sass`,
@@ -62,6 +63,7 @@ module.exports = {
         `gatsby-plugin-styled-components`,
         `gatsby-plugin-sharp`,
         `gatsby-background-image`,
+        `gatsby-transformer-remark`,
         `gatsby-transformer-sharp`,
         {
             resolve: `gatsby-plugin-typography`,

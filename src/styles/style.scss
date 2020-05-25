@@ -149,5 +149,10 @@ sup {
     a:not(.btn),
     p {
         color: rgba($white, 0.8);
+        font-weight: 500;
     }
+}
+
+.mb-0 {
+    margin-bottom: 0;
 }

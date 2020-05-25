@@ -79,6 +79,12 @@ export const Box = styled.div`
     &.with-shadow {
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
+
+    ${props =>
+        props.alt &&
+        `
+        background-color: var(--primary-color);  
+    `};
 `;
 
 /**
@@ -103,10 +109,14 @@ export const Overlay = styled.div`
     opacity: 1;
     transition: all 0.4s ease-in-out 0s;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        width: 70%;
-        clip-path: polygon(0 0, 90% 0, 70% 100%, 0% 100%);
-    }
+    ${props =>
+        props.alt &&
+        `
+        @media (min-width: ${props.theme.screen.md}) {
+            width: 70%;
+            clip-path: polygon(0 0, 90% 0, 70% 100%, 0% 100%);
+        }
+    `};
 `;
 
 export const OverlayText = styled(Container)`

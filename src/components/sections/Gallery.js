@@ -16,7 +16,7 @@ const GRID = styled.div`
         grid-template-columns: repeat(3, 1fr);
     }
 
-    .gallery-item {
+    .grid-item {
         background: white;
         border: 1px solid #e7eaf3;
         border-radius: 0.375rem;
@@ -80,7 +80,7 @@ export default () => {
                         const { image, title } = val;
                         const { description } = val.description;
                         return (
-                            <div class="gallery-item">
+                            <div className="grid-item">
                                 <Art>
                                     <img src={image.fluid.src} alt={title} />
                                 </Art>

@@ -29,8 +29,8 @@ const GRID = styled.div`
     h4 {
         /* font-family: Roboto, "Helvetica Neue";
         font-size: 17px;
-        font-weight: 500; */
-        color: var(--grey);
+        font-weight: 500; 
+        color: var(--grey); */
     }
 
     svg {
@@ -63,7 +63,7 @@ export default () => {
                             <IconOne />
                         </Art>
                         <h3>Industries</h3>
-                        <h4>Software (B2B and B2C)</h4>
+                        <p>Software (B2B and B2C)</p>
                         <Text>
                             Our core focus is on game-changing, capital
                             efficient, software propositions. We get excited by
@@ -73,12 +73,12 @@ export default () => {
                     </Box>
                 </Fade>
                 <Fade bottom>
-                    <Box>
+                    <Box alt className="text-light">
                         <Art>
                             <IconTwo />
                         </Art>
                         <h3>Stages</h3>
-                        <h4>Seed to Series-B</h4>
+                        <p>Seed to Series-B</p>
                         <Text>
                             Our sweet spot is companies raising between €1m and
                             €10m. For B2B SaaS platforms, we normally engage
@@ -92,7 +92,7 @@ export default () => {
                             <IconThree />
                         </Art>
                         <h3>Geographies</h3>
-                        <h4>Europe and U.S.</h4>
+                        <p>Europe and U.S.</p>
                         <Text>
                             Mainly focused on Europe, but look at U.S.
                             opportunistically. Regardless of home country, we
