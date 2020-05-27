@@ -138,10 +138,6 @@ export default () => {
         <StyledSection>
             <SectionTitle>
                 <h2>Advisors & Portfolio Company Mentors</h2>
-                <p>
-                    Advisors are available to portfolio companies, including
-                    world-class founders, technology experts and VC investors.
-                </p>
             </SectionTitle>
             <StyledContainer>
                 <TeamGrid>

@@ -45,6 +45,10 @@ const secondaryMenu = [
         path: '/news/',
     },
     {
+        name: 'Teams & Mentors',
+        path: '/mentors/',
+    },
+    {
         name: 'Contact',
         path: '/contact/',
     },

@@ -9,20 +9,20 @@ import Wave from '@utils/divider/wave';
 
 /** */
 import Thesis from '@sections/Thesis';
+import Mentors from '@sections/Mentors';
 import Clients from '@sections/Clients';
 
 export default () => (
     <Layout>
         <Navbar fluid />
         <Hero fileName="LA.jpg">
-            <h2>nFront Ventures</h2>
+            <h2>Team & Mentors</h2>
             <p>
-                We invest time and capital in exceptional entrepreneurs with
-                groundbreaking ideas
+                Mentors are available to portfolio companies, including
+                world-class founders, technology experts and VC investors.
             </p>
         </Hero>
-        <Thesis />
-        <Clients />
+        <Mentors />
         <CTA>
             <h2>Contact</h2>
             <p>

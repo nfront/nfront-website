@@ -5,9 +5,10 @@ import Navbar from '@common/navbar';
 import CTA from '@common/CTA';
 import Footer from '@common/footer';
 import Header from '@sections/Header';
+
 import About from '@sections/About';
 import CaseStudy from '@sections/CaseStudy';
-import Gallery from '@sections/Gallery';
+import News from '@sections/News';
 import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
 
@@ -18,7 +19,7 @@ const App = () => (
         <About />
         <Wave shade />
         <CaseStudy />
-        <Gallery />
+        <News />
         <Testimonials />
         <CTA id="contact">
             <h2>Contact</h2>
