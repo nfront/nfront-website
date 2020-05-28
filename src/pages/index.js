@@ -9,6 +9,7 @@ import Header from '@sections/Header';
 import About from '@sections/About';
 import CaseStudy from '@sections/CaseStudy';
 import News from '@sections/News';
+import Gallery from '@sections/Gallery';
 import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
 
@@ -20,6 +21,7 @@ const App = () => (
         <Wave shade />
         <CaseStudy />
         <News />
+        <Gallery />
         <Testimonials />
         <CTA id="contact">
             <h2>Contact</h2>

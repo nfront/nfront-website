@@ -43,10 +43,13 @@ export default () => {
                                 <div class="timeline-content">
                                     <h3>Identification</h3>
                                     <p class="label">Month 1</p>
-                                    <p class="mb-0">
-                                        Fund raising materials, hard DD
-                                        questions, valuation, size, +
-                                    </p>
+                                    <ul class="styled">
+                                        <li>Fund raising materials</li>
+                                        <li>Hard DD questions</li>
+                                        <li>valuation</li>
+                                        <li>size</li>
+                                        <li>++</li>
+                                    </ul>
                                 </div>
                             </>
                         </Slide>
@@ -60,10 +63,14 @@ export default () => {
                                 <div class="timeline-content right">
                                     <h3>Preparation</h3>
                                     <p class="label">Month 2-3</p>
-                                    <p class="mb-0">
-                                        Story, KPIs, team training, deck, IM,
-                                        financial models, +
-                                    </p>
+                                    <ul class="styled">
+                                        <li>Story</li>
+                                        <li>KPIs</li>
+                                        <li>Team training</li>
+                                        <li>IM</li>
+                                        <li>Financial models</li>
+                                        <li>++</li>
+                                    </ul>
                                 </div>
                             </>
                         </Slide>
@@ -77,10 +84,12 @@ export default () => {
                                 <div class="timeline-content">
                                     <h3>Live Process</h3>
                                     <p class="label">Month 4-7</p>
-                                    <p class="mb-0">
-                                        Identify investors, run outreach, guide
-                                        Q&A, +
-                                    </p>
+                                    <ul class="styled">
+                                        <li>Identity investors</li>
+                                        <li>Run outreach</li>
+                                        <li>Guide Q&A</li>
+                                        <li>++</li>
+                                    </ul>
                                 </div>
                             </>
                         </Slide>
@@ -94,10 +103,12 @@ export default () => {
                                 <div class="timeline-content right">
                                     <h3>Closing</h3>
                                     <p class="label">Month 8-10</p>
-                                    <p class="mb-0">
-                                        Secure team sheets, analyze terms, guide
-                                        third-party DD, +
-                                    </p>
+                                    <ul class="styled">
+                                        <li>Secure team sheets</li>
+                                        <li>Analyze terms</li>
+                                        <li>Guide third-party DD</li>
+                                        <li>++</li>
+                                    </ul>
                                 </div>
                             </>
                         </Slide>

@@ -34,6 +34,24 @@ const TeamGrid = styled.div`
     justify-content: space-between;
     text-align: center;
 
+    @media (min-width: ${props => props.theme.screen.md}) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-item {
+        background: white;
+        border: 5px solid rgba(0, 0, 0, 0.2);
+    }
+`;
+
+const MentorGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    grid-gap: 24px;
+    justify-content: space-between;
+    text-align: center;
+
     @media (min-width: ${props => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -91,7 +109,7 @@ const Art = styled.div`
 
     img {
         min-width: 220px;
-        border-radius: 50%;
+        /* border-radius: 50%; */
         border: 5px solid rgba(0, 0, 0, 0.2);
         margin-top: 2rem;
         margin-bottom: 0;
@@ -140,7 +158,7 @@ export default () => {
                 <h2>Advisors & Portfolio Company Mentors</h2>
             </SectionTitle>
             <StyledContainer>
-                <TeamGrid>
+                <MentorGrid>
                     {result.map(
                         ({ name, designation, company, headshot, link }) => {
                             return (
@@ -162,7 +180,7 @@ export default () => {
                             );
                         }
                     )}
-                </TeamGrid>
+                </MentorGrid>
             </StyledContainer>
         </StyledSection>
     );
