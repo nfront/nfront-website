@@ -21,7 +21,6 @@ const App = () => (
         <Wave shade />
         <CaseStudy />
         <News />
-        <Gallery />
         <Testimonials />
         <CTA id="contact">
             <h2>Contact</h2>

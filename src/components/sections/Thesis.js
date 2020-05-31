@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import { Section, Container, SectionTitle } from '@styles/global';
 import InvestmentFocus from '@sections/InvestmentFocus';
 import Timeline from '@sections/Timeline';
+import NFrontProcess from '@sections/NFrontProcess';
+
+const StyledSection = styled(Section)`
+    padding-bottom: 0;
+`;
 
 const GRID = styled.div`
     display: grid;
@@ -80,7 +85,7 @@ export default () => {
                 </Container>
                 <InvestmentFocus />
             </Section>
-            <Section>
+            <StyledSection>
                 <Container>
                     <SectionTitle>
                         <h2>Our Value Add</h2>
@@ -96,7 +101,8 @@ export default () => {
                     </SectionTitle>
                     <Timeline />
                 </Container>
-            </Section>
+                <NFrontProcess />
+            </StyledSection>
         </>
     );
 };

@@ -50,13 +50,16 @@ export default () => {
     const title = "What's New";
     const data = useStaticQuery(graphql`
         query {
-            allContentfulPost(limit: 1000) {
+            allContentfulPost(
+                sort: { order: DESC, fields: publishDate }
+                limit: 1000
+            ) {
                 edges {
                     node {
                         id
                         slug
                         title
-                        publishDate(fromNow: true)
+                        publishDate(formatString: "MMMM Do, YYYY")
                         heroImage {
                             fluid(quality: 100) {
                                 src
@@ -86,7 +89,6 @@ export default () => {
                                 </Art>
                                 <Text>
                                     <h3>{news.title}</h3>
-
                                     <p>{news.publishDate}</p>
                                 </Text>
                             </Link>
