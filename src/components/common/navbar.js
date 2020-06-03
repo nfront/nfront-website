@@ -33,7 +33,7 @@ const secondaryMenu = [
         path: '/',
     },
     {
-        name: 'Support & Capital',
+        name: 'Thesis',
         path: '/venture-capital/',
     },
     {

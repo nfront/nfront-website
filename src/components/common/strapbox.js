@@ -16,6 +16,7 @@ const StyledContainer = styled(Container)`
     text-align: center;
 
     h2 {
+        font-size: 1.8rem;
         color: var(--yellow);
     }
     p {

@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, SectionTitle } from '@styles/global';
 
+import Team from '@sections/Team';
+import Strapbox from '@common/strapbox';
+
 /**
 import ExternalLink from '@utils/externalLink';
 import { ReactComponent as Icon } from '@static/icons/twitter.svg';
  */
 
-const StyledSection = styled(Section)`
-    padding-bottom: 5rem !important;
-`;
+const StyledSection = styled(Section)``;
 const StyledContainer = styled(Container)``;
 
 /**
@@ -57,9 +58,6 @@ const MentorGrid = styled.div`
     }
     @media (min-width: ${props => props.theme.screen.md}) {
         grid-template-columns: repeat(4, 1fr);
-    }
-
-    img {
     }
 `;
 
@@ -153,35 +151,46 @@ export default () => {
     );
     const result = data.allContentfulMentors.nodes;
     return (
-        <StyledSection>
-            <SectionTitle>
-                <h2>Advisors & Portfolio Company Mentors</h2>
-            </SectionTitle>
-            <StyledContainer>
-                <MentorGrid>
-                    {result.map(
-                        ({ name, designation, company, headshot, link }) => {
-                            return (
-                                <Placeholder>
-                                    <Art>
-                                        <a href={link} target="_blank">
-                                            <img
-                                                src={headshot.fixed.src}
-                                                alt={name}
-                                            />
-                                        </a>
-                                    </Art>
-                                    <Text>
-                                        <p>{name}</p>
-                                        <label>{designation}</label>
-                                        <label>{company}</label>
-                                    </Text>
-                                </Placeholder>
-                            );
-                        }
-                    )}
-                </MentorGrid>
-            </StyledContainer>
-        </StyledSection>
+        <>
+            <Team />
+            <Strapbox>
+                <h2 className="text-uppercase mb-0">
+                    Advisors & Portfolio Mentors
+                </h2>
+            </Strapbox>
+            <StyledSection>
+                <StyledContainer>
+                    <MentorGrid>
+                        {result.map(
+                            ({
+                                name,
+                                designation,
+                                company,
+                                headshot,
+                                link,
+                            }) => {
+                                return (
+                                    <Placeholder>
+                                        <Art>
+                                            <a href={link} target="_blank">
+                                                <img
+                                                    src={headshot.fixed.src}
+                                                    alt={name}
+                                                />
+                                            </a>
+                                        </Art>
+                                        <Text>
+                                            <p>{name}</p>
+                                            <label>{designation}</label>
+                                            <label>{company}</label>
+                                        </Text>
+                                    </Placeholder>
+                                );
+                            }
+                        )}
+                    </MentorGrid>
+                </StyledContainer>
+            </StyledSection>
+        </>
     );
 };
