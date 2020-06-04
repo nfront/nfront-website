@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import Slide from 'react-reveal/Slide';
 import { Section, Container, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
@@ -16,6 +17,27 @@ const Step = styled.div`
 
     @media (min-width: ${props => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
+        ${props =>
+            props.accent === 'inverse' &&
+            `
+        
+            ${Art} {
+                grid-column: 2;
+                grid-row: 1;  
+                border-right: 0;
+                border-left: 1px solid hsla(0, 0%, 74%, 0.3);
+                margin-left: -1px;
+
+                &::before {
+                    left: -19px;
+                }
+
+                &::after {
+                    left: -37px;
+                }
+
+            }
+        `};
     }
 `;
 
@@ -29,7 +51,7 @@ const Art = styled.div`
     }
 
     @media (min-width: ${props => props.theme.screen.sm}) {
-        border-right: 2px solid hsla(0, 0%, 74%, 0.3);
+        border-right: 1px solid hsla(0, 0%, 74%, 0.3);
         border-top: 0;
     }
 
@@ -80,8 +102,9 @@ const Art = styled.div`
 `;
 
 const Text = styled.div`
+    padding: 3rem 0;
     @media (min-width: ${props => props.theme.screen.sm}) {
-        padding-left: 3rem;
+        padding: 0 3rem;
     }
     p:first-child {
         font-weight: 400;
@@ -121,62 +144,108 @@ export default () => {
             <Container>
                 <SectionTitle>
                     <h2>The Process</h2>
-                    <p>We do, what we love and love what we do.</p>
+                    <p>
+                        nFront works with a small group of stand-out companies
+                        per year, to enable successful fundraising rounds. The
+                        support is full time, typically over 5-10 months. After
+                        a 2-4 month preparation stage, investors are invited in
+                        from a global deal-sharing network, built over 10 years
+                        in VC. At close, nFront co-invests directly alongside
+                        new investors.
+                    </p>
                 </SectionTitle>
                 <Timeline>
                     <Step>
                         <Art>
-                            <Img
-                                fluid={data.step1.childImageSharp.fluid}
-                                alt=""
-                            />
+                            <Slide left>
+                                <Img
+                                    fluid={data.step1.childImageSharp.fluid}
+                                    alt=""
+                                />
+                            </Slide>
                         </Art>
                         <Text>
-                            <h3>We Interview and Vet Developers</h3>
-                            <p>
-                                Applicants pass extensive technical evaluation.
-                                <br />
-                                Developers interview with senior engineers at
-                                leading companies, using Silicon Valley-caliber
-                                technical and behavioral assessments.
-                            </p>
+                            <Slide right>
+                                <h3>Identification</h3>
+                                <p>
+                                    Applicants pass extensive technical
+                                    evaluation.
+                                    <br />
+                                    Developers interview with senior engineers
+                                    at leading companies, using Silicon
+                                    Valley-caliber technical and behavioral
+                                    assessments.
+                                </p>
+                            </Slide>
+                        </Text>
+                    </Step>
+                    <Step accent="inverse">
+                        <Art>
+                            <Slide right>
+                                <Img
+                                    fluid={data.step2.childImageSharp.fluid}
+                                    alt=""
+                                />
+                            </Slide>
+                        </Art>
+                        <Text>
+                            <Slide left>
+                                <h3>Preparation</h3>
+                                <p>
+                                    Skip straight to the interviews.
+                                    <br />
+                                    Chat with us to get matched with pre-vetted
+                                    candidates. Whether hiring one or many, we
+                                    help you find the right talent right now.
+                                </p>
+                            </Slide>
                         </Text>
                     </Step>
                     <Step>
                         <Art>
-                            <Img
-                                fluid={data.step2.childImageSharp.fluid}
-                                alt=""
-                            />
+                            <Slide left>
+                                <Img
+                                    fluid={data.step3.childImageSharp.fluid}
+                                    alt=""
+                                />
+                            </Slide>
                         </Art>
+
                         <Text>
-                            <h3>You Meet Top Candidates</h3>
-                            <p>
-                                Skip straight to the interviews.
-                                <br />
-                                Chat with us to get matched with pre-vetted
-                                candidates. Whether hiring one or many, we help
-                                you find the right talent right now.
-                            </p>
+                            <Slide right>
+                                <h3>Live Process</h3>
+                                <p>
+                                    A remote hiring experience you’ll actually
+                                    enjoy.
+                                    <br />
+                                    You choose who to hire, and we handle the
+                                    rest. Arc manages payroll, benefits, and
+                                    compliance for all remote hires.
+                                </p>
+                            </Slide>
                         </Text>
                     </Step>
-                    <Step>
+                    <Step accent="inverse">
                         <Art>
-                            <Img
-                                fluid={data.step3.childImageSharp.fluid}
-                                alt=""
-                            />
+                            <Slide right>
+                                <Img
+                                    fluid={data.step3.childImageSharp.fluid}
+                                    alt=""
+                                />
+                            </Slide>
                         </Art>
                         <Text>
-                            <h3>Hire without the Headache</h3>
-                            <p>
-                                A remote hiring experience you’ll actually
-                                enjoy.
-                                <br />
-                                You choose who to hire, and we handle the rest.
-                                Arc manages payroll, benefits, and compliance
-                                for all remote hires.
-                            </p>
+                            <Slide left>
+                                <h3>Closing</h3>
+                                <p>
+                                    A remote hiring experience you’ll actually
+                                    enjoy.
+                                    <br />
+                                    You choose who to hire, and we handle the
+                                    rest. Arc manages payroll, benefits, and
+                                    compliance for all remote hires.
+                                </p>
+                            </Slide>
                         </Text>
                     </Step>
                 </Timeline>

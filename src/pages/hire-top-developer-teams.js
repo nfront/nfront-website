@@ -13,9 +13,9 @@ import styled from 'styled-components';
 
 const GRID = styled.div`
     display: grid;
-    grid-gap: 30px;
     grid-template-columns: 1fr;
     transition: transform 0.3s ease-in-out;
+    margin-top: 5rem;
 
     @media (min-width: ${props => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
@@ -34,6 +34,7 @@ const Box = styled.div`
     text-align: center;
     position: relative;
     padding: 4rem 1.5rem 1rem;
+    background-color: var(--accent-color);
 
     ${props =>
         props.alt &&
@@ -49,6 +50,10 @@ const Box = styled.div`
     h4 {
         text-transform: uppercase;
         letter-spacing: 1px;
+    }
+
+    p {
+        font-size: 85%;
     }
 `;
 
@@ -67,37 +72,48 @@ export default () => (
         <Section>
             <Container>
                 <SectionTitle>
-                    <h2>Developer Hiring Solution</h2>
-                    <p>Let us do the pre-screening for you.</p>
+                    <h2>Business Model</h2>
                     <p>
-                        With a process based on deep technical testing and
-                        personality evaluation, we help secure the best
-                        developers based on your requirements. We supply both
-                        remote developers as well as full-time remote
-                        engineering teams, on hourly or monthly contracts.
+                        nFront aligns with the company when it comes to risk and
+                        payment for full time support. Unless a successful
+                        transaction goes through, the support is provided at
+                        zero cost
                     </p>
                 </SectionTitle>
                 <GRID>
                     <Box className="box with-shadow" alt>
                         <Number className="number">1</Number>
-                        <h4>Full time</h4>
-                        <p>Find your next team member</p>
+                        <h4>Geographies</h4>
+                        <p>
+                            Pan-European. Opportunistically review stand-out
+                            opportunities in geographies with co-investors,
+                            incl. the U.S.
+                        </p>
                     </Box>
                     <Box className="box with-shadow">
                         <Number className="number">2</Number>
-                        <h4>Contractors</h4>
-                        <p>Add bandwidth for short term projects</p>
+                        <h4>Sectors</h4>
+                        <p>
+                            B2B & B2C technology companies with proven
+                            monetization strategies and sustainable business
+                            models
+                        </p>
                     </Box>
                     <Box className="box with-shadow" alt>
                         <Number className="number">3</Number>
-                        <h4>Remote hub</h4>
-                        <p>Build a co-located engineering hub</p>
+                        <h4>Stages</h4>
+                        <p>
+                            Seed to Series-B stage companies raising €2m – €20m
+                        </p>
                     </Box>
 
                     <Box className="box with-shadow">
                         <Number className="number">4</Number>
-                        <h4>Remote team</h4>
-                        <p>Build a distributed development team</p>
+                        <h4>Characteristics</h4>
+                        <p>
+                            Validation/growth, differentiation, capital
+                            efficiency, market size, ++
+                        </p>
                     </Box>
                 </GRID>
             </Container>

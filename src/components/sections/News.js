@@ -29,10 +29,10 @@ const Text = styled.div`
         font-weight: 500;
     }
 
-    p {
+    p:not(.label) {
         font-size: 16px;
-        margin-bottom: 0;
     }
+
     .label {
         font-size: 12px;
     }
@@ -60,6 +60,11 @@ export default () => {
                         slug
                         title
                         publishDate(formatString: "MMMM Do, YYYY")
+                        metaDescription {
+                            childMarkdownRemark {
+                                excerpt
+                            }
+                        }
                         heroImage {
                             fluid(quality: 100) {
                                 src
@@ -88,8 +93,14 @@ export default () => {
                                     />
                                 </Art>
                                 <Text>
+                                    <p className="label">{news.publishDate}</p>
                                     <h3>{news.title}</h3>
-                                    <p>{news.publishDate}</p>
+                                    <p>
+                                        {
+                                            news.metaDescription
+                                                .childMarkdownRemark.excerpt
+                                        }
+                                    </p>
                                 </Text>
                             </Link>
                         </div>

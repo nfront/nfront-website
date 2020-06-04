@@ -86,7 +86,7 @@ export default function Navbar(props) {
                                 onClick={() => setIsMenuOpen(false)}
                                 href="#about"
                             >
-                                Support & Capital
+                                Thesis
                             </AnchorLink>
                         </NavItem>
                         <NavItem>

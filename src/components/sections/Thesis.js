@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, SectionTitle } from '@styles/global';
 import InvestmentFocus from '@sections/InvestmentFocus';
-import Timeline from '@sections/Timeline';
-import NFrontProcess from '@sections/NFrontProcess';
+import NFrontProcess from '@sections/TheProcess';
 
 const StyledSection = styled(Section)`
     padding-bottom: 0;
@@ -11,98 +10,106 @@ const StyledSection = styled(Section)`
 
 const GRID = styled.div`
     display: grid;
-    grid-gap: 30px;
     grid-template-columns: 1fr;
+    grid-gap: 10px;
+    transition: transform 0.3s ease-in-out;
+    margin-top: 5rem;
 
     @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    p {
-        font-size: 90%;
-    }
-
-    svg {
-        width: 120px;
-        fill: var(--primary-color);
+    @media (min-width: ${props => props.theme.screen.md}) {
+        grid-template-columns: repeat(4, 1fr);
     }
 `;
 
-const ThesisDesc = styled.div`
-    text-align: left;
-    h3 {
-        color: var(--secondary-color);
-        margin-bottom: 0rem;
-        font-size: 100%;
-    }
-    p {
-        height: auto;
-        font-size: 17px;
-    }
-`;
-
-const Column = styled.div`
-    position: relative;
+const Box = styled.div`
     display: flex;
-    flex-flow: column;
-    counter-increment: section;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    position: relative;
+    padding: 4rem 1.5rem 1rem;
+    border: 1px solid #eaeaea;
 
-    &::after {
-        content: counter(section);
-        position: absolute;
-        top: -3rem;
-        right: 0;
-        font-size: 8rem;
-        font-weight: 900;
-        opacity: 0.5;
-        color: var(--accent-color);
-        z-index: -1;
+    ${props =>
+        props.alt &&
+        `
+        background-color: var(--accent-color);
+
+    `};
+
+    h4 {
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    &:hover::after {
-        color: var(--border-color);
+    p {
+        font-size: 85%;
     }
+`;
+
+const Number = styled.div`
+    position: absolute;
+    top: 0;
+    transform: translate3d(0, -50%, 0);
 `;
 
 export default () => {
     return (
         <>
-            <Section shade>
+            <Section>
                 <Container>
                     <SectionTitle>
-                        <h2>Our Thesis</h2>
+                        <h2>Business Model</h2>
                         <p>
-                            nFront works with a small group of stand-out
-                            companies per year, to enable successful fundraising
-                            rounds. The support is full time, typically over
-                            5-10 months. After a 2-4 month preparation stage,
-                            investors are invited in from a global deal-sharing
-                            network, built over 10 years in VC. At close, nFront
-                            co-invests directly alongside new investors.
+                            nFront aligns with the company when it comes to risk
+                            and payment for full time support. Unless a
+                            successful transaction goes through, the support is
+                            provided at zero cost.
                         </p>
-                        <hr />
                     </SectionTitle>
+                    <GRID>
+                        <Box className="rounded" alt>
+                            <Number className="number">1</Number>
+                            <h4>Geographies</h4>
+                            <p>
+                                Pan-European. Opportunistically review stand-out
+                                opportunities in geographies with co-investors,
+                                incl. the U.S.
+                            </p>
+                        </Box>
+                        <Box className="rounded">
+                            <Number className="number">2</Number>
+                            <h4>Sectors</h4>
+                            <p>
+                                B2B & B2C technology companies with proven
+                                monetization strategies and sustainable business
+                                models
+                            </p>
+                        </Box>
+                        <Box className="rounded" alt>
+                            <Number className="number">3</Number>
+                            <h4>Stages</h4>
+                            <p>
+                                Seed to Series-B stage companies raising €2m –
+                                €20m
+                            </p>
+                        </Box>
+                        <Box className="rounded">
+                            <Number className="number">4</Number>
+                            <h4>Characteristics</h4>
+                            <p>
+                                Validation/growth, differentiation, capital
+                                efficiency, market size, ++
+                            </p>
+                        </Box>
+                    </GRID>
                 </Container>
-                <InvestmentFocus />
             </Section>
-            <StyledSection>
-                <Container>
-                    <SectionTitle>
-                        <h2>Our Value Add</h2>
-                        <p>
-                            As an early stage investor we strive to bring more
-                            value than just capital. With combined investing,
-                            entrepreneurship and technology experience, nFront’s
-                            team members and advisors actively support portfolio
-                            companies with strategic advice, technical resources
-                            and relevant introductions, without getting in the
-                            way of the management team.
-                        </p>
-                    </SectionTitle>
-                    <Timeline />
-                </Container>
-                <NFrontProcess />
-            </StyledSection>
+            <NFrontProcess />
         </>
     );
 };

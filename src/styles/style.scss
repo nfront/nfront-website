@@ -175,7 +175,6 @@ ul.styled {
 }
 
 ul.styled > li::before {
-    content: '\2611';
     font-size: 2rem;
     color: var(--primary-color);
     position: absolute;
