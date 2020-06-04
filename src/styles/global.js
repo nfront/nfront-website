@@ -67,12 +67,7 @@ export const SectionTitle = styled.div`
 
 export const Box = styled.div`
     position: relative;
-    display: flex;
-    flex-flow: column;
-    /* align-items: center; */
-    justify-content: center;
     background: var(--alt-color);
-    @include border(all);
     border-radius: 5px;
     padding: 1.5rem;
 

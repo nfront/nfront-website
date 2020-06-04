@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { Section, Container, Box, SectionTitle } from '@styles/global';
 import InvestmentFocus from '@sections/InvestmentFocus';
 import NFrontProcess from '@sections/TheProcess';
+
+import { ReactComponent as IconOne } from '@images/nfront/global.svg';
+import { ReactComponent as IconTwo } from '@images/nfront/graph.svg';
+import { ReactComponent as IconThree } from '@images/nfront/geography.svg';
 
 const StyledSection = styled(Section)`
     padding-bottom: 0;
@@ -24,16 +28,8 @@ const GRID = styled.div`
     }
 `;
 
-const Box = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
-    position: relative;
-    padding: 4rem 1.5rem 1rem;
-    border: 1px solid #eaeaea;
-
+const Item = styled(Box)`
+    border: 1px solid var(--border-color);
     ${props =>
         props.alt &&
         `
@@ -48,7 +44,17 @@ const Box = styled.div`
 
     p {
         font-size: 85%;
+        margin-bottom: 0;
     }
+`;
+
+const Art = styled.div`
+    svg {
+        fill: var(--secondary-color);
+        width: 70px;
+        height: 70px;
+    }
+    margin-bottom: 2rem;
 `;
 
 const Number = styled.div`
@@ -72,40 +78,48 @@ export default () => {
                         </p>
                     </SectionTitle>
                     <GRID>
-                        <Box className="rounded" alt>
-                            <Number className="number">1</Number>
+                        <Item alt>
+                            <Art>
+                                <IconThree />
+                            </Art>
                             <h4>Geographies</h4>
                             <p>
                                 Pan-European. Opportunistically review stand-out
                                 opportunities in geographies with co-investors,
                                 incl. the U.S.
                             </p>
-                        </Box>
-                        <Box className="rounded">
-                            <Number className="number">2</Number>
+                        </Item>
+                        <Item>
+                            <Art>
+                                <IconOne />
+                            </Art>
                             <h4>Sectors</h4>
                             <p>
                                 B2B & B2C technology companies with proven
                                 monetization strategies and sustainable business
-                                models
+                                models.
                             </p>
-                        </Box>
-                        <Box className="rounded" alt>
-                            <Number className="number">3</Number>
+                        </Item>
+                        <Item alt>
+                            <Art>
+                                <IconTwo />
+                            </Art>
                             <h4>Stages</h4>
                             <p>
                                 Seed to Series-B stage companies raising €2m –
-                                €20m
+                                €20m in annual revenue.
                             </p>
-                        </Box>
-                        <Box className="rounded">
-                            <Number className="number">4</Number>
+                        </Item>
+                        <Item>
+                            <Art>
+                                <IconOne />
+                            </Art>
                             <h4>Characteristics</h4>
                             <p>
                                 Validation/growth, differentiation, capital
                                 efficiency, market size, ++
                             </p>
-                        </Box>
+                        </Item>
                     </GRID>
                 </Container>
             </Section>

@@ -80,15 +80,7 @@ export default function Navbar(props) {
                                 Home
                             </AnchorLink>
                         </NavItem>
-
-                        <NavItem>
-                            <AnchorLink
-                                onClick={() => setIsMenuOpen(false)}
-                                href="#about"
-                            >
-                                Thesis
-                            </AnchorLink>
-                        </NavItem>
+                        <ListLink to="/venture-capital/">Thesis</ListLink>
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}

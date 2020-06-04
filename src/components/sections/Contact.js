@@ -88,7 +88,7 @@ const ContactForm = () => (
                     <label htmlFor="message">Message</label>
                     <Field
                         component="textarea"
-                        rows="8"
+                        rows="4"
                         name="message"
                         className={
                             errors.message && touched.message

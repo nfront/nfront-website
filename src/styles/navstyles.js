@@ -107,10 +107,10 @@ export const NavItem = styled.li`
             position: absolute;
             width: 100%;
             transform: scaleX(0);
-            height: 2px;
+            height: 1px;
             bottom: 0;
             left: 0;
-            background-color: var(--secondary-color);
+            background-color: var(--yellow);
             transform-origin: bottom right;
             transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }

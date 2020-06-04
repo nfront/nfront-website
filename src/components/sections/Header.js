@@ -2,9 +2,11 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
 import BackgroundImage from 'gatsby-background-image';
-import { Container, Overlay } from '@styles/global';
+import { Container, Box, Overlay } from '@styles/global';
 import styled from 'styled-components';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+
+import Contact from '@sections/Contact';
 
 const HeaderWrapper = styled(Container)`
     position: absolute;
@@ -14,10 +16,30 @@ const HeaderWrapper = styled(Container)`
     right: 0;
     opacity: 1;
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-flow: column;
     justify-content: center;
+
+    @media (max-width: ${props => props.theme.screen.sm}) {
+        margin-top: 8rem;
+    }
+`;
+
+const GRID = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    margin: 10rem 0;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        grid-template-columns: 3fr 2fr;
+    }
+`;
+
+const Form = styled(Box)`
+    width: 100%;
 `;
 
 const HeaderText = styled.h1`
@@ -122,16 +144,19 @@ export default function Header({ fileName }) {
                             <p>with operational support and capital</p>
                         </HeaderText>
                     </Fade>
-
-                    {/* <Link to="/contact/">
+                </div>
+                {/* <Link to="/contact/">
                         <button className="button">Get in touch</button>
                     </Link> */}
-                </div>
-
+                {/* keeping it for future use }
+                    <Form className="pb-0">
+                        <Contact />
+                    </Form> */}
+                {/*
                 <AnchorLink href="#capital" class="mouse">
                     <div class="scroller"></div>
                 </AnchorLink>
-                <div class="scroll">SCROLL</div>
+                <div class="scroll">SCROLL</div> */}
             </HeaderWrapper>
         </>
     );

@@ -5,7 +5,7 @@ import { Section, Container } from '@styles/global';
 const StyledSection = styled(Section)`
     position: relative;
     padding: 2rem 0 !important;
-    background: var(--footer-alt-color);
+    background: var(--primary-color);
 `;
 
 const StyledContainer = styled(Container)`
