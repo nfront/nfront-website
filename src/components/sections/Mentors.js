@@ -111,7 +111,7 @@ const Art = styled.div`
         border: 5px solid rgba(0, 0, 0, 0.2);
         margin-top: 2rem;
         margin-bottom: 0;
-        transition: 0.5s ease-in-out;
+        transition: 0.15s ease-in-out;
         @media (min-width: ${props => props.theme.screen.sm}) {
         }
 

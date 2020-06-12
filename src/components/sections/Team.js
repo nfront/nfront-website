@@ -108,11 +108,9 @@ export default () => {
                             </p>
                         </Bio>
                     </TeamGrid>
-                    <SectionTitle alt>
-                        <h2>Portfolio Mentors</h2>
-                    </SectionTitle>
                     <PartnerGrid>
                         <Bio>
+                            <h2 class="mb-3">Investment Analyst</h2>
                             <p>
                                 Analysts at nFront have backgrounds within
                                 entrepreneurship, operations, investment banking
@@ -126,6 +124,7 @@ export default () => {
                             </p>
                         </Bio>
                         <Bio>
+                            <h2 class="mb-3">Portfolio Mentor</h2>
                             <p>
                                 Our team members have over the years built one
                                 of Europe’s largest deal sharing and expert
