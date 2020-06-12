@@ -106,8 +106,9 @@ const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.sm}) {
         padding: 0 3rem;
     }
-    p:first-child {
-        font-weight: 400;
+    p,
+    h3 {
+        margin-bottom: 1rem;
     }
 `;
 
@@ -168,6 +169,7 @@ export default () => {
                             <Slide right>
                                 <>
                                     <h3>Identification</h3>
+                                    <p class="label">Month 1</p>
                                     <p>
                                         Identify company-specific VC readiness
                                         requirements, including raise timing,
@@ -193,6 +195,7 @@ export default () => {
                             <Slide left>
                                 <>
                                     <h3>Preparation</h3>
+                                    <p class="label">Month 2-3</p>
                                     <p>
                                         Draft materials customized for the
                                         targeted investor group, including
@@ -219,6 +222,7 @@ export default () => {
                             <Slide right>
                                 <>
                                     <h3>Live Process</h3>
+                                    <p class="label">Month 4-7</p>
                                     <p>
                                         Identify and share with investors from
                                         deal sharing network of 400+ funds.
@@ -244,6 +248,7 @@ export default () => {
                             <Slide left>
                                 <>
                                     <h3>Closing</h3>
+                                    <p class="label">Month 8-10</p>
                                     <p>
                                         Provide insight on presented terms,
                                         support with investor / TS decision,

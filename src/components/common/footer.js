@@ -90,6 +90,7 @@ const StyledSection = styled(Section)`
     .label {
         font-size: 14px;
         color: var(--accent-color);
+        margin-top: 1.66rem;
     }
 
     ul {

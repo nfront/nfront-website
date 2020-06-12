@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, SectionTitle } from '@styles/global';
 
 import Team from '@sections/Team';
@@ -107,7 +107,7 @@ const Art = styled.div`
 
     img {
         min-width: 220px;
-        /* border-radius: 50%; */
+        border-radius: 50%;
         border: 5px solid rgba(0, 0, 0, 0.2);
         margin-top: 2rem;
         margin-bottom: 0;
@@ -194,6 +194,9 @@ export default () => {
                     </MentorGrid>
                 </StyledContainer>
             </StyledSection>
+            <Link to="/news/">
+                <button className="button m-auto">+ Many more</button>
+            </Link>
         </>
     );
 };

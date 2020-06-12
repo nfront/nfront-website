@@ -63,6 +63,13 @@ export const SectionTitle = styled.div`
     @media (min-width: ${props => props.theme.screen.sm}) {
         margin-bottom: 3rem;
     }
+
+    ${props =>
+        props.alt &&
+        `
+        padding-left: 0;
+        text-align: left;  
+    `};
 `;
 
 export const Box = styled.div`

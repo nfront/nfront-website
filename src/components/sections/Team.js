@@ -72,7 +72,7 @@ export default () => {
             <Section id="team" alt>
                 <Container style={{ position: 'relative' }}>
                     <SectionTitle>
-                        <h2>NFront Team</h2>
+                        <h2>nFront Team</h2>
                         <p>
                             nFront's team is focused on identifying a small
                             group of exceptional companies per year. Diving in
@@ -108,6 +108,9 @@ export default () => {
                             </p>
                         </Bio>
                     </TeamGrid>
+                    <SectionTitle alt>
+                        <h2>Portfolio Mentors</h2>
+                    </SectionTitle>
                     <PartnerGrid>
                         <Bio>
                             <p>

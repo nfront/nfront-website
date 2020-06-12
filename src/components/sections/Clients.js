@@ -39,7 +39,7 @@ const CLIENTS = [
         image: 'nordics.jpg',
     },
     {
-        name: 'U.S.A',
+        name: 'U.S',
         image: 'us.jpg',
     },
 ];
