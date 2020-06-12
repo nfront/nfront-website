@@ -85,6 +85,7 @@ const StyledSection = styled(Section)`
 
     p {
         color: #6c757d;
+        margin-bottom: 1rem;
     }
 
     .label {
@@ -99,6 +100,7 @@ const StyledSection = styled(Section)`
 
         li {
             margin-bottom: 5px;
+            padding-left: 0;
         }
     }
 

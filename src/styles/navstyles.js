@@ -82,6 +82,7 @@ export const NavItem = styled.li`
     position: relative;
     margin-bottom: 0;
     margin-left: 1.5rem;
+    padding-left: 0;
 
     @media (max-width: ${props => props.theme.screen.md}) {
         margin-left: 0;
@@ -123,6 +124,7 @@ export const Brand = styled.div`
     svg {
         height: 40px;
         fill: var(--accent-color);
+        vertical-align: middle;
     }
 `;
 

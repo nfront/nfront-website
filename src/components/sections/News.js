@@ -40,6 +40,7 @@ const Text = styled.div`
 
 const Art = styled.div`
     img {
+        min-height: 240px;
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
