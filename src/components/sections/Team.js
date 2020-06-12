@@ -11,7 +11,7 @@ const TeamGrid = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: min-content;
     grid-gap: 24px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     @media (min-width: ${props => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }

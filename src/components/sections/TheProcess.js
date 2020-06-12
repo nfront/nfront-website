@@ -110,6 +110,10 @@ const Text = styled.div`
     h3 {
         margin-bottom: 1rem;
     }
+
+    .label {
+        color: var(--orange);
+    }
 `;
 
 const Timeline = styled.div``;

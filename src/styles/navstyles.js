@@ -168,13 +168,13 @@ export const Hamburger = styled.div`
             background: var(--primary-color);
         }
         span:first-child {
-            transform: translateY(8px) translateY(-50%) rotate(45deg);
+            transform: translateY(7px) translateY(-50%) rotate(45deg);
         }
         span:nth-child(2) {
             opacity: 0;
         }
         span:last-child {
-            transform: translateY(-9px) translateY(50%) rotate(-45deg);
+            transform: translateY(-7px) translateY(50%) rotate(-45deg);
         }
     }
 `;
