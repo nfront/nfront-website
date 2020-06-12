@@ -192,11 +192,9 @@ export default () => {
                             }
                         )}
                     </MentorGrid>
+                    <p className="my-5 text-center">+ Many more</p>
                 </StyledContainer>
             </StyledSection>
-            <Link to="/news/">
-                <button className="button m-auto">+ Many more</button>
-            </Link>
         </>
     );
 };

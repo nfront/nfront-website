@@ -5,7 +5,7 @@ import Scrollspy from 'react-scrollspy';
 import { useIsHome } from '@utils/hooks/useIsHome';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
 
-import { ReactComponent as Logo } from '@static/logo.svg';
+import { ReactComponent as Logo } from '@static/nfront-logo.svg';
 
 import {
     NavContainer,

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const NavContainer = styled.div`
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     @media (max-width: ${props => props.theme.screen.md}) {
@@ -42,9 +43,6 @@ export const Nav = styled.nav`
         }
         svg {
             fill: var(--primary-color) !important;
-            .logo_svg__inner {
-                fill: var(--accent-color) !important;
-            }
         }
     }
 
@@ -123,12 +121,8 @@ export const NavItem = styled.li`
 
 export const Brand = styled.div`
     svg {
-        width: 80px;
+        height: 40px;
         fill: var(--accent-color);
-
-        .logo_svg__inner {
-            fill: var(--primary-color);
-        }
     }
 `;
 
@@ -146,7 +140,7 @@ export const Mobile = styled.div`
 
 export const Hamburger = styled.div`
     position: absolute;
-    top: 1rem;
+    top: 1.3rem;
     right: 1.5rem;
     width: 25px;
     cursor: pointer;
@@ -157,7 +151,7 @@ export const Hamburger = styled.div`
         display: block;
         opacity: 1;
         width: 100%;
-        height: 3px;
+        height: 2px;
         margin: 4px 0;
         background: var(--accent-color);
         transition: all 0.25s ease-in-out;
