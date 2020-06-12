@@ -21,6 +21,9 @@ const App = () => (
         <Wave shade />
         <CaseStudy />
         <News />
+        <Link to="/news/">
+            <button className="button m-auto">View All News</button>
+        </Link>
         <Testimonials />
         <CTA id="contact">
             <h2>Contact</h2>

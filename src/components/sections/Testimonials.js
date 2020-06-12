@@ -75,7 +75,7 @@ export default () => {
                         node {
                             relativePath
                             childImageSharp {
-                                fixed(quality: 100, width: 64) {
+                                fixed(quality: 100, width: 96) {
                                     ...GatsbyImageSharpFixed
                                 }
                             }

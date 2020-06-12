@@ -11,12 +11,23 @@ const TeamGrid = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: min-content;
     grid-gap: 24px;
-
+    margin-bottom: 3rem;
     @media (min-width: ${props => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
     @media (min-width: ${props => props.theme.screen.md}) {
         grid-template-columns: repeat(3, 1fr);
+    }
+`;
+
+const PartnerGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    grid-gap: 24px;
+
+    @media (min-width: ${props => props.theme.screen.md}) {
+        grid-template-columns: repeat(2, 1fr);
     }
 `;
 
@@ -58,11 +69,18 @@ export default () => {
     );
     return (
         <>
-            <Strapbox>
-                <h2 className="text-uppercase mb-0">NFront Team</h2>
-            </Strapbox>
             <Section id="team" alt>
                 <Container style={{ position: 'relative' }}>
+                    <SectionTitle>
+                        <h2>NFront Team</h2>
+                        <p>
+                            nFront's team is focused on identifying a small
+                            group of exceptional companies per year. Diving in
+                            full-time, we work hard to provide the stand-out
+                            founders of these companies with operational
+                            support, capital and exceptional co-investors.
+                        </p>
+                    </SectionTitle>
                     <TeamGrid>
                         <Img
                             className="rounded"
@@ -90,36 +108,34 @@ export default () => {
                             </p>
                         </Bio>
                     </TeamGrid>
-                    <hr />
-                    <TeamGrid>
+                    <PartnerGrid>
                         <Bio>
-                            <h2>Team 1</h2>
-                            <h3>Partner</h3>
                             <p>
-                                It is a long established fact that a reader will
-                                be distracted by the readable content of a page
-                                when looking at its layout.
+                                Analysts at nFront have backgrounds within
+                                entrepreneurship, operations, investment banking
+                                and consulting. They cover critical tasks such
+                                as investment screening, market analysis,
+                                co-investor outreach and materials for portfolio
+                                companies. The analysts are nFront’s backbone,
+                                united by a strong passion for technology and an
+                                ambition to make a difference by bringing
+                                support and capital to exceptional founders.
                             </p>
                         </Bio>
                         <Bio>
-                            <h2>Team 2</h2>
-                            <h3>Partner</h3>
                             <p>
-                                It is a long established fact that a reader will
-                                be distracted by the readable content of a page
-                                when looking at its layout.
+                                Our team members have over the years built one
+                                of Europe’s largest deal sharing and expert
+                                networks. Mentors are selected individuals from
+                                this network and include leading VCs, technology
+                                experts and entrepreneurs. These passionate
+                                people provide support to our portfolio
+                                companies, share deal flow with our team members
+                                and contribute with expert advice on new
+                                investment prospects.
                             </p>
                         </Bio>
-                        <Bio>
-                            <h2>Team 3</h2>
-                            <h3>Partner</h3>
-                            <p>
-                                It is a long established fact that a reader will
-                                be distracted by the readable content of a page
-                                when looking at its layout.
-                            </p>
-                        </Bio>
-                    </TeamGrid>
+                    </PartnerGrid>
                 </Container>
             </Section>
         </>

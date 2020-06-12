@@ -153,13 +153,16 @@ export default () => {
     return (
         <>
             <Team />
-            <Strapbox>
-                <h2 className="text-uppercase mb-0">
-                    Advisors & Portfolio Mentors
-                </h2>
-            </Strapbox>
             <StyledSection>
                 <StyledContainer>
+                    <SectionTitle>
+                        <h2>Advisors & Portfolio Mentors</h2>
+                        <p>
+                            It is a long established fact that a reader will be
+                            distracted by the readable content of a page when
+                            looking at its layout.
+                        </p>
+                    </SectionTitle>
                     <MentorGrid>
                         {result.map(
                             ({

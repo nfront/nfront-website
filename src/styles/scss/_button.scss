@@ -60,4 +60,9 @@ $buttonBorderRadius: 35px;
             color: $white;
         }
     }
+
+    &.m-auto {
+        display: flex;
+        margin: -3rem auto 3rem auto;
+    }
 }

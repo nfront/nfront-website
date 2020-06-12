@@ -166,16 +166,17 @@ export default () => {
                         </Art>
                         <Text>
                             <Slide right>
-                                <h3>Identification</h3>
-                                <p>
-                                    Applicants pass extensive technical
-                                    evaluation.
-                                    <br />
-                                    Developers interview with senior engineers
-                                    at leading companies, using Silicon
-                                    Valley-caliber technical and behavioral
-                                    assessments.
-                                </p>
+                                <>
+                                    <h3>Identification</h3>
+                                    <p>
+                                        Identify company-specific VC readiness
+                                        requirements, including raise timing,
+                                        round size, likely valuation, potential
+                                        operational changes, challenging
+                                        diligence questions, required materials,
+                                        and key metrics / benchmarks.
+                                    </p>
+                                </>
                             </Slide>
                         </Text>
                     </Step>
@@ -190,14 +191,18 @@ export default () => {
                         </Art>
                         <Text>
                             <Slide left>
-                                <h3>Preparation</h3>
-                                <p>
-                                    Skip straight to the interviews.
-                                    <br />
-                                    Chat with us to get matched with pre-vetted
-                                    candidates. Whether hiring one or many, we
-                                    help you find the right talent right now.
-                                </p>
+                                <>
+                                    <h3>Preparation</h3>
+                                    <p>
+                                        Draft materials customized for the
+                                        targeted investor group, including
+                                        story, differentiation, pitch deck,
+                                        financial/operational models, cap. table
+                                        scenario analysis, investor Q&A, answers
+                                        to hard questions, and more. Train team
+                                        on delivering story.
+                                    </p>
+                                </>
                             </Slide>
                         </Text>
                     </Step>
@@ -210,18 +215,19 @@ export default () => {
                                 />
                             </Slide>
                         </Art>
-
                         <Text>
                             <Slide right>
-                                <h3>Live Process</h3>
-                                <p>
-                                    A remote hiring experience you’ll actually
-                                    enjoy.
-                                    <br />
-                                    You choose who to hire, and we handle the
-                                    rest. Arc manages payroll, benefits, and
-                                    compliance for all remote hires.
-                                </p>
+                                <>
+                                    <h3>Live Process</h3>
+                                    <p>
+                                        Identify and share with investors from
+                                        deal sharing network of 400+ funds.
+                                        Focus on those most likely to add value
+                                        beyond capital and present strong terms.
+                                        Support with Q&A and superpower the
+                                        process. Early term sheet analysis.
+                                    </p>
+                                </>
                             </Slide>
                         </Text>
                     </Step>
@@ -236,15 +242,18 @@ export default () => {
                         </Art>
                         <Text>
                             <Slide left>
-                                <h3>Closing</h3>
-                                <p>
-                                    A remote hiring experience you’ll actually
-                                    enjoy.
-                                    <br />
-                                    You choose who to hire, and we handle the
-                                    rest. Arc manages payroll, benefits, and
-                                    compliance for all remote hires.
-                                </p>
+                                <>
+                                    <h3>Closing</h3>
+                                    <p>
+                                        Provide insight on presented terms,
+                                        support with investor / TS decision,
+                                        present list of third party diligence
+                                        document, help prepare diligence
+                                        materials, guide third party DD with
+                                        focus on a swift and efficient closing
+                                        process.
+                                    </p>
+                                </>
                             </Slide>
                         </Text>
                     </Step>

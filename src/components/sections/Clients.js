@@ -31,16 +31,16 @@ const GRID = styled.div`
 
 const CLIENTS = [
     {
-        name: 'Nordics',
-        image: 'nordics.png',
-    },
-    {
         name: 'Europe',
-        image: 'europe.png',
+        image: 'europe.jpg',
     },
     {
-        name: 'America',
-        image: 'america.png',
+        name: 'Nordics',
+        image: 'nordics.jpg',
+    },
+    {
+        name: 'U.S.A',
+        image: 'us.jpg',
     },
 ];
 
