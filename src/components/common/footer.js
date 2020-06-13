@@ -127,24 +127,16 @@ export default function Footer(props) {
                         <p className="label">NFRONT</p>
                         <ul>
                             <li>
-                                <Link to="/venture-capital/">
-                                    Venture Capital
-                                </Link>
+                                <Link to="/venture-capital/">Thesis</Link>
                             </li>
                             <li>
-                                <Link to="/outsource-development/">
-                                    Outsourced Development
-                                </Link>
+                                <Link to="/">Portfolio</Link>
                             </li>
                             <li>
-                                <Link to="/hire-top-developer-teams/">
-                                    Hire Top Developers
-                                </Link>
+                                <Link to="/mentors/">Team & Mentors</Link>
                             </li>
                             <li>
-                                <Link to="/corporate-innovation/">
-                                    Corporate Innovation
-                                </Link>
+                                <Link to="/news/">News</Link>
                             </li>
                         </ul>
                     </div>
@@ -156,6 +148,9 @@ export default function Footer(props) {
                             </li>
                             <li>
                                 <Link to="/">GDPR</Link>
+                            </li>
+                            <li>
+                                <Link to="/contact/">Contact</Link>
                             </li>
                         </ul>
                     </div>
