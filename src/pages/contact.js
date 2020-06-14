@@ -23,13 +23,8 @@ const Grid = styled.div`
     @media (min-width: ${props => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
-
     a {
         font-weight: 500;
-    }
-
-    .button {
-        border-radius: 0;
     }
 `;
 
@@ -52,9 +47,9 @@ export default () => {
                     <Grid>
                         <Contact />
                         <div className="">
-                            <label>Drop us an email at</label>
+                            <div class="label">Drop us an email at</div>
                             <p>info@nfront.io</p>
-                            <label>Visit us at</label>
+                            <div class="label">Visit us at</div>
                             <p>
                                 <ExternalLink href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157

@@ -36,8 +36,8 @@ export default () => {
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
                 <p>
-                    We appreciate you contacting us. We will be in touch as
-                    soon as possible.
+                    We appreciate you contacting us. We will be in touch as soon
+                    as possible.
                 </p>
             </Hero>
             <Section>
@@ -45,9 +45,9 @@ export default () => {
                     <Grid>
                         <Contact />
                         <div className="">
-                            <label>Drop us an email at</label>
+                            <div class="label">Drop us an email at</div>
                             <p>info@nfront.io</p>
-                            <label>Visit us for a coffee at</label>
+                            <div class="label">Visit us at</div>
                             <p>
                                 <ExternalLink href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157

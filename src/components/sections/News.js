@@ -1,21 +1,12 @@
 import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
-const GRID = styled.div`
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: 1fr;
-    transition: transform 0.3s ease-in-out;
-
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
+const GRID = styled(Grid)`
     .grid-item {
         background: white;
-        border: 1px solid #e7eaf3;
+        border: 1px solid var(--border-color);
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
@@ -32,34 +23,34 @@ const Text = styled.div`
     p:not(.label) {
         font-size: 16px;
     }
-
-    .label {
-        font-size: 12px;
-    }
 `;
 
 const Art = styled.div`
     img {
+        height: auto;
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
+
+        @media (min-width: ${props => props.theme.screen.md}) {
+            min-height: 240px;
+        }
     }
 `;
 
-export default () => {
-    const title = "What's New";
+export default function News(props) {
     const data = useStaticQuery(graphql`
         query {
             allContentfulPost(
                 sort: { order: DESC, fields: publishDate }
-                limit: 1000
+                limit: 6
             ) {
                 edges {
                     node {
                         id
                         slug
                         title
-                        publishDate(formatString: "MMMM Do, YYYY")
+                        publishDate(formatString: "MMMM DD, YYYY")
                         metaDescription {
                             childMarkdownRemark {
                                 excerpt
@@ -77,7 +68,7 @@ export default () => {
     `);
     const results = data.allContentfulPost.edges;
     return (
-        <Section>
+        <Section {...props}>
             <SectionTitle>
                 <h2>News</h2>
             </SectionTitle>
@@ -109,4 +100,4 @@ export default () => {
             </Container>
         </Section>
     );
-};
+}

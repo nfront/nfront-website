@@ -72,6 +72,21 @@ export const SectionTitle = styled.div`
     `};
 `;
 
+export const Grid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    grid-gap: 24px;
+    justify-content: space-between;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: ${props => props.theme.screen.md}) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+`;
+
 export const Box = styled.div`
     position: relative;
     background: var(--alt-color);

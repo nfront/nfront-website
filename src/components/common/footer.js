@@ -42,26 +42,6 @@ const FooterWrapper = styled.footer`
     }
 `;
 
-/**
-const StyledContainer = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1.5rem;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    ${props =>
-        props.fluid &&
-        `
-        max-width: 100%;
-    `};
-`;
-*/
-
 const SocialIcons = styled.div`
     img {
         width: 24px;

@@ -2,30 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import ExternalLink from '@utils/externalLink';
-import { Section, Container, SectionTitle } from '@styles/global';
-import Strapbox from '@common/strapbox';
+import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import Wave from '@utils/divider/wave';
 
-const TeamGrid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content;
-    grid-gap: 24px;
-    margin-bottom: 2rem;
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-`;
-
-const PartnerGrid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content;
-    grid-gap: 24px;
-
+const PartnerGrid = styled(Grid)`
+    margin-top: var(--spacer);
     @media (min-width: ${props => props.theme.screen.md}) {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -69,8 +50,8 @@ export default () => {
     );
     return (
         <>
-            <Section id="team" alt>
-                <Container style={{ position: 'relative' }}>
+            <Section alt>
+                <Container>
                     <SectionTitle>
                         <h2>nFront Team</h2>
                         <p>
@@ -81,7 +62,7 @@ export default () => {
                             support, capital and exceptional co-investors.
                         </p>
                     </SectionTitle>
-                    <TeamGrid>
+                    <Grid>
                         <Img
                             className="rounded"
                             fixed={data.file.childImageSharp.fixed}
@@ -107,7 +88,7 @@ export default () => {
                                 machine learning and financial engineering.
                             </p>
                         </Bio>
-                    </TeamGrid>
+                    </Grid>
                     <PartnerGrid>
                         <Bio>
                             <h2 class="mb-3">Investment Analyst</h2>
@@ -140,6 +121,7 @@ export default () => {
                     </PartnerGrid>
                 </Container>
             </Section>
+            <Wave shade />
         </>
     );
 };

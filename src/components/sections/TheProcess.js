@@ -5,10 +5,6 @@ import Slide from 'react-reveal/Slide';
 import { Section, Container, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
-const StyledSection = styled(Section)`
-    padding-bottom: 0 !important;
-`;
-
 const Step = styled.div`
     display: grid;
     grid-template-columns: 1fr;
@@ -58,6 +54,7 @@ const Art = styled.div`
     @media (min-width: ${props => props.theme.screen.md}) {
         .gatsby-image-wrapper {
             width: 70%;
+            margin-left: 3rem;
         }
     }
 
@@ -145,7 +142,7 @@ export default () => {
         `
     );
     return (
-        <StyledSection alt>
+        <Section alt>
             <Container>
                 <SectionTitle>
                     <h2>The Process</h2>
@@ -268,6 +265,6 @@ export default () => {
                     </Step>
                 </Timeline>
             </Container>
-        </StyledSection>
+        </Section>
     );
 };

@@ -8,9 +8,7 @@ import CTA from '@common/CTA';
 import Wave from '@utils/divider/wave';
 
 /** */
-import Thesis from '@sections/Thesis';
 import Mentors from '@sections/Mentors';
-import Clients from '@sections/Clients';
 
 export default () => (
     <Layout>

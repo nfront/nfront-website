@@ -2,11 +2,33 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
 import BackgroundImage from 'gatsby-background-image';
-import { Container, Box, Overlay } from '@styles/global';
+import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
+
+/** keep it here in case we want to have a CTA box 
+ * 
+ * 
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 import Contact from '@sections/Contact';
+
+const GRID = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    margin: 10rem 0;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        grid-template-columns: 3fr 2fr;
+    }
+`;
+
+const Form = styled(Box)`
+    width: 100%;
+`;
+
+**/
 
 const HeaderWrapper = styled(Container)`
     position: absolute;
@@ -24,22 +46,6 @@ const HeaderWrapper = styled(Container)`
     @media (max-width: ${props => props.theme.screen.sm}) {
         margin-top: 8rem;
     }
-`;
-
-const GRID = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-items: center;
-    margin: 10rem 0;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: 3fr 2fr;
-    }
-`;
-
-const Form = styled(Box)`
-    width: 100%;
 `;
 
 const HeaderText = styled.h1`

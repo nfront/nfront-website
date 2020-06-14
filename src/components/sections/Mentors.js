@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useStaticQuery, graphql } from 'gatsby';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { useStaticQuery, graphql } from 'gatsby';
+import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import ExternalLink from '@utils/externalLink';
 
+/** */
 import Team from '@sections/Team';
-import Strapbox from '@common/strapbox';
 
 /**
 import ExternalLink from '@utils/externalLink';
@@ -27,78 +28,17 @@ const StyledContainer = styled(Container)`
 `;
 */
 
-const TeamGrid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content;
-    grid-gap: 24px;
-    justify-content: space-between;
+const MentorGrid = styled(Grid)`
     text-align: center;
-
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .grid-item {
-        background: white;
-        border: 5px solid rgba(0, 0, 0, 0.2);
-    }
-`;
-
-const MentorGrid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content;
-    grid-gap: 24px;
-    justify-content: space-between;
-    text-align: center;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
     @media (min-width: ${props => props.theme.screen.md}) {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
-
-/** 
-const TeamGrid = styled.div`
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    grid-gap: 0;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`;
-
-
-const Slide = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    text-align: center;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        width: 90%;
-        margin: 0 auto;
-        grid-template-columns: repeat(4, 1fr);
-    }
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-gap: 30px;
-    }
-`;
-*/
 
 const Text = styled.div`
     p {
         color: var(--heading-color);
         margin: 10px 0 5px 0;
-    }
-
-    label {
-        display: block;
     }
 `;
 
@@ -112,11 +52,9 @@ const Art = styled.div`
         margin-top: 2rem;
         margin-bottom: 0;
         transition: 0.15s ease-in-out;
-        @media (min-width: ${props => props.theme.screen.sm}) {
-        }
 
         &:hover {
-            border-color: var(--blue);
+            border-color: var(--primary-color);
         }
     }
 `;
@@ -175,12 +113,12 @@ export default () => {
                                 return (
                                     <Placeholder>
                                         <Art>
-                                            <a href={link} target="_blank">
+                                            <ExternalLink href={link}>
                                                 <img
                                                     src={headshot.fixed.src}
                                                     alt={name}
                                                 />
-                                            </a>
+                                            </ExternalLink>
                                         </Art>
                                         <Text>
                                             <p>{name}</p>
@@ -192,7 +130,9 @@ export default () => {
                             }
                         )}
                     </MentorGrid>
-                    <p className="my-5 text-center">+ Many more</p>
+                    <p className="my-5 text-uppercase text-center">
+                        + Many more
+                    </p>
                 </StyledContainer>
             </StyledSection>
         </>

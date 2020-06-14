@@ -57,6 +57,8 @@ const ContactForm = () => (
                     <Field
                         type="text"
                         name="name"
+                        id="name"
+                        placeholder="Your Name"
                         className={
                             errors.name && touched.name ? ' has-error' : ''
                         }
@@ -73,6 +75,8 @@ const ContactForm = () => (
                     <Field
                         type="email"
                         name="email"
+                        id="email"
+                        placeholder="Your Email"
                         className={
                             errors.email && touched.email ? ' has-error' : ''
                         }
@@ -88,8 +92,9 @@ const ContactForm = () => (
                     <label htmlFor="message">Message</label>
                     <Field
                         component="textarea"
-                        rows="4"
+                        rows="6"
                         name="message"
+                        id="message"
                         className={
                             errors.message && touched.message
                                 ? ' has-error'

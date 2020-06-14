@@ -32,15 +32,14 @@ const GRID = styled.div`
         font-weight: 500; 
         color: var(--grey); */
     }
+`;
 
+const Art = styled.div`
     svg {
         fill: var(--button-color);
         width: 70px;
         height: 70px;
     }
-`;
-
-const Art = styled.div`
     padding: 0 0 1.6rem 0;
 `;
 

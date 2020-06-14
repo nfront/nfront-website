@@ -1,27 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, Box, SectionTitle } from '@styles/global';
-import InvestmentFocus from '@sections/InvestmentFocus';
+import { Section, Container, Grid, Box, SectionTitle } from '@styles/global';
+
+/** */
 import NFrontProcess from '@sections/TheProcess';
 
+/** */
 import { ReactComponent as IconOne } from '@images/nfront/global.svg';
 import { ReactComponent as IconTwo } from '@images/nfront/graph.svg';
 import { ReactComponent as IconThree } from '@images/nfront/geography.svg';
+import { ReactComponent as IconFour } from '@images/nfront/speed.svg';
 
-const StyledSection = styled(Section)`
-    padding-bottom: 0;
-`;
-
-const GRID = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
+const GRID = styled(Grid)`
     grid-gap: 10px;
-    transition: transform 0.3s ease-in-out;
-    margin-top: 5rem;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
 
     @media (min-width: ${props => props.theme.screen.md}) {
         grid-template-columns: repeat(4, 1fr);
@@ -30,12 +21,18 @@ const GRID = styled.div`
 
 const Item = styled(Box)`
     border: 1px solid var(--border-color);
+    text-align: center;
+
     ${props =>
         props.alt &&
         `
         background-color: var(--accent-color);
 
     `};
+
+    @media (min-width: ${props => props.theme.screen.md}) {
+        text-align: left;
+    }
 
     h4 {
         text-transform: uppercase;
@@ -54,13 +51,7 @@ const Art = styled.div`
         width: 70px;
         height: 70px;
     }
-    margin-bottom: 2rem;
-`;
-
-const Number = styled.div`
-    position: absolute;
-    top: 0;
-    transform: translate3d(0, -50%, 0);
+    padding: 0 0 1.6rem 0;
 `;
 
 export default () => {
@@ -112,7 +103,7 @@ export default () => {
                         </Item>
                         <Item>
                             <Art>
-                                <IconOne />
+                                <IconFour />
                             </Art>
                             <h4>Characteristics</h4>
                             <p>

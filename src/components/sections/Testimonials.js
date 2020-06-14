@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Carousel from 're-carousel';
-import Buttons from '@utils/carousel/button';
 import IndicatorDots from '@utils/carousel/indicator-dots';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -46,15 +45,13 @@ const Slide = styled.div`
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    height: 100%;
     text-align: center;
+    height: 100%;
 
     @media (min-width: ${props => props.theme.screen.sm}) {
         padding: 0 3rem;
     }
 `;
-
-const Text = styled.div``;
 
 const Art = styled.div`
     width: 100%;
@@ -86,7 +83,7 @@ export default () => {
         `
     );
     return (
-        <StyledSection shade>
+        <StyledSection>
             <SectionTitle>
                 <h2>Testimonials</h2>
             </SectionTitle>
@@ -105,7 +102,7 @@ export default () => {
                                     />
                                 </Art>
                                 <p>{text}</p>
-                                <label>{name}</label>
+                                <p className="label">{name}</p>
                             </Slide>
                         );
                     })}

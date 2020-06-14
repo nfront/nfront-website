@@ -7,7 +7,6 @@
 @import 'scss/pricing';
 @import 'scss/search';
 @import 'scss/overlay';
-@import 'scss/timeline';
 @import 'scss/custom';
 
 * {
@@ -111,7 +110,8 @@ article {
 
 label,
 .label {
-    font-size: 12px;
+    display: block;
+    font-size: 13px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
