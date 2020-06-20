@@ -9,8 +9,8 @@ import Wave from '@utils/divider/wave';
 
 /** */
 import Thesis from '@sections/Thesis';
+import CoInvestors from '@sections/CoInvestors';
 import Testimonials from '@sections/Testimonials';
-import Clients from '@sections/Clients';
 
 export default () => (
     <Layout>
@@ -23,7 +23,7 @@ export default () => (
             </p>
         </Hero>
         <Thesis />
-        <Clients />
+        <CoInvestors />
         <Testimonials />
         <CTA>
             <h2>Contact</h2>

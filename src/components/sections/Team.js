@@ -6,10 +6,21 @@ import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import Wave from '@utils/divider/wave';
 
 const PartnerGrid = styled(Grid)`
-    margin-top: var(--spacer);
+    /* margin-top: var(--spacer); */
     @media (min-width: ${props => props.theme.screen.md}) {
         grid-template-columns: repeat(2, 1fr);
+        /* margin-top: 3rem; */
     }
+`;
+
+const Divider = styled.hr`
+    @media (min-width: ${props => props.theme.screen.md}) {
+        border: 0;
+        border-top: 1px solid rgba(225, 225, 225, 0.2);
+        margin: 3rem auto;
+    }
+    border: 0;
+    border-top: 0px;
 `;
 
 const Bio = styled.div`
@@ -31,6 +42,9 @@ const Bio = styled.div`
 
     p {
         margin-bottom: 1rem;
+        &:last-child {
+            margin-bottom: 0rem;
+        }
     }
 `;
 
@@ -62,6 +76,7 @@ export default () => {
                             support, capital and exceptional co-investors.
                         </p>
                     </SectionTitle>
+                    <Divider></Divider>
                     <Grid>
                         <Img
                             className="rounded"
@@ -89,9 +104,10 @@ export default () => {
                             </p>
                         </Bio>
                     </Grid>
+                    <Divider></Divider>
                     <PartnerGrid>
                         <Bio>
-                            <h2 class="mb-3">Investment Analyst</h2>
+                            <h2 class="mb-3">Investment Analysts</h2>
                             <p>
                                 Analysts at nFront have backgrounds within
                                 entrepreneurship, operations, investment banking
@@ -105,7 +121,7 @@ export default () => {
                             </p>
                         </Bio>
                         <Bio>
-                            <h2 class="mb-3">Portfolio Mentor</h2>
+                            <h2 class="mb-3">Portfolio Mentors</h2>
                             <p>
                                 Our team members have over the years built one
                                 of Europe’s largest deal sharing and expert

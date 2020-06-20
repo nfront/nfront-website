@@ -18,13 +18,13 @@ const App = () => (
         <Navbar fluid />
         <Header fileName="SH.jpg" />
         <About />
-        <Wave shade />
+        <Wave />
         <CaseStudy />
-        <News shade />
+        <News accent='alt2' />
         <Link to="/news/">
             <button className="button m-auto">View All News</button>
         </Link>
-        <Wave shade />
+        <Wave />
         <Testimonials />
         <CTA id="contact">
             <h2>Contact</h2>

@@ -29,7 +29,7 @@ const GRID = styled.div`
     }
 `;
 
-const CLIENTS = [
+const REGIONS = [
     {
         name: 'Europe',
         image: 'europe.jpg',
@@ -39,7 +39,7 @@ const CLIENTS = [
         image: 'nordics.jpg',
     },
     {
-        name: 'U.S',
+        name: 'U.S.',
         image: 'us.jpg',
     },
 ];
@@ -66,7 +66,7 @@ export default () => {
         `
     );
     return (
-        <Section accent="alt">
+        <Section alt>
             <Container>
                 <SectionTitle>
                     <h2>Co-Investment Network</h2>
@@ -79,7 +79,7 @@ export default () => {
                     </p>
                 </SectionTitle>
                 <GRID>
-                    {CLIENTS.map(({ name, image }) => {
+                    {REGIONS.map(({ name, image }) => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;

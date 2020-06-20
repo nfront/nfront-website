@@ -39,12 +39,12 @@ export default function Buttons(props) {
     return (
         <Wrapper>
             {(loop || index !== 0) && (
-                <div style={prevBtnStyle} onClick={prevHandler}>
+                <div style={prevBtnStyle} onClick={prevHandler} onKeyPress={prevHandler} role="button" tabIndex="0">
                     <Prev />
                 </div>
             )}
             {(loop || index !== total - 1) && (
-                <div style={nextBtnStyle} onClick={nextHandler}>
+                <div style={nextBtnStyle} onClick={nextHandler} onKeyPress={nextHandler} role="button" tabIndex="0">
                     <Next />
                 </div>
             )}

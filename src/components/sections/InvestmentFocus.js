@@ -42,6 +42,11 @@ const Art = styled.div`
     }
     padding: 0 0 1.6rem 0;
 `;
+const Art2 = styled(Art)`
+    svg {
+        fill: var(--orange);
+    }
+`;
 
 const Text = styled.p`
     height: auto;
@@ -58,9 +63,9 @@ export default () => {
             <GRID>
                 <Fade bottom>
                     <Box>
-                        <Art>
+                        <Art2>
                             <IconOne />
-                        </Art>
+                        </Art2>
                         <h3>Industries</h3>
                         <p>Software (B2B and B2C)</p>
                         <Text>
@@ -72,10 +77,10 @@ export default () => {
                     </Box>
                 </Fade>
                 <Fade bottom>
-                    <Box alt className="text-light">
-                        <Art>
+                    <Box>
+                        <Art2>
                             <IconTwo />
-                        </Art>
+                        </Art2>
                         <h3>Stages</h3>
                         <p>Seed to Series-B</p>
                         <Text>
@@ -87,9 +92,9 @@ export default () => {
                 </Fade>
                 <Fade bottom>
                     <Box>
-                        <Art>
+                        <Art2>
                             <IconThree />
-                        </Art>
+                        </Art2>
                         <h3>Geographies</h3>
                         <p>Europe and U.S.</p>
                         <Text>

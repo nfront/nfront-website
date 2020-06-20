@@ -142,7 +142,7 @@ export default () => {
         `
     );
     return (
-        <Section alt>
+        <Section accent='alt'>
             <Container>
                 <SectionTitle>
                     <h2>The Process</h2>

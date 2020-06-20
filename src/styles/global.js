@@ -53,6 +53,15 @@ export const Section = styled.section`
             background: rgba(225, 225, 225, 0.2);
         }
     `};
+    
+    ${props =>
+        props.accent === 'alt2' &&
+        `
+        background-color: var(--primary-color);
+        h2 {
+            color: var(--accent-color);
+        };
+    `};
 `;
 
 export const SectionTitle = styled.div`
@@ -96,12 +105,6 @@ export const Box = styled.div`
     &.with-shadow {
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
-
-    ${props =>
-        props.alt &&
-        `
-        background-color: var(--primary-color);  
-    `};
 `;
 
 /**

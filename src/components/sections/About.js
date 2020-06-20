@@ -11,14 +11,14 @@ const GRID = styled(Container)`
     ${Box} {
         padding: 3rem 1.5rem;
     }
+    p, h2 {color: white}
 `;
 
 const About = () => (
     <>
-        <StyledSection shade id="about">
+        <StyledSection accent='alt2' id="about">
             <GRID>
                 <Fade top>
-                    <Box>
                         <h2>Support and Capital</h2>
                         <p>
                             nFront provides operational support and capital to a
@@ -33,7 +33,6 @@ const About = () => (
                                 Find out more
                             </button>
                         </Link>
-                    </Box>
                 </Fade>
             </GRID>
             <InvestmentFocus />
