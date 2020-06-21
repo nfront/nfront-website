@@ -65,4 +65,9 @@ $buttonBorderRadius: 35px;
         display: flex;
         margin: -4.5rem auto 0 auto;
     }
+
+    &.center {
+        display: flex;
+        margin: 3rem auto -3rem auto;
+    }
 }

@@ -20,10 +20,10 @@ const App = () => (
         <About />
         <Wave />
         <CaseStudy />
-        <News accent='alt2' />
-        <Link to="/news/">
+        <News accent="alt2" />
+        {/* <Link to="/news/">
             <button className="button m-auto">View All News</button>
-        </Link>
+        </Link> */}
         <Wave />
         <Testimonials />
         <CTA id="contact">

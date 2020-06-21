@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
+import { useIsHome } from '@utils/hooks/useIsHome';
 
 const GRID = styled(Grid)`
     .grid-item {
@@ -67,6 +68,7 @@ export default function News(props) {
         }
     `);
     const results = data.allContentfulPost.edges;
+    const isHome = useIsHome().isHome;
     return (
         <Section {...props}>
             <SectionTitle>
@@ -98,6 +100,11 @@ export default function News(props) {
                     ))}
                 </GRID>
             </Container>
+            {isHome && (
+                <Link to="/news/">
+                    <button className="button center">View All News</button>
+                </Link>
+            )}
         </Section>
     );
 }
