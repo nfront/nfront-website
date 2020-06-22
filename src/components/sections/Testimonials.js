@@ -30,10 +30,10 @@ const StyledSection = styled(Section)``;
 
 const StyledContainer = styled(Container)`
     padding: 0 2.5rem;
-    height: 400px;
+    height: 500px;
 
     @media (min-width: ${props => props.theme.screen.sm}) {
-        height: 300px;
+        height: 400px;
     }
 `;
 
