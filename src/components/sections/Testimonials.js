@@ -86,7 +86,7 @@ export default () => {
                 <h2>Testimonials</h2>
             </SectionTitle>
             <StyledContainer>
-                <Carousel auto interval={7000} loop widgets={[IndicatorDots]}>
+                <Carousel auto interval={8000} loop widgets={[IndicatorDots]}>
                     {REVIEW.map(({ name, image, line1, line2 }) => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image

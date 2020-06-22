@@ -8,7 +8,7 @@ import Header from '@sections/Header';
 
 /** */
 import About from '@sections/About';
-import CaseStudy from '@sections/CaseStudy';
+import Portfolio from '@sections/Portfolio';
 import News from '@sections/News';
 import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
@@ -21,7 +21,7 @@ const App = () => (
         <Header fileName="SH.jpg" />
         <About />
         <Wave />
-        <CaseStudy />
+        <Portfolio />
         <News accent="alt2" />
         <Wave />
         <Testimonials />

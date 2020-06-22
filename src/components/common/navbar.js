@@ -38,7 +38,7 @@ const secondaryMenu = [
     },
     {
         name: 'Portfolio',
-        path: '/#casestudies',
+        path: '/#portfolio',
     },
     {
         name: 'News',
@@ -84,7 +84,7 @@ export default function Navbar(props) {
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
-                                href="#casestudies"
+                                href="#portfolio"
                             >
                                 Portfolio
                             </AnchorLink>

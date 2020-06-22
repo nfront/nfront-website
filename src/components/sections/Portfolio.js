@@ -73,7 +73,7 @@ export default () => {
     `);
     const result = data.allContentfulCaseStudies.nodes;
     return (
-        <StyledSection id="casestudies">
+        <StyledSection id="portfolio">
             <SectionTitle>
                 <h2>Recent Investments</h2>
             </SectionTitle>
