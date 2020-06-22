@@ -25,6 +25,13 @@ module.exports = {
         {
             resolve: `gatsby-source-filesystem`,
             options: {
+                name: `testimonials`,
+                path: `${__dirname}/src/images/testimonials`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
                 name: `art`,
                 path: `${__dirname}/src/images/art`,
             },
@@ -36,13 +43,13 @@ module.exports = {
                 path: `${__dirname}/src/images/logos`,
             },
         },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                name: `slide`,
-                path: `${__dirname}/src/images/slider`,
-            },
-        },
+        // {
+        //     resolve: `gatsby-source-filesystem`,
+        //     options: {
+        //         name: `slide`,
+        //         path: `${__dirname}/src/images/slider`,
+        //     },
+        // },
         {
             resolve: `gatsby-source-filesystem`,
             options: {

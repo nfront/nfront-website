@@ -66,7 +66,7 @@ export default () => {
         `
     );
     return (
-        <Section alt>
+        <Section accent='alt' id="co-investors">
             <Container>
                 <SectionTitle>
                     <h2>Co-Investment Network</h2>

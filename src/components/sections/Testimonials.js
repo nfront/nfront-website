@@ -8,22 +8,20 @@ import { Section, Container, SectionTitle } from '@styles/global';
 
 const REVIEW = [
     {
-        name: 'Alessandra Sollberger',
-        image: 'alessandra-sollberger.jpg',
-        text:
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+        name: 'Rune Skog, Co-Founder & CEO of Yellowsack',
+        image: 'rune-skog.png',
+        line1:
+            'nFront was instrumental in helping us achieve an oversubscribed Seed round with truly standout investors.',
+        line2:
+            'Their support helped speed up the process, eliminate risk and secure strong terms.',
     },
     {
-        name: 'Andreas Hall',
-        image: 'andreas-hall.jpg',
-        text:
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-    },
-    {
-        name: 'Vivian Chan',
-        image: 'vivian-chan.jpg',
-        text:
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+        name: 'Iiro Kormi, Co-Founder & CEO of Zadaa',
+        image: 'iiro-kormi.png',
+        line1:
+            'Working with nFront on our Series-A was a value-creating and result-focused experience.',
+        line2:
+            'Their team dived deep and fully met our goals and expectations. I have no hesitation recommending them to other founders.',
     },
 ];
 
@@ -66,7 +64,7 @@ export default () => {
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "team" } }
+                    filter: { sourceInstanceName: { eq: "testimonials" } }
                 ) {
                     edges {
                         node {
@@ -88,8 +86,8 @@ export default () => {
                 <h2>Testimonials</h2>
             </SectionTitle>
             <StyledContainer>
-                <Carousel auto loop widgets={[IndicatorDots]}>
-                    {REVIEW.map(({ name, image, text }) => {
+                <Carousel auto interval={7000} loop widgets={[IndicatorDots]}>
+                    {REVIEW.map(({ name, image, line1, line2 }) => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;
@@ -101,7 +99,7 @@ export default () => {
                                         alt={name}
                                     />
                                 </Art>
-                                <p>{text}</p>
+                                <p>{line1}<br/>{line2}</p>
                                 <p className="label">{name}</p>
                             </Slide>
                         );

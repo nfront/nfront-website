@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid, Box, SectionTitle } from '@styles/global';
-
-/** */
-import NFrontProcess from '@sections/TheProcess';
+import { Link } from 'gatsby';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 /** */
 import { ReactComponent as IconOne } from '@images/nfront/global.svg';
@@ -60,12 +59,22 @@ export default () => {
             <Section>
                 <Container>
                     <SectionTitle>
-                        <h2>Business Model</h2>
+                        <h2>About Us</h2>
                         <p>
-                            nFront aligns with the company when it comes to risk
-                            and payment for full time support. Unless a
-                            successful transaction goes through, the support is
-                            provided at zero cost.
+                            nFront provides a small group of exceptional
+                            companies per year with in-depth fundraising support
+                            and capital.
+                        </p>
+                        <p>
+                            With one of Europe's largest{' '}
+                            <AnchorLink href="#co-investors">
+                                deal-sharing
+                            </AnchorLink>{' '}
+                            networks and <Link to="/team-mentors/#mentors">mentors</Link> ranging
+                            from top-tier VCs to technology influencers and
+                            corporate decision makers, nFront strives to provide
+                            deep and transformative value to its companies, both
+                            throughout fundraising and after.
                         </p>
                     </SectionTitle>
                     <GRID>
@@ -75,9 +84,9 @@ export default () => {
                             </Art>
                             <h4>Geographies</h4>
                             <p>
-                                Pan-European. Opportunistically review stand-out
-                                opportunities in geographies with co-investors,
-                                incl. the U.S.
+                                Due to a strong deal-sharing network, nFront
+                                looks at companies across Europe. Stand-out
+                                opportunities in the U.S. are also considered.
                             </p>
                         </Item>
                         <Item>
@@ -86,9 +95,10 @@ export default () => {
                             </Art>
                             <h4>Sectors</h4>
                             <p>
-                                B2B & B2C technology companies with proven
-                                monetization strategies and sustainable business
-                                models.
+                                B2B & B2C technology companies, including
+                                FinTech, digital health, cyber security,
+                                marketplaces, future of work, tech-enabled
+                                services and more.
                             </p>
                         </Item>
                         <Item alt>
@@ -97,8 +107,9 @@ export default () => {
                             </Art>
                             <h4>Stages</h4>
                             <p>
-                                Seed to Series-B stage companies raising €2m –
-                                €20m in annual revenue.
+                                Seed to Series-B stage companies, looking to
+                                raise between €1m and €20m. These startups
+                                typically generate €500k - €5m in ARR.
                             </p>
                         </Item>
                         <Item>
@@ -107,14 +118,15 @@ export default () => {
                             </Art>
                             <h4>Characteristics</h4>
                             <p>
-                                Validation/growth, differentiation, capital
-                                efficiency, market size, ++
+                                Varies from case to case, but important features
+                                include validation/growth (i.e. need),
+                                differentiation, capital efficiency and market
+                                size / trends.
                             </p>
                         </Item>
                     </GRID>
                 </Container>
             </Section>
-            <NFrontProcess />
         </>
     );
 };

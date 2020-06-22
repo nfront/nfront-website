@@ -32,6 +32,7 @@ export default function SEO({
     const metaDescription = description || data.site.siteMetadata.description;
     const metaImage = data.site.siteMetadata.siteUrl + (image || defaultImage);
     const metaUrl = `${data.site.siteMetadata.siteUrl}${pathname}`;
+    console.log(title);
 
     return (
         <Helmet

@@ -31,7 +31,7 @@ const StyledContainer = styled(Container)`
 
 const Slide = styled.div`
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 2fr 2fr;
     align-items: center;
     justify-items: center;
     overflow: hidden;

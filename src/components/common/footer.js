@@ -113,7 +113,7 @@ export default function Footer(props) {
                                 <Link to="/">Portfolio</Link>
                             </li>
                             <li>
-                                <Link to="/mentors/">Team & Mentors</Link>
+                                <Link to="/team-mentors/">Team & Mentors</Link>
                             </li>
                             <li>
                                 <Link to="/news/">News</Link>

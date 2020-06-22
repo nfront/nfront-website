@@ -12,28 +12,27 @@ import CaseStudy from '@sections/CaseStudy';
 import News from '@sections/News';
 import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
+import SEO from '@utils/SEO';
 
 const App = () => (
     <Layout>
+        <SEO title={'nFront'} />
         <Navbar fluid />
         <Header fileName="SH.jpg" />
         <About />
         <Wave />
         <CaseStudy />
         <News accent="alt2" />
-        {/* <Link to="/news/">
-            <button className="button m-auto">View All News</button>
-        </Link> */}
         <Wave />
         <Testimonials />
         <CTA id="contact">
             <h2>Contact</h2>
             <p>
-                Are you an early stage company looking for funding or any
-                business in need of expert software development resources?
+                Are you an early-to-growth stage company, with global ambitions, looking for funding?
+                {/* <br/>Don't hesitate to reach out, we would be happy to dive in and see if we can help. */}
             </p>
             <Link to="/contact/">
-                <button className="button">Get in touch</button>
+                <button className="button center mt-0">Get in touch</button>
             </Link>
         </CTA>
         <Wave accent="dark" />

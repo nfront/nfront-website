@@ -8,10 +8,10 @@ import SEO from '@utils/SEO';
 import News from '@sections/News';
 
 export default () => {
-    const title = "What's New";
+    const title = "What's New?";
     return (
         <Layout>
-            <SEO title={title} />
+            <SEO title={'nFront - News'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>

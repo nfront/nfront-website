@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
-import Wave from '@utils/divider/wave';
 
 const PartnerGrid = styled(Grid)`
     /* margin-top: var(--spacer); */
@@ -15,12 +14,12 @@ const PartnerGrid = styled(Grid)`
 
 const Divider = styled.hr`
     @media (min-width: ${props => props.theme.screen.md}) {
-        border: 0;
-        border-top: 1px solid rgba(225, 225, 225, 0.2);
         margin: 3rem auto;
     }
     border: 0;
     border-top: 0px;
+    border-top: 1px solid rgba(225, 225, 225, 0.2);
+    margin: 2rem auto;
 `;
 
 const Bio = styled.div`
@@ -52,7 +51,7 @@ export default () => {
     const data = useStaticQuery(
         graphql`
             query {
-                file(relativePath: { eq: "magnus.jpg" }) {
+                file(relativePath: { eq: "magnus-gaarder.jpg" }) {
                     childImageSharp {
                         fixed(quality: 100, width: 300, height: 300) {
                             ...GatsbyImageSharpFixed
@@ -64,7 +63,7 @@ export default () => {
     );
     return (
         <>
-            <Section alt>
+            <Section>
                 <Container>
                     <SectionTitle>
                         <h2>nFront Team</h2>
@@ -137,7 +136,7 @@ export default () => {
                     </PartnerGrid>
                 </Container>
             </Section>
-            <Wave shade />
+            {/* <Wave shade /> */}
         </>
     );
 };

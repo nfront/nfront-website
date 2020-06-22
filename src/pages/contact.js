@@ -32,7 +32,7 @@ export default () => {
     const title = 'Contact Us';
     return (
         <Layout>
-            <SEO title={title} />
+            <SEO title={'nFront - Contact Us'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
