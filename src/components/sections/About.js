@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Section, Container, Box } from '@styles/global';
-import InvestmentFocus from '@sections/InvestmentFocus';
+import SweetSpot from '@sections/SweetSpot';
 import Fade from 'react-reveal/Fade';
 
 const StyledSection = styled(Section)``;
@@ -26,7 +26,7 @@ const About = () => (
                             5-10 month support programs help exceptional teams
                             prepare and execute strong fundraising processes. At
                             the end of the process, nFront participates as
-                            co-investors.
+                            a co-investor.
                         </p>
                         <Link to="/venture-capital/">
                             <button className="button small">
@@ -35,7 +35,7 @@ const About = () => (
                         </Link>
                 </Fade>
             </GRID>
-            <InvestmentFocus />
+            <SweetSpot />
         </StyledSection>
     </>
 );

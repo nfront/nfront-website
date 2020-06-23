@@ -111,7 +111,7 @@ export default () => {
                                 Analysts at nFront have backgrounds within
                                 entrepreneurship, operations, investment banking
                                 and consulting. They cover critical tasks such
-                                as investment screening, market analysis,
+                                as prospect screening, market analysis,
                                 co-investor outreach and materials for portfolio
                                 companies. The analysts are nFront’s backbone,
                                 united by a strong passion for technology and an

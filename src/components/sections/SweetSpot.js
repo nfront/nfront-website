@@ -72,7 +72,7 @@ export default () => {
                             Our core focus is on game-changing, capital
                             efficient, software propositions. We get excited by
                             fast-growing, scalable products operating in large
-                            markets not yet disrupted by technology.
+                            markets not yet fully disrupted by technology.
                         </Text>
                     </Box>
                 </Fade>
@@ -85,8 +85,8 @@ export default () => {
                         <p>Seed to Series-B</p>
                         <Text>
                             Our sweet spot is companies raising between €1m and
-                            €10m. For B2B SaaS platforms, we normally engage
-                            somewhere between €800k and €4m in annual revenues.
+                            €20m. For B2B SaaS platforms, we normally engage
+                            somewhere between €500k and €4m in annual revenues.
                         </Text>
                     </Box>
                 </Fade>

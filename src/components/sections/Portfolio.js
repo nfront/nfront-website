@@ -40,13 +40,20 @@ const Slide = styled.div`
 const Text = styled.div`
     p {
         font-size: 16px;
+        span {
+            font-weight: 700;
+        }
     }
     .label {
         font-size: 12px;
     }
 `;
 
-const Art = styled.div``;
+const Art = styled.div`
+    img {
+        height: 500px;
+    }
+`;
 
 export default () => {
     const isMobile =
@@ -56,7 +63,6 @@ export default () => {
             allContentfulCaseStudies {
                 nodes {
                     brand
-                    type
                     location
                     description {
                         description
@@ -75,13 +81,13 @@ export default () => {
     return (
         <StyledSection id="portfolio">
             <SectionTitle>
-                <h2>Recent Investments</h2>
+                <h2>Recent Portfolio Companies</h2>
             </SectionTitle>
             <StyledContainer>
                 {!isMobile ? (
                     <Carousel auto loop widgets={[Buttons, IndicatorDots]}>
                         {result.map(val => {
-                            const { brand, type, location, logo } = val;
+                            const { brand, location, logo } = val;
                             const { description } = val.description;
                             return (
                                 <Slide>
@@ -90,11 +96,12 @@ export default () => {
                                     </Art>
                                     <Text>
                                         <h2>{brand}</h2>
-                                        <p className="label">
+                                        <p className="label"><span>HQ:</span> {location}</p>
+                                        {/* <p className="label">
                                             case study: {type}
                                             <br />
                                             Location: {location}
-                                        </p>
+                                        </p> */}
                                         <p>{description}</p>
                                     </Text>
                                 </Slide>
@@ -104,17 +111,18 @@ export default () => {
                 ) : (
                     <>
                         {result.map(val => {
-                            const { brand, type, location, logo } = val;
+                            const { brand, location, logo } = val;
                             const { description } = val.description;
                             return (
                                 <>
                                     <Text>
                                         <h2>{brand}</h2>
-                                        <p className="label">
+                                        <p className="label">HQ: {location}</p>
+                                        {/* <p className="label">
                                             case study: {type}
                                             <br />
                                             Location: {location}
-                                        </p>
+                                        </p> */}
                                         <p>{description}</p>
                                     </Text>
                                     <Art>
