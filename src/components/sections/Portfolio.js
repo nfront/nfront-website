@@ -12,8 +12,9 @@ const StyledSection = styled(Section)``;
 
 const StyledContainer = styled(Container)`
     padding: 0 2.5rem;
+    /* height: 400px; */
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${props => props.theme.screen.xs}) {
         height: 400px;
     }
     @media (min-width: ${props => props.theme.screen.md}) {
@@ -30,28 +31,65 @@ const StyledContainer = styled(Container)`
 `;
 
 const Slide = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 2fr;
+    display: flex;
+    /* display: flex; */
+    /* grid-template-columns: 2fr 2fr; */
+    flex-flow: row nowrap;
     align-items: center;
-    justify-items: center;
-    overflow: hidden;
+    /* align-content: center; */
+    /* overflow: hidden; */
+    margin: 0 8%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    /* height: 100%; */
+`;
+
+const Art = styled.div`
+    flex: 0 1 50%;
+    text-align: center;
+    img {
+        max-height: 300px;
+        @media (min-width: ${props => props.theme.screen.md}) {
+            max-height: 400px;
+        }
+        @media (min-width: ${props => props.theme.screen.xs}) {
+            margin-bottom: 0;
+        }
+    }
 `;
 
 const Text = styled.div`
+    flex: 0 1 50%;
     p {
         font-size: 16px;
         span {
             font-weight: 700;
         }
     }
+    p:last-child {
+        @media (min-width: ${props => props.theme.screen.xs}) {
+            margin-bottom: 0;
+        }
+    }
+    p, h2 {
+        text-align: center;
+        @media (min-width: ${props => props.theme.screen.xs}) {
+            text-align: left;
+        }
+    }
     .label {
+        text-align: center;
+        @media (min-width: ${props => props.theme.screen.xs}) {
+            text-align: left;
+        }
         font-size: 12px;
     }
 `;
 
-const Art = styled.div`
-    img {
-        height: 500px;
+const Divider = styled.hr`
+    &:last-child {
+        display: none;
     }
 `;
 
@@ -85,7 +123,11 @@ export default () => {
             </SectionTitle>
             <StyledContainer>
                 {!isMobile ? (
-                    <Carousel auto loop widgets={[Buttons, IndicatorDots]}>
+                    <Carousel
+                        auto
+                        interval={7000}
+                        widgets={[Buttons, IndicatorDots]}
+                    >
                         {result.map(val => {
                             const { brand, location, logo } = val;
                             const { description } = val.description;
@@ -96,7 +138,9 @@ export default () => {
                                     </Art>
                                     <Text>
                                         <h2>{brand}</h2>
-                                        <p className="label"><span>HQ:</span> {location}</p>
+                                        <p className="label">
+                                            <span>HQ:</span> {location}
+                                        </p>
                                         {/* <p className="label">
                                             case study: {type}
                                             <br />
@@ -118,6 +162,12 @@ export default () => {
                                     <Text>
                                         <h2>{brand}</h2>
                                         <p className="label">HQ: {location}</p>
+                                        <Art>
+                                            <img
+                                                src={logo.fluid.src}
+                                                alt={brand}
+                                            />
+                                        </Art>
                                         {/* <p className="label">
                                             case study: {type}
                                             <br />
@@ -125,10 +175,7 @@ export default () => {
                                         </p> */}
                                         <p>{description}</p>
                                     </Text>
-                                    <Art>
-                                        <img src={logo.fluid.src} alt={brand} />
-                                    </Art>
-                                    <hr />
+                                    <Divider />
                                 </>
                             );
                         })}

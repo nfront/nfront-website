@@ -98,7 +98,7 @@ export default () => {
                         <h3>Geographies</h3>
                         <p>Europe and U.S.</p>
                         <Text>
-                            Mainly focused on Europe, but look at U.S.
+                            We are mainly focused on Europe, but look at U.S.
                             opportunistically. Regardless of home country, we
                             support businesses with international ambitions and
                             global potential.
