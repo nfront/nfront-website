@@ -125,6 +125,7 @@ export default () => {
                 {!isMobile ? (
                     <Carousel
                         auto
+                        loop
                         interval={7000}
                         widgets={[Buttons, IndicatorDots]}
                     >

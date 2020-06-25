@@ -7,7 +7,7 @@ import { useIsHome } from '@utils/hooks/useIsHome';
 const GRID = styled(Grid)`
     .grid-item {
         background: white;
-        border: 1px solid var(--border-color);
+        border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
@@ -15,9 +15,17 @@ const GRID = styled(Grid)`
 
 const Text = styled.div`
     padding: 1rem;
+    @media (min-width: ${props => props.theme.screen.md}) {
+        min-height: 300px;
+    }
 
     h3 {
         font-size: 100%;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+    }
+
+    .label {
         font-weight: 500;
     }
 
@@ -28,16 +36,18 @@ const Text = styled.div`
 
 const Art = styled.div`
     img {
-        height: auto;
+        /* height: auto; */
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
 
         @media (min-width: ${props => props.theme.screen.md}) {
-            min-height: 240px;
+            /* min-height: 240px; */
         }
     }
 `;
+
+// ALLWAYS USE IMAGES THAT ARE 16:9 FOR NEWS (PPT SLIDE SIZE. USE PPT TO MAKE IT.)
 
 export default function News(props) {
     const data = useStaticQuery(graphql`
@@ -86,8 +96,8 @@ export default function News(props) {
                                     />
                                 </Art>
                                 <Text>
-                                    <p className="label">{news.publishDate}</p>
                                     <h3>{news.title}</h3>
+                                    <p className="label">{news.publishDate}</p>
                                     <p>
                                         {
                                             news.metaDescription
