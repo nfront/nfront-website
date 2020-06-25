@@ -7,10 +7,10 @@ const StyledContainer = styled(Container)`
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    text-align: left;
+    text-align: center;
 
     @media (min-width: ${props => props.theme.screen.sm}) {
-        text-align: center;
+        /* text-align: center; */
     }
 
     span {
