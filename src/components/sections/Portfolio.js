@@ -72,7 +72,8 @@ const Text = styled.div`
             margin-bottom: 0;
         }
     }
-    p, h2 {
+    p,
+    h2 {
         text-align: center;
         @media (min-width: ${props => props.theme.screen.xs}) {
             text-align: left;
@@ -162,7 +163,9 @@ export default () => {
                                 <>
                                     <Text>
                                         <h2>{brand}</h2>
-                                        <p className="label">HQ: {location}</p>
+                                        <p className="label">
+                                            <span>HQ:</span> {location}
+                                        </p>
                                         <Art>
                                             <img
                                                 src={logo.fluid.src}

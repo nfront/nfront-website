@@ -213,10 +213,21 @@ ul > li::before {
     padding-bottom: 1rem !important;
 }
 
+.py-15 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
 .rounded {
     border-radius: 0.375rem !important;
 }
 
 .text-center {
+    text-align: center;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }

@@ -2,49 +2,84 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
-
-const PartnerGrid = styled(Grid)`
-    /* margin-top: var(--spacer); */
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(2, 1fr);
-        /* margin-top: 3rem; */
-    }
-`;
+import { Section, Container, SectionTitle } from '@styles/global';
 
 const Divider = styled.hr`
-    @media (min-width: ${props => props.theme.screen.md}) {
-        margin: 3rem auto;
-    }
-    border: 0;
-    border-top: 0px;
-    border-top: 1px solid rgba(225, 225, 225, 0.2);
-    margin: 2rem auto;
+    margin: 0 1.5rem 3rem 1.5rem;
+    padding: 0 1.5rem;
 `;
 
-const Bio = styled.div`
-    ${props =>
-        props.fluid &&
-        `
-        grid-column-start: span 2;
-    `};
+const Divider2 = styled(Divider)`
+    @media (min-width: ${props => props.theme.screen.md}) {
+        display: none;
+    }
+`;
 
+const StyledContainer = styled(Container)`
+    text-align: center;
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        text-align: left;
+    }
+`;
+
+const FlexBox = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        justify-content: left;
+    }
+    padding: 0 1.5rem;
+    margin-bottom: 3rem;
     h2 {
         font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
     }
-
     h3 {
         font-size: 100%;
         font-weight: 500;
+        margin-bottom: 1.5rem;
     }
-
     p {
         margin-bottom: 1rem;
-        &:last-child {
-            margin-bottom: 0rem;
-        }
     }
+    p:last-child {
+        margin-bottom: 0rem;
+    }
+`;
+
+const StyledImg = styled(Img)`
+    flex: 0 1 300px;
+    margin-right: 0rem;
+    margin-bottom: 1.5rem;
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        margin-right: 3rem;
+        /* text-align: left; */
+    }
+`;
+
+const Founder = styled.div`
+    flex: 1 1 400px;
+    /* margin-left: 1.5rem; */
+`;
+
+const Analysts = styled.div`
+    flex: 1 1 400px;
+    /* margin-right: 2rem; */
+    /* margin-left: 2rem; */
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        margin-right: 2rem;
+        text-align: left;
+        margin-left: 0rem;
+    }
+    p {
+        margin-bottom: 3rem;
+    }
+`;
+
+const Mentors = styled.div`
+    flex: 1 1 400px;
+    /* margin-left: 1.5rem; */
 `;
 
 export default () => {
@@ -53,8 +88,9 @@ export default () => {
             query {
                 file(relativePath: { eq: "magnus-gaarder.jpg" }) {
                     childImageSharp {
-                        fixed(quality: 100, width: 300, height: 300) {
-                            ...GatsbyImageSharpFixed
+                        fluid(maxWidth: 250, quality: 100) {
+                            ...GatsbyImageSharpFluid
+                            ...GatsbyImageSharpFluidLimitPresentationSize
                         }
                     }
                 }
@@ -64,7 +100,7 @@ export default () => {
     return (
         <>
             <Section>
-                <Container>
+                <StyledContainer>
                     <SectionTitle>
                         <h2>nFront Team</h2>
                         <p>
@@ -75,66 +111,71 @@ export default () => {
                             support, capital and exceptional co-investors.
                         </p>
                     </SectionTitle>
-                    <Divider></Divider>
-                    <Grid>
-                        <Img
+                    <Divider />
+                    <FlexBox>
+                        <StyledImg
                             className="rounded"
-                            fixed={data.file.childImageSharp.fixed}
+                            fluid={data.file.childImageSharp.fluid}
                             alt="Magnus Gaarder"
                         />
-                        <Bio fluid>
+                        <Founder>
                             <h2>Magnus Gaarder</h2>
                             <h3>Founding Partner</h3>
                             <p>
-                                Previously an Investment Manager at VC fund
-                                Nauta Capital in London. Magnus helped establish
-                                the fund’s London presence and was responsible
-                                for investments in Northern Europe.
+                                Magnus was previously a member of the investment
+                                team at venture capital fund Nauta Capital in
+                                London. His focus was on Series-A and Series-B
+                                software investments in Northern Europe,
+                                including companies such as ChannelSight and
+                                BeMyEye.
                             </p>
                             <p>
-                                Prior to Nauta, Magnus was a member of M&A
-                                boutique Portico Capital's European arm and an
-                                M&A-focused investment banker in New York.
+                                Prior to Nauta, Magnus was an M&A investment
+                                banker in London and in New York, specialized in
+                                healthcare and technology transaction.
                             </p>
                             <p>
                                 Magnus has degrees in computer science and
-                                finance from UPenn and NTNU, specialized in
-                                machine learning and financial engineering.
+                                finance from UPenn and NTNU, focused on machine
+                                learning and financial engineering.
                             </p>
-                        </Bio>
-                    </Grid>
-                    <Divider></Divider>
-                    <PartnerGrid>
-                        <Bio>
-                            <h2 class="mb-3">Investment Analysts</h2>
+                        </Founder>
+                    </FlexBox>
+                    <Divider />
+                    <FlexBox className="mb-0">
+                        <Analysts>
+                            <h2>Investment Analysts</h2>
                             <p>
                                 Analysts at nFront have backgrounds within
-                                entrepreneurship, operations, investment banking
-                                and consulting. They cover critical tasks such
-                                as prospect screening, market analysis,
-                                co-investor outreach and materials for portfolio
-                                companies. The analysts are nFront’s backbone,
-                                united by a strong passion for technology and an
-                                ambition to make a difference by bringing
-                                support and capital to exceptional founders.
+                                VC, entrepreneurship, operations,
+                                investment banking and consulting. They cover
+                                critical tasks such as prospect screening,
+                                market analysis, co-investor outreach and
+                                materials for portfolio companies. The analysts
+                                are nFront’s backbone, united by a strong
+                                passion for technology and an ambition to make a
+                                difference by bringing support and capital to
+                                exceptional founders.
                             </p>
-                        </Bio>
-                        <Bio>
-                            <h2 class="mb-3">Portfolio Mentors</h2>
+                            <Divider2 />
+                        </Analysts>
+                        <Mentors>
+                            <h2>Portfolio Mentors</h2>
                             <p>
                                 Our team members have over the years built one
                                 of Europe’s largest deal sharing and expert
                                 networks. Mentors are selected individuals from
-                                this network and include leading VCs, technology
-                                experts and entrepreneurs. These passionate
-                                people provide support to our portfolio
-                                companies, share deal flow with our team members
-                                and contribute with expert advice on new
-                                investment prospects.
+                                this network who provide support to our
+                                portfolio companies, share deal flow with our
+                                team members and contribute with expert advice
+                                on new investment prospects. They include
+                                leading VCs, successful entrepreneurs, decision
+                                makers at large corporations and technology
+                                experts.
                             </p>
-                        </Bio>
-                    </PartnerGrid>
-                </Container>
+                        </Mentors>
+                    </FlexBox>
+                </StyledContainer>
             </Section>
             {/* <Wave shade /> */}
         </>
