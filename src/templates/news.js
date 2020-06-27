@@ -1,11 +1,30 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import styled from 'styled-components';
 import Layout from '@common/layout';
 import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
+
+const StyledContainer = styled(Container)`
+    img {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        @media (min-width: ${props => props.theme.screen.md}) {
+            max-width: 800px;
+        }
+        margin-bottom: 3rem;
+    }
+    iframe {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 3rem 0;
+    }
+`;
 
 export default ({ data }) => {
     const { title, body, heroImage, publishDate } = data.contentfulPost;
@@ -34,13 +53,13 @@ export default ({ data }) => {
                 </BackgroundImage>
             )}
             <Section>
-                <Container>
+                <StyledContainer>
                     <div
                         dangerouslySetInnerHTML={{
                             __html: body.childMarkdownRemark.html,
                         }}
                     ></div>
-                </Container>
+                </StyledContainer>
             </Section>
             <Footer />
         </Layout>

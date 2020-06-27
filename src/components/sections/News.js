@@ -64,7 +64,7 @@ export default function News(props) {
                         publishDate(formatString: "MMMM DD, YYYY")
                         metaDescription {
                             childMarkdownRemark {
-                                excerpt
+                                excerpt(pruneLength: 200)
                             }
                         }
                         heroImage {
