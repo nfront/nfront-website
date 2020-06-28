@@ -47,7 +47,7 @@ export default () => {
                         <Contact />
                         <div className="">
                             <div class="label">Drop us an email at</div>
-                            <p>info@nfront.io</p>
+                            <p>info@nfrontventures.com</p>
                             <div class="label">Visit us at</div>
                             <p>
                                 <ExternalLink href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
