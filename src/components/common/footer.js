@@ -96,12 +96,12 @@ export default function Footer(props) {
                 <GRID>
                     <div>
                         <p className="label">Headquarters</p>
-                        <p>Tollbugata 24, 0157,<br/>Oslo, Norway</p>
                         <p>
-                            Los Angeles, CA
+                            Tollbugata 24, 0157,
                             <br />
-                            Warsaw, Poland
+                            Oslo, Norway
                         </p>
+                        <p>London, United Kingdom</p>
                     </div>
                     <div>
                         <p className="label">NFRONT</p>
