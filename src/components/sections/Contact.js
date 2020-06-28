@@ -12,12 +12,12 @@ function encode(data) {
 
 const ContactForm = () => (
     <Formik
-        initialValues={{ name: '', email: '', message: '' }}
+        initialValues={{ firstname: '', lastname: '', email: '', message: '' }}
         validate={values => {
             let errors = {};
-            if (!values.name) {
+            if (!values.firstname || !values.firstname) {
                 errors.name = 'Name is required';
-            } else if (values.name.length < 3) {
+            } else if (values.firstname.length < 3 || values.lastname.length < 3) {
                 errors.name = 'Name is too short';
             }
             if (!values.email) {
@@ -28,7 +28,7 @@ const ContactForm = () => (
                 errors.email = 'Invalid email address';
             }
             if (!values.message) {
-                errors.message = 'Say something, maybe?';
+                errors.message = 'What is your message?';
             } else if (values.message.length < 20) {
                 errors.message = 'Message is too short';
             }
@@ -53,19 +53,37 @@ const ContactForm = () => (
             <Form name="Contact Form" data-netlify="true" action="/thanks">
                 <input type="hidden" name="form-name" value="Contact Form" />
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="firstname">First Name</label>
                     <Field
                         type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Your Name"
+                        name="firstname"
+                        id="firstname"
+                        placeholder="Your First Name"
                         className={
                             errors.name && touched.name ? ' has-error' : ''
                         }
                         autocomplete="off"
                     />
                     <ErrorMessage
-                        name="name"
+                        name="firstname"
+                        component="code"
+                        className="error-message"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="lastname">Last Name</label>
+                    <Field
+                        type="text"
+                        name="lastname"
+                        id="lastname"
+                        placeholder="Your Last Name"
+                        className={
+                            errors.name && touched.name ? ' has-error' : ''
+                        }
+                        autocomplete="off"
+                    />
+                    <ErrorMessage
+                        name="lastname"
                         component="code"
                         className="error-message"
                     />

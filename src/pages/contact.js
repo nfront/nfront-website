@@ -37,8 +37,8 @@ export default () => {
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
                 <p>
-                    Whether for fundraising or otherwise, please reach out below
-                    and we will get back to you as soon as possible.
+                    Please reach out below and we will get back to you as soon
+                    as possible.
                 </p>
             </Hero>
             <StyledSection>
