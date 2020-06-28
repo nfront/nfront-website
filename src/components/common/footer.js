@@ -101,7 +101,6 @@ export default function Footer(props) {
                             <br />
                             Oslo, Norway
                         </p>
-                        <p>London, United Kingdom</p>
                     </div>
                     <div>
                         <p className="label">NFRONT</p>
