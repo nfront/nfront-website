@@ -12,16 +12,12 @@ import Email from '@static/icons/email.svg';
 
 const SOCIAL = [
     {
-        icon: Facebook,
-        link: '/',
-    },
-    {
         icon: Linkedin,
-        link: '/',
+        link: 'https://www.linkedin.com/company/nFrontVentures',
     },
     {
         icon: Twitter,
-        link: '/',
+        link: 'https://twitter.com/nFrontVentures',
     },
     {
         icon: Email,
