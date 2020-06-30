@@ -7,7 +7,6 @@ import ExternalLink from '@utils/externalLink';
 /** social icons */
 import Twitter from '@static/icons/twitter.svg';
 import Linkedin from '@static/icons/linkedin.svg';
-import Facebook from '@static/icons/facebook.svg';
 import Email from '@static/icons/email.svg';
 
 const SOCIAL = [

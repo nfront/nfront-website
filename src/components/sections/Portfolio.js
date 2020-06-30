@@ -60,7 +60,9 @@ const Art = styled.div`
 `;
 
 const Text = styled.div`
-    flex: 0 1 50%;
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        flex: 0 1 50%;
+    }
     p {
         font-size: 16px;
         span {
