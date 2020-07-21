@@ -16,7 +16,7 @@ import Testimonials from '@sections/Testimonials';
 
 export default () => (
     <Layout>
-        <SEO title={'nFront - Thesis'} />
+        <SEO title={'Thesis'} />
         <Navbar fluid />
         <Hero fileName="LA.jpg">
             <h2>nFront Ventures</h2>

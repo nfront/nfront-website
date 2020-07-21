@@ -7,7 +7,7 @@ module.exports = {
     siteMetadata: {
         title: `nFront`,
         siteUrl: `https://nfront.io`,
-        description: `nFront - Venture Capital and Software Development.`,
+        description: `nFront Ventures - Provides capital and operational support to companies across various stages.`,
         keywords: ``,
         author: ``,
         social: {

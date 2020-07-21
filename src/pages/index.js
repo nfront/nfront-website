@@ -16,7 +16,7 @@ import SEO from '@utils/SEO';
 
 const App = () => (
     <Layout>
-        <SEO title={'nFront'} />
+        <SEO title={'Capital and Fundraising'} />
         <Navbar fluid />
         <Header fileName="SH.jpg" />
         <About />

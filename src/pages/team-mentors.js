@@ -12,7 +12,7 @@ import Team from '@sections/Team';
 
 export default () => (
     <Layout>
-        <SEO title={'nFront - Team & Mentors'} />
+        <SEO title={'Team & Mentors'} />
         <Navbar fluid />
         <Hero fileName="LA.jpg">
             <h2>Team & Mentors</h2>

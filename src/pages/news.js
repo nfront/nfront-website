@@ -11,7 +11,7 @@ export default () => {
     const title = "What's New?";
     return (
         <Layout>
-            <SEO title={'nFront - News'} />
+            <SEO title={'News'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
