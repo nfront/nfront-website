@@ -28,7 +28,7 @@ const About = () => (
                             the end of the process, nFront participates as
                             a co-investor.
                         </p>
-                        <Link to="/venture-capital/">
+                        <Link to="/thesis/">
                             <button className="button small">
                                 Find out more
                             </button>

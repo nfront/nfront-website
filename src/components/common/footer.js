@@ -101,7 +101,7 @@ export default function Footer(props) {
                         <p className="label">NFRONT VENTURES</p>
                         <ul>
                             <li>
-                                <Link to="/venture-capital/">Thesis</Link>
+                                <Link to="/thesis/">Thesis</Link>
                             </li>
                             <li>
                                 <Link to="/">Portfolio</Link>
