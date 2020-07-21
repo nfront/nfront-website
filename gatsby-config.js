@@ -5,8 +5,8 @@ require('dotenv').config({
 
 module.exports = {
     siteMetadata: {
-        title: `nFront`,
-        siteUrl: `https://nfront.io`,
+        title: `nFront Ventures`,
+        siteUrl: `https://nfrontventures.com`,
         description: `nFront Ventures - Provides capital and operational support to companies across various stages.`,
         keywords: ``,
         author: ``,
@@ -15,6 +15,7 @@ module.exports = {
         },
     },
     plugins: [
+        `gatsby-plugin-sitemap`,
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -98,7 +99,7 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `nFront`,
+                name: `nFront Ventures`,
                 short_name: `nFront`,
                 start_url: `/`,
                 background_color: `#0C1729`,

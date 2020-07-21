@@ -1,7 +1,7 @@
 {
   "name": "nfront-website",
   "private": true,
-  "description": "A starter template to build a React and Gatsby-powered blog",
+  "description": "nFront Ventures",
   "version": "1.0.0",
   "author": "Magnus Gaarder",
   "dependencies": {
@@ -20,6 +20,7 @@
     "gatsby-plugin-react-helmet": "^3.3.1",
     "gatsby-plugin-sass": "^2.3.1",
     "gatsby-plugin-sharp": "^2.6.2",
+    "gatsby-plugin-sitemap": "^2.4.11",
     "gatsby-plugin-styled-components": "^3.3.1",
     "gatsby-plugin-svgr": "^2.0.1",
     "gatsby-plugin-typography": "^2.5.1",

@@ -21,7 +21,7 @@ const About = () => (
                 <Fade top>
                         <h2>Support and Capital</h2>
                         <p>
-                            nFront provides operational support and capital to a
+                            nFront Ventures provides operational support and capital to a
                             small group of stand-out companies per year. The
                             5-10 month support programs help exceptional teams
                             prepare and execute strong fundraising processes. At

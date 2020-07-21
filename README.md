@@ -1,3 +1,3 @@
-# nFront
+# nFront Ventures
 
-nFront helps companies innovate and grow with capital, strategy support and software development.
+nFront Ventures provides operational support and capital to a small group of stand-out companies per year.

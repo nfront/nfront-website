@@ -98,7 +98,7 @@ export default function Footer(props) {
                         </p>
                     </div>
                     <div>
-                        <p className="label">NFRONT</p>
+                        <p className="label">NFRONT VENTURES</p>
                         <ul>
                             <li>
                                 <Link to="/venture-capital/">Thesis</Link>

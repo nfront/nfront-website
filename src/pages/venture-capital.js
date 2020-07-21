@@ -25,8 +25,7 @@ export default () => (
                 groundbreaking ideas.
             </p>
         </Hero>
-        <Thesis />
-        {/* <NFrontProcess /> */}
+        <Thesis />        
         <CoInvestors />
         <Testimonials />
         <CTA>
