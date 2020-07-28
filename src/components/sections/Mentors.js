@@ -33,33 +33,42 @@ const MentorGrid = styled(Grid)`
 `;
 
 const Text = styled.div`
+        /* text-align: center; */
     p {
         color: var(--yellow);
-        margin: 10px 0 5px 0;
+        margin: 10px auto 5px auto;
+        width: 220px;
+        text-align: left;
     }
     label {
         color: var(--border-color);
         font-weight: 400;
+        width: 220px;
+        margin: 0 auto;
+        text-align: left;
     }
     label:nth-child(3) {
         /* color: var(--orange); */
     }
     label:last-child {
-        color: var(--orange);
-        font-style: italic;
+        /* color: var(--orange); */
+        /* font-style: italic; */
+        font-weight: bold;
     }
 `;
 
 const Art = styled.div`
     width: 100%;
+    /* text-align: left; */
 
     img {
         min-width: 220px;
         border-radius: 0%;
-        border: 2px solid var(--border-color);
+        border: none;
         margin-top: 2rem;
         margin-bottom: 0;
-        transition: 0.15s ease-in-out;
+        /* transition: 0.15s ease-in-out; */
+        filter: grayscale(100%);
 
         &:hover {
             border-color: var(--primary-color);
