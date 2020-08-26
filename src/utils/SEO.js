@@ -32,6 +32,7 @@ export default function SEO({
     const metaDescription = description || data.site.siteMetadata.description;
     const metaImage = data.site.siteMetadata.siteUrl + (image || defaultImage);
     const metaUrl = `${data.site.siteMetadata.siteUrl}${pathname}`;
+    const metaTitle = data.site.siteMetadata.title;
 
     return (
         <Helmet
@@ -39,11 +40,15 @@ export default function SEO({
                 lang,
             }}
             title={title}
-            titleTemplate={`%s | ${data.site.siteMetadata.title}`}
+            titleTemplate={`%s | ${metaTitle}`}
             meta={[
                 {
                     name: `description`,
                     content: metaDescription,
+                },
+                {
+                    name: `og:site_name`,
+                    content: metaTitle,
                 },
                 {
                     property: `og:title`,

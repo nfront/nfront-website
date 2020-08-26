@@ -46,7 +46,9 @@ const Slide = styled.div`
 `;
 
 const Art = styled.div`
-    flex: 0 1 50%;
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        flex: 0 1 50%;
+    }
     text-align: center;
     img {
         max-height: 300px;
@@ -63,17 +65,20 @@ const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
+
     p {
         font-size: 16px;
         span {
             font-weight: 700;
         }
     }
+
     p:last-child {
         @media (min-width: ${props => props.theme.screen.xs}) {
             margin-bottom: 0;
         }
     }
+
     p,
     h2 {
         text-align: center;
@@ -81,6 +86,7 @@ const Text = styled.div`
             text-align: left;
         }
     }
+
     .label {
         text-align: center;
         @media (min-width: ${props => props.theme.screen.xs}) {
