@@ -6,7 +6,6 @@ import IndicatorDots from '@utils/carousel/indicator-dots';
 import styled from 'styled-components';
 import { Section, Container, SectionTitle } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
-// import { useWindowWidth } from '@utils/hooks/useIsMobile';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
@@ -127,7 +126,6 @@ const FundList = styled.div`
 `;
 
 export default () => {
-    // const isMobile = typeof window !== 'undefined' && useWindowWidth() <= 575;
     const windowWidth = useWindowSize().width;
     const isMobile = windowWidth <= 575;
     const data = useStaticQuery(graphql`
