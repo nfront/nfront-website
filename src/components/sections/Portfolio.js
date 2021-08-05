@@ -128,8 +128,9 @@ const FundList = styled.div`
 
 export default () => {
     // const isMobile = typeof window !== 'undefined' && useWindowWidth() <= 575;
-    const { width } = useWindowDimensions();
-    const isMobile = width <= 575;
+    const { width: windowWidth = 480 } = useWindowDimensions();
+    console.log('width: ', windowWidth);
+    const isMobile = windowWidth <= 575;
     console.log('isMobile: ', isMobile);
     const data = useStaticQuery(graphql`
         query {
