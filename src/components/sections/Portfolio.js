@@ -209,6 +209,8 @@ export default () => {
                                                 alt={brand}
                                             />
                                         </Art>
+
+                                        <p>{description}</p>
                                         <FundList className="label">
                                             <span>Lead Investors:</span>
                                             <ul>
@@ -219,7 +221,6 @@ export default () => {
                                                 ))}
                                             </ul>
                                         </FundList>
-                                        <p>{description}</p>
                                     </Text>
                                     <Divider />
                                 </>
