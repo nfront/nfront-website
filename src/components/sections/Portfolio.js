@@ -176,7 +176,7 @@ export default () => {
                                             <span>HQ:</span> {location}
                                         </p>
                                         <FundList className="label">
-                                            <span>Selected Investors:</span>
+                                            <span>Lead Investors:</span>
                                             <ul>
                                                 {cInvestors.map((investor, index) => (
                                                     <li key={index}>
@@ -210,7 +210,7 @@ export default () => {
                                             />
                                         </Art>
                                         <FundList className="label">
-                                            <span>Selected Investors:</span>
+                                            <span>Lead Investors:</span>
                                             <ul>
                                                 {cInvestors.map((investor, index) => (
                                                     <li key={index}>
