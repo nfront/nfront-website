@@ -15,11 +15,11 @@ const StyledContainer = styled(Container)`
     /* height: 400px; */
 
     @media (min-width: ${props => props.theme.screen.xs}) {
-        height: 400px;
-    }
-    @media (min-width: ${props => props.theme.screen.md}) {
         height: 500px;
     }
+    /* @media (min-width: ${props => props.theme.screen.md}) {
+        height: 500px;
+    } */
 
     h2 {
         font-size: 1.5rem;
@@ -102,6 +102,29 @@ const Divider = styled.hr`
     }
 `;
 
+const FundList = styled.div`
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        /* margin-top: -1.666rem; */
+    }
+    margin-bottom: 1.666rem;
+    span {
+        font-weight: 700;
+    }
+    ul {
+        list-style-position: inside;
+        list-style-type: none;
+        @media (min-width: ${props => props.theme.screen.xs}) {
+            list-style-type: inherit;
+        }
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 0rem;
+            margin: 0rem;
+        }
+    }
+`;
+
 export default () => {
     const isMobile =
         typeof window !== 'undefined' && useWindowWidth() <= 575; /** */
@@ -120,6 +143,7 @@ export default () => {
                         }
                     }
                     link
+                    cInvestors
                 }
             }
         }
@@ -139,7 +163,7 @@ export default () => {
                         widgets={[Buttons, IndicatorDots]}
                     >
                         {result.map(val => {
-                            const { brand, location, logo } = val;
+                            const { brand, location, logo, cInvestors } = val;
                             const { description } = val.description;
                             return (
                                 <Slide>
@@ -151,11 +175,16 @@ export default () => {
                                         <p className="label">
                                             <span>HQ:</span> {location}
                                         </p>
-                                        {/* <p className="label">
-                                            case study: {type}
-                                            <br />
-                                            Location: {location}
-                                        </p> */}
+                                        <FundList className="label">
+                                            <span>Selected Investors:</span>
+                                            <ul>
+                                                {cInvestors.map((investor, index) => (
+                                                    <li key={index}>
+                                                        {investor}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </FundList>
                                         <p>{description}</p>
                                     </Text>
                                 </Slide>
@@ -165,7 +194,7 @@ export default () => {
                 ) : (
                     <>
                         {result.map(val => {
-                            const { brand, location, logo } = val;
+                            const { brand, location, logo, cInvestors } = val;
                             const { description } = val.description;
                             return (
                                 <>
@@ -180,11 +209,16 @@ export default () => {
                                                 alt={brand}
                                             />
                                         </Art>
-                                        {/* <p className="label">
-                                            case study: {type}
-                                            <br />
-                                            Location: {location}
-                                        </p> */}
+                                        <FundList className="label">
+                                            <span>Selected Investors:</span>
+                                            <ul>
+                                                {cInvestors.map((investor, index) => (
+                                                    <li key={index}>
+                                                        {investor}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </FundList>
                                         <p>{description}</p>
                                     </Text>
                                     <Divider />
