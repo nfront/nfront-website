@@ -131,8 +131,7 @@ export default () => {
                             </p>
                             <p>
                                 Prior to Nauta, Magnus was an M&A investment
-                                banker in London and in New York, specialized in
-                                healthcare and technology transaction.
+                                banker in London and in New York, specialized in technology and healthcare transactions respectively.
                             </p>
                             <p>
                                 Magnus has degrees in computer science and
