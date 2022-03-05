@@ -11,6 +11,9 @@ const Placeholder = styled.div`
         @media (min-width: ${props => props.theme.screen.sm}) {
             min-height: 60vh;
         }
+        @media (min-width: ${props => props.theme.screen.lg}) {
+            min-height: 70vh;
+        }
     }
 
     ${props =>

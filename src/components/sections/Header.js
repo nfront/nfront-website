@@ -30,7 +30,7 @@ const Form = styled(Box)`
 
 **/
 
-const HeaderWrapper = styled(Container)`
+export const HeaderWrapper = styled(Container)`
     position: absolute;
     left: 0;
     top: 0;
@@ -48,7 +48,7 @@ const HeaderWrapper = styled(Container)`
     }
 `;
 
-const HeaderText = styled.h1`
+export const HeaderText = styled.h1`
     color: var(--accent-color);
     font-size: 2rem;
     font-weight: 900;
@@ -87,7 +87,7 @@ const HeaderText = styled.h1`
     }
 `;
 
-const Text = styled.h2`
+export const Text = styled.h2`
     color: var(--yellow);
     margin-bottom: 0;
     font-weight: 400;
