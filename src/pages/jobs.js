@@ -4,12 +4,15 @@ import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
-import { Section, Container, Box, SectionTitle } from '@styles/global';
-import Fade from 'react-reveal/Fade';
+import { Container } from '@styles/global';
 import Jobs from '../components/sections/Jobs';
-import { HeaderText } from '../components/sections/Header';
 import styled from 'styled-components';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
+const JobSection = styled.div`
+    .gatsby-image-wrapper {
+        min-height: 100vh;
+    }
+`;
 const SearchBox = styled(Container)`
     background-color: white;
     width: 100%;
@@ -21,10 +24,13 @@ const SearchBox = styled(Container)`
     }
 `;
 const FormFields = styled(Container)`
-    display: flex;
     justify-content: space-between;
+    flex-direction: row;
     padding: 1rem;
     justify-item: center;
+    @media (min-width: ${props => props.theme.screen.lg}) {
+        display: flex;
+    }
     input,
     button {
         margin: 8px 10px;
@@ -38,111 +44,64 @@ const JobHeaderSection = styled.div`
     span {
         color: var(--yellow);
     }
+    margin-bottom: -2rem;
 `;
 export default () => {
-    // const title = ' Search Between More Then 50,000 Open Jobs.';
     return (
         <Layout>
-            <SEO title={'Jobs'} />
-            <Navbar fluid />
-            <Hero fileName="LA.jpg">
-                <JobHeaderSection>
-                    <h2>
-                        Search Between More Then <span>50,000</span> Open Jobs.
-                    </h2>
-                    <p>
-                        Please reach out below and we will get back to you as
-                        soon as possible.
-                    </p>
-                    <SearchBox>
-                        {' '}
-                        <Formik>
-                            <Form
-                                name="Contact Form"
-                                // data-netlify="true"
-                                // action="/thanks"
-                            >
-                                <FormFields>
-                                    <Field
-                                        type="text"
-                                        name="firstname"
-                                        id="firstname"
-                                        placeholder="Job Title, Keywords, or Phrase"
-                                        // className={
-                                        //     errors.name && touched.name
-                                        //         ? ' has-error'
-                                        //         : ''
-                                        // }
-                                        autocomplete="off"
-                                    />
-                                    <ErrorMessage
-                                        name="firstname"
-                                        component="code"
-                                        className="error-message"
-                                    />
-                                    <Field
-                                        type="text"
-                                        name="lastname"
-                                        id="lastname"
-                                        placeholder="City, State or ZIP"
-                                        // className={
-                                        //     errors.name && touched.name
-                                        //         ? ' has-error'
-                                        //         : ''
-                                        // }
-                                        autocomplete="off"
-                                    />
-                                    {/* <ErrorMessage
-                                            name="lastname"
-                                            component="code"
-                                            className="error-message"
-                                        /> */}
-                                    <Field
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        select
-                                        placeholder="Select Selector"
-                                        // className={
-                                        //     errors.email && touched.email
-                                        //         ? ' has-error'
-                                        //         : ''
-                                        // }
-                                        autocomplete="off"
-                                    />
-                                    {/* <ErrorMessage
-                                            name="email"
-                                            component="code"
-                                            className="error-message"
-                                        /> */}
-                                    {/* </div> */}
-                                    <button className="button" type="submit">
-                                        Submit
-                                    </button>
-                                </FormFields>
-                            </Form>
-                        </Formik>
-                    </SearchBox>
-                </JobHeaderSection>
-
-                {/* <h2>{title}</h2>
-                <JobHeaderSection id="top">
-                    <div>
-                        <Fade bottom>
-                            <HeaderText>
-                                Search Between More Then <span>50,000</span>{' '}
-                                Open Jobs.
-                                <p>
-                                    Find Jobs, Employment & Career Opportunities
-                                </p>
-                            </HeaderText>
-                        </Fade>
-                    </div>
-                    <SearchBox>box</SearchBox>
-                </JobHeaderSection> */}
-            </Hero>
-            <Jobs />
-            <Footer />
+            <JobSection>
+                <SEO title={'Jobs'} />
+                <Navbar fluid />
+                <Hero fileName="LA.jpg">
+                    <JobHeaderSection>
+                        <h2>
+                            Search Between More Then <span>50,000</span> Open
+                            Jobs.
+                        </h2>
+                        <p>
+                            Please reach out below and we will get back to you
+                            as soon as possible.
+                        </p>
+                        <SearchBox>
+                            {' '}
+                            <Formik>
+                                <Form>
+                                    <FormFields>
+                                        <Field
+                                            type="text"
+                                            name="title"
+                                            id="title"
+                                            placeholder="Job Title, Keywords, or Phrase"
+                                            autocomplete="off"
+                                        />
+                                        <Field
+                                            type="text"
+                                            name="location"
+                                            id="location"
+                                            placeholder="City, State or ZIP"
+                                            autocomplete="off"
+                                        />
+                                        <Field
+                                            type="select"
+                                            name="type"
+                                            id="type"
+                                            placeholder="Select Selector"
+                                        />
+                                        <button
+                                            className="button"
+                                            type="submit"
+                                        >
+                                            Submit
+                                        </button>
+                                    </FormFields>
+                                </Form>
+                            </Formik>
+                        </SearchBox>
+                    </JobHeaderSection>
+                </Hero>
+                <Jobs />
+                <Footer />
+            </JobSection>
         </Layout>
     );
 };
