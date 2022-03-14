@@ -13,7 +13,6 @@ import News from '@sections/News';
 import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
 import SEO from '@utils/SEO';
-import Job from '../components/sections/Jobs';
 
 const App = () => (
     <Layout>

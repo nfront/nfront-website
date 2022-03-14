@@ -8,6 +8,7 @@ import { Container } from '@styles/global';
 import Jobs from '../components/sections/Jobs';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
+
 const JobSection = styled.div`
     .gatsby-image-wrapper {
         min-height: 100vh;
