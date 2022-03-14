@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import { useStaticQuery, graphql } from 'gatsby';
 import wave from '@images/art/wave.svg';
+import Fade from 'react-reveal/Fade';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -64,6 +65,7 @@ const GRID = styled(Grid)`
 const Text = styled.div`
     padding: 1.5rem 0.5rem;
     text-align: center;
+    overflow: hidden;
     h3 {
         font-weight: 500;
         margin-bottom: 0.4rem;
@@ -117,26 +119,28 @@ export default function Categories() {
     return (
         <Section>
             <Container>
-                <StyledTitle>
-                    <div>
-                        <h2>Popular Categories</h2>
-                        <span>20+ Catetories work wating for you</span>
-                    </div>
-                    <TotalCategories>
+                <Fade top>
+                    <StyledTitle>
                         <div>
-                            <h2>1800</h2>
-                            <span>Jobs Posted</span>
+                            <h2>Popular Categories</h2>
+                            <span>20+ Catetories work wating for you</span>
                         </div>
-                        <div>
-                            <h2>4500</h2>
-                            <span>Tasks Posted</span>
-                        </div>
-                        <div>
-                            <h2>1500</h2>
-                            <span>Freelancers</span>
-                        </div>
-                    </TotalCategories>
-                </StyledTitle>
+                        <TotalCategories>
+                            <div>
+                                <h2>1800</h2>
+                                <span>Jobs Posted</span>
+                            </div>
+                            <div>
+                                <h2>4500</h2>
+                                <span>Tasks Posted</span>
+                            </div>
+                            <div>
+                                <h2>1500</h2>
+                                <span>Freelancers</span>
+                            </div>
+                        </TotalCategories>
+                    </StyledTitle>
+                </Fade>
             </Container>
             <Container>
                 <GRID>
@@ -149,8 +153,10 @@ export default function Categories() {
                                     <img src={coverImg.fluid.src} alt={'img'} />
                                 </Art>
                                 <Text>
-                                    <h3>{title}</h3>
-                                    <p>{positions} Open Positions</p>
+                                    <Fade left>
+                                        <h3>{title}</h3>
+                                        <p>{positions} Open Positions</p>
+                                    </Fade>
                                 </Text>
                             </div>
                         );
