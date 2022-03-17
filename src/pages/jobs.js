@@ -2,10 +2,9 @@ import React from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
-import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import { Container } from '@styles/global';
-import Jobs from '../components/sections/Jobs';
+import Jobs from '@components/sections/Jobs';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
 
@@ -101,7 +100,6 @@ export default () => {
                     </JobHeaderSection>
                 </Hero>
                 <Jobs />
-                <Footer />
             </JobSection>
         </Layout>
     );

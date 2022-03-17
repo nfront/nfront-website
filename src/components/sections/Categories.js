@@ -115,7 +115,6 @@ export default function Categories() {
         }
     `);
     const results = data.allContentfulCategories.nodes;
-    console.log(results);
     return (
         <Section>
             <Container>
