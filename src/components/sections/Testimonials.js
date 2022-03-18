@@ -99,7 +99,11 @@ export default () => {
                                         alt={name}
                                     />
                                 </Art>
-                                <p>{line1}<br/>{line2}</p>
+                                <p>
+                                    {line1}
+                                    <br />
+                                    {line2}
+                                </p>
                                 <p className="label">{name}</p>
                             </Slide>
                         );
