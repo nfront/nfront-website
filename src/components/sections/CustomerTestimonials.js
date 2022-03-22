@@ -1,10 +1,10 @@
 import React from 'react';
 import { Section, SectionTitle, Container } from '@styles/global';
 import { useStaticQuery, graphql } from 'gatsby';
-import Carousel from 're-carousel';
-import IndicatorDots from '@utils/carousel/indicator-dots';
-import Img from 'gatsby-image';
 import styled from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // import { Section, Container, SectionTitle } from '@styles/global';
 export default function CustomerTestimonials() {
     const StyledContainer = styled(Container)`
@@ -24,7 +24,9 @@ export default function CustomerTestimonials() {
         overflow: hidden;
         text-align: center;
         height: 100%;
-
+        p {
+            margin: 0;
+        }
         @media (min-width: ${props => props.theme.screen.sm}) {
             padding: 0 3rem;
         }
@@ -33,10 +35,21 @@ export default function CustomerTestimonials() {
     const Art = styled.div`
         width: 100%;
         margin-bottom: 1rem;
+
+        display: flex;
+        justify-content: center;
+
         img {
             border-radius: 50%;
         }
     `;
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+    };
     const data = useStaticQuery(graphql`
         query {
             allContentfulCustomerTestimonials {
@@ -62,7 +75,7 @@ export default function CustomerTestimonials() {
                 <p>Few words from candidates</p>
             </SectionTitle>
             <StyledContainer>
-                <Carousel auto interval={8000} loop widgets={[IndicatorDots]}>
+                <Slider {...settings}>
                     {results.map(({ title, candidate, avatar }) => {
                         return (
                             <Slide>
@@ -73,12 +86,12 @@ export default function CustomerTestimonials() {
                                         alt={candidate}
                                     />
                                 </Art>
-                                <p>{title}</p>
                                 <p className="label">{candidate}</p>
+                                <p className="label">{title}</p>
                             </Slide>
                         );
                     })}
-                </Carousel>
+                </Slider>
             </StyledContainer>
         </Section>
     );
