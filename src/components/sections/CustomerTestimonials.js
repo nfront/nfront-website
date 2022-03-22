@@ -2,15 +2,44 @@ import React from 'react';
 import { Section, SectionTitle, Container } from '@styles/global';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
+import useWindowSize from '@utils/hooks/useWindowSize';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import { Section, Container, SectionTitle } from '@styles/global';
+
 export default function CustomerTestimonials() {
     const StyledContainer = styled(Container)`
         padding: 0 2.5rem;
+        .slick-center .tooltip {
+            background-color: var(--primary-color);
+            color: white;
+            position: relative;
+            transition: all 0.5s;
+        }
+        .slick-center .tooltip::after {
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid  var(--primary-color);
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var9--white);
+            transform: translate(-50%,-0%);
+        }
+        .tooltip {
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
         height: 500px;
-
+        p {
+            margin: 0;
+        }
         @media (min-width: ${props => props.theme.screen.sm}) {
             height: 400px;
         }
@@ -24,11 +53,8 @@ export default function CustomerTestimonials() {
         overflow: hidden;
         text-align: center;
         height: 100%;
-        p {
-            margin: 0;
-        }
         @media (min-width: ${props => props.theme.screen.sm}) {
-            padding: 0 3rem;
+            padding: 0 2rem;
         }
     `;
 
@@ -43,19 +69,30 @@ export default function CustomerTestimonials() {
             border-radius: 50%;
         }
     `;
+    const windowWidth = useWindowSize().width;
+    const isMobile = windowWidth <= 768;
+
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: isMobile ? 1 : 3,
         slidesToScroll: 1,
+        autoplay: true,
+        centerMode: true,
+        centerPadding: '10px',
+        className: 'center',
     };
     const data = useStaticQuery(graphql`
         query {
             allContentfulCustomerTestimonials {
                 nodes {
                     title
-                    # tooltip
+                    tooltip {
+                        childMarkdownRemark {
+                            excerpt(pruneLength: 200)
+                        }
+                    }
                     candidate
                     avatar {
                         fluid(quality: 100) {
@@ -66,8 +103,8 @@ export default function CustomerTestimonials() {
             }
         }
     `);
+
     const results = data.allContentfulCustomerTestimonials.nodes;
-    console.log(results);
     return (
         <Section>
             <SectionTitle>
@@ -76,10 +113,13 @@ export default function CustomerTestimonials() {
             </SectionTitle>
             <StyledContainer>
                 <Slider {...settings}>
-                    {results.map(({ title, candidate, avatar }) => {
+                    {results.map(({ title, candidate, avatar, tooltip }) => {
                         return (
                             <Slide>
-                                {/* <p>{tooltip}</p> */}
+                                <p className="tooltip">
+                                    {' '}
+                                    {tooltip.childMarkdownRemark.excerpt}
+                                </p>
                                 <Art>
                                     <img
                                         src={avatar.fluid.src}
