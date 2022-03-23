@@ -178,11 +178,13 @@ export default () => {
                                         <FundList className="label">
                                             <span>Lead Investors:</span>
                                             <ul>
-                                                {cInvestors.map((investor, index) => (
-                                                    <li key={index}>
-                                                        {investor}
-                                                    </li>
-                                                ))}
+                                                {cInvestors.map(
+                                                    (investor, index) => (
+                                                        <li key={index}>
+                                                            {investor}
+                                                        </li>
+                                                    )
+                                                )}
                                             </ul>
                                         </FundList>
                                         <p>{description}</p>
@@ -212,11 +214,13 @@ export default () => {
                                         <FundList className="label">
                                             <span>Lead Investors:</span>
                                             <ul>
-                                                {cInvestors.map((investor, index) => (
-                                                    <li key={index}>
-                                                        {investor}
-                                                    </li>
-                                                ))}
+                                                {cInvestors.map(
+                                                    (investor, index) => (
+                                                        <li key={index}>
+                                                            {investor}
+                                                        </li>
+                                                    )
+                                                )}
                                             </ul>
                                         </FundList>
                                         <p>{description}</p>
