@@ -147,7 +147,7 @@ export default function Categories() {
                         const { title, positions, coverImg } = val;
 
                         return (
-                            <div className="grid-item">
+                            <div className="grid-item" key={title}>
                                 <Art>
                                     <img src={coverImg.fluid.src} alt={'img'} />
                                 </Art>

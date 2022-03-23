@@ -115,7 +115,7 @@ export default function CustomerTestimonials() {
                 <Slider {...settings}>
                     {results.map(({ title, candidate, avatar, tooltip }) => {
                         return (
-                            <Slide>
+                            <Slide key={title}>
                                 <p className="tooltip">
                                     {' '}
                                     {tooltip.childMarkdownRemark.excerpt}

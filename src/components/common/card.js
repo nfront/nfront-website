@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '@styles/global';
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 
 export const CardStyle = styled.div`
     padding: 25px;
@@ -73,7 +74,7 @@ export default function Card({
                     </div>
                 </div>
                 <div className="available">
-                    <a>{availablity} </a>
+                    <Link to="/">{availablity} </Link>
                     <h3> {`$${price}`}</h3>
                 </div>
             </CardStyle>

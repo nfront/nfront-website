@@ -73,14 +73,14 @@ export default () => {
                                             name="title"
                                             id="title"
                                             placeholder="Job Title, Keywords, or Phrase"
-                                            autocomplete="off"
+                                            autoComplete="off"
                                         />
                                         <Field
                                             type="text"
                                             name="location"
                                             id="location"
                                             placeholder="City, State or ZIP"
-                                            autocomplete="off"
+                                            autoComplete="off"
                                         />
                                         <Field
                                             type="select"

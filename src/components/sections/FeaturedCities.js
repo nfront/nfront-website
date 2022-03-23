@@ -76,7 +76,7 @@ export default function FeaturedCities() {
                         const { title, totalJobs, featuredImage } = val;
 
                         return (
-                            <div className="grid-item">
+                            <div className="grid-item" key={title}>
                                 <BackgroundImage
                                     fluid={featuredImage.fluid}
                                     style={{
