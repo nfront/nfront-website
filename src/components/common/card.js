@@ -60,6 +60,7 @@ export default function Card() {
                 nodes {
                     title
                     streetAddress
+                    slug
                     price {
                         min
                         max
@@ -78,34 +79,45 @@ export default function Card() {
     return (
         <Container>
             {results.map(val => {
-                const { title, streetAddress, price, availablity, icon } = val;
+                const {
+                    title,
+                    streetAddress,
+                    price,
+                    availablity,
+                    icon,
+                    slug,
+                } = val;
 
                 return (
                     <CardStyle>
-                        <div className="job-info">
-                            <img
-                                className="mr-1"
-                                src={icon.fluid.src}
-                                alt="icon"
-                            />
-                            <div>
-                                <h3 className="mb-05">{title}</h3>
-                                <div className="job-details">
-                                    <span className="pr-1">
-                                        {streetAddress}
-                                    </span>
-                                    <span className="pr-1">{availablity}</span>
-                                    {/* <span className="pr-1">{publish}</span> */}
+                        <Link to={`/jobs/${slug}`}>
+                            <div className="job-info">
+                                <img
+                                    className="mr-1"
+                                    src={icon.fluid.src}
+                                    alt="icon"
+                                />
+                                <div>
+                                    <h3 className="mb-05">{title}</h3>
+                                    <div className="job-details">
+                                        <span className="pr-1">
+                                            {streetAddress}
+                                        </span>
+                                        <span className="pr-1">
+                                            {availablity}
+                                        </span>
+                                        {/* <span className="pr-1">{publish}</span> */}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="available">
-                            <Link to="/">{availablity} </Link>
-                            <h3>
-                                {' '}
-                                {`$${price.min}`} - {`$${price.max}`}
-                            </h3>
-                        </div>
+                            <div className="available">
+                                <Link to="/">{availablity} </Link>
+                                <h3>
+                                    {' '}
+                                    {`$${price.min}`} - {`$${price.max}`}
+                                </h3>
+                            </div>
+                        </Link>
                     </CardStyle>
                 );
             })}
