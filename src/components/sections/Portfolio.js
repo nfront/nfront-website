@@ -14,9 +14,9 @@ const StyledSection = styled(Section)``;
 const GRID = styled(Grid)`
     .grid-item {
         background: white;
-        border: 1px transparent var(--border-color);
-        border-radius: 1rem;
-        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
+        // border-radius: 1rem;
+        // box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
 `;
 const StyledContainer = styled(Container)`
@@ -146,6 +146,11 @@ export default () => {
                     description {
                         description
                     }
+                    icon {
+                        file {
+                            url
+                        }
+                    }
                     logo {
                         fluid(maxHeight: 500) {
                             src
@@ -222,28 +227,32 @@ export default () => {
                         <Container>
                             <GRID>
                                 {result.map(val => {
-                                    const { brand, logo } = val;
+                                    const { brand, link, icon } = val;
+                                    console.log(val);
                                     const { description } = val.description;
                                     return (
                                         <div class="flip-card grid-item">
                                             <div class="flip-card-inner">
                                                 <div class="flip-card-front">
                                                     <img
-                                                        src={logo.fluid.src}
+                                                        src={icon.file.url}
                                                         alt="Avatar"
                                                         style={{
-                                                            width: '100%',
-                                                            height: '100%',
+                                                            width: '50%',
+                                                            height: '50%',
                                                             objectFit:
                                                                 'contain',
                                                         }}
                                                     />
                                                 </div>
                                                 <div class="flip-card-back">
-                                                    <h2>{brand}</h2>
-                                                    <ReadMore
-                                                        text={description}
-                                                    />
+                                                    <Text>
+                                                        <h2>{brand}</h2>
+                                                        <ReadMore
+                                                            link={link}
+                                                            text={description}
+                                                        />
+                                                    </Text>
                                                 </div>
                                             </div>
                                         </div>
