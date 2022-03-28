@@ -9,7 +9,12 @@ import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
 import { FlexBox } from '../components/sections/Team';
 import Img from 'gatsby-image';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faLocationDot,
+    faDollarSign,
+    faShieldAlt,
+} from '@fortawesome/free-solid-svg-icons';
 const StyledContainer = styled(Container)`
     text-align: center;
     @media (min-width: ${props => props.theme.screen.xs}) {
@@ -25,6 +30,9 @@ const InfoSection = styled.div`
         border-radius: 4px;
         margin-top: 1rem;
         padding: 1rem;
+        svg {
+            padding-right: 0.2rem;
+        }
         h3 {
             margin-bottom: 0 !important;
         }
@@ -88,14 +96,34 @@ export default ({ data }) => {
                             <StyledImg
                                 fluid={profileImage.fluid}
                                 alt="profile image"
-                            />{' '}
+                            />
                             <div className="info-card">
                                 <h2>Job Details</h2>
-                                <h3>Address</h3>
+                                <h3>
+                                    <FontAwesomeIcon
+                                        icon={faLocationDot}
+                                        size="1x"
+                                    />
+                                    Address
+                                </h3>
                                 <p>{streetAddress}</p>
-                                <h3>Salary</h3>
+                                <h3>
+                                    {' '}
+                                    <FontAwesomeIcon
+                                        icon={faDollarSign}
+                                        size="1x"
+                                    />{' '}
+                                    <span>Salary</span>
+                                </h3>
                                 <p>{salary}</p>
-                                <h3>Experience</h3>
+                                <h3>
+                                    {' '}
+                                    <FontAwesomeIcon
+                                        icon={faShieldAlt}
+                                        size="1x"
+                                    />
+                                    Experience
+                                </h3>
                                 <p>{experience}</p>
                             </div>
                         </InfoSection>

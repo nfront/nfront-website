@@ -3,7 +3,8 @@ import { Container } from '@styles/global';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { useStaticQuery, graphql } from 'gatsby';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot, faBookmark } from '@fortawesome/free-solid-svg-icons';
 export const CardStyle = styled.div`
     padding: 25px;
     background-color: #fff;
@@ -45,8 +46,10 @@ export const CardStyle = styled.div`
     @media (min-width: ${props => props.theme.screen.lg}) {
         display: flex;
     }
+    // color: var(--blue);
+
     p{ 
-        color: var(--blue);
+        // color: var(--blue);
         width: 100% !important;
     } 
 }
@@ -67,8 +70,8 @@ export default function Card() {
                     }
                     availablity
                     icon {
-                        fluid(maxWidth: 100, quality: 100) {
-                            src
+                        file {
+                            url
                         }
                     }
                 }
@@ -90,34 +93,43 @@ export default function Card() {
 
                 return (
                     <CardStyle>
-                        <Link to={`/jobs/${slug}`}>
-                            <div className="job-info">
-                                <img
-                                    className="mr-1"
-                                    src={icon.fluid.src}
-                                    alt="icon"
-                                />
-                                <div>
-                                    <h3 className="mb-05">{title}</h3>
-                                    <div className="job-details">
-                                        <span className="pr-1">
-                                            {streetAddress}
-                                        </span>
-                                        <span className="pr-1">
-                                            {availablity}
-                                        </span>
-                                        {/* <span className="pr-1">{publish}</span> */}
-                                    </div>
+                        <div className="job-info">
+                            <img
+                                className="mr-1"
+                                src={icon.file.url}
+                                alt="icon"
+                            />
+                            <div>
+                                <Link to={`/jobs/${slug}`}>
+                                    <h3 className="mb-05">{title}</h3>{' '}
+                                </Link>
+                                <div className="job-details">
+                                    <span className="pr-1">
+                                        <FontAwesomeIcon
+                                            icon={faLocationDot}
+                                            size="1x"
+                                        />{' '}
+                                        {streetAddress}
+                                    </span>
+                                    <span className="pr-1">
+                                        {' '}
+                                        <FontAwesomeIcon
+                                            icon={faBookmark}
+                                            size="1x"
+                                        />{' '}
+                                        {availablity}
+                                    </span>
+                                    {/* <span className="pr-1">{publish}</span> */}
                                 </div>
                             </div>
-                            <div className="available">
-                                <Link to="/">{availablity} </Link>
-                                <h3>
-                                    {' '}
-                                    {`$${price.min}`} - {`$${price.max}`}
-                                </h3>
-                            </div>
-                        </Link>
+                        </div>
+                        <div className="available">
+                            <Link to="/">{availablity} </Link>
+                            <h3>
+                                {' '}
+                                {`$${price.min}`} - {`$${price.max}`}
+                            </h3>
+                        </div>
                     </CardStyle>
                 );
             })}
