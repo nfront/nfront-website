@@ -4,12 +4,21 @@ import Carousel from 're-carousel';
 import Buttons from '@utils/carousel/button';
 import IndicatorDots from '@utils/carousel/indicator-dots';
 import styled from 'styled-components';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { Section, Container, SectionTitle, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
+import { useIsHome } from '@utils/hooks/useIsHome';
+import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
-
+const GRID = styled(Grid)`
+    .grid-item {
+        background: white;
+        border: 1px transparent var(--border-color);
+        border-radius: 1rem;
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+    }
+`;
 const StyledContainer = styled(Container)`
     padding: 0 2.5rem;
     /* height: 400px; */
@@ -149,89 +158,136 @@ export default () => {
         }
     `);
     const result = data.allContentfulCaseStudies.nodes;
+    const isHome = useIsHome().isHome;
+
     return (
         <StyledSection id="portfolio">
             <SectionTitle>
                 <h2>Recent Portfolio Companies</h2>
             </SectionTitle>
-            <StyledContainer>
-                {!isMobile ? (
-                    <Carousel
-                        auto
-                        loop
-                        interval={7000}
-                        widgets={[Buttons, IndicatorDots]}
-                    >
-                        {result.map(val => {
-                            const { brand, location, logo, cInvestors } = val;
-                            const { description } = val.description;
-                            return (
-                                <Slide>
+            {!isMobile ? (
+                <>
+                    {isHome ? (
+                        <StyledContainer>
+                            <Carousel
+                                auto
+                                loop
+                                interval={7000}
+                                widgets={[Buttons, IndicatorDots]}
+                            >
+                                {result.map(val => {
+                                    const {
+                                        brand,
+                                        location,
+                                        logo,
+                                        cInvestors,
+                                    } = val;
+                                    const { description } = val.description;
+                                    return (
+                                        <Slide>
+                                            <Art>
+                                                <img
+                                                    src={logo.fluid.src}
+                                                    alt={brand}
+                                                />
+                                            </Art>
+                                            <Text>
+                                                <h2>{brand}</h2>
+                                                <p className="label">
+                                                    <span>HQ:</span> {location}
+                                                </p>
+                                                <FundList className="label">
+                                                    <span>Lead Investors:</span>
+                                                    <ul>
+                                                        {cInvestors.map(
+                                                            (
+                                                                investor,
+                                                                index
+                                                            ) => (
+                                                                <li key={index}>
+                                                                    {investor}
+                                                                </li>
+                                                            )
+                                                        )}
+                                                    </ul>
+                                                </FundList>
+                                                <p>{description}</p>
+                                            </Text>
+                                        </Slide>
+                                    );
+                                })}
+                            </Carousel>
+                        </StyledContainer>
+                    ) : (
+                        <Container>
+                            <GRID>
+                                {result.map(val => {
+                                    const { brand, logo } = val;
+                                    const { description } = val.description;
+                                    return (
+                                        <div class="flip-card grid-item">
+                                            <div class="flip-card-inner">
+                                                <div class="flip-card-front">
+                                                    <img
+                                                        src={logo.fluid.src}
+                                                        alt="Avatar"
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            objectFit:
+                                                                'contain',
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div class="flip-card-back">
+                                                    <h2>{brand}</h2>
+                                                    <ReadMore
+                                                        text={description}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </GRID>
+                        </Container>
+                    )}
+                </>
+            ) : (
+                <StyledContainer>
+                    {result.map(val => {
+                        const { brand, location, logo, cInvestors } = val;
+                        const { description } = val.description;
+                        return (
+                            <>
+                                <Text>
+                                    <h2>{brand}</h2>
+                                    <p className="label">
+                                        <span>HQ:</span> {location}
+                                    </p>
                                     <Art>
                                         <img src={logo.fluid.src} alt={brand} />
                                     </Art>
-                                    <Text>
-                                        <h2>{brand}</h2>
-                                        <p className="label">
-                                            <span>HQ:</span> {location}
-                                        </p>
-                                        <FundList className="label">
-                                            <span>Lead Investors:</span>
-                                            <ul>
-                                                {cInvestors.map(
-                                                    (investor, index) => (
-                                                        <li key={index}>
-                                                            {investor}
-                                                        </li>
-                                                    )
-                                                )}
-                                            </ul>
-                                        </FundList>
-                                        <p>{description}</p>
-                                    </Text>
-                                </Slide>
-                            );
-                        })}
-                    </Carousel>
-                ) : (
-                    <>
-                        {result.map(val => {
-                            const { brand, location, logo, cInvestors } = val;
-                            const { description } = val.description;
-                            return (
-                                <>
-                                    <Text>
-                                        <h2>{brand}</h2>
-                                        <p className="label">
-                                            <span>HQ:</span> {location}
-                                        </p>
-                                        <Art>
-                                            <img
-                                                src={logo.fluid.src}
-                                                alt={brand}
-                                            />
-                                        </Art>
-                                        <FundList className="label">
-                                            <span>Lead Investors:</span>
-                                            <ul>
-                                                {cInvestors.map(
-                                                    (investor, index) => (
-                                                        <li key={index}>
-                                                            {investor}
-                                                        </li>
-                                                    )
-                                                )}
-                                            </ul>
-                                        </FundList>
-                                        <p>{description}</p>
-                                    </Text>
-                                    <Divider />
-                                </>
-                            );
-                        })}
-                    </>
-                )}
-            </StyledContainer>
+                                    <FundList className="label">
+                                        <span>Lead Investors:</span>
+                                        <ul>
+                                            {cInvestors.map(
+                                                (investor, index) => (
+                                                    <li key={index}>
+                                                        {investor}
+                                                    </li>
+                                                )
+                                            )}
+                                        </ul>
+                                    </FundList>
+                                    <p>{description}</p>
+                                </Text>
+                                <Divider />
+                            </>
+                        );
+                    })}
+                </StyledContainer>
+            )}
         </StyledSection>
     );
 };
