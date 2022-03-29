@@ -4,7 +4,7 @@ import Carousel from 're-carousel';
 import Buttons from '@utils/carousel/button';
 import IndicatorDots from '@utils/carousel/indicator-dots';
 import styled from 'styled-components';
-import { Section, Container, SectionTitle, Grid } from '@styles/global';
+import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useIsHome';
 import ReadMore from '../../utils/readmore/ReadMore';
@@ -15,8 +15,6 @@ const GRID = styled(Grid)`
     .grid-item {
         background: white;
         border: 1px solid var(--border-color);
-        // border-radius: 1rem;
-        // box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
 `;
 const StyledContainer = styled(Container)`
@@ -41,17 +39,12 @@ const StyledContainer = styled(Container)`
 
 const Slide = styled.div`
     display: flex;
-    /* display: flex; */
-    /* grid-template-columns: 2fr 2fr; */
     flex-flow: row nowrap;
     align-items: center;
-    /* align-content: center; */
-    /* overflow: hidden; */
     margin: 0 8%;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    /* height: 100%; */
 `;
 
 const Art = styled.div`
@@ -167,9 +160,9 @@ export default () => {
 
     return (
         <StyledSection id="portfolio">
-            {!isMobile ? (
+            {isHome ? (
                 <>
-                    {isHome ? (
+                    {!isMobile ? (
                         <StyledContainer>
                             <Carousel
                                 auto
@@ -221,13 +214,79 @@ export default () => {
                             </Carousel>
                         </StyledContainer>
                     ) : (
-                        <Container>
-                            <GRID>
-                                {result.map(val => {
-                                    const { brand, link, icon } = val;
-                                    console.log(val);
-                                    const { description } = val.description;
-                                    return (
+                        <StyledContainer>
+                            {result.map(val => {
+                                const {
+                                    brand,
+                                    location,
+                                    logo,
+                                    cInvestors,
+                                } = val;
+                                const { description } = val.description;
+                                return (
+                                    <>
+                                        <Text>
+                                            <h2>{brand}</h2>
+                                            <p className="label">
+                                                <span>HQ:</span> {location}
+                                            </p>
+                                            <Art>
+                                                <img
+                                                    src={logo.fluid.src}
+                                                    alt={brand}
+                                                />
+                                            </Art>
+                                            <FundList className="label">
+                                                <span>Lead Investors:</span>
+                                                <ul>
+                                                    {cInvestors.map(
+                                                        (investor, index) => (
+                                                            <li key={index}>
+                                                                {investor}
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            </FundList>
+                                            <p>{description}</p>
+                                        </Text>
+                                        <Divider />
+                                    </>
+                                );
+                            })}
+                        </StyledContainer>
+                    )}
+                </>
+            ) : (
+                <Container>
+                    <GRID>
+                        {result.map(val => {
+                            const { brand, link, icon } = val;
+                            console.log(val);
+                            const { description } = val.description;
+                            return (
+                                <>
+                                    {isMobile ? (
+                                        <div class="flip-card grid-item">
+                                            <div class="flip-card-front">
+                                                <img
+                                                    src={icon.file.url}
+                                                    alt="Avatar"
+                                                    style={{
+                                                        width: '50%',
+                                                        height: '50%',
+                                                        objectFit: 'contain',
+                                                    }}
+                                                />
+                                                <Text>
+                                                    <ReadMore
+                                                        link={link}
+                                                        text={description}
+                                                    />
+                                                </Text>
+                                            </div>
+                                        </div>
+                                    ) : (
                                         <div class="flip-card grid-item">
                                             <div class="flip-card-inner">
                                                 <div class="flip-card-front">
@@ -253,46 +312,12 @@ export default () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    );
-                                })}
-                            </GRID>
-                        </Container>
-                    )}
-                </>
-            ) : (
-                <StyledContainer>
-                    {result.map(val => {
-                        const { brand, location, logo, cInvestors } = val;
-                        const { description } = val.description;
-                        return (
-                            <>
-                                <Text>
-                                    <h2>{brand}</h2>
-                                    <p className="label">
-                                        <span>HQ:</span> {location}
-                                    </p>
-                                    <Art>
-                                        <img src={logo.fluid.src} alt={brand} />
-                                    </Art>
-                                    <FundList className="label">
-                                        <span>Lead Investors:</span>
-                                        <ul>
-                                            {cInvestors.map(
-                                                (investor, index) => (
-                                                    <li key={index}>
-                                                        {investor}
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
-                                    </FundList>
-                                    <p>{description}</p>
-                                </Text>
-                                <Divider />
-                            </>
-                        );
-                    })}
-                </StyledContainer>
+                                    )}
+                                </>
+                            );
+                        })}
+                    </GRID>
+                </Container>
             )}
         </StyledSection>
     );
