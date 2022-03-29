@@ -55,13 +55,10 @@ export default () => {
                 <Navbar fluid />
                 <Hero fileName="LA.jpg">
                     <JobHeaderSection>
-                        <h2>
-                            Search Between More Then <span>50,000</span> Open
-                            Jobs.
-                        </h2>
+                        <h2>Work with us</h2>
                         <p>
-                            Please reach out below and we will get back to you
-                            as soon as possible.
+                            Below follows a list of open positions. We look
+                            forward to meeting you.
                         </p>
                         <SearchBox>
                             {' '}
