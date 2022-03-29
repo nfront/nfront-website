@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section, SectionTitle, Container } from '@styles/global';
+import { SectionTitle, Container } from '@styles/global';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import useWindowSize from '@utils/hooks/useWindowSize';

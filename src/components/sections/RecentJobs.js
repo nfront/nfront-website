@@ -1,13 +1,40 @@
 import React from 'react';
 import { Section, SectionTitle, Container } from '@styles/global';
 import Card from '../common/card';
+import { useStaticQuery, graphql } from 'gatsby';
 
 export default function RecentJobs() {
+    const data = useStaticQuery(graphql`
+        query {
+            allContentfulJobs {
+                nodes {
+                    title
+                    streetAddress
+                    slug
+                    price {
+                        min
+                        max
+                    }
+                    categories {
+                        title
+                    }
+                    availablity
+                    icon {
+                        file {
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    `);
+    const results = data.allContentfulJobs.nodes;
+    console.log(results);
     return (
         <Section>
             <SectionTitle>
                 <h2>Recent Jobs</h2>
-                <p>20+ Recently Added Jobs</p>
+                <p>{results.length} Recently Added Jobs</p>
             </SectionTitle>
             <Container>
                 <Card
@@ -19,6 +46,7 @@ export default function RecentJobs() {
                     availablity={'Full Time'}
                     location={' Sacramento, California'}
                     publish={'Published 11 months ago'}
+                    results={results}
                 />
             </Container>
         </Section>

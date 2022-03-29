@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from '@styles/global';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { useStaticQuery, graphql } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faBookmark } from '@fortawesome/free-solid-svg-icons';
 export const CardStyle = styled.div`
@@ -56,83 +55,62 @@ export const CardStyle = styled.div`
     }
 `;
 
-export default function Card() {
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulJobs {
-                nodes {
-                    title
-                    streetAddress
-                    slug
-                    price {
-                        min
-                        max
-                    }
-                    availablity
-                    icon {
-                        file {
-                            url
-                        }
-                    }
-                }
-            }
-        }
-    `);
-    const results = data.allContentfulJobs.nodes;
+export default function Card({ results }) {
     return (
         <Container>
-            {results.map(val => {
-                const {
-                    title,
-                    streetAddress,
-                    price,
-                    availablity,
-                    icon,
-                    slug,
-                } = val;
+            {results &&
+                results.map(val => {
+                    const {
+                        title,
+                        streetAddress,
+                        price,
+                        availablity,
+                        icon,
+                        slug,
+                    } = val;
 
-                return (
-                    <CardStyle>
-                        <div className="job-info">
-                            <img
-                                className="mr-1"
-                                src={icon.file.url}
-                                alt="icon"
-                            />
-                            <div>
-                                <Link to={`/jobs/${slug}`}>
-                                    <h3 className="mb-05">{title}</h3>{' '}
-                                </Link>
-                                <div className="job-details">
-                                    <span className="pr-1">
-                                        <FontAwesomeIcon
-                                            icon={faLocationDot}
-                                            size="1x"
-                                        />{' '}
-                                        {streetAddress}
-                                    </span>
-                                    <span className="pr-1">
-                                        {' '}
-                                        <FontAwesomeIcon
-                                            icon={faBookmark}
-                                            size="1x"
-                                        />{' '}
-                                        {availablity}
-                                    </span>
-                                    {/* <span className="pr-1">{publish}</span> */}
+                    return (
+                        <CardStyle>
+                            <div className="job-info">
+                                <img
+                                    className="mr-1"
+                                    src={icon.file.url}
+                                    alt="icon"
+                                />
+                                <div>
+                                    <Link to={`/jobs/${slug}`}>
+                                        <h3 className="mb-05">{title}</h3>{' '}
+                                    </Link>
+                                    <div className="job-details">
+                                        <span className="pr-1">
+                                            <FontAwesomeIcon
+                                                icon={faLocationDot}
+                                                size="1x"
+                                            />{' '}
+                                            {streetAddress}
+                                        </span>
+                                        <span className="pr-1">
+                                            {' '}
+                                            <FontAwesomeIcon
+                                                icon={faBookmark}
+                                                size="1x"
+                                            />{' '}
+                                            {availablity}
+                                        </span>
+                                        {/* <span className="pr-1">{publish}</span> */}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="available">
-                            <Link to="/">{availablity} </Link>
-                            <h3>
-                                {' '}
-                                {`$${price.min}`} - {`$${price.max}`}
-                            </h3>
-                        </div>
-                    </CardStyle>
-                );
-            })}
+                            <div className="available">
+                                <Link to="/">{availablity} </Link>
+                                <h3>
+                                    {' '}
+                                    {`$${price.min}`} - {`$${price.max}`}
+                                </h3>
+                            </div>
+                        </CardStyle>
+                    );
+                })}
         </Container>
     );
 }
