@@ -10,9 +10,6 @@ const StyledTitle = styled.div`
     // flex-direction: column;
     // display: flex;
     text-align: center;
-    h2 {
-        margin-bottom: 0;
-    }
     // @media (min-width: ${props => props.theme.screen.lg}) {
     //     justify-content: space-between;
     //     flex-direction: row;
@@ -122,8 +119,11 @@ export default function Categories() {
                 <Fade top>
                     <StyledTitle>
                         <div>
-                            <h2>Popular Categories</h2>
-                            <span>20+ Catetories work wating for you</span>
+                            <h2>Categories</h2>
+                            <span>
+                                We hire across different position types. Keep an
+                                eye out to find something that excites you.
+                            </span>
                         </div>
                         {/* <TotalCategories>
                             <div>
