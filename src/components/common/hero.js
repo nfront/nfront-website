@@ -7,9 +7,11 @@ import styled from 'styled-components';
 const Placeholder = styled.div`
     .gatsby-image-wrapper {
         min-height: 70vh;
-
         @media (min-width: ${props => props.theme.screen.sm}) {
             min-height: 60vh;
+        }
+        @media (min-width: ${props => props.theme.screen.lg}) {
+            min-height: 70vh;
         }
     }
 
@@ -79,6 +81,7 @@ export default function({ fileName, children }) {
                     backgroundPosition: `center center`,
                     display: `flex`,
                     alignItems: `center`,
+                    paddingTop: `1rem`,
                 }}
             >
                 <Overlay />

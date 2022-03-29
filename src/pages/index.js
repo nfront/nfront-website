@@ -28,7 +28,8 @@ const App = () => (
         <CTA id="contact">
             <h2>Contact</h2>
             <p>
-                Are you an early-to-growth stage company, with global ambitions, looking for funding?
+                Are you an early-to-growth stage company, with global ambitions,
+                looking for funding?
                 {/* <br/>Don't hesitate to reach out, we would be happy to dive in and see if we can help. */}
             </p>
             <Link to="/contact/">

@@ -33,12 +33,16 @@ const secondaryMenu = [
         path: '/',
     },
     {
+        name: 'Job',
+        path: '/jobs/',
+    },
+    {
         name: 'Thesis',
         path: '/thesis/',
     },
     {
         name: 'Portfolio',
-        path: '/#portfolio',
+        path: '/portfolio',
     },
     {
         name: 'Team & Mentors',
@@ -80,15 +84,17 @@ export default function Navbar(props) {
                                 Home
                             </AnchorLink>
                         </NavItem>
+                        <ListLink to="/jobs">job</ListLink>
                         <ListLink to="/thesis/">Thesis</ListLink>
-                        <NavItem>
+                        <ListLink to="/portfolio/">Portfolio</ListLink>
+                        {/* <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
                                 href="#portfolio"
                             >
                                 Portfolio
                             </AnchorLink>
-                        </NavItem>
+                        </NavItem> */}
                         <ListLink to="/team-mentors/">Team & Mentors</ListLink>
                         <ListLink to="/news/">News</ListLink>
                         <NavItem>

@@ -22,7 +22,7 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const FlexBox = styled.div`
+export const FlexBox = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -131,7 +131,9 @@ export default () => {
                             </p>
                             <p>
                                 Prior to Nauta, Magnus was an M&A investment
-                                banker in London and in New York, specialized in technology and healthcare transactions respectively.
+                                banker in London and in New York, specialized in
+                                technology and healthcare transactions
+                                respectively.
                             </p>
                             <p>
                                 Magnus has degrees in computer science and
@@ -145,16 +147,15 @@ export default () => {
                         <Analysts>
                             <h2>Investment Analysts</h2>
                             <p>
-                                Analysts at nFront have backgrounds within
-                                VC, entrepreneurship, operations,
-                                investment banking and consulting. They cover
-                                critical tasks such as prospect screening,
-                                market analysis, co-investor outreach and
-                                materials for portfolio companies. The analysts
-                                are nFront’s backbone, united by a strong
-                                passion for technology and an ambition to make a
-                                difference by bringing support and capital to
-                                exceptional founders.
+                                Analysts at nFront have backgrounds within VC,
+                                entrepreneurship, operations, investment banking
+                                and consulting. They cover critical tasks such
+                                as prospect screening, market analysis,
+                                co-investor outreach and materials for portfolio
+                                companies. The analysts are nFront’s backbone,
+                                united by a strong passion for technology and an
+                                ambition to make a difference by bringing
+                                support and capital to exceptional founders.
                             </p>
                             <Divider2 />
                         </Analysts>
