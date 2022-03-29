@@ -36,13 +36,16 @@ export default function CustomerTestimonials() {
             padding: 1rem;
             margin-bottom: 2rem;
         }
-        height: 500px;
+        // height: 500px;
         p {
             margin: 0;
         }
         @media (min-width: ${props => props.theme.screen.sm}) {
             height: 400px;
         }
+    `;
+    const SectionContainer = styled(Container)`
+        padding-top: 6rem;
     `;
 
     const Slide = styled.div`
@@ -106,7 +109,7 @@ export default function CustomerTestimonials() {
 
     const results = data.allContentfulCustomerTestimonials.nodes;
     return (
-        <Section>
+        <SectionContainer>
             <SectionTitle>
                 <h2>Testimonials</h2>
                 <p>Few words from candidates</p>
@@ -133,6 +136,6 @@ export default function CustomerTestimonials() {
                     })}
                 </Slider>
             </StyledContainer>
-        </Section>
+        </SectionContainer>
     );
 }
