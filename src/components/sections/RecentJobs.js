@@ -29,7 +29,6 @@ export default function RecentJobs() {
         }
     `);
     const results = data.allContentfulJobs.nodes;
-    console.log(results);
     return (
         <Section>
             <SectionTitle>

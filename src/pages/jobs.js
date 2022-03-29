@@ -8,6 +8,7 @@ import Jobs from '@components/sections/Jobs';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
 import Footer from '@common/footer';
+import { useStaticQuery, graphql } from 'gatsby';
 
 const JobSection = styled.div`
     .gatsby-image-wrapper {
@@ -33,11 +34,21 @@ const FormFields = styled(Container)`
         display: flex;
     }
     input,
+    select,
     button {
         margin: 8px 10px;
     }
-    input {
+    select {
+        padding: 8px 10px;
+    }
+    input::placeholder {
+        color: var(--text-color) !important;
+    }
+    input,
+    select {
         border: none;
+        color: var(--text-color) !important;
+        width: 100%;
         border-bottom: 1px solid var(--button-color);
     }
 `;
@@ -48,6 +59,22 @@ const JobHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
 export default () => {
+    const citiesData = useStaticQuery(graphql`
+        query {
+            allContentfulCities {
+                nodes {
+                    title
+                }
+            }
+            allContentfulCategories {
+                nodes {
+                    title
+                }
+            }
+        }
+    `);
+    const categoriesResults = citiesData.allContentfulCategories.nodes;
+    const resultsCities = citiesData.allContentfulCities.nodes;
     return (
         <Layout>
             <JobSection>
@@ -72,19 +99,26 @@ export default () => {
                                             placeholder="Job Title, Keywords, or Phrase"
                                             autoComplete="off"
                                         />
-                                        <Field
-                                            type="text"
-                                            name="location"
-                                            id="location"
-                                            placeholder="City, State or ZIP"
-                                            autoComplete="off"
-                                        />
-                                        <Field
-                                            type="select"
-                                            name="type"
-                                            id="type"
-                                            placeholder="Select Selector"
-                                        />
+                                        <Field component="select" name="cities">
+                                            {categoriesResults.map(val => {
+                                                const { title } = val;
+                                                return (
+                                                    <option value={title}>
+                                                        {title}
+                                                    </option>
+                                                );
+                                            })}
+                                        </Field>
+                                        <Field component="select" name="cities">
+                                            {resultsCities.map(val => {
+                                                const { title } = val;
+                                                return (
+                                                    <option value={title}>
+                                                        {title}
+                                                    </option>
+                                                );
+                                            })}
+                                        </Field>
                                         <button
                                             className="button"
                                             type="submit"

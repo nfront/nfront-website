@@ -9,10 +9,10 @@ const ReadMore = ({ text, link }) => {
 
     return (
         <p>
-            {isReadMore ? text.slice(0, 100) : text}
+            {isReadMore ? text.slice(0, 150) : text}
             {/* // condition that will render 'read more' only if the text.length is
             greated than 150 chars */}
-            {text.length > 100 && (
+            {text.length > 150 && (
                 <span>
                     {isReadMore && <a href={link}>{'...read more'}</a>
                     // : ' ...show less'
