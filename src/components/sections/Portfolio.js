@@ -167,9 +167,6 @@ export default () => {
 
     return (
         <StyledSection id="portfolio">
-            <SectionTitle>
-                <h2>Recent Portfolio Companies</h2>
-            </SectionTitle>
             {!isMobile ? (
                 <>
                     {isHome ? (
