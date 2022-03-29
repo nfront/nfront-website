@@ -67,7 +67,7 @@ export default function FeaturedCities() {
             <Container>
                 <SectionTitle>
                     <h2>Featured Cities</h2>
-                    <p>20+ Featured Cities Added Jobs</p>
+                    <p> {results.length} Featured Cities Added Jobs</p>
                 </SectionTitle>
             </Container>
             <Container>
