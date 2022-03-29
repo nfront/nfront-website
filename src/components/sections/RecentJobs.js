@@ -32,7 +32,7 @@ export default function RecentJobs() {
     return (
         <Section>
             <SectionTitle>
-                <h2>Recent Jobs</h2>
+                <h2>Current Job Openings</h2>
                 <p>{results.length} Recently Added Jobs</p>
             </SectionTitle>
             <Container>
