@@ -7,10 +7,10 @@ import SEO from '@utils/SEO';
 import Portfolio from '../components/sections/Portfolio';
 
 export default () => {
-    const title = "Portfolio's";
+    const title = 'Portfolio';
     return (
         <Layout>
-            <SEO title={'Portfolios'} />
+            <SEO title={'Portfolio'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>

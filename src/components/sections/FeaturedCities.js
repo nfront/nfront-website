@@ -48,7 +48,7 @@ const Text = styled.div`
 export default function FeaturedCities() {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulFeaturedJobs {
+            allContentfulCities {
                 nodes {
                     title
                     totalJobs
@@ -61,13 +61,13 @@ export default function FeaturedCities() {
             }
         }
     `);
-    const results = data.allContentfulFeaturedJobs.nodes;
+    const results = data.allContentfulCities.nodes;
     return (
         <Section>
             <Container>
                 <SectionTitle>
                     <h2>Featured Cities</h2>
-                    <p>20+ Featured Cities Added Jobs</p>
+                    <p> {results.length} Featured Cities Added Jobs</p>
                 </SectionTitle>
             </Container>
             <Container>

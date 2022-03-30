@@ -7,17 +7,15 @@ import Fade from 'react-reveal/Fade';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
-    flex-direction: column;
-    display: flex;
-    h2 {
-        margin-bottom: 0;
-    }
-    @media (min-width: ${props => props.theme.screen.lg}) {
-        justify-content: space-between;
-        flex-direction: row;
-    }
-    @media (min-width: ${props => props.theme.screen.sm}) {
-    }
+    // flex-direction: column;
+    // display: flex;
+    text-align: center;
+    // @media (min-width: ${props => props.theme.screen.lg}) {
+    //     justify-content: space-between;
+    //     flex-direction: row;
+    // }
+    // @media (min-width: ${props => props.theme.screen.sm}) {
+    // }
     ${props =>
         props.alt &&
         `
@@ -25,16 +23,16 @@ const StyledTitle = styled.div`
     text-align: left;  
 `};
 `;
-const TotalCategories = styled.div`
-    display: flex;
-    padding-top: 2rem;
-    div {
-        margin-right: 1rem;
-    }
-    @media (min-width: ${props => props.theme.screen.lg}) {
-        padding-top: 0;
-    }
-`;
+// const TotalCategories = styled.div`
+//     display: flex;
+//     padding-top: 2rem;
+//     div {
+//         margin-right: 1rem;
+//     }
+//     @media (min-width: ${props => props.theme.screen.lg}) {
+//         padding-top: 0;
+//     }
+// `;
 const GRID = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);
@@ -121,10 +119,13 @@ export default function Categories() {
                 <Fade top>
                     <StyledTitle>
                         <div>
-                            <h2>Popular Categories</h2>
-                            <span>20+ Catetories work wating for you</span>
+                            <h2>Categories</h2>
+                            <span>
+                                We hire across different position types. Keep an
+                                eye out to find something that excites you.
+                            </span>
                         </div>
-                        <TotalCategories>
+                        {/* <TotalCategories>
                             <div>
                                 <h2>1800</h2>
                                 <span>Jobs Posted</span>
@@ -137,7 +138,7 @@ export default function Categories() {
                                 <h2>1500</h2>
                                 <span>Freelancers</span>
                             </div>
-                        </TotalCategories>
+                        </TotalCategories> */}
                     </StyledTitle>
                 </Fade>
             </Container>
