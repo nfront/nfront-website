@@ -17,6 +17,9 @@ export const CardStyle = styled.div`
     img {
     width: 60px;
     height: 60px;
+    @media (min-width: ${props => props.theme.screen.lg}) {
+    }
+
 }
 .job-info{
     @media (min-width: ${props => props.theme.screen.lg}) {
@@ -25,20 +28,23 @@ export const CardStyle = styled.div`
     padding-bottom: 1rem;
 }
 .available{
+    justify-content: space-between;
+    h3 {
+        margin-top: 1rem ;
+    }    
     @media (min-width: ${props => props.theme.screen.lg}) {
         display: flex;
+        margin-top: 0 !important;
     }
-    justify-content: space-between;
+
     a{
         color: var(--blue) ;
         background-color:  var(--accent-color); 
         height: fit-content;
+        margin-top: 1rem ;
+
         padding: 0.2rem 0.5rem;
     }
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        h3{
-            margin-top: 1rem;
-        }    }
 
 }
 .job-details{
