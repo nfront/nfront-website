@@ -14,7 +14,11 @@ const ReadMore = ({ text, link }) => {
             greated than 150 chars */}
             {text.length > 150 && (
                 <span>
-                    {isReadMore && <a href={link}>{'...read more'}</a>
+                    {<p>{isReadMore}</p> && (
+                        <p className="readmore">
+                            <a href={link}>{'Read More'}</a>
+                        </p>
+                    )
                     // : ' ...show less'
                     }
                 </span>

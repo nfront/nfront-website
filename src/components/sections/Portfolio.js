@@ -55,7 +55,7 @@ const Art = styled.div`
     img {
         max-height: 300px;
         @media (min-width: ${props => props.theme.screen.md}) {
-            max-height: 400px;
+            max-height: 500px;
         }
         @media (min-width: ${props => props.theme.screen.xs}) {
             margin-bottom: 0;
@@ -66,6 +66,9 @@ const Art = styled.div`
 const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
+    }
+    .readmore {
+        padding: 1rem;
     }
 
     p {
@@ -272,9 +275,10 @@ export default () => {
                                                 <img
                                                     src={icon.file.url}
                                                     alt="Avatar"
+                                                    className="avatar"
                                                     style={{
-                                                        width: '50%',
-                                                        height: '50%',
+                                                        width: '40%',
+                                                        height: '40%',
                                                         objectFit: 'contain',
                                                     }}
                                                 />
