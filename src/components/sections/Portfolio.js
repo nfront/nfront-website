@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useIsHome';
-import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
@@ -58,7 +57,7 @@ const Art = styled.div`
             max-height: 500px;
         }
         @media (min-width: ${props => props.theme.screen.xs}) {
-            margin-bottom: 0;
+            margin-bottom: 0 !important;
         }
     }
 `;
@@ -67,12 +66,10 @@ const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
-    .readmore {
-        padding: 1rem;
-    }
 
     p {
         font-size: 16px;
+        // margin-bottom: 0;
         span {
             font-weight: 700;
         }
@@ -277,16 +274,18 @@ export default () => {
                                                     alt="Avatar"
                                                     className="avatar"
                                                     style={{
-                                                        width: '40%',
-                                                        height: '40%',
+                                                        width: '16vh',
+                                                        height: '16vh',
                                                         objectFit: 'contain',
                                                     }}
                                                 />
                                                 <Text>
-                                                    <ReadMore
-                                                        link={link}
-                                                        text={description}
-                                                    />
+                                                    <p>{description}</p>
+                                                    <p>
+                                                        <a href={link}>
+                                                            {'Read More'}
+                                                        </a>
+                                                    </p>
                                                 </Text>
                                             </div>
                                         </div>
@@ -308,10 +307,14 @@ export default () => {
                                                 <div class="flip-card-back">
                                                     <Text>
                                                         <h2>{brand}</h2>
-                                                        <ReadMore
+                                                        <p>{description}</p>
+                                                        <a href={link}>
+                                                            {'Read More'}
+                                                        </a>
+                                                        {/* <ReadMore
                                                             link={link}
                                                             text={description}
-                                                        />
+                                                        /> */}
                                                     </Text>
                                                 </div>
                                             </div>
