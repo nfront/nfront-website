@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useIsHome';
+import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
@@ -53,6 +54,7 @@ const Art = styled.div`
     text-align: center;
     img {
         max-height: 300px;
+        margin-bottom: 0.5rem !important;
         @media (min-width: ${props => props.theme.screen.md}) {
             max-height: 500px;
         }
@@ -66,6 +68,9 @@ const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
+    // .readmore {
+    //     padding: 1rem;
+    // }
 
     p {
         font-size: 16px;
@@ -274,18 +279,18 @@ export default () => {
                                                     alt="Avatar"
                                                     className="avatar"
                                                     style={{
-                                                        width: '16vh',
-                                                        height: '16vh',
+                                                        width: '40%',
+                                                        height: '40%',
                                                         objectFit: 'contain',
                                                     }}
                                                 />
                                                 <Text>
                                                     <p>{description}</p>
-                                                    <p>
-                                                        <a href={link}>
-                                                            {'Read More'}
-                                                        </a>
-                                                    </p>
+                                                    {/* <p> */}
+                                                    <a href={link}>
+                                                        {'Read More'}
+                                                    </a>
+                                                    {/* </p> */}
                                                 </Text>
                                             </div>
                                         </div>
