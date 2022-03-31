@@ -84,9 +84,9 @@ export default function Navbar(props) {
                                 Home
                             </AnchorLink>
                         </NavItem>
-                        <ListLink to="/jobs">careers</ListLink>
                         <ListLink to="/thesis/">Thesis</ListLink>
                         <ListLink to="/portfolio/">Portfolio</ListLink>
+                        <ListLink to="/jobs">careers</ListLink>
                         {/* <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
