@@ -8,7 +8,6 @@ import {
     Overlay,
     OverlayText,
 } from '@styles/global';
-import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
 import BackgroundImage from 'gatsby-background-image';
 const GRID = styled(Grid)`
@@ -45,23 +44,7 @@ const Text = styled.div`
     }
 `;
 
-export default function FeaturedCities() {
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulCities {
-                nodes {
-                    title
-                    totalJobs
-                    featuredImage {
-                        fluid(quality: 100) {
-                            src
-                        }
-                    }
-                }
-            }
-        }
-    `);
-    const results = data.allContentfulCities.nodes;
+export default function FeaturedCities({ results }) {
     return (
         <Section>
             <Container>
@@ -73,7 +56,7 @@ export default function FeaturedCities() {
             <Container>
                 <GRID>
                     {results.map(val => {
-                        const { title, totalJobs, featuredImage } = val;
+                        const { title, totalJobs, featuredImage } = val.city;
 
                         return (
                             <div className="grid-item" key={title}>

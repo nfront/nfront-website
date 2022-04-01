@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
-import { useStaticQuery, graphql } from 'gatsby';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
 
@@ -95,24 +94,7 @@ const Art = styled.div`
     }
 `;
 
-export default function Categories() {
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulCategories {
-                nodes {
-                    title
-                    positions
-                    coverImg {
-                        fluid(maxWidth: 100, quality: 100) {
-                            src
-                        }
-                    }
-                    # slug
-                }
-            }
-        }
-    `);
-    const results = data.allContentfulCategories.nodes;
+export default function Categories({ results }) {
     return (
         <Section>
             <Container>
@@ -145,8 +127,7 @@ export default function Categories() {
             <Container>
                 <GRID>
                     {results.map(val => {
-                        const { title, positions, coverImg } = val;
-
+                        const { title, positions, coverImg } = val.categories;
                         return (
                             <div className="grid-item" key={title}>
                                 <Art>
