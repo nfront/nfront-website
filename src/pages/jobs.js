@@ -48,6 +48,7 @@ const FormFields = styled(Container)`
         -webkit-appearance: none;
         -moz-appearance: none;
         -ms-appearance: none;
+        background-color: transparent;
         appearance: none;
         background-repeat: no-repeat;
         background-image: linear-gradient(
