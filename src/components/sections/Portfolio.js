@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import Carousel from 're-carousel';
 import Buttons from '@utils/carousel/button';
 import IndicatorDots from '@utils/carousel/indicator-dots';
