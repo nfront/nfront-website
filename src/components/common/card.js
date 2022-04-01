@@ -68,10 +68,11 @@ export default function Card({ results }) {
                 results.map(val => {
                     const {
                         title,
-                        streetAddress,
+                        // streetAddress,
                         price,
                         availablity,
                         icon,
+                        city,
                         slug,
                     } = val;
 
@@ -93,7 +94,7 @@ export default function Card({ results }) {
                                                 icon={faLocationDot}
                                                 size="1x"
                                             />{' '}
-                                            {streetAddress}
+                                            {city.title}
                                         </span>
                                         <span className="pr-1">
                                             {' '}

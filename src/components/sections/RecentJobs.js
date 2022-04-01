@@ -15,6 +15,9 @@ export default function RecentJobs() {
                         min
                         max
                     }
+                    city {
+                        title
+                    }
                     categories {
                         title
                     }
