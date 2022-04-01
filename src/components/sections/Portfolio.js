@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useIsHome';
-import ReadMore from '../../utils/readmore/ReadMore';
+// import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
@@ -68,13 +68,9 @@ const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
-    // .readmore {
-    //     padding: 1rem;
-    // }
 
     p {
-        font-size: 16px;
-        // margin-bottom: 0;
+        font-size: 15px;
         span {
             font-weight: 700;
         }
@@ -284,13 +280,14 @@ export default () => {
                                                         objectFit: 'contain',
                                                     }}
                                                 />
+
                                                 <Text>
-                                                    <p>{description}</p>
-                                                    {/* <p> */}
                                                     <a href={link}>
-                                                        {'Read More'}
+                                                        <p>{description}</p>
+                                                        <a href={link}>
+                                                            {'Learn More'}
+                                                        </a>
                                                     </a>
-                                                    {/* </p> */}
                                                 </Text>
                                             </div>
                                         </div>
@@ -309,13 +306,16 @@ export default () => {
                                                         }}
                                                     />
                                                 </div>
+
                                                 <div class="flip-card-back">
                                                     <Text>
-                                                        <h2>{brand}</h2>
-                                                        <p>{description}</p>
                                                         <a href={link}>
-                                                            {'Read More'}
-                                                        </a>
+                                                            <h2>{brand}</h2>
+                                                            <p>{description}</p>
+                                                            <a href={link}>
+                                                                {'Learn More'}
+                                                            </a>
+                                                        </a>{' '}
                                                         {/* <ReadMore
                                                             link={link}
                                                             text={description}

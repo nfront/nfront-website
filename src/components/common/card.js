@@ -68,11 +68,12 @@ export default function Card({ results }) {
                 results.map(val => {
                     const {
                         title,
-                        streetAddress,
+                        categories,
                         price,
-                        availablity,
                         icon,
+                        city,
                         slug,
+                        availability,
                     } = val;
 
                     return (
@@ -93,7 +94,7 @@ export default function Card({ results }) {
                                                 icon={faLocationDot}
                                                 size="1x"
                                             />{' '}
-                                            {streetAddress}
+                                            {city.title}
                                         </span>
                                         <span className="pr-1">
                                             {' '}
@@ -101,14 +102,14 @@ export default function Card({ results }) {
                                                 icon={faBookmark}
                                                 size="1x"
                                             />{' '}
-                                            {availablity}
+                                            {categories.title}
                                         </span>
                                         {/* <span className="pr-1">{publish}</span> */}
                                     </div>
                                 </div>
                             </div>
                             <div className="available">
-                                <Link to="/">{availablity} </Link>
+                                <Link to="/">{availability} </Link>
                                 <h3>
                                     {' '}
                                     {`$${price.min}`} - {`$${price.max}`}
