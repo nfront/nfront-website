@@ -289,7 +289,7 @@ export default () => {
                                                     <a href={link}>
                                                         <p>{description}</p>
                                                         <a href={link}>
-                                                            {'Read More'}
+                                                            {'Learn More'}
                                                         </a>
                                                     </a>
                                                 </Text>
@@ -317,7 +317,7 @@ export default () => {
                                                             <h2>{brand}</h2>
                                                             <p>{description}</p>
                                                             <a href={link}>
-                                                                {'Read More'}
+                                                                {'Learn More'}
                                                             </a>
                                                         </a>{' '}
                                                         {/* <ReadMore
