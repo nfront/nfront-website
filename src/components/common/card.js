@@ -66,15 +66,7 @@ export default function Card({ results }) {
         <Container>
             {results &&
                 results.map(val => {
-                    const {
-                        title,
-                        // streetAddress,
-                        price,
-                        availablity,
-                        icon,
-                        city,
-                        slug,
-                    } = val;
+                    const { title, categories, price, icon, city, slug } = val;
 
                     return (
                         <CardStyle>
@@ -102,14 +94,14 @@ export default function Card({ results }) {
                                                 icon={faBookmark}
                                                 size="1x"
                                             />{' '}
-                                            {availablity}
+                                            {categories.title}
                                         </span>
                                         {/* <span className="pr-1">{publish}</span> */}
                                     </div>
                                 </div>
                             </div>
                             <div className="available">
-                                <Link to="/">{availablity} </Link>
+                                <Link to="/">{categories.title} </Link>
                                 <h3>
                                     {' '}
                                     {`$${price.min}`} - {`$${price.max}`}
