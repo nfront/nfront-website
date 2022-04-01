@@ -73,7 +73,7 @@ export default function Card({ results }) {
                         icon,
                         city,
                         slug,
-                        availability,
+                        availablity,
                     } = val;
 
                     return (
@@ -109,7 +109,7 @@ export default function Card({ results }) {
                                 </div>
                             </div>
                             <div className="available">
-                                <Link to="/">{availability} </Link>
+                                <Link to="/">{availablity} </Link>
                                 <h3>
                                     {' '}
                                     {`$${price.min}`} - {`$${price.max}`}
