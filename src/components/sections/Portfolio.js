@@ -68,13 +68,9 @@ const Text = styled.div`
     @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
-    // .readmore {
-    //     padding: 1rem;
-    // }
 
     p {
-        font-size: 16px;
-        // margin-bottom: 0;
+        font-size: 15px;
         span {
             font-weight: 700;
         }
