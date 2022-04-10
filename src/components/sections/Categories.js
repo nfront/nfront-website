@@ -94,7 +94,7 @@ const Art = styled.div`
     }
 `;
 
-export default function Categories({ results }) {
+export default function Categories({ categories, getPositionCount }) {
     return (
         <Section>
             <Container>
@@ -126,8 +126,8 @@ export default function Categories({ results }) {
             </Container>
             <Container>
                 <GRID>
-                    {results.map(val => {
-                        const { title, positions, coverImg } = val.categories;
+                    {categories?.map(category => {
+                        const { title, coverImg, slug } = category;
                         return (
                             <div className="grid-item" key={title}>
                                 <Art>
@@ -136,7 +136,10 @@ export default function Categories({ results }) {
                                 <Text>
                                     <Fade left>
                                         <h3>{title}</h3>
-                                        <p>{positions} Open Positions</p>
+                                        <p>
+                                            {getPositionCount(slug, 'category')}{' '}
+                                            Open Positions
+                                        </p>
                                     </Fade>
                                 </Text>
                             </div>

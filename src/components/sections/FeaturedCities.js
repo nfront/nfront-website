@@ -44,19 +44,19 @@ const Text = styled.div`
     }
 `;
 
-export default function FeaturedCities({ results }) {
+export default function FeaturedCities({ cities, getPositionCount }) {
     return (
         <Section>
             <Container>
                 <SectionTitle>
                     <h2>Featured Cities</h2>
-                    <p> {results.length} Featured Cities Added Jobs</p>
+                    <p> {cities.length} Featured Cities Added Jobs</p>
                 </SectionTitle>
             </Container>
             <Container>
                 <GRID>
-                    {results.map(val => {
-                        const { title, totalJobs, featuredImage } = val.city;
+                    {cities.map(city => {
+                        const { title, featuredImage, slug } = city;
 
                         return (
                             <div className="grid-item" key={title}>
@@ -75,7 +75,11 @@ export default function FeaturedCities({ results }) {
                                             <Fade left>
                                                 <h3>{title}</h3>
                                                 <p>
-                                                    {totalJobs} Open Positions
+                                                    {getPositionCount(
+                                                        slug,
+                                                        'city'
+                                                    )}{' '}
+                                                    Open Positions
                                                 </p>
                                             </Fade>
                                         </Text>

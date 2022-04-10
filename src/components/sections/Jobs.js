@@ -4,7 +4,6 @@ import Categories from './Categories';
 import CustomerTestimonials from './CustomerTestimonials';
 import FeaturedCities from './FeaturedCities';
 import RecentJobs from './RecentJobs';
-import { useStaticQuery, graphql } from 'gatsby';
 
 const StyledSection = styled.div`
     .featuredCities {
@@ -12,44 +11,21 @@ const StyledSection = styled.div`
     }
 `;
 
-function Jobs() {
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulJobs {
-                nodes {
-                    categories {
-                        title
-                        positions
-                        coverImg {
-                            fluid(maxWidth: 100, quality: 100) {
-                                src
-                            }
-                        }
-                        # slug
-                    }
-                    city {
-                        title
-                        totalJobs
-                        featuredImage {
-                            fluid(quality: 100) {
-                                src
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    `);
-    const results = data.allContentfulJobs.nodes;
-    console.log(results);
+function Jobs({ categories, cities, jobs, getPositionCount }) {
     return (
         <StyledSection>
-            <Categories results={results} />
+            <Categories
+                categories={categories}
+                getPositionCount={getPositionCount}
+            />
             <div className="featuredCities">
-                <FeaturedCities results={results} />
+                <FeaturedCities
+                    cities={cities}
+                    getPositionCount={getPositionCount}
+                />
             </div>
             <CustomerTestimonials />
-            <RecentJobs />
+            <RecentJobs jobs={jobs} />
         </StyledSection>
     );
 }
