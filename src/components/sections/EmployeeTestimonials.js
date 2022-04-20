@@ -35,6 +35,9 @@ export default function EmployeeTestimonials() {
             border-radius: 10px;
             padding: 1rem;
             margin-bottom: 2rem;
+            @media (min-width: ${props => props.theme.screen.lg}) {
+                font-size: 14px;
+            }
         }
         // height: 500px;
         p {
@@ -81,10 +84,11 @@ export default function EmployeeTestimonials() {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 2000,
+        speed: 500,
         slidesToShow: isMobile ? 1 : 3,
         slidesToScroll: 1,
         autoplay: true,
+        autoplaySpeed: 5000,
         centerMode: true,
         centerPadding: '10px',
         className: 'center',
