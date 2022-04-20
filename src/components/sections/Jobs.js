@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Categories from './Categories';
-import CustomerTestimonials from './CustomerTestimonials';
+import EmployeeTestimonials from './EmployeeTestimonials';
 import FeaturedCities from './FeaturedCities';
 import RecentJobs from './RecentJobs';
 
@@ -24,7 +24,7 @@ function Jobs({ categories, cities, jobs, getPositionCount }) {
                     getPositionCount={getPositionCount}
                 />
             </div>
-            <CustomerTestimonials />
+            <EmployeeTestimonials />
             <RecentJobs jobs={jobs} />
         </StyledSection>
     );

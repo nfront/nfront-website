@@ -39,18 +39,27 @@ const InfoSection = styled.div`
     }
     @media (min-width: ${props => props.theme.screen.xs}) {
         // margin-right: 3rem;
-        /* text-align: left; */
+        // text-align: center;
     }
 `;
 
 const DetailedSection = styled.div`
-    flex: 1 1 400px;
-    margin-left: 1.5rem;
+    flex: 1 1 300px;
+    @media (min-width: 708px) {
+        margin-left: 1.5rem;
+    }
+    text-align: left;
 `;
 const StyledImg = styled(Img)`
     @media (min-width: ${props => props.theme.screen.xs}) {
         // margin-right: 3rem;
         /* text-align: left; */
+    }
+`;
+const ModifiedFlexBox = styled(FlexBox)`
+    padding: 0;
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        padding: 0 1.5rem;
     }
 `;
 export default ({ data }) => {
@@ -91,7 +100,7 @@ export default ({ data }) => {
             )}
             <Section>
                 <StyledContainer>
-                    <FlexBox>
+                    <ModifiedFlexBox>
                         <InfoSection>
                             <StyledImg
                                 fluid={profileImage.fluid}
@@ -134,7 +143,7 @@ export default ({ data }) => {
                                 }}
                             ></div>
                         </DetailedSection>
-                    </FlexBox>
+                    </ModifiedFlexBox>
                 </StyledContainer>
             </Section>
             <Footer />

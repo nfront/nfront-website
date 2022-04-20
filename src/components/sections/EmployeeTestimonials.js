@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function CustomerTestimonials() {
+export default function EmployeeTestimonials() {
     const StyledContainer = styled(Container)`
         padding: 0 2.5rem;
         .slick-center .tooltip {
@@ -88,7 +88,7 @@ export default function CustomerTestimonials() {
     };
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCustomerTestimonials {
+            allContentfulEmployeeTestimonials {
                 nodes {
                     title
                     tooltip {
@@ -107,7 +107,7 @@ export default function CustomerTestimonials() {
         }
     `);
 
-    const results = data.allContentfulCustomerTestimonials.nodes;
+    const results = data.allContentfulEmployeeTestimonials.nodes;
     return (
         <SectionContainer>
             <SectionTitle>
