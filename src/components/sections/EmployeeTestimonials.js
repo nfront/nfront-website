@@ -40,8 +40,11 @@ export default function EmployeeTestimonials() {
         p {
             margin: 0;
         }
-        @media (min-width: ${props => props.theme.screen.sm}) {
-            height: 400px;
+        @media (min-width: ${props => props.theme.screen.md}) {
+            height: 350px;
+        }
+        @media (min-width: ${props => props.theme.screen.lg}) {
+            height: 500px;
         }
     `;
     const SectionContainer = styled(Container)`
@@ -73,7 +76,7 @@ export default function EmployeeTestimonials() {
         }
     `;
     const windowWidth = useWindowSize().width;
-    const isMobile = windowWidth <= 768;
+    const isMobile = windowWidth <= 1199;
 
     const settings = {
         dots: true,
@@ -112,7 +115,7 @@ export default function EmployeeTestimonials() {
         <SectionContainer>
             <SectionTitle>
                 <h2>Testimonials</h2>
-                <p>Few words from candidates</p>
+                <p>Feedback from previous and existing colleagues</p>
             </SectionTitle>
             <StyledContainer>
                 <Slider {...settings}>
@@ -130,7 +133,7 @@ export default function EmployeeTestimonials() {
                                     />
                                 </Art>
                                 <p className="label">{candidate}</p>
-                                <p className="label">{title}</p>
+                                <p className="label">&nbsp;</p>
                             </Slide>
                         );
                     })}

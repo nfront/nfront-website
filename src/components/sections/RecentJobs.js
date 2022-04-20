@@ -7,7 +7,7 @@ export default function RecentJobs({ jobs }) {
         <Section id="contact">
             <SectionTitle>
                 <h2>Current Job Openings</h2>
-                <p>{jobs.length} Recently Added Jobs</p>
+                <p>{jobs.length} recently added jobs</p>
             </SectionTitle>
             <Container>
                 <Card
