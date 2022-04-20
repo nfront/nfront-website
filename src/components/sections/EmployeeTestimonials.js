@@ -81,7 +81,7 @@ export default function EmployeeTestimonials() {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 2000,
         slidesToShow: isMobile ? 1 : 3,
         slidesToScroll: 1,
         autoplay: true,
