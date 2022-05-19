@@ -14,6 +14,7 @@ module.exports = {
             twitter: ``,
         },
     },
+
     plugins: [
         `gatsby-plugin-robots-txt`,
         `gatsby-plugin-sitemap`,

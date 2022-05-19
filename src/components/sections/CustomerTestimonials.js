@@ -88,7 +88,7 @@ export default function CustomerTestimonials() {
     };
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCustomerTestimonials {
+            allContentfulEmployeeTestimonials {
                 nodes {
                     title
                     tooltip {
@@ -107,7 +107,7 @@ export default function CustomerTestimonials() {
         }
     `);
 
-    const results = data.allContentfulCustomerTestimonials.nodes;
+    const results = data.allContentfulEmployeeTestimonials.nodes;
     return (
         <SectionContainer>
             <SectionTitle>

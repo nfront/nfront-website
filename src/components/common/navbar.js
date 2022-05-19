@@ -41,6 +41,10 @@ const secondaryMenu = [
         path: '/portfolio',
     },
     {
+        name: 'Training',
+        path: '/login',
+    },
+    {
         name: 'Careers',
         path: '/jobs/',
     },
@@ -86,6 +90,7 @@ export default function Navbar(props) {
                         </NavItem>
                         <ListLink to="/thesis/">Thesis</ListLink>
                         <ListLink to="/portfolio/">Portfolio</ListLink>
+                        <ListLink to="/login">Training</ListLink>
                         <ListLink to="/jobs">careers</ListLink>
                         {/* <NavItem>
                             <AnchorLink

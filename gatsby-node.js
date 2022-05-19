@@ -66,3 +66,20 @@ exports.createPages = ({ graphql, actions }) => {
 
     return Promise.all([news, jobs]);
 };
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+    if (stage === 'build-html') {
+        /*
+         This code ignores auth0-js during the server-side build since it relies on browser APIs like window.
+         */
+        actions.setWebpackConfig({
+            module: {
+                rules: [
+                    {
+                        test: /auth0-js/,
+                        use: loaders.null(),
+                    },
+                ],
+            },
+        });
+    }
+};
