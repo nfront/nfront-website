@@ -4,7 +4,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Scrollspy from 'react-scrollspy';
 import { useIsHome } from '@utils/hooks/useIsHome';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
-
+import { logout, isAuthenticated } from '@utils/auth';
 import { ReactComponent as Logo } from '@static/nfront-logo.svg';
 
 import {
@@ -42,7 +42,7 @@ const secondaryMenu = [
     },
     {
         name: 'Training',
-        path: '/login',
+        path: '/training',
     },
     {
         name: 'Careers',
@@ -90,7 +90,7 @@ export default function Navbar(props) {
                         </NavItem>
                         <ListLink to="/thesis/">Thesis</ListLink>
                         <ListLink to="/portfolio/">Portfolio</ListLink>
-                        <ListLink to="/login">Training</ListLink>
+                        <ListLink to="/training">Training</ListLink>
                         <ListLink to="/jobs">careers</ListLink>
                         {/* <NavItem>
                             <AnchorLink
@@ -110,6 +110,16 @@ export default function Navbar(props) {
                                 Contact
                             </AnchorLink>
                         </NavItem>
+                        {isAuthenticated() && (
+                            <NavItem
+                                onClick={e => {
+                                    logout();
+                                    e.preventDefault();
+                                }}
+                            >
+                                <AnchorLink href="#">Logout</AnchorLink>
+                            </NavItem>
+                        )}
                     </Scrollspy>
                 ) : (
                     <ul>
@@ -120,6 +130,16 @@ export default function Navbar(props) {
                                 </NavItem>
                             );
                         })}
+                        {isAuthenticated() && (
+                            <NavItem
+                                onClick={e => {
+                                    logout();
+                                    e.preventDefault();
+                                }}
+                            >
+                                <AnchorLink href="#">Logout</AnchorLink>
+                            </NavItem>
+                        )}
                     </ul>
                 )}
             </>

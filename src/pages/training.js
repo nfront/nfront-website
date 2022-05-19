@@ -1,19 +1,31 @@
 import React from 'react';
-import Layout from '@common/layout';
-import Navbar from '@common/navbar';
-import Hero from '@common/hero';
-import Footer from '@common/footer';
-import SEO from '@utils/SEO';
+import { login, isAuthenticated, getProfile } from '../utils/auth';
+import { Router } from '@reach/router';
+import Training from '@sections/Training';
 
 export default () => {
+    if (!isAuthenticated()) {
+        login();
+        return <p>Redirecting to login...</p>;
+    }
+
+    const user = getProfile();
+
     return (
-        <Layout>
-            <SEO title={'Training'} />
-            <Navbar fluid />
-            <Hero fileName="LA.jpg">
-                <h1>Training</h1>
-            </Hero>
-            <Footer />
-        </Layout>
+        <Router>
+            <Training path="/training/" user={user} />
+        </Router>
     );
 };
+
+//     return (
+// <Layout>
+//     <SEO title={'Training'} />
+//     <Navbar fluid />
+//     <Hero fileName="LA.jpg">
+//         <h1>Training</h1>
+//     </Hero>
+//     <Footer />
+// </Layout>
+//     );
+// };
