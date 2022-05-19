@@ -38,7 +38,7 @@ const GRID = styled(Grid)`
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
         margin-top: 2rem;
-        cursor: pointer;
+        // cursor: pointer;
         padding: 40px 10px;
         margin-bottom: 20px;
         position: relative;

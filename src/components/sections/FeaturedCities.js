@@ -50,7 +50,7 @@ export default function FeaturedCities({ cities, getPositionCount }) {
             <Container>
                 <SectionTitle>
                     <h2>Featured Cities</h2>
-                    <p> {cities.length} Featured Cities Added Jobs</p>
+                    <p>Openings across our {cities.length} locations</p>
                 </SectionTitle>
             </Container>
             <Container>

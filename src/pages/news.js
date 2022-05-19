@@ -16,7 +16,7 @@ export default () => {
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
             </Hero>
-            <News />
+            <News limit={'1000'} />
             <Footer />
         </Layout>
     );

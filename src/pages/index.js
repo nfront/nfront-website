@@ -22,7 +22,7 @@ const App = () => (
         <About />
         <Wave />
         <Portfolio />
-        <News accent="alt2" />
+        <News accent="alt2" limit="6"/>
         <Wave />
         <Testimonials />
         <CTA id="contact">

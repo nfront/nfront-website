@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function CustomerTestimonials() {
+export default function EmployeeTestimonials() {
     const StyledContainer = styled(Container)`
         padding: 0 2.5rem;
         .slick-center .tooltip {
@@ -35,13 +35,19 @@ export default function CustomerTestimonials() {
             border-radius: 10px;
             padding: 1rem;
             margin-bottom: 2rem;
+            @media (min-width: ${props => props.theme.screen.lg}) {
+                font-size: 14px;
+            }
         }
         // height: 500px;
         p {
             margin: 0;
         }
-        @media (min-width: ${props => props.theme.screen.sm}) {
-            height: 400px;
+        @media (min-width: ${props => props.theme.screen.md}) {
+            height: 350px;
+        }
+        @media (min-width: ${props => props.theme.screen.lg}) {
+            height: 500px;
         }
     `;
     const SectionContainer = styled(Container)`
@@ -73,7 +79,7 @@ export default function CustomerTestimonials() {
         }
     `;
     const windowWidth = useWindowSize().width;
-    const isMobile = windowWidth <= 768;
+    const isMobile = windowWidth <= 1199;
 
     const settings = {
         dots: true,
@@ -82,6 +88,7 @@ export default function CustomerTestimonials() {
         slidesToShow: isMobile ? 1 : 3,
         slidesToScroll: 1,
         autoplay: true,
+        autoplaySpeed: 4000,
         centerMode: true,
         centerPadding: '10px',
         className: 'center',
@@ -112,7 +119,7 @@ export default function CustomerTestimonials() {
         <SectionContainer>
             <SectionTitle>
                 <h2>Testimonials</h2>
-                <p>Few words from candidates</p>
+                <p>Feedback from previous and existing colleagues</p>
             </SectionTitle>
             <StyledContainer>
                 <Slider {...settings}>
@@ -130,7 +137,7 @@ export default function CustomerTestimonials() {
                                     />
                                 </Art>
                                 <p className="label">{candidate}</p>
-                                <p className="label">{title}</p>
+                                <p className="label">&nbsp;</p>
                             </Slide>
                         );
                     })}

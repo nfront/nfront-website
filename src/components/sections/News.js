@@ -50,11 +50,12 @@ const Art = styled.div`
 // ALLWAYS USE IMAGES THAT ARE 16:9 FOR NEWS (PPT SLIDE SIZE. USE PPT TO MAKE IT.)
 
 export default function News(props) {
+    const {limit} = props;
     const data = useStaticQuery(graphql`
         query {
             allContentfulPost(
                 sort: { order: DESC, fields: publishDate }
-                limit: 6
+                limit: 1000
             ) {
                 edges {
                     node {
@@ -86,7 +87,7 @@ export default function News(props) {
             </SectionTitle>
             <Container>
                 <GRID>
-                    {results.map(({ node: news }) => (
+                    {results.slice(0, limit).map(({ node: news }) => (
                         <div key={news.id} className="grid-item">
                             <Link to={`/news/${news.slug}`}>
                                 <Art>
