@@ -5,8 +5,8 @@ const isBrowser = typeof window !== 'undefined';
 
 const auth = isBrowser
     ? new auth0.WebAuth({
-          domain: 'dev-4buoqy73.us.auth0.com',
-          clientID: 'M3KKmtGYtonEFdo5Lti1V7drVG1biUD9',
+          domain: 'dev-8ioglyzj.us.auth0.com',
+          clientID: 'W65WiHaBbLYTxW8LT0KOkzQmn2fJZaVL',
           redirectUri: 'http://localhost:8000/callback',
           responseType: 'token id_token',
           scope: 'openid profile email',
@@ -14,7 +14,7 @@ const auth = isBrowser
     : {};
 
 const tokens = {
-    accessToken: false,
+    accessToken: true,
     idToken: false,
     expiresAt: false,
 };
