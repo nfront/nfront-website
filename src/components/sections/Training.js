@@ -1,17 +1,185 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import SEO from '@utils/SEO';
 import Footer from '@common/footer';
-export default () => {
+import Courses from './Courses';
+import CoursesCategories from './CoursesCategories';
+import { useStaticQuery, graphql, push } from 'gatsby';
+import { FormFields, SearchBox } from '../../pages/jobs';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { Field, Form, Formik } from 'formik';
+import styled from 'styled-components';
+
+export const TrainingSection = styled.div`
+    .gatsby-image-wrapper {
+        min-height: 100vh;
+    }
+`;
+
+export default ({ location }) => {
+    const [filteredCourses, setFilteredCourses] = useState([]);
+
+    const params = new URLSearchParams(location.search);
+    const courseCategory = params.get('courseCategory');
+    const title = params.get('title');
+    const data = useStaticQuery(graphql`
+        query {
+            allContentfulCoursesCategories {
+                nodes {
+                    title
+                    slug
+                }
+            }
+            allContentfulCourses {
+                nodes {
+                    # id
+                    slug
+                    title
+                    price
+                    author
+                    coverImage {
+                        fluid(quality: 100) {
+                            src
+                        }
+                    }
+                    courseCategories {
+                        title
+                        tagLine
+                        slug
+                        icon {
+                            fluid(maxHeight: 100, quality: 100) {
+                                src
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `);
+    const results = data.allContentfulCourses.nodes;
+    const courseCategories = data.allContentfulCoursesCategories.nodes;
+
+    useEffect(() => {
+        if (results.length && !courseCategory && !title) {
+            setFilteredCourses(results);
+            return;
+        }
+        if (courseCategory && title) {
+            setFilteredCourses(
+                results.filter(
+                    course =>
+                        course?.courseCategories?.slug === courseCategory &&
+                        course?.title
+                            .toLocaleLowerCase()
+                            .includes(title.toLocaleLowerCase())
+                )
+            );
+            return;
+        }
+        if (title) {
+            setFilteredCourses(
+                results.filter(course =>
+                    course?.title
+                        .toLocaleLowerCase()
+                        .includes(title.toLocaleLowerCase())
+                )
+            );
+            return;
+        }
+        if (courseCategory) {
+            setFilteredCourses(
+                results.filter(
+                    course => course?.courseCategories?.slug === courseCategory
+                )
+            );
+            return;
+        }
+    }, [results, courseCategory, title]);
     return (
         <Layout>
             <SEO title={'Training'} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg">
-                <h1>Training</h1>
-            </Hero>
+            <TrainingSection>
+                <Hero fileName="LA.jpg">
+                    <h2>Online Tutorial From Top Instructor.</h2>
+                    <p>
+                        Meet university and cultural institutions, who'll share
+                        their experience.
+                    </p>
+                    <SearchBox>
+                        <Formik
+                            onSubmit={values => {
+                                const { courseCategory, title } = values;
+
+                                const searchParams = {};
+                                if (courseCategory) {
+                                    searchParams[
+                                        'courseCategory'
+                                    ] = courseCategory;
+                                }
+                                if (title) {
+                                    searchParams['title'] = title;
+                                }
+
+                                push(
+                                    `/training?${new URLSearchParams(
+                                        searchParams
+                                    ).toString()}`
+                                );
+                            }}
+                            initialValues={{ title, courseCategory }}
+                            enableReinitialize
+                        >
+                            {({ values, handleSubmit }) => (
+                                <Form>
+                                    <FormFields>
+                                        <Field
+                                            type="text"
+                                            name="title"
+                                            id="title"
+                                            placeholder="Job Title, Keywords, or Phrase"
+                                            autoComplete="off"
+                                            value={values.title}
+                                        />
+                                        <Field
+                                            component="select"
+                                            name="courseCategory"
+                                            value={values.courseCategory}
+                                        >
+                                            <option value="" disabled selected>
+                                                Select category
+                                            </option>
+                                            <option value={''}>None</option>
+                                            {courseCategories.map(category => {
+                                                const {
+                                                    title,
+                                                    slug,
+                                                } = category;
+                                                return (
+                                                    <option value={slug}>
+                                                        {title}
+                                                    </option>
+                                                );
+                                            })}
+                                        </Field>
+                                        <AnchorLink
+                                            href="#contact"
+                                            onClick={handleSubmit}
+                                            className="button"
+                                        >
+                                            Submit
+                                        </AnchorLink>
+                                    </FormFields>
+                                </Form>
+                            )}
+                        </Formik>
+                    </SearchBox>
+                </Hero>
+            </TrainingSection>
+            <CoursesCategories results={results} />
+            <Courses limit="6" results={filteredCourses} />
             <Footer />
         </Layout>
     );

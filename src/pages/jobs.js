@@ -11,12 +11,12 @@ import Footer from '@common/footer';
 import { push } from 'gatsby-link';
 import { useStaticQuery, graphql } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-const JobSection = styled.div`
+export const JobSection = styled.div`
     .gatsby-image-wrapper {
         min-height: 100vh;
     }
 `;
-const SearchBox = styled(Container)`
+export const SearchBox = styled(Container)`
     background-color: white;
     width: 100%;
     border-radius: 4px;
@@ -31,7 +31,7 @@ const SearchBox = styled(Container)`
         color: initial;
     }
 `;
-const FormFields = styled(Container)`
+export const FormFields = styled(Container)`
     justify-content: space-between;
     flex-direction: row;
     padding: 1rem;
@@ -78,7 +78,7 @@ const FormFields = styled(Container)`
         border-bottom: 1px solid var(--button-color);
     }
 `;
-const JobHeaderSection = styled.div`
+export const JobHeaderSection = styled.div`
     span {
         color: var(--yellow);
     }
@@ -86,7 +86,6 @@ const JobHeaderSection = styled.div`
 `;
 export default ({ location }) => {
     const [filteredJobs, setFilteredJobs] = useState([]);
-
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
     const city = params.get('city');
@@ -155,6 +154,8 @@ export default ({ location }) => {
                 return cities.filter(city => city.slug === slug).length;
             case 'category':
                 return categories.filter(cat => cat.slug === slug).length;
+            default:
+                return null;
         }
     };
 

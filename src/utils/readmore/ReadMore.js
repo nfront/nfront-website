@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 const ReadMore = ({ text, link }) => {
-    console.log(link);
     const [isReadMore] = useState(true);
     // const toggleReadMore = () => {
     //     setIsReadMore(!isReadMore);

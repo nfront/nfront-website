@@ -63,7 +63,6 @@ const ModifiedFlexBox = styled(FlexBox)`
     }
 `;
 export default ({ data }) => {
-    console.log(data);
     const {
         title,
         body,

@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { Section, Container, SectionTitle } from '@styles/global';
 
-const Divider = styled.hr`
+export const Divider = styled.hr`
     margin: 0 1.5rem 3rem 1.5rem;
     padding: 0 1.5rem;
 `;

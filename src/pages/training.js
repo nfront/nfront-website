@@ -17,15 +17,3 @@ export default () => {
         </Router>
     );
 };
-
-//     return (
-// <Layout>
-//     <SEO title={'Training'} />
-//     <Navbar fluid />
-//     <Hero fileName="LA.jpg">
-//         <h1>Training</h1>
-//     </Hero>
-//     <Footer />
-// </Layout>
-//     );
-// };

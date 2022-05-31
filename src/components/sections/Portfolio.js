@@ -263,13 +263,12 @@ export default () => {
                     <GRID>
                         {result.map(val => {
                             const { brand, link, icon } = val;
-                            console.log(val);
                             const { description } = val.description;
                             return (
                                 <>
                                     {isMobile ? (
-                                        <div class="flip-card grid-item">
-                                            <div class="flip-card-front">
+                                        <div className="flip-card grid-item">
+                                            <div className="flip-card-front">
                                                 <img
                                                     src={icon.file.url}
                                                     alt="Avatar"
@@ -292,9 +291,9 @@ export default () => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div class="flip-card grid-item">
-                                            <div class="flip-card-inner">
-                                                <div class="flip-card-front">
+                                        <div className="flip-card grid-item">
+                                            <div className="flip-card-inner">
+                                                <div className="flip-card-front">
                                                     <img
                                                         src={icon.file.url}
                                                         alt="Avatar"
@@ -307,14 +306,14 @@ export default () => {
                                                     />
                                                 </div>
 
-                                                <div class="flip-card-back">
+                                                <div className="flip-card-back">
                                                     <Text>
                                                         <a href={link}>
                                                             <h2>{brand}</h2>
                                                             <p>{description}</p>
-                                                            <a href={link}>
+                                                            <span>
                                                                 {'Learn More'}
-                                                            </a>
+                                                            </span>
                                                         </a>{' '}
                                                         {/* <ReadMore
                                                             link={link}
