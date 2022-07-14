@@ -15,7 +15,7 @@ const auth = isBrowser
 
 const tokens = {
     accessToken: true,
-    idToken: false,
+    idToken: true,
     expiresAt: false,
 };
 

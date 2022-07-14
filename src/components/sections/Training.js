@@ -17,8 +17,11 @@ export const TrainingSection = styled.div`
         min-height: 100vh;
     }
 `;
-
-export default ({ location }) => {
+const JobHeaderSection = styled.div`
+    margin-bottom: -2rem;
+`;
+export default ({ location, user }) => {
+    console.log(user);
     const [filteredCourses, setFilteredCourses] = useState([]);
 
     const params = new URLSearchParams(location.search);
@@ -103,79 +106,89 @@ export default ({ location }) => {
             <Navbar fluid />
             <TrainingSection>
                 <Hero fileName="LA.jpg">
-                    <h2>Online Tutorial From Top Instructor.</h2>
-                    <p>
-                        Meet university and cultural institutions, who'll share
-                        their experience.
-                    </p>
-                    <SearchBox>
-                        <Formik
-                            onSubmit={values => {
-                                const { courseCategory, title } = values;
+                    <JobHeaderSection>
+                        <h2>Online Tutorial From Top Instructor.</h2>
+                        <p>
+                            Meet university and cultural institutions, who'll
+                            share their experience.
+                        </p>
+                        <SearchBox>
+                            <Formik
+                                onSubmit={values => {
+                                    const { courseCategory, title } = values;
 
-                                const searchParams = {};
-                                if (courseCategory) {
-                                    searchParams[
-                                        'courseCategory'
-                                    ] = courseCategory;
-                                }
-                                if (title) {
-                                    searchParams['title'] = title;
-                                }
+                                    const searchParams = {};
+                                    if (courseCategory) {
+                                        searchParams[
+                                            'courseCategory'
+                                        ] = courseCategory;
+                                    }
+                                    if (title) {
+                                        searchParams['title'] = title;
+                                    }
 
-                                push(
-                                    `/training?${new URLSearchParams(
-                                        searchParams
-                                    ).toString()}`
-                                );
-                            }}
-                            initialValues={{ title, courseCategory }}
-                            enableReinitialize
-                        >
-                            {({ values, handleSubmit }) => (
-                                <Form>
-                                    <FormFields>
-                                        <Field
-                                            type="text"
-                                            name="title"
-                                            id="title"
-                                            placeholder="Job Title, Keywords, or Phrase"
-                                            autoComplete="off"
-                                            value={values.title}
-                                        />
-                                        <Field
-                                            component="select"
-                                            name="courseCategory"
-                                            value={values.courseCategory}
-                                        >
-                                            <option value="" disabled selected>
-                                                Select category
-                                            </option>
-                                            <option value={''}>None</option>
-                                            {courseCategories.map(category => {
-                                                const {
-                                                    title,
-                                                    slug,
-                                                } = category;
-                                                return (
-                                                    <option value={slug}>
-                                                        {title}
-                                                    </option>
-                                                );
-                                            })}
-                                        </Field>
-                                        <AnchorLink
-                                            href="#contact"
-                                            onClick={handleSubmit}
-                                            className="button"
-                                        >
-                                            Submit
-                                        </AnchorLink>
-                                    </FormFields>
-                                </Form>
-                            )}
-                        </Formik>
-                    </SearchBox>
+                                    push(
+                                        `/training?${new URLSearchParams(
+                                            searchParams
+                                        ).toString()}`
+                                    );
+                                }}
+                                initialValues={{ title, courseCategory }}
+                                enableReinitialize
+                            >
+                                {({ values, handleSubmit }) => (
+                                    <Form>
+                                        <FormFields>
+                                            <Field
+                                                type="text"
+                                                name="title"
+                                                id="title"
+                                                placeholder="Job Title, Keywords, or Phrase"
+                                                autoComplete="off"
+                                                value={values.title}
+                                            />
+                                            <Field
+                                                component="select"
+                                                name="courseCategory"
+                                                value={values.courseCategory}
+                                            >
+                                                <option
+                                                    value=""
+                                                    disabled
+                                                    selected
+                                                >
+                                                    Select category
+                                                </option>
+                                                <option value={''}>None</option>
+                                                {courseCategories.map(
+                                                    category => {
+                                                        const {
+                                                            title,
+                                                            slug,
+                                                        } = category;
+                                                        return (
+                                                            <option
+                                                                value={slug}
+                                                            >
+                                                                {title}
+                                                            </option>
+                                                        );
+                                                    }
+                                                )}
+                                            </Field>
+                                            <AnchorLink
+                                                href="#contact"
+                                                onClick={handleSubmit}
+                                                className="button"
+                                            >
+                                                Submit
+                                            </AnchorLink>
+                                        </FormFields>
+                                    </Form>
+                                )}
+                            </Formik>
+                        </SearchBox>
+                    </JobHeaderSection>
                 </Hero>
             </TrainingSection>
             <CoursesCategories results={results} />

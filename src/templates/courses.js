@@ -31,7 +31,8 @@ const ModifiedFlexBox = styled(FlexBox)`
     }
 `;
 export default ({ data }) => {
-    const { title, description, coverImage } = data.contentfulCourses;
+    const { title, description, coverImage, body } = data.contentfulCourses;
+    console.log(body.json.content);
     return (
         <Layout>
             <SEO title={title} />
@@ -83,6 +84,9 @@ export const query = graphql`
                 childMarkdownRemark {
                     html
                 }
+            }
+            body {
+                json
             }
             coverImage {
                 fluid(quality: 100) {
