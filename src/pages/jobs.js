@@ -23,7 +23,8 @@ export const SearchBox = styled(Container)`
     box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%);
     .button {
         height: fit-content;
-        padding: 0.5rem 1rem;
+        display: inline-block;
+        margin: 0.5rem 0;
     }
     a:focus,
     a:active,
