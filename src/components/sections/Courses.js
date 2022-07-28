@@ -3,6 +3,11 @@ import { Link } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 import { useIsTraining } from '@utils/hooks/useIsHome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+const CourseSection = styled(Section)`
+    background: #f3f4f8;
+`;
 const GRID = styled(Grid)`
     .grid-item {
         background: white;
@@ -10,10 +15,14 @@ const GRID = styled(Grid)`
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
+    .grid-item:hover img {
+        transform: scale(1.1);
+    }
 `;
 const ItemGrid = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     .category {
         color: var(--blue);
         background-color: var(--accent-color);
@@ -44,18 +53,36 @@ const Text = styled.div`
     .label {
         font-weight: 500;
     }
+    a {
+        color: black;
+        font-size: 0.95rem;
+    }
 
     p:not(.label) {
         font-size: 16px;
     }
+    .know-details {
+        &:hover {
+            color: var(--blue);
+            .fa-arrow-right {
+                margin-left: 10px;
+                transition: all 0.3s ease-out 0s;
+            }
+        }
+        .fa-arrow-right {
+            margin-left: 5px;
+        }
+    }
 `;
 
 const Art = styled.div`
+    overflow: hidden;
     img {
-        /* height: auto; */
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
+        transition: all 0.3s ease-out 0s;
+        vertical-align: middle;
 
         @media (min-width: ${props => props.theme.screen.md}) {
             /* min-height: 240px; */
@@ -67,7 +94,7 @@ export default function Courses(props) {
     const { results } = props;
     const isTraining = useIsTraining().isTraining;
     return (
-        <Section id="contact" {...props}>
+        <CourseSection id="contact" {...props}>
             <SectionTitle>
                 <h2>Find The Right Online Courses For You</h2>
                 <p>
@@ -92,10 +119,20 @@ export default function Courses(props) {
                                         {/* <p className="label">{courses.author}</p> */}
                                         <hr />
                                         <ItemGrid>
-                                            <p>{`$${courses.price}`}</p>
+                                            {/* <p>{`$${courses.price}`}</p> */}
                                             <p className="category">
                                                 {courses.courseCategories.title}
                                             </p>
+                                            <Link
+                                                className="know-details"
+                                                to={`/training/${courses.slug}`}
+                                            >
+                                                Know Details
+                                                <FontAwesomeIcon
+                                                    icon={faArrowRight}
+                                                    size="1px"
+                                                />
+                                            </Link>
                                         </ItemGrid>
                                     </Text>
                                 </Link>
@@ -116,6 +153,6 @@ export default function Courses(props) {
                     <button className="button center">View All Courses</button>
                 </Link>
             )}
-        </Section>
+        </CourseSection>
     );
 }

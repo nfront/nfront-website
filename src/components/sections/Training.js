@@ -6,12 +6,12 @@ import SEO from '@utils/SEO';
 import Footer from '@common/footer';
 import Courses from './Courses';
 import CoursesCategories from './CoursesCategories';
-import { useStaticQuery, graphql, push } from 'gatsby';
+import { useStaticQuery, graphql, push, Link } from 'gatsby';
 import { FormFields, SearchBox } from '../../pages/jobs';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-
+import { useIsTraining } from '@utils/hooks/useIsHome';
 export const TrainingSection = styled.div`
     .gatsby-image-wrapper {
         min-height: 100vh;
@@ -21,7 +21,7 @@ const JobHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
 export default ({ location, user }) => {
-    console.log(user);
+    // console.log(user);
     const [filteredCourses, setFilteredCourses] = useState([]);
 
     const params = new URLSearchParams(location.search);
@@ -63,7 +63,7 @@ export default ({ location, user }) => {
     `);
     const results = data.allContentfulCourses.nodes;
     const courseCategories = data.allContentfulCoursesCategories.nodes;
-
+    const isTraining = useIsTraining().isTraining;
     useEffect(() => {
         if (results.length && !courseCategory && !title) {
             setFilteredCourses(results);
@@ -112,7 +112,15 @@ export default ({ location, user }) => {
                             Meet university and cultural institutions, who'll
                             share their experience.
                         </p>
-                        <SearchBox>
+                        {/* {isTraining && ( */}
+                        <Link to="/courses/">
+                            <button className="button center">
+                                View All Courses
+                            </button>
+                        </Link>
+
+                        {/* )} */}
+                        {/* <SearchBox>
                             <Formik
                                 onSubmit={values => {
                                     const { courseCategory, title } = values;
@@ -187,7 +195,7 @@ export default ({ location, user }) => {
                                     </Form>
                                 )}
                             </Formik>
-                        </SearchBox>
+                        </SearchBox> */}
                     </JobHeaderSection>
                 </Hero>
             </TrainingSection>

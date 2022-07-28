@@ -6,15 +6,16 @@ import Fade from 'react-reveal/Fade';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
-    // flex-direction: column;
-    // display: flex;
+    flex-direction: column;
+    display: flex;
     text-align: center;
-    // @media (min-width: ${props => props.theme.screen.lg}) {
-    //     justify-content: space-between;
-    //     flex-direction: row;
-    // }
-    // @media (min-width: ${props => props.theme.screen.sm}) {
-    // }
+    align-items: center;
+    @media (min-width: ${props => props.theme.screen.lg}) {
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    @media (min-width: ${props => props.theme.screen.sm}) {
+    }
     ${props =>
         props.alt &&
         `
@@ -22,17 +23,16 @@ const StyledTitle = styled.div`
     text-align: left;  
 `};
 `;
-
 const GRID = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
         margin-top: 2rem;
-        // cursor: pointer;
         padding: 40px 10px;
         margin-bottom: 20px;
         position: relative;
+        cursor: pointer;
         &::after {
             background-image: url(${wave});
             background-size: center;
@@ -47,6 +47,9 @@ const GRID = styled(Grid)`
             left: 0;
             z-index: -1;
         }
+    }
+    .grid-item:hover {
+        box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
     }
 `;
 
@@ -92,8 +95,10 @@ export default function CoursesCategories({ results }) {
                 <Fade top>
                     <StyledTitle>
                         <div>
-                            <h2>Categories</h2>
-                            <span>Explore Our Popular Courses</span>
+                            <h2>Explore Our Popular Courses</h2>
+                        </div>
+                        <div>
+                            <a href="#">View All Categories</a>
                         </div>
                     </StyledTitle>
                 </Fade>
