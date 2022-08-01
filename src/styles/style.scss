@@ -243,3 +243,10 @@ ul > li::before {
 .d-flex {
     display: flex;
 }
+.category {
+    color: var(--blue);
+    background-color: var(--accent-color);
+    height: fit-content;
+    padding: 0.2rem 0.5rem;
+    width: fit-content;
+}

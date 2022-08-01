@@ -23,12 +23,6 @@ const ItemGrid = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .category {
-        color: var(--blue);
-        background-color: var(--accent-color);
-        height: fit-content;
-        padding: 0.2rem 0.5rem;
-    }
     p {
         margin-bottom: 0;
         color: #002e5f;

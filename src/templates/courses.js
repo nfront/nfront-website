@@ -31,7 +31,13 @@ const ModifiedFlexBox = styled(FlexBox)`
     }
 `;
 export default ({ data }) => {
-    const { title, description, coverImage, body } = data.contentfulCourses;
+    const {
+        title,
+        description,
+        coverImage,
+        body,
+        courseCategories,
+    } = data.contentfulCourses;
     console.log(body.json.content);
     return (
         <Layout>
@@ -60,6 +66,7 @@ export default ({ data }) => {
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <DetailedSection>
+                            <p className="category">{courseCategories.title}</p>
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html:
@@ -80,6 +87,9 @@ export const query = graphql`
         contentfulCourses(slug: { eq: $slug }) {
             title
             slug
+            courseCategories {
+                title
+            }
             description {
                 childMarkdownRemark {
                     html
