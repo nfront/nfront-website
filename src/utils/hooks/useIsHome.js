@@ -18,7 +18,7 @@ export const useIsTraining = () => {
     const [isTraining, setIsTraining] = useState(false);
 
     useEffect(() => {
-        if (window.location.pathname === '/training') {
+        if (window.location.pathname === '/training/') {
             setIsTraining(true);
         } else {
             setIsTraining(false);

@@ -85,7 +85,7 @@ const Art = styled.div`
 `;
 
 export default function Courses(props) {
-    const { results } = props;
+    const { results, limit } = props;
     const isTraining = useIsTraining().isTraining;
     return (
         <CourseSection id="contact" {...props}>
@@ -99,7 +99,7 @@ export default function Courses(props) {
             <Container>
                 {results.length ? (
                     <GRID>
-                        {results.map(courses => (
+                        {results.slice(0, limit).map(courses => (
                             <div key={courses.title} className="grid-item">
                                 <Link to={`/training/${courses.slug}`}>
                                     <Art>
