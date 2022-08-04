@@ -8,6 +8,8 @@ import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
 import { FlexBox } from '../components/sections/Team';
+import { INLINES } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const StyledContainer = styled(Container)`
     text-align: center;
@@ -30,15 +32,79 @@ const ModifiedFlexBox = styled(FlexBox)`
         padding: 0 1.5rem;
     }
 `;
+
+const IframeContainer = styled.span`
+    padding-bottom: 56.25%;
+    position: relative;
+    display: block;
+    width: 100%;
+
+    > iframe {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+`;
+
+const VideoHolder = styled.div``;
+
 export default ({ data }) => {
     const {
         title,
-        description,
         coverImage,
         body,
         courseCategories,
     } = data.contentfulCourses;
-    console.log(body.json.content);
+    const website_url = 'vimeo.com';
+    const options = {
+        renderNode: {
+            [INLINES.HYPERLINK]: node => {
+                if (node.data.uri.indexOf('youtu') !== -1) {
+                    return (
+                        <IframeContainer>
+                            <iframe
+                                title="nFront Ventures Video Player"
+                                src={node.data.uri}
+                                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                    );
+                } else if (node.data.uri.indexOf('vimeo.com') !== -1) {
+                    return (
+                        <IframeContainer>
+                            <iframe
+                                title="Unique Title 001"
+                                src={node.data.uri}
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                    );
+                } else
+                return (
+                    <a
+                        href={node.data.uri}
+                        target={`${
+                            node.data.uri.startsWith(website_url)
+                                ? '_self'
+                                : '_blank'
+                        }`}
+                        rel={`${
+                            node.data.uri.startsWith(website_url)
+                                ? ''
+                                : 'noopener noreferrer'
+                        }`}
+                    >
+                        {node.content[0].value}
+                    </a>
+                );
+            },
+        },
+    };
     return (
         <Layout>
             <SEO title={title} />
@@ -67,12 +133,9 @@ export default ({ data }) => {
                     <ModifiedFlexBox>
                         <DetailedSection>
                             <p className="category">{courseCategories.title}</p>
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html:
-                                        description.childMarkdownRemark.html,
-                                }}
-                            ></div>
+                            <div>
+                                {documentToReactComponents(body.json, options)}
+                            </div>
                         </DetailedSection>
                     </ModifiedFlexBox>
                 </StyledContainer>
@@ -89,11 +152,6 @@ export const query = graphql`
             slug
             courseCategories {
                 title
-            }
-            description {
-                childMarkdownRemark {
-                    html
-                }
             }
             body {
                 json
