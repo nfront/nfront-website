@@ -9,6 +9,7 @@ import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
 import { FlexBox } from '../components/sections/Team';
 import { INLINES } from '@contentful/rich-text-types';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const StyledContainer = styled(Container)`
@@ -48,8 +49,6 @@ const IframeContainer = styled.span`
     }
 `;
 
-const VideoHolder = styled.div``;
-
 export default ({ data }) => {
     const {
         title,
@@ -57,7 +56,24 @@ export default ({ data }) => {
         body,
         courseCategories,
     } = data.contentfulCourses;
+
     const website_url = 'vimeo.com';
+
+    // Render richTextResponse.json to the DOM using
+    // documentToReactComponents from "@contentful/rich-text-react-renderer"
+
+    function RichTextResponse(richTextResponse) {
+        console.log("HERE2", richTextResponse);
+        return (
+            <>
+                {documentToReactComponents(
+                    richTextResponse.json,
+                    renderOptions(richTextResponse.links)
+                )}
+            </>
+        );
+    }
+
     const options = {
         renderNode: {
             [INLINES.HYPERLINK]: node => {
@@ -85,26 +101,127 @@ export default ({ data }) => {
                         </IframeContainer>
                     );
                 } else
-                return (
-                    <a
-                        href={node.data.uri}
-                        target={`${
-                            node.data.uri.startsWith(website_url)
-                                ? '_self'
-                                : '_blank'
-                        }`}
-                        rel={`${
-                            node.data.uri.startsWith(website_url)
-                                ? ''
-                                : 'noopener noreferrer'
-                        }`}
-                    >
-                        {node.content[0].value}
-                    </a>
-                );
+                    return (
+                        <a
+                            href={node.data.uri}
+                            target={`${
+                                node.data.uri.startsWith(website_url)
+                                    ? '_self'
+                                    : '_blank'
+                            }`}
+                            rel={`${
+                                node.data.uri.startsWith(website_url)
+                                    ? ''
+                                    : 'noopener noreferrer'
+                            }`}
+                        >
+                            {node.content[0].value}
+                        </a>
+                    );
             },
         },
     };
+
+    // Create a bespoke renderOptions object to target BLOCKS.EMBEDDED_ENTRY (linked entries e.g. videoEmbed)
+    // and BLOCKS.EMBEDDED_ASSET (linked assets e.g. images)
+
+    function renderOptions(links) {
+        // create an asset block map
+        const assetBlockMap = new Map();
+        // loop through the assets and add them to the map
+        for (const asset of links.assets.block) {
+            assetBlockMap.set(asset.sys.id, asset);
+        }
+
+        // create an entry block map
+        const entryBlockMap = new Map();
+        // loop through the entries and add them to the map
+        for (const entry of links.entries.block) {
+            entryBlockMap.set(entry.sys.id, entry);
+        }
+
+        return {
+            // other options...
+
+            renderNode: {
+                // other options...
+
+                [INLINES.HYPERLINK]: node => {
+                    if (node.data.uri.indexOf('youtu') !== -1) {
+                        return (
+                            <IframeContainer>
+                                <iframe
+                                    title="nFront Ventures Video Player"
+                                    src={node.data.uri}
+                                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                    frameBorder="0"
+                                    allowFullScreen
+                                ></iframe>
+                            </IframeContainer>
+                        );
+                    } else if (node.data.uri.indexOf('vimeo.com') !== -1) {
+                        return (
+                            <IframeContainer>
+                                <iframe
+                                    title="Unique Title 001"
+                                    src={node.data.uri}
+                                    frameBorder="0"
+                                    allowFullScreen
+                                ></iframe>
+                            </IframeContainer>
+                        );
+                    } else
+                        return (
+                            <a
+                                href={node.data.uri}
+                                target={`${
+                                    node.data.uri.startsWith(website_url)
+                                        ? '_self'
+                                        : '_blank'
+                                }`}
+                                rel={`${
+                                    node.data.uri.startsWith(website_url)
+                                        ? ''
+                                        : 'noopener noreferrer'
+                                }`}
+                            >
+                                {node.content[0].value}
+                            </a>
+                        );
+                },
+
+                [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
+                    // find the entry in the entryBlockMap by ID
+                    const entry = entryBlockMap.get(node.data.target.sys.id);
+
+                    // render the entries as needed by looking at the __typename
+                    // referenced in the GraphQL query
+
+                    if (entry.__typename === 'VideoEmbed') {
+                        return (
+                            <iframe
+                                src={entry.embedUrl}
+                                height="100%"
+                                width="100%"
+                                frameBorder="0"
+                                scrolling="no"
+                                title={entry.title}
+                                allowFullScreen={true}
+                            />
+                        );
+                    }
+                },
+                [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
+                    // find the asset in the assetBlockMap by ID
+                    const asset = assetBlockMap.get(node.data.target.sys.id);
+
+                    // render the asset accordingly
+                    return <img src={asset.url} alt="My image alt text" />;
+                },
+            },
+        };
+    }
+
     return (
         <Layout>
             <SEO title={title} />
@@ -135,6 +252,8 @@ export default ({ data }) => {
                             <p className="category">{courseCategories.title}</p>
                             <div>
                                 {documentToReactComponents(body.json, options)}
+                                {console.log('HERE: ', body)}
+                                {/* {RichTextResponse(body)} */}
                             </div>
                         </DetailedSection>
                     </ModifiedFlexBox>
