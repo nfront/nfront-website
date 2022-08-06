@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import ExternalLink from '@utils/externalLink';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 /**
 import ExternalLink from '@utils/externalLink';
@@ -96,9 +97,7 @@ export default () => {
                         company
                         city
                         headshot {
-                            fixed(height: 200, quality: 100) {
-                                src
-                            }
+                            gatsbyImageData(layout: CONSTRAINED)
                         }
                         link
                     }
@@ -133,14 +132,16 @@ export default () => {
                                 headshot,
                                 link,
                             }) => {
+                                const hs = getImage(headshot);
                                 return (
                                     <Placeholder>
                                         <Art>
                                             <ExternalLink href={link}>
-                                                <img
+                                                {/* <img
                                                     src={headshot.fixed.src}
                                                     alt={name}
-                                                />
+                                                /> */}
+                                                <GatsbyImage image={hs} alt={hs.title} />
                                             </ExternalLink>
                                         </Art>
                                         <Text>

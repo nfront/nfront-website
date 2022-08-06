@@ -7,6 +7,8 @@ import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { convertToBgImage } from "gbimage-bridge"
 
 const StyledContainer = styled(Container)`
     img {
@@ -28,23 +30,28 @@ const StyledContainer = styled(Container)`
 
 export default ({ data }) => {
     const { title, body, heroImage, publishDate } = data.contentfulPost;
+    const hImg = getImage(heroImage);
+    const bgImage = convertToBgImage(hImg);
     return (
         <Layout>
             <SEO title={title} />
             <Navbar fluid />
             {heroImage != null && (
                 <BackgroundImage
-                    fluid={heroImage.fluid}
-                    style={{
-                        height: `50vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                    }}
+                    // Spread bgImage into BackgroundImage:
+                    {...bgImage}
+                    preserveStackingContext
                 >
+                    <div
+                        style={{
+                            height: `50vh`,
+                            width: `100vw`,
+                            backgroundColor: `transparent`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center center`,
+                            display: `flex`,
+                            alignItems: `center`,
+                        }}><GatsbyImage image={hImg} /></div>
                     <Overlay />
                     <OverlayText className="text-light">
                         <p>{publishDate}</p>
@@ -78,9 +85,10 @@ export const query = graphql`
                 }
             }
             heroImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                )
             }
         }
     }

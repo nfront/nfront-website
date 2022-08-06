@@ -99,9 +99,7 @@ export default ({ location }) => {
                     title
                     totalJobs
                     featuredImage {
-                        fluid(quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(layout: FULL_WIDTH)
                     }
                     slug
                 }
@@ -111,9 +109,7 @@ export default ({ location }) => {
                     title
                     positions
                     coverImg {
-                        fluid(maxWidth: 100, quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(layout: FULL_WIDTH)
                     }
                     slug
                 }

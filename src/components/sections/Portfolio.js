@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useIsHome';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 // import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
@@ -146,9 +147,7 @@ export default () => {
                         }
                     }
                     logo {
-                        fluid(maxHeight: 500) {
-                            src
-                        }
+                        gatsbyImageData(layout: CONSTRAINED, height: 500)
                     }
                     link
                     cInvestors
@@ -182,8 +181,8 @@ export default () => {
                                     return (
                                         <Slide>
                                             <Art>
-                                                <img
-                                                    src={logo.fluid.src}
+                                                <GatsbyImage
+                                                    image={logo}
                                                     alt={brand}
                                                 />
                                             </Art>
@@ -232,8 +231,8 @@ export default () => {
                                                 <span>HQ:</span> {location}
                                             </p>
                                             <Art>
-                                                <img
-                                                    src={logo.fluid.src}
+                                                <GatsbyImage
+                                                    image={logo}
                                                     alt={brand}
                                                 />
                                             </Art>

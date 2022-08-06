@@ -43,18 +43,14 @@ export default ({ location, user }) => {
                     price
                     author
                     coverImage {
-                        fluid(quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(layout: FULL_WIDTH)
                     }
                     courseCategories {
                         title
                         tagLine
                         slug
                         icon {
-                            fluid(maxHeight: 100, quality: 100) {
-                                src
-                            }
+                            gatsbyImageData(layout: FULL_WIDTH, width: 100)
                         }
                     }
                 }

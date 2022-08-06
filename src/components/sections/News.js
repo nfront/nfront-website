@@ -3,6 +3,7 @@ import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 import { useIsHome } from '@utils/hooks/useIsHome';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const GRID = styled(Grid)`
     .grid-item {
@@ -69,9 +70,7 @@ export default function News(props) {
                             }
                         }
                         heroImage {
-                            fluid(quality: 100) {
-                                src
-                            }
+                            gatsbyImageData(layout: FULL_WIDTH)
                         }
                     }
                 }
@@ -91,10 +90,7 @@ export default function News(props) {
                         <div key={news.id} className="grid-item">
                             <Link to={`/news/${news.slug}`}>
                                 <Art>
-                                    <img
-                                        src={news.heroImage.fluid.src}
-                                        alt={news.title}
-                                    />
+                                    <GatsbyImage image={news.heroImage} alt={news.title} />
                                 </Art>
                                 <Text>
                                     <h3>{news.title}</h3>

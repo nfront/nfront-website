@@ -70,6 +70,7 @@ module.exports = {
         },
         `gatsby-plugin-sass`,
         `gatsby-plugin-svgr`,
+        `gatsby-plugin-image`,
         `gatsby-plugin-styled-components`,
         `gatsby-plugin-sharp`,
         `gatsby-background-image`,

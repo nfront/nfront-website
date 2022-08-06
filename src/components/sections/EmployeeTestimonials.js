@@ -6,6 +6,7 @@ import useWindowSize from '@utils/hooks/useWindowSize';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 export default function EmployeeTestimonials() {
     const StyledContainer = styled(Container)`
@@ -105,9 +106,7 @@ export default function EmployeeTestimonials() {
                     }
                     candidate
                     avatar {
-                        fluid(quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(layout: FULL_WIDTH)
                     }
                 }
             }
@@ -131,8 +130,8 @@ export default function EmployeeTestimonials() {
                                     {tooltip.childMarkdownRemark.excerpt}
                                 </p>
                                 <Art>
-                                    <img
-                                        src={avatar.fluid.src}
+                                    <GatsbyImage
+                                        image={avatar}
                                         alt={candidate}
                                     />
                                 </Art>

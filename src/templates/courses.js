@@ -7,6 +7,8 @@ import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { convertToBgImage } from "gbimage-bridge"
 import { FlexBox } from '../components/sections/Team';
 import { INLINES } from '@contentful/rich-text-types';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -56,6 +58,8 @@ export default ({ data }) => {
         body,
         courseCategories,
     } = data.contentfulCourses;
+    const hImg = getImage(coverImage);
+    const bgImage = convertToBgImage(hImg);
 
     const website_url = 'vimeo.com';
 
@@ -104,16 +108,14 @@ export default ({ data }) => {
                     return (
                         <a
                             href={node.data.uri}
-                            target={`${
-                                node.data.uri.startsWith(website_url)
+                            target={`${node.data.uri.startsWith(website_url)
                                     ? '_self'
                                     : '_blank'
-                            }`}
-                            rel={`${
-                                node.data.uri.startsWith(website_url)
+                                }`}
+                            rel={`${node.data.uri.startsWith(website_url)
                                     ? ''
                                     : 'noopener noreferrer'
-                            }`}
+                                }`}
                         >
                             {node.content[0].value}
                         </a>
@@ -174,16 +176,14 @@ export default ({ data }) => {
                         return (
                             <a
                                 href={node.data.uri}
-                                target={`${
-                                    node.data.uri.startsWith(website_url)
+                                target={`${node.data.uri.startsWith(website_url)
                                         ? '_self'
                                         : '_blank'
-                                }`}
-                                rel={`${
-                                    node.data.uri.startsWith(website_url)
+                                    }`}
+                                rel={`${node.data.uri.startsWith(website_url)
                                         ? ''
                                         : 'noopener noreferrer'
-                                }`}
+                                    }`}
                             >
                                 {node.content[0].value}
                             </a>
@@ -228,19 +228,23 @@ export default ({ data }) => {
             <Navbar fluid />
             {coverImage != null && (
                 <BackgroundImage
-                    fluid={coverImage.fluid}
-                    style={{
-                        height: `50vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                    }}
+                    // Spread bgImage into BackgroundImage:
+                    {...bgImage}
+                    preserveStackingContext
                 >
+                    <div
+                        style={{
+                            height: `50vh`,
+                            width: `100vw`,
+                            backgroundColor: `transparent`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center center`,
+                            display: `flex`,
+                            alignItems: `center`,
+                        }}><GatsbyImage image={hImg} /></div>
                     <Overlay />
                     <OverlayText className="text-light">
+                        {/* <p>{publishDate}</p> */}
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
                 </BackgroundImage>
@@ -273,12 +277,13 @@ export const query = graphql`
                 title
             }
             body {
-                json
+                raw
             }
             coverImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                )
             }
         }
     }

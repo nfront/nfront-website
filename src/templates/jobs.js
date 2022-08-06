@@ -7,6 +7,8 @@ import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { convertToBgImage } from "gbimage-bridge"
 import { FlexBox } from '../components/sections/Team';
 import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -50,7 +52,7 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
-const StyledImg = styled(Img)`
+const StyledImg = styled(GatsbyImage)`
     @media (min-width: ${props => props.theme.screen.xs}) {
         // margin-right: 3rem;
         /* text-align: left; */
@@ -73,23 +75,28 @@ export default ({ data }) => {
         experience,
         streetAddress,
     } = data.contentfulJobs;
+    const hImg = getImage(heroImage);
+    const bgImage = convertToBgImage(hImg);
     return (
         <Layout>
             <SEO title={title} />
             <Navbar fluid />
             {heroImage != null && (
                 <BackgroundImage
-                    fluid={heroImage.fluid}
-                    style={{
-                        height: `50vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                    }}
+                    // Spread bgImage into BackgroundImage:
+                    {...bgImage}
+                    preserveStackingContext
                 >
+                    <div
+                        style={{
+                            height: `50vh`,
+                            width: `100vw`,
+                            backgroundColor: `transparent`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center center`,
+                            display: `flex`,
+                            alignItems: `center`,
+                        }}><GatsbyImage image={hImg} /></div>
                     <Overlay />
                     <OverlayText className="text-light">
                         <p>{publishDate}</p>
@@ -102,7 +109,7 @@ export default ({ data }) => {
                     <ModifiedFlexBox>
                         <InfoSection>
                             <StyledImg
-                                fluid={profileImage.fluid}
+                                image={profileImage}
                                 alt="profile image"
                             />
                             <div className="info-card">
@@ -165,14 +172,16 @@ export const query = graphql`
                 }
             }
             heroImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                )
             }
             profileImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                )
             }
         }
     }
