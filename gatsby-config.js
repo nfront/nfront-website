@@ -76,6 +76,7 @@ module.exports = {
         `gatsby-background-image`,
         `gatsby-transformer-remark`,
         `gatsby-transformer-sharp`,
+        `gatsby-transformer-inline-svg`,
         {
             resolve: `gatsby-plugin-typography`,
             options: {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-import BackgroundImage from 'gatsby-background-image';
 import styled from 'styled-components';
+import { BgImage } from 'gbimage-bridge';
+import {getImage } from "gatsby-plugin-image"
 
 const GRID = styled.div`
     display: grid;
@@ -11,10 +12,10 @@ const GRID = styled.div`
     justify-items: center;
     background-color: var(--accent-color);
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
         /** reverse the order of grid layout */
-        ${props =>
+        ${(props) =>
             props.accent === 'inverse' &&
             `
             ${Text} {
@@ -37,12 +38,12 @@ const Placeholder = styled.div`
 
 const Text = styled.div`
     padding: 5rem 1.5rem;
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         width: 90%;
     }
 `;
 
-export default function({ accent, fileName, children }) {
+export default function ({ accent, fileName, children }) {
     const data = useStaticQuery(
         graphql`
             query {
@@ -53,17 +54,9 @@ export default function({ accent, fileName, children }) {
                         node {
                             relativePath
                             childImageSharp {
-                                fluid(
-                                    maxWidth: 1920
-                                    quality: 100
-                                    duotone: {
-                                        highlight: "#0ec4f1"
-                                        shadow: "#000000"
-                                        opacity: 50
-                                    }
-                                ) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+                                gatsbyImageData(
+                                    width: 1920
+                                )
                             }
                         }
                     }
@@ -80,13 +73,15 @@ export default function({ accent, fileName, children }) {
         return null;
     }
 
+    const pluginImage = getImage(image);
+
     return (
         <GRID alt accent={accent}>
             <Text>{children}</Text>
             <Placeholder>
                 <div className="overlay-dark"></div>
-                <BackgroundImage
-                    fluid={image.childImageSharp.fluid}
+                <BgImage
+                    image={pluginImage}
                     style={{
                         width: `100%`,
                         minHeight: `60vh`,

@@ -6,9 +6,8 @@ import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
-import BackgroundImage from 'gatsby-background-image';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { convertToBgImage } from "gbimage-bridge"
+import { getImage } from 'gatsby-plugin-image';
+import { BgImage } from 'gbimage-bridge';
 import { FlexBox } from '../components/sections/Team';
 import { INLINES } from '@contentful/rich-text-types';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -16,7 +15,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         text-align: left;
     }
 `;
@@ -31,7 +30,7 @@ const DetailedSection = styled.div`
 
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         padding: 0 1.5rem;
     }
 `;
@@ -52,14 +51,10 @@ const IframeContainer = styled.span`
 `;
 
 export default ({ data }) => {
-    const {
-        title,
-        coverImage,
-        body,
-        courseCategories,
-    } = data.contentfulCourses;
-    const hImg = getImage(coverImage);
-    const bgImage = convertToBgImage(hImg);
+    const { title, coverImage, body, courseCategories } =
+        data.contentfulCourses;
+
+    const pluginImage = getImage(coverImage);
 
     const website_url = 'vimeo.com';
 
@@ -67,7 +62,7 @@ export default ({ data }) => {
     // documentToReactComponents from "@contentful/rich-text-react-renderer"
 
     function RichTextResponse(richTextResponse) {
-        console.log("HERE2", richTextResponse);
+        console.log('HERE2', richTextResponse);
         return (
             <>
                 {documentToReactComponents(
@@ -80,7 +75,7 @@ export default ({ data }) => {
 
     const options = {
         renderNode: {
-            [INLINES.HYPERLINK]: node => {
+            [INLINES.HYPERLINK]: (node) => {
                 if (node.data.uri.indexOf('youtu') !== -1) {
                     return (
                         <IframeContainer>
@@ -108,14 +103,16 @@ export default ({ data }) => {
                     return (
                         <a
                             href={node.data.uri}
-                            target={`${node.data.uri.startsWith(website_url)
+                            target={`${
+                                node.data.uri.startsWith(website_url)
                                     ? '_self'
                                     : '_blank'
-                                }`}
-                            rel={`${node.data.uri.startsWith(website_url)
+                            }`}
+                            rel={`${
+                                node.data.uri.startsWith(website_url)
                                     ? ''
                                     : 'noopener noreferrer'
-                                }`}
+                            }`}
                         >
                             {node.content[0].value}
                         </a>
@@ -148,7 +145,7 @@ export default ({ data }) => {
             renderNode: {
                 // other options...
 
-                [INLINES.HYPERLINK]: node => {
+                [INLINES.HYPERLINK]: (node) => {
                     if (node.data.uri.indexOf('youtu') !== -1) {
                         return (
                             <IframeContainer>
@@ -176,14 +173,16 @@ export default ({ data }) => {
                         return (
                             <a
                                 href={node.data.uri}
-                                target={`${node.data.uri.startsWith(website_url)
+                                target={`${
+                                    node.data.uri.startsWith(website_url)
                                         ? '_self'
                                         : '_blank'
-                                    }`}
-                                rel={`${node.data.uri.startsWith(website_url)
+                                }`}
+                                rel={`${
+                                    node.data.uri.startsWith(website_url)
                                         ? ''
                                         : 'noopener noreferrer'
-                                    }`}
+                                }`}
                             >
                                 {node.content[0].value}
                             </a>
@@ -227,27 +226,24 @@ export default ({ data }) => {
             <SEO title={title} />
             <Navbar fluid />
             {coverImage != null && (
-                <BackgroundImage
-                    // Spread bgImage into BackgroundImage:
-                    {...bgImage}
-                    preserveStackingContext
+                <BgImage
+                    image={pluginImage}
+                    style={{
+                        height: `50vh`,
+                        width: `100vw`,
+                        backgroundColor: `transparent`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center center`,
+                        display: `flex`,
+                        alignItems: `center`,
+                    }}
                 >
-                    <div
-                        style={{
-                            height: `50vh`,
-                            width: `100vw`,
-                            backgroundColor: `transparent`,
-                            backgroundSize: `cover`,
-                            backgroundPosition: `center center`,
-                            display: `flex`,
-                            alignItems: `center`,
-                        }}><GatsbyImage image={hImg} /></div>
                     <Overlay />
                     <OverlayText className="text-light">
                         {/* <p>{publishDate}</p> */}
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
-                </BackgroundImage>
+                </BgImage>
             )}
             <Section>
                 <StyledContainer>
@@ -269,7 +265,7 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-    query($slug: String!) {
+    query ($slug: String!) {
         contentfulCourses(slug: { eq: $slug }) {
             title
             slug

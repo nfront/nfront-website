@@ -1,9 +1,10 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
-import BackgroundImage from 'gatsby-background-image';
 import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
+import { BgImage } from 'gbimage-bridge';
+import { getImage } from "gatsby-plugin-image"
 
 /** keep it here in case we want to have a CTA box 
  * 
@@ -104,9 +105,11 @@ export default function Header({ fileName }) {
                         node {
                             relativePath
                             childImageSharp {
-                                fluid(maxWidth: 2480, quality: 100) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+                                gatsbyImageData(
+                                    width: 2480
+                                    placeholder: BLURRED
+                                    formats: [AUTO, WEBP, AVIF]
+                                  )
                             }
                         }
                     }
@@ -123,10 +126,12 @@ export default function Header({ fileName }) {
         return null;
     }
 
+    const pluginImage = getImage(image);
+
     return (
         <>
-            <BackgroundImage
-                fluid={image.childImageSharp.fluid}
+            <BgImage 
+                image={pluginImage}
                 style={{
                     height: `100vh`,
                     width: `100vw`,
@@ -138,7 +143,7 @@ export default function Header({ fileName }) {
                 }}
             >
                 <Overlay alt />
-            </BackgroundImage>
+            </BgImage>
             <HeaderWrapper id="top">
                 <div>
                     <Fade top>

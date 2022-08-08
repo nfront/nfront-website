@@ -6,16 +6,15 @@ import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
-import BackgroundImage from 'gatsby-background-image';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { convertToBgImage } from "gbimage-bridge"
+import { getImage } from 'gatsby-plugin-image';
+import { BgImage } from 'gbimage-bridge';
 
 const StyledContainer = styled(Container)`
     img {
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             max-width: 800px;
         }
         margin-bottom: 3rem;
@@ -30,34 +29,31 @@ const StyledContainer = styled(Container)`
 
 export default ({ data }) => {
     const { title, body, heroImage, publishDate } = data.contentfulPost;
-    const hImg = getImage(heroImage);
-    const bgImage = convertToBgImage(hImg);
+    const pluginImage = getImage(heroImage);
+
     return (
         <Layout>
             <SEO title={title} />
             <Navbar fluid />
             {heroImage != null && (
-                <BackgroundImage
-                    // Spread bgImage into BackgroundImage:
-                    {...bgImage}
-                    preserveStackingContext
+                <BgImage
+                    image={pluginImage}
+                    style={{
+                        height: `50vh`,
+                        width: `100vw`,
+                        backgroundColor: `transparent`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center center`,
+                        display: `flex`,
+                        alignItems: `center`,
+                    }}
                 >
-                    <div
-                        style={{
-                            height: `50vh`,
-                            width: `100vw`,
-                            backgroundColor: `transparent`,
-                            backgroundSize: `cover`,
-                            backgroundPosition: `center center`,
-                            display: `flex`,
-                            alignItems: `center`,
-                        }}><GatsbyImage image={hImg} /></div>
                     <Overlay />
                     <OverlayText className="text-light">
                         <p>{publishDate}</p>
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
-                </BackgroundImage>
+                </BgImage>
             )}
             <Section>
                 <StyledContainer>
@@ -74,7 +70,7 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-    query($slug: String!) {
+    query ($slug: String!) {
         contentfulPost(slug: { eq: $slug }) {
             title
             publishDate(fromNow: true)

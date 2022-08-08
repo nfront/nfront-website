@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 import { useIsHome } from '@utils/hooks/useIsHome';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const GRID = styled(Grid)`
     .grid-item {
@@ -16,7 +16,7 @@ const GRID = styled(Grid)`
 
 const Text = styled.div`
     padding: 1rem;
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         min-height: 300px;
     }
 
@@ -42,7 +42,7 @@ const Art = styled.div`
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
 
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             /* min-height: 240px; */
         }
     }
@@ -51,7 +51,7 @@ const Art = styled.div`
 // ALLWAYS USE IMAGES THAT ARE 16:9 FOR NEWS (PPT SLIDE SIZE. USE PPT TO MAKE IT.)
 
 export default function News(props) {
-    const {limit} = props;
+    const { limit } = props;
     const data = useStaticQuery(graphql`
         query {
             allContentfulPost(
@@ -86,25 +86,33 @@ export default function News(props) {
             </SectionTitle>
             <Container>
                 <GRID>
-                    {results.slice(0, limit).map(({ node: news }) => (
-                        <div key={news.id} className="grid-item">
-                            <Link to={`/news/${news.slug}`}>
-                                <Art>
-                                    <GatsbyImage image={news.heroImage} alt={news.title} />
-                                </Art>
-                                <Text>
-                                    <h3>{news.title}</h3>
-                                    <p className="label">{news.publishDate}</p>
-                                    <p>
-                                        {
-                                            news.metaDescription
-                                                .childMarkdownRemark.excerpt
-                                        }
-                                    </p>
-                                </Text>
-                            </Link>
-                        </div>
-                    ))}
+                    {results.slice(0, limit).map(({ node: news }) => {
+                        const image = getImage(news.heroImage)
+                        return (
+                            <div key={news.id} className="grid-item">
+                                <Link to={`/news/${news.slug}`}>
+                                    <Art>
+                                        <GatsbyImage
+                                            image={image}
+                                            alt={news.title}
+                                        />
+                                    </Art>
+                                    <Text>
+                                        <h3>{news.title}</h3>
+                                        <p className="label">
+                                            {news.publishDate}
+                                        </p>
+                                        <p>
+                                            {
+                                                news.metaDescription
+                                                    .childMarkdownRemark.excerpt
+                                            }
+                                        </p>
+                                    </Text>
+                                </Link>
+                            </div>
+                        );
+                    })}
                 </GRID>
             </Container>
             {isHome && (

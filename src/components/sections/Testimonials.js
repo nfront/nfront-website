@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Carousel from 're-carousel';
 import IndicatorDots from '@utils/carousel/indicator-dots';
-import Img from 'gatsby-image';
+import GatsbyImage from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { Section, Container, SectionTitle } from '@styles/global';
 
@@ -94,8 +94,8 @@ export default () => {
                         return (
                             <Slide>
                                 <Art>
-                                    <Img
-                                        fixed={img.childImageSharp.fixed}
+                                    <GatsbyImage
+                                        image={img}
                                         alt={name}
                                     />
                                 </Art>

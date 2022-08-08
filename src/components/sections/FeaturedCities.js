@@ -10,6 +10,7 @@ import {
 } from '@styles/global';
 import Fade from 'react-reveal/Fade';
 import BackgroundImage from 'gatsby-background-image';
+
 const GRID = styled(Grid)`
     .grid-item {
         background: white;

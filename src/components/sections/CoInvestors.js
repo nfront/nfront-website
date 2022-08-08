@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Section, Container, Box, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
@@ -10,7 +10,7 @@ const GRID = styled.div`
     grid-template-columns: 1fr;
     transition: transform 0.3s ease-in-out;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -55,9 +55,11 @@ export default () => {
                         node {
                             relativePath
                             childImageSharp {
-                                fluid(maxWidth: 885) {
-                                    ...GatsbyImageSharpFluid
-                                }
+                                gatsbyImageData(
+                                    width: 885
+                                    placeholder: BLURRED
+                                    formats: [AUTO, WEBP, AVIF]
+                                )
                             }
                         }
                     }
@@ -66,7 +68,7 @@ export default () => {
         `
     );
     return (
-        <Section accent='alt' id="co-investors">
+        <Section accent="alt" id="co-investors">
             <Container>
                 <SectionTitle>
                     <h2>Co-Investment Network</h2>
@@ -83,13 +85,11 @@ export default () => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;
+                        const pluginImage = getImage(img);
                         return (
                             <Box>
                                 <label>{name}</label>
-                                <Img
-                                    fluid={img.childImageSharp.fluid}
-                                    alt={name}
-                                />
+                                <GatsbyImage image={pluginImage} alt={name} />
                             </Box>
                         );
                     })}

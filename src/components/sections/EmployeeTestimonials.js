@@ -123,6 +123,7 @@ export default function EmployeeTestimonials() {
             <StyledContainer>
                 <Slider {...settings}>
                     {results.map(({ title, candidate, avatar, tooltip }) => {
+                        const image = getImage(avatar)
                         return (
                             <Slide key={title}>
                                 <p className="tooltip">
@@ -131,7 +132,7 @@ export default function EmployeeTestimonials() {
                                 </p>
                                 <Art>
                                     <GatsbyImage
-                                        image={avatar}
+                                        image={image}
                                         alt={candidate}
                                     />
                                 </Art>

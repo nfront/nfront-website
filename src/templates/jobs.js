@@ -6,17 +6,16 @@ import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
-import BackgroundImage from 'gatsby-background-image';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { convertToBgImage } from "gbimage-bridge"
+import { getImage } from 'gatsby-plugin-image';
+import { BgImage } from 'gbimage-bridge';
 import { FlexBox } from '../components/sections/Team';
-import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faLocationDot,
     faDollarSign,
     faShieldAlt,
 } from '@fortawesome/free-solid-svg-icons';
+
 const StyledContainer = styled(Container)`
     text-align: center;
     @media (min-width: ${props => props.theme.screen.xs}) {
@@ -52,7 +51,7 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
-const StyledImg = styled(GatsbyImage)`
+const StyledImg = styled(BgImage)`
     @media (min-width: ${props => props.theme.screen.xs}) {
         // margin-right: 3rem;
         /* text-align: left; */
@@ -65,6 +64,7 @@ const ModifiedFlexBox = styled(FlexBox)`
     }
 `;
 export default ({ data }) => {
+
     const {
         title,
         body,
@@ -75,41 +75,40 @@ export default ({ data }) => {
         experience,
         streetAddress,
     } = data.contentfulJobs;
-    const hImg = getImage(heroImage);
-    const bgImage = convertToBgImage(hImg);
+
+    const pluginImageHero = getImage(heroImage);
+    const pluginImageProfile = getImage(profileImage);
+
     return (
         <Layout>
             <SEO title={title} />
             <Navbar fluid />
             {heroImage != null && (
-                <BackgroundImage
-                    // Spread bgImage into BackgroundImage:
-                    {...bgImage}
-                    preserveStackingContext
+                <BgImage
+                    image={pluginImageHero}
+                    style={{
+                        height: `50vh`,
+                        width: `100vw`,
+                        backgroundColor: `transparent`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center center`,
+                        display: `flex`,
+                        alignItems: `center`,
+                    }}
                 >
-                    <div
-                        style={{
-                            height: `50vh`,
-                            width: `100vw`,
-                            backgroundColor: `transparent`,
-                            backgroundSize: `cover`,
-                            backgroundPosition: `center center`,
-                            display: `flex`,
-                            alignItems: `center`,
-                        }}><GatsbyImage image={hImg} /></div>
                     <Overlay />
                     <OverlayText className="text-light">
                         <p>{publishDate}</p>
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
-                </BackgroundImage>
+                </BgImage>
             )}
             <Section>
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <InfoSection>
                             <StyledImg
-                                image={profileImage}
+                                image={pluginImageProfile}
                                 alt="profile image"
                             />
                             <div className="info-card">

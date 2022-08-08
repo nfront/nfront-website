@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Section, Container, SectionTitle } from '@styles/global';
 
 export const Divider = styled.hr`
@@ -48,7 +48,7 @@ export const FlexBox = styled.div`
     }
 `;
 
-const StyledImg = styled(Img)`
+const StyledImg = styled(GatsbyImage)`
     flex: 0 1 300px;
     margin-right: 0rem;
     margin-bottom: 1.5rem;
@@ -88,15 +88,17 @@ export default () => {
             query {
                 file(relativePath: { eq: "magnus-gaarder.jpg" }) {
                     childImageSharp {
-                        fluid(maxWidth: 250, quality: 100) {
-                            ...GatsbyImageSharpFluid
-                            ...GatsbyImageSharpFluidLimitPresentationSize
-                        }
+                        gatsbyImageData(
+                            width: 250
+                            placeholder: BLURRED
+                            formats: [AUTO, WEBP, AVIF]
+                          )
                     }
                 }
             }
         `
     );
+    const image = getImage(data.file);
     return (
         <>
             <Section>
@@ -115,7 +117,7 @@ export default () => {
                     <FlexBox>
                         <StyledImg
                             className="rounded"
-                            fluid={data.file.childImageSharp.fluid}
+                            image={image}
                             alt="Magnus Gaarder"
                         />
                         <Founder>

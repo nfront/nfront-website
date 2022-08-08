@@ -178,11 +178,12 @@ export default () => {
                                         cInvestors,
                                     } = val;
                                     const { description } = val.description;
+                                    const image = getImage(logo)
                                     return (
                                         <Slide>
                                             <Art>
                                                 <GatsbyImage
-                                                    image={logo}
+                                                    image={image}
                                                     alt={brand}
                                                 />
                                             </Art>

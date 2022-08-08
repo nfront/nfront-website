@@ -1,8 +1,9 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import BackgroundImage from 'gatsby-background-image';
 import { Overlay, OverlayText } from '@styles/global';
 import styled from 'styled-components';
+import { getImage } from 'gatsby-plugin-image';
+import { BgImage } from 'gbimage-bridge';
 
 const Placeholder = styled.div`
     .gatsby-image-wrapper {
@@ -51,9 +52,11 @@ export default function({ fileName, children }) {
                         node {
                             relativePath
                             childImageSharp {
-                                fluid(maxWidth: 2480, quality: 100) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+                                gatsbyImageData(
+                                    width: 2480
+                                    placeholder: BLURRED
+                                    formats: [AUTO, WEBP, AVIF]
+                                )
                             }
                         }
                     }
@@ -70,10 +73,12 @@ export default function({ fileName, children }) {
         return null;
     }
 
+    const pluginImage = getImage(image);
+
     return (
         <Placeholder>
-            <BackgroundImage
-                fluid={image.childImageSharp.fluid}
+            <BgImage 
+                image={pluginImage}
                 style={{
                     width: `100vw`,
                     backgroundColor: `transparent`,
@@ -86,7 +91,7 @@ export default function({ fileName, children }) {
             >
                 <Overlay />
                 <OverlayText>{children}</OverlayText>
-            </BackgroundImage>
+            </BgImage>
         </Placeholder>
     );
 }

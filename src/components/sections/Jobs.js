@@ -11,7 +11,7 @@ const StyledSection = styled.div`
     }
 `;
 
-function Jobs({ categories, cities, jobs, getPositionCount }) {
+export default function Jobs({ categories, cities, jobs, getPositionCount }) {
     return (
         <StyledSection>
             <Categories
@@ -29,5 +29,3 @@ function Jobs({ categories, cities, jobs, getPositionCount }) {
         </StyledSection>
     );
 }
-
-export default Jobs;
