@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { BgImage } from 'gbimage-bridge';
-import {getImage } from "gatsby-plugin-image"
+import { getImage } from "gatsby-plugin-image"
 
 const GRID = styled.div`
     display: grid;

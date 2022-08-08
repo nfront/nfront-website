@@ -29,7 +29,7 @@ export default function EmployeeTestimonials() {
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
-            border-top: 15px solid var9--white);
+            border-top: 15px solid var(--white);
             transform: translate(-50%,-0%);
         }
         .tooltip {

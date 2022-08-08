@@ -9,7 +9,8 @@ import {
     OverlayText,
 } from '@styles/global';
 import Fade from 'react-reveal/Fade';
-import BackgroundImage from 'gatsby-background-image';
+import { BgImage } from 'gbimage-bridge';
+import { getImage } from "gatsby-plugin-image"
 
 const GRID = styled(Grid)`
     .grid-item {
@@ -58,11 +59,11 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                 <GRID>
                     {cities.map(city => {
                         const { title, featuredImage, slug } = city;
-
+                        const pluginImage = getImage(featuredImage);
                         return (
                             <div className="grid-item" key={title}>
-                                <BackgroundImage
-                                    fluid={featuredImage.fluid}
+                                <BgImage
+                                    image={pluginImage}
                                     style={{
                                         backgroundSize: `cover`,
                                         backgroundPosition: `center center`,
@@ -85,7 +86,7 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                                             </Fade>
                                         </Text>
                                     </OverlayText>
-                                </BackgroundImage>
+                                </BgImage>
                             </div>
                         );
                     })}
