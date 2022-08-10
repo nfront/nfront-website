@@ -28,6 +28,7 @@ export default () => {
                         icon {
                             gatsbyImageData(
                                 layout: CONSTRAINED
+                                height: 100
                             )
                         }
                     }

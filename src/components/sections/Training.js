@@ -54,7 +54,7 @@ export default ({ location, user }) => {
                         icon {
                             gatsbyImageData(
                                 layout: CONSTRAINED
-                                width: 100
+                                height: 100
                             )
                         }
                     }

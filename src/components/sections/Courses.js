@@ -44,6 +44,9 @@ const Text = styled.div`
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 20px;
+        @media (min-width: ${(props) => props.theme.screen.md}) {
+            min-height: 2.5rem;
+        }
     }
 
     .label {
@@ -54,10 +57,18 @@ const Text = styled.div`
         font-size: 0.95rem;
     }
 
-    p:not(.label) {
+    /* p:not(.label) {
         font-size: 16px;
-    }
+    } */
     .know-details {
+        margin-left: 1rem;
+        text-align: right;
+
+        font-size: 0.8rem;
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+            font-size: 1rem;
+        }
+
         &:hover {
             color: var(--blue);
             .fa-arrow-right {
@@ -107,10 +118,16 @@ export default function Courses(props) {
                                 <div key={courses.title} className="grid-item">
                                     <Link to={`/training/${courses.slug}`}>
                                         <Art>
-                                            <GatsbyImage className="img-style" image={image} alt={courses.title} />
+                                            <GatsbyImage
+                                                className="img-style"
+                                                image={image}
+                                                alt={courses.title}
+                                            />
                                         </Art>
                                         <Text>
-                                            <h3>{courses.title}</h3>
+                                            <h3>
+                                                {courses.title}
+                                            </h3>
                                             {/* <p className="label">{courses.author}</p> */}
                                             <hr />
                                             <ItemGrid>
