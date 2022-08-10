@@ -53,9 +53,7 @@ export default function({ fileName, children }) {
                             relativePath
                             childImageSharp {
                                 gatsbyImageData(
-                                    width: 2480
-                                    placeholder: BLURRED
-                                    formats: [AUTO, WEBP, AVIF]
+                                    layout: FULL_WIDTH
                                 )
                             }
                         }

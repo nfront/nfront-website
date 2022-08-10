@@ -55,7 +55,16 @@ export default function ({ accent, fileName, children }) {
                             relativePath
                             childImageSharp {
                                 gatsbyImageData(
-                                    width: 1920
+                                    layout: FULL_WIDTH
+                                    quality: 100
+                                    transformOptions: 
+                                        {
+                                            duotone: {
+                                                highlight: "#0ec4f1",
+                                                shadow: "#000000",
+                                                opacity: 50
+                                            }
+                                        }
                                 )
                             }
                         }

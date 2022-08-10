@@ -36,7 +36,7 @@ export const FormFields = styled(Container)`
     justify-content: space-between;
     flex-direction: row;
     padding: 1rem;
-    justify-item: center;
+    justify-items: center;
     align-items: center;
     @media (min-width: ${props => props.theme.screen.lg}) {
         display: flex;

@@ -43,14 +43,19 @@ export default ({ location, user }) => {
                     price
                     author
                     coverImage {
-                        gatsbyImageData(layout: FULL_WIDTH)
+                        gatsbyImageData(
+                            layout: CONSTRAINED
+                        )
                     }
                     courseCategories {
                         title
                         tagLine
                         slug
                         icon {
-                            gatsbyImageData(layout: FULL_WIDTH, width: 100)
+                            gatsbyImageData(
+                                layout: CONSTRAINED
+                                width: 100
+                            )
                         }
                     }
                 }

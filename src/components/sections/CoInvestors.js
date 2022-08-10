@@ -56,9 +56,8 @@ export default () => {
                             relativePath
                             childImageSharp {
                                 gatsbyImageData(
+                                    layout: CONSTRAINED
                                     width: 885
-                                    placeholder: BLURRED
-                                    formats: [AUTO, WEBP, AVIF]
                                 )
                             }
                         }

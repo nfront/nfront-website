@@ -72,7 +72,17 @@ module.exports = {
         `gatsby-plugin-svgr`,
         `gatsby-plugin-image`,
         `gatsby-plugin-styled-components`,
-        `gatsby-plugin-sharp`,
+        {
+            resolve: `gatsby-plugin-sharp`,
+            options: {
+                defaults: {
+                    formats: [`auto`, `webp`, `avif`],
+                    placeholder: `blurred`,
+                    quality: 100,
+                    breakpoints: [750, 1080, 1366, 1920, 2048]
+                },
+            },
+        },
         `gatsby-background-image`,
         `gatsby-transformer-remark`,
         `gatsby-transformer-sharp`,

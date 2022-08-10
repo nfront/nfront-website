@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { useIsTraining } from '@utils/hooks/useIsHome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+
 const CourseSection = styled(Section)`
     background: #f3f4f8;
 `;
@@ -27,10 +29,10 @@ const ItemGrid = styled.div`
         margin-bottom: 0;
         color: #002e5f;
     }
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         grid-template-columns: repeat(2, 1fr);
     }
 `;
@@ -71,14 +73,14 @@ const Text = styled.div`
 
 const Art = styled.div`
     overflow: hidden;
-    img {
+    .img-style {
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
         transition: all 0.3s ease-out 0s;
         vertical-align: middle;
 
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             /* min-height: 240px; */
         }
     }
@@ -99,39 +101,42 @@ export default function Courses(props) {
             <Container>
                 {results.length ? (
                     <GRID>
-                        {results.slice(0, limit).map(courses => (
-                            <div key={courses.title} className="grid-item">
-                                <Link to={`/training/${courses.slug}`}>
-                                    <Art>
-                                        <img
-                                            src={courses.coverImage.fluid.src}
-                                            alt={courses.title}
-                                        />
-                                    </Art>
-                                    <Text>
-                                        <h3>{courses.title}</h3>
-                                        {/* <p className="label">{courses.author}</p> */}
-                                        <hr />
-                                        <ItemGrid>
-                                            {/* <p>{`$${courses.price}`}</p> */}
-                                            <p className="category">
-                                                {courses.courseCategories.title}
-                                            </p>
-                                            <Link
-                                                className="know-details"
-                                                to={`/training/${courses.slug}`}
-                                            >
-                                                Know Details
-                                                <FontAwesomeIcon
-                                                    icon={faArrowRight}
-                                                    size="1px"
-                                                />
-                                            </Link>
-                                        </ItemGrid>
-                                    </Text>
-                                </Link>
-                            </div>
-                        ))}
+                        {results.slice(0, limit).map((courses) => {
+                            const image = getImage(courses.coverImage);
+                            return (
+                                <div key={courses.title} className="grid-item">
+                                    <Link to={`/training/${courses.slug}`}>
+                                        <Art>
+                                            <GatsbyImage className="img-style" image={image} alt={courses.title} />
+                                        </Art>
+                                        <Text>
+                                            <h3>{courses.title}</h3>
+                                            {/* <p className="label">{courses.author}</p> */}
+                                            <hr />
+                                            <ItemGrid>
+                                                {/* <p>{`$${courses.price}`}</p> */}
+                                                <p className="category">
+                                                    {
+                                                        courses.courseCategories
+                                                            .title
+                                                    }
+                                                </p>
+                                                <Link
+                                                    className="know-details"
+                                                    to={`/training/${courses.slug}`}
+                                                >
+                                                    Know Details
+                                                    <FontAwesomeIcon
+                                                        icon={faArrowRight}
+                                                        size="1px"
+                                                    />
+                                                </Link>
+                                            </ItemGrid>
+                                        </Text>
+                                    </Link>
+                                </div>
+                            );
+                        })}
                     </GRID>
                 ) : (
                     <div className="center">

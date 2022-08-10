@@ -6,7 +6,6 @@ import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import Courses from '../components/sections/Courses';
 import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 export default () => {
     const data = useStaticQuery(graphql`
@@ -19,13 +18,17 @@ export default () => {
                     price
                     author
                     coverImage {
-                        gatsbyImageData(layout: FULL_WIDTH)
+                        gatsbyImageData(
+                            layout: CONSTRAINED
+                        )
                     }
                     courseCategories {
                         title
                         tagLine
                         icon {
-                            gatsbyImageData(layout: CONSTRAINED, width: 100)
+                            gatsbyImageData(
+                                layout: CONSTRAINED
+                            )
                         }
                     }
                 }
