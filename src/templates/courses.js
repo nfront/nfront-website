@@ -6,8 +6,7 @@ import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
-import { getImage } from 'gatsby-plugin-image';
-import { BgImage } from 'gbimage-bridge';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FlexBox } from '../components/sections/Team';
 import { INLINES } from '@contentful/rich-text-types';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -226,24 +225,26 @@ export default ({ data }) => {
             <SEO title={title} />
             <Navbar fluid />
             {coverImage != null && (
-                <BgImage
-                    image={pluginImage}
-                    style={{
-                        height: `50vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                    }}
-                >
+                <div style={{ display: 'grid' }}>
+                    <GatsbyImage
+                        image={pluginImage}
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                            width: `100vw`,
+                            backgroundColor: `transparent`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center center`,
+                            display: `flex`,
+                            alignItems: `center`,
+                        }}
+                    />
                     <Overlay />
                     <OverlayText className="text-light">
                         {/* <p>{publishDate}</p> */}
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
-                </BgImage>
+                </div>
             )}
             <Section>
                 <StyledContainer>

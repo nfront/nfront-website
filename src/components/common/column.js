@@ -1,8 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
-import { BgImage } from 'gbimage-bridge';
-import { getImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const GRID = styled.div`
     display: grid;
@@ -89,7 +88,7 @@ export default function ({ accent, fileName, children }) {
             <Text>{children}</Text>
             <Placeholder>
                 <div className="overlay-dark"></div>
-                <BgImage
+                <GatsbyImage
                     image={pluginImage}
                     style={{
                         width: `100%`,

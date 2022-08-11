@@ -6,7 +6,7 @@ import useWindowSize from '@utils/hooks/useWindowSize';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 export default function EmployeeTestimonials() {
     const StyledContainer = styled(Container)`
@@ -106,7 +106,7 @@ export default function EmployeeTestimonials() {
                     }
                     candidate
                     avatar {
-                        gatsbyImageData(layout: FULL_WIDTH)
+                        gatsbyImageData(layout: CONSTRAINED)
                     }
                 }
             }

@@ -9,8 +9,7 @@ import {
     OverlayText,
 } from '@styles/global';
 import Fade from 'react-reveal/Fade';
-import { BgImage } from 'gbimage-bridge';
-import { getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const GRID = styled(Grid)`
     .grid-item {
@@ -21,11 +20,14 @@ const GRID = styled(Grid)`
     }
     .gatsby-image-wrapper {
         min-height: 30vh !important;
+        img {
+            position: absolute !important;
+        }
     }
 `;
-const Text = styled.div`
+const Text = styled(OverlayText)`
     padding: 1rem;
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         // min-height: 300px;
     }
 
@@ -57,36 +59,36 @@ export default function FeaturedCities({ cities, getPositionCount }) {
             </Container>
             <Container>
                 <GRID>
-                    {cities.map(city => {
+                    {cities.map((city) => {
                         const { title, featuredImage, slug } = city;
                         const pluginImage = getImage(featuredImage);
                         return (
-                            <div className="grid-item" key={title}>
-                                <BgImage
+                            <div style={{ display: 'grid' }} key={title}>
+                                <GatsbyImage
                                     image={pluginImage}
                                     style={{
-                                        backgroundSize: `cover`,
-                                        backgroundPosition: `center center`,
-                                        display: `flex`,
-                                        alignItems: `center`,
+                                        gridArea: '1/1',
+                                        // display: 'flex',
+                                        // You can set a maximum height for the image, if you wish.
+                                        // maxHeight: 600,
                                     }}
-                                >
-                                    <Overlay />
-                                    <OverlayText>
-                                        <Text>
-                                            <Fade left>
-                                                <h3>{title}</h3>
-                                                <p>
-                                                    {getPositionCount(
-                                                        slug,
-                                                        'city'
-                                                    )}{' '}
-                                                    Open Positions
-                                                </p>
-                                            </Fade>
-                                        </Text>
-                                    </OverlayText>
-                                </BgImage>
+                                    // style={{
+                                    //     backgroundSize: `cover`,
+                                    //     backgroundPosition: `center center`,
+                                    //     display: `flex`,
+                                    //     alignItems: `center`,
+                                    // }}
+                                />
+                                <Overlay />
+                                <Text>
+                                    <Fade left>
+                                        <h3>{title}</h3>
+                                        <p>
+                                            {getPositionCount(slug, 'city')}{' '}
+                                            Open Positions
+                                        </p>
+                                    </Fade>
+                                </Text>
                             </div>
                         );
                     })}

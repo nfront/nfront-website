@@ -16,7 +16,7 @@ export const Container = styled.div`
     margin: 0 auto;
     padding: 0 1.5rem;
 
-    ${props =>
+    ${(props) =>
         props.fluid &&
         `
         max-width: 100%;
@@ -26,19 +26,19 @@ export const Container = styled.div`
 export const Section = styled.section`
     padding: 6rem 0;
 
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
         background-color: var(--accent-color);  
     `};
 
-    ${props =>
+    ${(props) =>
         props.shade &&
         `
         background-color: var(--shade-color);  
     `};
 
-    ${props =>
+    ${(props) =>
         props.accent === 'alt' &&
         `
         background-color: var(--primary-color);
@@ -53,8 +53,8 @@ export const Section = styled.section`
             background: rgba(225, 225, 225, 0.2);
         }
     `};
-    
-    ${props =>
+
+    ${(props) =>
         props.accent === 'alt2' &&
         `
         background-color: var(--primary-color);
@@ -69,11 +69,11 @@ export const SectionTitle = styled.div`
     text-align: center;
     padding: 0 1.5rem;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         margin-bottom: 3rem;
     }
 
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
         padding-left: 0;
@@ -88,10 +88,10 @@ export const Grid = styled.div`
     grid-gap: 24px;
     justify-content: space-between;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         grid-template-columns: repeat(3, 1fr);
     }
 `;
@@ -119,17 +119,12 @@ export const Box = styled.div`
 
 export const Overlay = styled.div`
     background: rgba(12, 23, 41, 0.8);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
+    position: relative;
+    grid-area: 1/1;
     opacity: 1;
     transition: all 0.4s ease-in-out 0s;
 
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
         @media (min-width: ${props.theme.screen.md}) {
@@ -140,13 +135,9 @@ export const Overlay = styled.div`
 `;
 
 export const OverlayText = styled(Container)`
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
+    // By using the same grid area for both, they are stacked on top of each other
+    grid-area: 1/1;
+    position: relative;
     opacity: 1;
     display: flex;
     flex-flow: column;

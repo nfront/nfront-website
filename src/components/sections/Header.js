@@ -3,8 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
 import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
-import { BgImage } from 'gbimage-bridge';
-import { getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 /** keep it here in case we want to have a CTA box 
  * 
@@ -44,7 +43,7 @@ export const HeaderWrapper = styled(Container)`
     flex-flow: column;
     justify-content: center;
 
-    @media (max-width: ${props => props.theme.screen.sm}) {
+    @media (max-width: ${(props) => props.theme.screen.sm}) {
         margin-top: 8rem;
     }
 `;
@@ -56,28 +55,28 @@ export const HeaderText = styled.h1`
     letter-spacing: 2px;
     text-transform: uppercase;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         font-size: 3rem;
     }
 
-    @media (min-width: ${props => props.theme.screen.lg}) {
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
         font-size: 4rem;
     }
 
     span {
         color: var(--yellow);
         font-size: 2.5rem;
-        @media (min-width: ${props => props.theme.screen.sm}) {
+        @media (min-width: ${(props) => props.theme.screen.sm}) {
             font-size: 4rem;
         }
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             font-size: 5rem;
         }
     }
 
     p {
         color: white;
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             font-size: 1.2rem;
         }
         font-size: 1rem;
@@ -109,7 +108,7 @@ export default function Header({ fileName }) {
                                     width: 2480
                                     placeholder: BLURRED
                                     formats: [AUTO, WEBP, AVIF]
-                                  )
+                                )
                             }
                         }
                     }
@@ -130,20 +129,22 @@ export default function Header({ fileName }) {
 
     return (
         <>
-            <BgImage 
-                image={pluginImage}
-                style={{
-                    height: `100vh`,
-                    width: `100vw`,
-                    backgroundColor: `transparent`,
-                    backgroundSize: `cover`,
-                    backgroundPosition: `center center`,
-                    display: `flex`,
-                    alignItems: `center`,
-                }}
-            >
+            <div style={{ display: 'grid' }}>
+                <GatsbyImage
+                    image={pluginImage}
+                    style={{
+                        gridArea: '1/1',
+                        height: `100vh`,
+                        width: `100vw`,
+                        backgroundColor: `transparent`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center center`,
+                        display: `flex`,
+                        alignItems: `center`,
+                    }}
+                />
                 <Overlay alt />
-            </BgImage>
+            </div>
             <HeaderWrapper id="top">
                 <div>
                     <Fade top>

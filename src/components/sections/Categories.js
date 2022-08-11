@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -83,7 +84,7 @@ const Art = styled.div`
     text-align: center;
     padding: 0.5rem;
     overflow: hidden;
-    img {
+    .img-style {
         max-height: 300px;
         @media (min-width: ${props => props.theme.screen.md}) {
             max-height: 400px;
@@ -128,10 +129,11 @@ export default function Categories({ categories, getPositionCount }) {
                 <GRID>
                     {categories?.map(category => {
                         const { title, coverImg, slug } = category;
+                        const image = getImage(coverImg);
                         return (
                             <div className="grid-item" key={title}>
                                 <Art>
-                                    <img src={coverImg.fluid.src} alt={'img'} />
+                                    <GatsbyImage imgCassName={"img-style"} image={image} alt={title} />
                                 </Art>
                                 <Text>
                                     <Fade left>

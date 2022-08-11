@@ -6,8 +6,7 @@ import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import SEO from '@utils/SEO';
-import { getImage } from 'gatsby-plugin-image';
-import { BgImage } from 'gbimage-bridge';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FlexBox } from '../components/sections/Team';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -18,7 +17,7 @@ import {
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         text-align: left;
     }
 `;
@@ -38,7 +37,7 @@ const InfoSection = styled.div`
             margin-bottom: 0 !important;
         }
     }
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         // margin-right: 3rem;
         // text-align: center;
     }
@@ -51,20 +50,19 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
-const StyledImg = styled(BgImage)`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+const StyledImg = styled(GatsbyImage)`
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         // margin-right: 3rem;
         /* text-align: left; */
     }
 `;
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         padding: 0 1.5rem;
     }
 `;
 export default ({ data }) => {
-
     const {
         title,
         body,
@@ -84,24 +82,26 @@ export default ({ data }) => {
             <SEO title={title} />
             <Navbar fluid />
             {heroImage != null && (
-                <BgImage
-                    image={pluginImageHero}
-                    style={{
-                        height: `50vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                    }}
-                >
+                <div style={{ display: 'grid' }}>
+                    <GatsbyImage
+                        image={pluginImageHero}
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                            width: `100vw`,
+                            backgroundColor: `transparent`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center center`,
+                            display: `flex`,
+                            alignItems: `center`,
+                        }}
+                    />
                     <Overlay />
                     <OverlayText className="text-light">
                         <p>{publishDate}</p>
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
-                </BgImage>
+                </div>
             )}
             <Section>
                 <StyledContainer>
@@ -157,7 +157,7 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-    query($slug: String!) {
+    query ($slug: String!) {
         contentfulJobs(slug: { eq: $slug }) {
             title
             publishDate(fromNow: true)

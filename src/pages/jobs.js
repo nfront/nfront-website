@@ -13,7 +13,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 export const JobSection = styled.div`
     .gatsby-image-wrapper {
-        min-height: 100vh;
+        /* min-height: 100vh; */
     }
 `;
 export const SearchBox = styled(Container)`
@@ -99,7 +99,9 @@ export default ({ location }) => {
                     title
                     totalJobs
                     featuredImage {
-                        gatsbyImageData(layout: FULL_WIDTH)
+                        gatsbyImageData(
+                            layout: CONSTRAINED
+                        )
                     }
                     slug
                 }
@@ -109,7 +111,10 @@ export default ({ location }) => {
                     title
                     positions
                     coverImg {
-                        gatsbyImageData(layout: FULL_WIDTH)
+                        gatsbyImageData(
+                            layout: CONSTRAINED
+                            width: 100
+                        )
                     }
                     slug
                 }
