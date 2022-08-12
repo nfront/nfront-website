@@ -41,12 +41,7 @@ export default ({ data }) => {
                         style={{
                             gridArea: '1/1',
                             height: `50vh`,
-                            width: `100vw`,
-                            backgroundColor: `transparent`,
-                            backgroundSize: `cover`,
-                            backgroundPosition: `center center`,
-                            display: `flex`,
-                            alignItems: `center`,
+                            // width: `100vw`,
                         }}
                     />
                     <Overlay />
@@ -82,10 +77,7 @@ export const query = graphql`
                 }
             }
             heroImage {
-                gatsbyImageData(
-                    placeholder: BLURRED
-                    formats: [AUTO, WEBP, AVIF]
-                )
+                gatsbyImageData(layout: FULL_WIDTH)
             }
         }
     }

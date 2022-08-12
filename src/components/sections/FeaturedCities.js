@@ -20,9 +20,6 @@ const GRID = styled(Grid)`
     }
     .gatsby-image-wrapper {
         min-height: 30vh !important;
-        img {
-            position: absolute !important;
-        }
     }
 `;
 const Text = styled(OverlayText)`
@@ -68,16 +65,7 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                                     image={pluginImage}
                                     style={{
                                         gridArea: '1/1',
-                                        // display: 'flex',
-                                        // You can set a maximum height for the image, if you wish.
-                                        // maxHeight: 600,
                                     }}
-                                    // style={{
-                                    //     backgroundSize: `cover`,
-                                    //     backgroundPosition: `center center`,
-                                    //     display: `flex`,
-                                    //     alignItems: `center`,
-                                    // }}
                                 />
                                 <Overlay />
                                 <Text>

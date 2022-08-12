@@ -13,7 +13,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 export const JobSection = styled.div`
     .gatsby-image-wrapper {
-        /* min-height: 100vh; */
+        min-height: 100vh;
     }
 `;
 export const SearchBox = styled(Container)`
@@ -101,6 +101,7 @@ export default ({ location }) => {
                     featuredImage {
                         gatsbyImageData(
                             layout: CONSTRAINED
+                            height: 50
                         )
                     }
                     slug

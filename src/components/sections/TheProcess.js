@@ -118,9 +118,11 @@ const Timeline = styled.div``;
 export const timelineImage = graphql`
     fragment timelineImage on File {
         childImageSharp {
-            fluid(maxWidth: 420, maxHeight: 320) {
-                ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(
+                layout: CONSTRAINED
+                width: 420
+                height: 320
+            )
         }
     }
 `;

@@ -94,6 +94,7 @@ export const Text = styled.h2`
 `;
 
 export default function Header({ fileName }) {
+    // Was previously width: 2480
     const data = useStaticQuery(
         graphql`
             query {
@@ -105,9 +106,7 @@ export default function Header({ fileName }) {
                             relativePath
                             childImageSharp {
                                 gatsbyImageData(
-                                    width: 2480
-                                    placeholder: BLURRED
-                                    formats: [AUTO, WEBP, AVIF]
+                                    layout: FULL_WIDTH
                                 )
                             }
                         }
@@ -135,12 +134,6 @@ export default function Header({ fileName }) {
                     style={{
                         gridArea: '1/1',
                         height: `100vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
                     }}
                 />
                 <Overlay alt />

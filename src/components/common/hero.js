@@ -15,14 +15,6 @@ const Placeholder = styled.div`
         }
     }
 
-    ${(props) =>
-        props.fluid &&
-        `
-        .gatsby-image-wrapper {
-            min-height: 100vh;
-        }
-    `};
-
     h2 {
         color: var(--accent-color);
         font-size: 1.5rem;
@@ -51,7 +43,9 @@ export default function ({ fileName, children }) {
                         node {
                             relativePath
                             childImageSharp {
-                                gatsbyImageData(layout: FULL_WIDTH)
+                                gatsbyImageData(
+                                    layout: FULL_WIDTH
+                                )
                             }
                         }
                     }
@@ -77,14 +71,9 @@ export default function ({ fileName, children }) {
                     image={pluginImage}
                     style={{
                         gridArea: '1/1',
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                        paddingTop: `1rem`,
+                        // position: "relative",
                     }}
+                    // aspectRatio={1/2}
                 />
                 <Overlay />
                 <OverlayText>{children}</OverlayText>
