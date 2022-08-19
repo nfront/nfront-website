@@ -33,7 +33,7 @@ const StyledTitle = styled.div`
 //         padding-top: 0;
 //     }
 // `;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
@@ -126,7 +126,7 @@ export default function Categories({ categories, getPositionCount }) {
                 </Fade>
             </Container>
             <Container>
-                <GRID>
+                <StyledGrid>
                     {categories?.map(category => {
                         const { title, coverImg, slug } = category;
                         const image = getImage(coverImg);
@@ -147,7 +147,7 @@ export default function Categories({ categories, getPositionCount }) {
                             </div>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
         </Section>
     );

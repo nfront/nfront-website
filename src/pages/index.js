@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
-import CTA from '@common/CTA';
+import Cta from '@common/CTA';
 import Footer from '@common/footer';
 import Header from '@sections/Header';
 
@@ -12,11 +12,11 @@ import Portfolio from '@sections/Portfolio';
 import News from '@sections/News';
 import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 
 const App = () => (
     <Layout>
-        <SEO title={'Capital and Fundraising'} />
+        <Seo title={'Capital and Fundraising'} />
         <Navbar fluid />
         <Header fileName="SH.jpg" />
         <About />
@@ -25,7 +25,7 @@ const App = () => (
         <News accent="alt2" limit="6"/>
         <Wave />
         <Testimonials />
-        <CTA id="contact">
+        <Cta id="contact">
             <h2>Contact</h2>
             <p>
                 Are you an early-to-growth stage company, with global ambitions,
@@ -35,7 +35,7 @@ const App = () => (
             <Link to="/contact/">
                 <button className="button center mt-0">Get in touch</button>
             </Link>
-        </CTA>
+        </Cta>
         <Wave accent="dark" />
         <Footer />
     </Layout>

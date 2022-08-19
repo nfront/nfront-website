@@ -3,14 +3,14 @@ import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import Portfolio from '../components/sections/Portfolio';
 
-export default () => {
+const portfolio = () => {
     const title = 'Portfolio';
     return (
         <Layout>
-            <SEO title={'Portfolio'} />
+            <Seo title={'Portfolio'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
@@ -25,3 +25,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default portfolio;

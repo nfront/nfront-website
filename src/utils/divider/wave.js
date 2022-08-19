@@ -40,8 +40,10 @@ const WaveWrapper = styled.div`
     `};
 `;
 
-export default props => (
-    <WaveWrapper {...props}>
+const waveWrapper = (props) => {
+   <WaveWrapper {...props}>
         <Wave />
     </WaveWrapper>
-);
+};
+
+export default waveWrapper;

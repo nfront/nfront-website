@@ -12,7 +12,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
         border: 1px solid var(--border-color);
@@ -129,7 +129,7 @@ const FundList = styled.div`
     }
 `;
 
-export default () => {
+const Portfolio = () => {
     const windowWidth = useWindowSize().width;
     const isMobile = windowWidth <= 575;
     const data = useStaticQuery(graphql`
@@ -260,7 +260,7 @@ export default () => {
                 </>
             ) : (
                 <Container>
-                    <GRID>
+                    <StyledGrid>
                         {result.map(val => {
                             const { brand, link, icon } = val;
                             const { description } = val.description;
@@ -327,12 +327,14 @@ export default () => {
                                 </>
                             );
                         })}
-                    </GRID>
+                    </StyledGrid>
                 </Container>
             )}
         </StyledSection>
     );
 };
+
+export default Portfolio;
 
 /** 
  *                                      

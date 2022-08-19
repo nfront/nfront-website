@@ -5,7 +5,7 @@ import Layout from '@common/layout';
 import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const StyledContainer = styled(Container)`
@@ -26,13 +26,13 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-export default ({ data }) => {
+const news = ({ data }) => {
     const { title, body, heroImage, publishDate } = data.contentfulPost;
     const pluginImage = getImage(heroImage);
 
     return (
         <Layout>
-            <SEO title={title} />
+            <Seo title={title} />
             <Navbar fluid />
             {heroImage != null && (
                 <div style={{ display: 'grid' }}>
@@ -41,7 +41,6 @@ export default ({ data }) => {
                         style={{
                             gridArea: '1/1',
                             height: `50vh`,
-                            // width: `100vw`,
                         }}
                     />
                     <Overlay />
@@ -64,6 +63,8 @@ export default ({ data }) => {
         </Layout>
     );
 };
+
+export default news;
 
 export const query = graphql`
     query ($slug: String!) {

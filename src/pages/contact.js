@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '@common/layout';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
@@ -28,11 +28,11 @@ const Grid = styled.div`
     }
 `;
 
-export default () => {
+const contact = () => {
     const title = 'Contact Us';
     return (
         <Layout>
-            <SEO title={'Contact Us'} />
+            <Seo title={'Contact Us'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
@@ -64,3 +64,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default contact;

@@ -4,9 +4,9 @@ import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
-import CTA from '@common/CTA';
+import Cta from '@common/CTA';
 import Wave from '@utils/divider/wave';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 
 /** */
 import Thesis from '@sections/Thesis';
@@ -14,9 +14,9 @@ import Thesis from '@sections/Thesis';
 import CoInvestors from '@sections/CoInvestors';
 import Testimonials from '@sections/Testimonials';
 
-export default () => (
+const thesis = () => (
     <Layout>
-        <SEO title={'Thesis'} />
+        <Seo title={'Thesis'} />
         <Navbar fluid />
         <Hero fileName="LA.jpg">
             <h2>nFront Ventures</h2>
@@ -28,7 +28,7 @@ export default () => (
         <Thesis />        
         <CoInvestors />
         <Testimonials />
-        <CTA>
+        <Cta>
             <h2>Contact</h2>
             <p>
                 Are you an early-to-growth stage company looking to raise
@@ -37,8 +37,10 @@ export default () => (
             <Link to="/contact/">
                 <button className="button center mt-0">Get in touch</button>
             </Link>
-        </CTA>
+        </Cta>
         <Wave accent="dark" />
         <Footer />
     </Layout>
 );
+
+export default thesis;

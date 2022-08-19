@@ -10,7 +10,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 const CourseSection = styled(Section)`
     background: #f3f4f8;
 `;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
         border: 1px transparent var(--border-color);
@@ -111,7 +111,7 @@ export default function Courses(props) {
             </SectionTitle>
             <Container>
                 {results.length ? (
-                    <GRID>
+                    <StyledGrid>
                         {results.slice(0, limit).map((courses) => {
                             const image = getImage(courses.coverImage);
                             return (
@@ -154,7 +154,7 @@ export default function Courses(props) {
                                 </div>
                             );
                         })}
-                    </GRID>
+                    </StyledGrid>
                 ) : (
                     <div className="center">
                         No List Found{' '}

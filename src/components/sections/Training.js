@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import Footer from '@common/footer';
 import Courses from './Courses';
 import CoursesCategories from './CoursesCategories';
-import { useStaticQuery, graphql, push, Link } from 'gatsby';
-import { FormFields, SearchBox } from '../../pages/jobs';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { Field, Form, Formik } from 'formik';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+// import { FormFields, SearchBox } from '../../pages/jobs';
+// import AnchorLink from 'react-anchor-link-smooth-scroll';
+// import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-import { useIsTraining } from '@utils/hooks/useIsHome';
+// import { useIsTraining } from '@utils/hooks/useIsHome';
 export const TrainingSection = styled.div`
     .gatsby-image-wrapper {
         min-height: 100vh;
@@ -20,8 +20,7 @@ export const TrainingSection = styled.div`
 const JobHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
-export default ({ location, user }) => {
-    // console.log(user);
+const Training = ({ location, user }) => {
     const [filteredCourses, setFilteredCourses] = useState([]);
 
     const params = new URLSearchParams(location.search);
@@ -63,8 +62,8 @@ export default ({ location, user }) => {
         }
     `);
     const results = data.allContentfulCourses.nodes;
-    const courseCategories = data.allContentfulCoursesCategories.nodes;
-    const isTraining = useIsTraining().isTraining;
+    // const courseCategories = data.allContentfulCoursesCategories.nodes;
+    // const isTraining = useIsTraining().isTraining;
     useEffect(() => {
         if (results.length && !courseCategory && !title) {
             setFilteredCourses(results);
@@ -103,7 +102,7 @@ export default ({ location, user }) => {
     }, [results, courseCategory, title]);
     return (
         <Layout>
-            <SEO title={'Training'} />
+            <Seo title={'Training'} />
             <Navbar fluid />
             <TrainingSection>
                 <Hero fileName="LA.jpg">
@@ -206,3 +205,5 @@ export default ({ location, user }) => {
         </Layout>
     );
 };
+
+export default Training;

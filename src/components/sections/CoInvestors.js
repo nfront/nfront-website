@@ -4,7 +4,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Section, Container, Box, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
-const GRID = styled.div`
+const StyledGrid = styled.div`
     display: grid;
     grid-gap: 30px;
     grid-template-columns: 1fr;
@@ -44,7 +44,7 @@ const REGIONS = [
     },
 ];
 
-export default () => {
+const CoInvestors = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -79,7 +79,7 @@ export default () => {
                         Here are some of the investors in our network:
                     </p>
                 </SectionTitle>
-                <GRID>
+                <StyledGrid>
                     {REGIONS.map(({ name, image }) => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
@@ -92,8 +92,10 @@ export default () => {
                             </Box>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
         </Section>
     );
 };
+
+export default CoInvestors;

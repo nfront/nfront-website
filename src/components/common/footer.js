@@ -45,7 +45,7 @@ const SocialIcons = styled.div`
     }
 `;
 
-const GRID = styled(Container)`
+const StyledGrid = styled(Container)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -88,7 +88,7 @@ export default function Footer(props) {
     return (
         <FooterWrapper {...props}>
             <StyledSection>
-                <GRID>
+                <StyledGrid>
                     <div>
                         <p className="label">Headquarters</p>
                         <p>
@@ -138,7 +138,7 @@ export default function Footer(props) {
                             ))}
                         </SocialIcons>
                     </div>
-                </GRID>
+                </StyledGrid>
             </StyledSection>
         </FooterWrapper>
     );

@@ -3,17 +3,17 @@ import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 
 import News from '@sections/News';
 
-export default () => {
+const newsPage = () => {
     const title = "What's New?";
     return (
         <Layout>
-            <SEO title={'News'} />
+            <Seo title={'News'} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg">
+            <Hero large fileName="LA.jpg">
                 <h2>{title}</h2>
             </Hero>
             <News limit={'1000'} />
@@ -21,3 +21,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default newsPage;

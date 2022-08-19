@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useIsHome } from '@utils/hooks/useIsHome';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
         border: 1px transparent var(--border-color);
@@ -85,7 +85,7 @@ export default function News(props) {
                 <h2>News</h2>
             </SectionTitle>
             <Container>
-                <GRID>
+                <StyledGrid>
                     {results.slice(0, limit).map(({ node: news }) => {
                         const image = getImage(news.heroImage)
                         return (
@@ -113,7 +113,7 @@ export default function News(props) {
                             </div>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
             {isHome && (
                 <Link to="/news/">

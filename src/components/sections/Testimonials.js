@@ -55,7 +55,7 @@ const Art = styled.div`
     }
 `;
 
-export default () => {
+const Testimonials = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -110,3 +110,5 @@ export default () => {
         </StyledSection>
     );
 };
+
+export default Testimonials;

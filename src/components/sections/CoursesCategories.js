@@ -24,7 +24,7 @@ const StyledTitle = styled.div`
     text-align: left;  
 `};
 `;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
@@ -105,7 +105,7 @@ export default function CoursesCategories({ results }) {
                 </Fade>
             </Container>
             <Container>
-                <GRID>
+                <StyledGrid>
                     {results.map(category => {
                         const {
                             title,
@@ -127,7 +127,7 @@ export default function CoursesCategories({ results }) {
                             </div>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
         </Section>
     );

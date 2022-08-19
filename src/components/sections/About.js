@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade';
 
 const StyledSection = styled(Section)``;
 
-const GRID = styled(Container)`
+const StyledGrid = styled(Container)`
     ${Box} {
         padding: 3rem 1.5rem;
     }
@@ -17,7 +17,7 @@ const GRID = styled(Container)`
 const About = () => (
     <>
         <StyledSection accent='alt2' id="about">
-            <GRID>
+            <StyledGrid>
                 <Fade top>
                         <h2>Support and Capital</h2>
                         <p>
@@ -34,7 +34,7 @@ const About = () => (
                             </button>
                         </Link>
                 </Fade>
-            </GRID>
+            </StyledGrid>
             <SweetSpot />
         </StyledSection>
     </>

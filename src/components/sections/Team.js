@@ -82,7 +82,7 @@ const Mentors = styled.div`
     /* margin-left: 1.5rem; */
 `;
 
-export default () => {
+const Team = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -183,3 +183,5 @@ export default () => {
         </>
     );
 };
+
+export default Team;

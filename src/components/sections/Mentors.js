@@ -85,7 +85,7 @@ const Placeholder = styled.div`
     }
 `;
 
-export default () => {
+const Mentors = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -163,3 +163,5 @@ export default () => {
         </>
     );
 };
+
+export default Mentors;

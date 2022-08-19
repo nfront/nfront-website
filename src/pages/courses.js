@@ -3,11 +3,11 @@ import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import Courses from '../components/sections/Courses';
 import { useStaticQuery, graphql } from 'gatsby';
 
-export default () => {
+const CoursesPage = () => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulCourses {
@@ -39,7 +39,7 @@ export default () => {
     const results = data.allContentfulCourses.nodes;
     return (
         <Layout>
-            <SEO title={'Courses'} />
+            <Seo title={'Courses'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>Courses</h2>
@@ -54,3 +54,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default CoursesPage;

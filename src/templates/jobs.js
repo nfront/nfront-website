@@ -5,7 +5,7 @@ import Layout from '@common/layout';
 import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FlexBox } from '../components/sections/Team';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -62,7 +62,7 @@ const ModifiedFlexBox = styled(FlexBox)`
         padding: 0 1.5rem;
     }
 `;
-export default ({ data }) => {
+const jobs = ({ data }) => {
     const {
         title,
         body,
@@ -79,7 +79,7 @@ export default ({ data }) => {
 
     return (
         <Layout>
-            <SEO title={title} />
+            <Seo title={title} />
             <Navbar fluid />
             {heroImage != null && (
                 <div style={{ display: 'grid' }}>
@@ -88,12 +88,6 @@ export default ({ data }) => {
                         style={{
                             gridArea: '1/1',
                             height: `50vh`,
-                            width: `100vw`,
-                            backgroundColor: `transparent`,
-                            backgroundSize: `cover`,
-                            backgroundPosition: `center center`,
-                            display: `flex`,
-                            alignItems: `center`,
                         }}
                     />
                     <Overlay />
@@ -155,6 +149,8 @@ export default ({ data }) => {
         </Layout>
     );
 };
+
+export default jobs;
 
 export const query = graphql`
     query ($slug: String!) {

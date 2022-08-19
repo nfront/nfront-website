@@ -7,7 +7,7 @@ import { ReactComponent as IconOne } from '@images/nfront/global.svg';
 import { ReactComponent as IconTwo } from '@images/nfront/graph.svg';
 import { ReactComponent as IconThree } from '@images/nfront/geography.svg';
 
-const GRID = styled.div`
+const StyledGrid = styled.div`
     display: grid;
     grid-gap: 30px;
     grid-template-columns: 1fr;
@@ -57,10 +57,10 @@ const Text = styled.p`
     margin-bottom: 0px;
 `;
 
-export default () => {
+const sweetSpot = () => {
     return (
         <Container>
-            <GRID>
+            <StyledGrid>
                 <Fade bottom>
                     <Box>
                         <Art2>
@@ -105,7 +105,9 @@ export default () => {
                         </Text>
                     </Box>
                 </Fade>
-            </GRID>
+            </StyledGrid>
         </Container>
     );
 };
+
+export default sweetSpot;

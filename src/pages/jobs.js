@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import { Container } from '@styles/global';
 import Jobs from '@components/sections/Jobs';
 import styled from 'styled-components';
@@ -11,12 +11,13 @@ import Footer from '@common/footer';
 import { push } from 'gatsby-link';
 import { useStaticQuery, graphql } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-export const JobSection = styled.div`
+
+const JobSection = styled.div`
     .gatsby-image-wrapper {
         min-height: 100vh;
     }
 `;
-export const SearchBox = styled(Container)`
+const SearchBox = styled(Container)`
     background-color: white;
     width: 100%;
     border-radius: 4px;
@@ -32,7 +33,7 @@ export const SearchBox = styled(Container)`
         color: initial;
     }
 `;
-export const FormFields = styled(Container)`
+const FormFields = styled(Container)`
     justify-content: space-between;
     flex-direction: row;
     padding: 1rem;
@@ -79,13 +80,13 @@ export const FormFields = styled(Container)`
         border-bottom: 1px solid var(--button-color);
     }
 `;
-export const JobHeaderSection = styled.div`
+const JobHeaderSection = styled.div`
     span {
         color: var(--yellow);
     }
     margin-bottom: -2rem;
 `;
-export default ({ location }) => {
+const JobsPage = ({ location }) => {
     const [filteredJobs, setFilteredJobs] = useState([]);
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
@@ -215,7 +216,7 @@ export default ({ location }) => {
     return (
         <Layout>
             <JobSection>
-                <SEO title={'Jobs'} />
+                <Seo title={'Jobs'} />
                 <Navbar fluid />
                 <Hero fileName="LA.jpg">
                     <JobHeaderSection>
@@ -341,3 +342,5 @@ export default ({ location }) => {
         </Layout>
     );
 };
+
+export default JobsPage;

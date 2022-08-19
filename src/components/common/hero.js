@@ -6,12 +6,13 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const Placeholder = styled.div`
     .gatsby-image-wrapper {
-        min-height: 70vh;
+        height: 70vh;
+
         @media (min-width: ${(props) => props.theme.screen.sm}) {
-            min-height: 60vh;
+            height: 60vh;
         }
         @media (min-width: ${(props) => props.theme.screen.lg}) {
-            min-height: 70vh;
+            height: 70vh;
         }
     }
 
@@ -32,7 +33,7 @@ const Placeholder = styled.div`
     }
 `;
 
-export default function ({ fileName, children }) {
+const Hero = ({ fileName, children }) => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -43,9 +44,7 @@ export default function ({ fileName, children }) {
                         node {
                             relativePath
                             childImageSharp {
-                                gatsbyImageData(
-                                    layout: FULL_WIDTH
-                                )
+                                gatsbyImageData(layout: FULL_WIDTH)
                             }
                         }
                     }
@@ -71,9 +70,7 @@ export default function ({ fileName, children }) {
                     image={pluginImage}
                     style={{
                         gridArea: '1/1',
-                        // position: "relative",
                     }}
-                    // aspectRatio={1/2}
                 />
                 <Overlay />
                 <OverlayText>{children}</OverlayText>
@@ -81,3 +78,5 @@ export default function ({ fileName, children }) {
         </Placeholder>
     );
 }
+
+export default Hero;

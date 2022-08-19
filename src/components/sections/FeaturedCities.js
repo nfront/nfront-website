@@ -11,7 +11,7 @@ import {
 import Fade from 'react-reveal/Fade';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
         border: 1px transparent var(--border-color);
@@ -55,7 +55,7 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                 </SectionTitle>
             </Container>
             <Container>
-                <GRID>
+                <StyledGrid>
                     {cities.map((city) => {
                         const { title, featuredImage, slug } = city;
                         const pluginImage = getImage(featuredImage);
@@ -80,7 +80,7 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                             </div>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
         </Section>
     );

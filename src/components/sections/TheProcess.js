@@ -127,7 +127,7 @@ export const timelineImage = graphql`
     }
 `;
 
-export default () => {
+const Process = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -273,3 +273,5 @@ export default () => {
         </Section>
     );
 };
+
+export default Process;

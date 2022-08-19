@@ -3,7 +3,7 @@ import { login, isAuthenticated, getProfile } from '../utils/auth';
 import { Router } from '@reach/router';
 import Training from '@sections/Training';
 
-export default () => {
+const training = () => {
     if (!isAuthenticated()) {
         login();
         return <p>Redirecting to login...</p>;
@@ -17,3 +17,5 @@ export default () => {
         </Router>
     );
 };
+
+export default training;
