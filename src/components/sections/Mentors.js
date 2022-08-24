@@ -61,13 +61,18 @@ const Text = styled.div`
 const Art = styled.div`
     width: 100%;
     /* text-align: left; */
+    .gatsby-image-wrapper {
+        margin-top: 2rem;
+        text-align: center;
+        display: inline-block;
+    }
 
     img {
         min-width: 220px;
         border-radius: 0%;
         border: none;
-        margin-top: 2rem;
         margin-bottom: 0;
+        /* margin-top: 2rem; */
         /* transition: 0.15s ease-in-out; */
         filter: grayscale(100%);
 
@@ -97,7 +102,10 @@ const Mentors = () => {
                         company
                         city
                         headshot {
-                            gatsbyImageData(layout: CONSTRAINED)
+                            gatsbyImageData(
+                                layout: FIXED
+                                height: 220
+                            )
                         }
                         link
                     }

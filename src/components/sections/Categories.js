@@ -133,7 +133,7 @@ export default function Categories({ categories, getPositionCount }) {
                         return (
                             <div className="grid-item" key={title}>
                                 <Art>
-                                    <GatsbyImage imgCassName={"img-style"} image={image} alt={title} />
+                                    <GatsbyImage className={"img-style"} image={image} alt={title} />
                                 </Art>
                                 <Text>
                                     <Fade left>

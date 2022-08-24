@@ -50,6 +50,9 @@ const Slide = styled.div`
 const Art = styled.div`
     width: 100%;
     margin-bottom: 1rem;
+    .gatsby-image-wrapper {
+        display: inline-block;
+    }
     img {
         border-radius: 50%;
     }
@@ -69,8 +72,6 @@ const Testimonials = () => {
                                 gatsbyImageData(
                                     layout: FIXED
                                     width: 96
-                                    placeholder: BLURRED
-                                    formats: [AUTO, WEBP, AVIF]
                                 )
                             }
                         }

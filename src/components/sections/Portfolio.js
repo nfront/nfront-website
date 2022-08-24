@@ -147,7 +147,7 @@ const Portfolio = () => {
                         }
                     }
                     logo {
-                        gatsbyImageData(layout: CONSTRAINED, height: 500)
+                        gatsbyImageData
                     }
                     link
                     cInvestors

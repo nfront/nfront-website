@@ -13,9 +13,9 @@ import { useStaticQuery, graphql } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 const JobSection = styled.div`
-    .gatsby-image-wrapper {
+    /* .gatsby-image-wrapper {
         min-height: 100vh;
-    }
+    } */
 `;
 const SearchBox = styled(Container)`
     background-color: white;
@@ -114,7 +114,6 @@ const JobsPage = ({ location }) => {
                     positions
                     coverImg {
                         gatsbyImageData(
-                            layout: CONSTRAINED
                             width: 100
                         )
                     }
