@@ -13,9 +13,9 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 // import { useIsTraining } from '@utils/hooks/useIsHome';
 export const TrainingSection = styled.div`
-    .gatsby-image-wrapper {
+    /* .gatsby-image-wrapper {
         min-height: 100vh;
-    }
+    } */
 `;
 const JobHeaderSection = styled.div`
     margin-bottom: -2rem;
