@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import Scrollspy from 'react-scrollspy';
+import { Scrollspy } from '@makotot/ghostui';
 import { useIsHome } from '@utils/hooks/useIsHome';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
 import { logout, isAuthenticated } from '@utils/auth';
@@ -17,7 +17,7 @@ import {
     Hamburger,
 } from '@styles/navstyles.js';
 
-const ListLink = props => (
+const ListLink = (props) => (
     <NavItem>
         <Link to={props.to}>{props.children}</Link>
     </NavItem>
@@ -39,10 +39,6 @@ const secondaryMenu = [
     {
         name: 'Portfolio',
         path: '/portfolio',
-    },
-    {
-        name: 'Training',
-        path: '/training/',
     },
     {
         name: 'Careers',
@@ -77,7 +73,7 @@ export default function Navbar(props) {
             <>
                 {isHome ? (
                     <Scrollspy
-                        items={['top', 'about', 'casestudies', 'contact']}
+                        items={['top', 'contact']}
                         currentClassName="active"
                     >
                         <NavItem>
@@ -88,12 +84,6 @@ export default function Navbar(props) {
                                 Home
                             </AnchorLink>
                         </NavItem>
-                        <ListLink to="/thesis/">Thesis</ListLink>
-                        <ListLink to="/portfolio/">Portfolio</ListLink>
-                        <ListLink to="/training/">Training</ListLink>
-                        <ListLink to="/jobs">careers</ListLink>
-                        <ListLink to="/team-mentors/">Team & Mentors</ListLink>
-                        <ListLink to="/news/">News</ListLink>
                         <NavItem>
                             <AnchorLink
                                 onClick={() => setIsMenuOpen(false)}
@@ -102,9 +92,15 @@ export default function Navbar(props) {
                                 Contact
                             </AnchorLink>
                         </NavItem>
+                        <ListLink to="/thesis/">Thesis</ListLink>
+                        <ListLink to="/portfolio/">Portfolio</ListLink>
+                        {/* <ListLink to="/training/">Training</ListLink> */}
+                        <ListLink to="/jobs">careers</ListLink>
+                        <ListLink to="/team-mentors/">Team & Mentors</ListLink>
+                        <ListLink to="/news/">News</ListLink>
                         {isAuthenticated() && (
                             <NavItem
-                                onClick={e => {
+                                onClick={(e) => {
                                     logout();
                                     e.preventDefault();
                                 }}
@@ -112,6 +108,11 @@ export default function Navbar(props) {
                                 <AnchorLink href="#">Logout</AnchorLink>
                             </NavItem>
                         )}
+                        <ListLink to="/training/">
+                            <button className="call-to-action-button">
+                                Academy
+                            </button>
+                        </ListLink>
                     </Scrollspy>
                 ) : (
                     <ul>
@@ -124,7 +125,7 @@ export default function Navbar(props) {
                         })}
                         {isAuthenticated() && (
                             <NavItem
-                                onClick={e => {
+                                onClick={(e) => {
                                     logout();
                                     e.preventDefault();
                                 }}
@@ -132,6 +133,11 @@ export default function Navbar(props) {
                                 <AnchorLink href="#">Logout</AnchorLink>
                             </NavItem>
                         )}
+                        <ListLink to="/training/">
+                            <button className="call-to-action-button">
+                                Academy
+                            </button>
+                        </ListLink>
                     </ul>
                 )}
             </>

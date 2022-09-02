@@ -21,6 +21,17 @@ export const Nav = styled.nav`
     z-index: 999;
     padding: 1rem 1.5rem;
 
+    /* font-size: 90%; */
+    font-size: 80%;
+    font-weight: 500;
+    
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    @media (max-width: ${props => props.theme.screen.sm}) {
+        font-size: 90%;
+    }
+
     @media (max-width: ${props => props.theme.screen.md}) {
         position: absolute;
     }
@@ -46,11 +57,6 @@ export const Nav = styled.nav`
         }
     }
 
-    font-size: 90%;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
     ${props =>
         props.fluid /** stretch menu to 100% width  */ &&
         `
@@ -63,6 +69,7 @@ export const NavList = styled.div`
         list-style: none;
         display: flex;
         flex-direction: column;
+        align-items: center;
         margin: 1rem 0;
 
         ${props =>
