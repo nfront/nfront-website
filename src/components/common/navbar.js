@@ -92,14 +92,6 @@ export default function Navbar(props) {
                         <ListLink to="/portfolio/">Portfolio</ListLink>
                         <ListLink to="/training/">Training</ListLink>
                         <ListLink to="/jobs">careers</ListLink>
-                        {/* <NavItem>
-                            <AnchorLink
-                                onClick={() => setIsMenuOpen(false)}
-                                href="#portfolio"
-                            >
-                                Portfolio
-                            </AnchorLink>
-                        </NavItem> */}
                         <ListLink to="/team-mentors/">Team & Mentors</ListLink>
                         <ListLink to="/news/">News</ListLink>
                         <NavItem>

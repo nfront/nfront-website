@@ -20,9 +20,9 @@ const StyledTitle = styled.div`
     ${props =>
         props.alt &&
         `
-    padding-left: 0;
-    text-align: left;  
-`};
+        padding-left: 0;
+        text-align: left;
+    `};
 `;
 const StyledGrid = styled(Grid)`
     .grid-item {
@@ -51,6 +51,7 @@ const StyledGrid = styled(Grid)`
     }
     .grid-item:hover {
         box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
     }
 `;
 

@@ -19,6 +19,7 @@ const StyledGrid = styled(Grid)`
     }
     .grid-item:hover img {
         transform: scale(1.1);
+        transition: all 0.3s ease-out 0s;
     }
 `;
 const ItemGrid = styled.div`
