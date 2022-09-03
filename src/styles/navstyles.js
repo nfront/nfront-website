@@ -28,7 +28,7 @@ export const Nav = styled.nav`
     text-transform: uppercase;
     letter-spacing: 1px;
 
-    @media (max-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${props => props.theme.screen.sm}) {
         font-size: 90%;
     }
 
@@ -42,6 +42,9 @@ export const Nav = styled.nav`
 
     a {
         color: var(--accent-color);
+        &:hover{
+            color: var(--accent-color);
+        }
     }
 
     &.is-open {
@@ -108,7 +111,7 @@ export const NavItem = styled.li`
     }
 
     @media (min-width: ${props => props.theme.screen.md}) {
-        ::after {
+        &.underscore::after {
             content: '';
             position: absolute;
             width: 100%;
@@ -120,7 +123,7 @@ export const NavItem = styled.li`
             transform-origin: bottom right;
             transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
-        :hover::after {
+        &.underscore:hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }

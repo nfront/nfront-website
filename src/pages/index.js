@@ -14,7 +14,8 @@ import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
 
-const App = () => (
+const App = () => {    
+    return (
     <Layout>
         <Seo title={'Capital and Fundraising'} />
         <Navbar fluid />
@@ -40,5 +41,6 @@ const App = () => (
         <Footer />
     </Layout>
 );
+}
 
 export default App;

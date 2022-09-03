@@ -17,6 +17,7 @@ const JobSection = styled.div`
         min-height: 100vh;
     } */
 `;
+
 const SearchBox = styled(Container)`
     background-color: white;
     width: 100%;
@@ -217,7 +218,7 @@ const JobsPage = ({ location }) => {
             <JobSection>
                 <Seo title={'Jobs'} />
                 <Navbar fluid />
-                <Hero fileName="LA.jpg">
+                <Hero fileName="LA.jpg" long>
                     <JobHeaderSection>
                         <h2>Work with us</h2>
                         <p>

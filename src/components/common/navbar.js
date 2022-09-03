@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { Scrollspy } from '@makotot/ghostui';
+import { useScrollMonitor } from '@utils/hooks/useScrollMonitor';
 import { useIsHome } from '@utils/hooks/useIsHome';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
 import { logout, isAuthenticated } from '@utils/auth';
 import { ReactComponent as Logo } from '@static/nfront-logo.svg';
+import clsx from 'clsx';
 
 import {
     NavContainer,
@@ -18,7 +19,7 @@ import {
 } from '@styles/navstyles.js';
 
 const ListLink = (props) => (
-    <NavItem>
+    <NavItem className={clsx(props.to !== '/training/' && "underscore")}>
         <Link to={props.to}>{props.children}</Link>
     </NavItem>
 );
@@ -31,30 +32,37 @@ const secondaryMenu = [
     {
         name: 'Home',
         path: '/',
+        id: 'top',
     },
     {
         name: 'Thesis',
         path: '/thesis/',
+        id: 'thesis',
     },
     {
         name: 'Portfolio',
         path: '/portfolio',
+        id: 'portfolio',
     },
     {
         name: 'Careers',
         path: '/jobs/',
+        id: 'jobs',
     },
     {
         name: 'Team & Mentors',
         path: '/team-mentors/',
+        id: 'team',
     },
     {
         name: 'News',
         path: '/news/',
+        id: 'news',
     },
     {
         name: 'Contact',
         path: '/contact/',
+        id: 'contact',
     },
 ];
 
@@ -66,59 +74,55 @@ export default function Navbar(props) {
     /** render different menu for other pages except home */
     const { isHome } = useIsHome();
     /** change navbar background on scroll */
-    const { navBackground } = useIsScroll();
+    const navBackground = useIsScroll();
 
+    const scrollMonitorIdList = ['top', 'contact'];
+    const navRef = useRef(null);
+    const activeId = useScrollMonitor(scrollMonitorIdList, navRef);
+
+    const ListLinkScroll = (props) => (
+        <NavItem className={clsx("underscore", props.to === activeId && 'active')}>
+            <AnchorLink onClick={props.callback} href={`#${props.to}`}>
+                {props.children}
+            </AnchorLink>
+        </NavItem>
+    );
+
+    // const headerHeight = Nav.getBoundingClientRect();
     const Menu = () => {
         return (
             <>
                 {isHome ? (
-                    <Scrollspy
-                        items={['top', 'contact']}
-                        currentClassName="active"
-                    >
-                        <NavItem>
-                            <AnchorLink
-                                onClick={() => setIsMenuOpen(false)}
-                                href="#top"
-                            >
-                                Home
-                            </AnchorLink>
-                        </NavItem>
-                        <NavItem>
-                            <AnchorLink
-                                onClick={() => setIsMenuOpen(false)}
-                                href="#contact"
-                            >
-                                Contact
-                            </AnchorLink>
-                        </NavItem>
+                    <ul>
+                        <ListLinkScroll to="top" callback={() => setIsMenuOpen(false)}>Home</ListLinkScroll>
                         <ListLink to="/thesis/">Thesis</ListLink>
                         <ListLink to="/portfolio/">Portfolio</ListLink>
                         {/* <ListLink to="/training/">Training</ListLink> */}
                         <ListLink to="/jobs">careers</ListLink>
                         <ListLink to="/team-mentors/">Team & Mentors</ListLink>
                         <ListLink to="/news/">News</ListLink>
+                        <ListLinkScroll to="contact" callback={() => setIsMenuOpen(false)}>Contact</ListLinkScroll>
                         {isAuthenticated() && (
-                            <NavItem
-                                onClick={(e) => {
-                                    logout();
-                                    e.preventDefault();
-                                }}
-                            >
-                                <AnchorLink href="#">Logout</AnchorLink>
-                            </NavItem>
+                            <ListLinkScroll to="#" callback={(e) => { logout(); e.preventDefault(); }}>
+                                Logout
+                            </ListLinkScroll>
                         )}
                         <ListLink to="/training/">
                             <button className="call-to-action-button">
                                 Academy
                             </button>
                         </ListLink>
-                    </Scrollspy>
+                    </ul>
                 ) : (
                     <ul>
-                        {secondaryMenu.map(({ name, path }) => {
+                        {secondaryMenu.map(({ name, path, id }) => {
                             return (
-                                <NavItem key={name}>
+                                <NavItem
+                                    key={id}
+                                    className={clsx(
+                                        id === activeId && 'active'
+                                    )}
+                                >
                                     <Link to={path}>{name}</Link>
                                 </NavItem>
                             );
@@ -152,6 +156,7 @@ export default function Navbar(props) {
                     ? 'var(--primary-color)'
                     : 'transparent',
             }}
+            ref={navRef}
         >
             <NavContainer>
                 <Brand>

@@ -6,13 +6,14 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const Placeholder = styled.div`
     .gatsby-image-wrapper {
-        height: 70vh;
+        /* height: 70vh; */
+        height: ${props => props.long ? "100vh" : "70vh"};
 
         @media (min-width: ${(props) => props.theme.screen.sm}) {
-            height: 60vh;
+            height: ${props => props.long ? "100vh" : "60vh"};
         }
         @media (min-width: ${(props) => props.theme.screen.lg}) {
-            height: 70vh;
+            height: ${props => props.long ? "100vh" : "70vh"};
         }
     }
 
@@ -33,7 +34,7 @@ const Placeholder = styled.div`
     }
 `;
 
-const Hero = ({ fileName, children }) => {
+const Hero = ({ fileName, children, long }) => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -64,7 +65,7 @@ const Hero = ({ fileName, children }) => {
     const pluginImage = getImage(image);
 
     return (
-        <Placeholder>
+        <Placeholder long={long}>
             <div style={{ display: 'grid' }}>
                 <GatsbyImage
                     image={pluginImage}

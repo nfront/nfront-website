@@ -84,6 +84,7 @@ $buttonBorderRadius: 35px;
     border-radius: var(--border-radius);
     padding: 0.5em 1.5em;
     text-decoration: none;
+    // text-transform: uppercase;
     background-color: var(--button-color-background);
     transition: background 0.2s;
     -webkit-font-smoothing: antialiased;
