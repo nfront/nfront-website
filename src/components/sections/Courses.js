@@ -85,12 +85,12 @@ const Art = styled.div`
 `;
 
 export default function Courses(props) {
-    const { results, limit } = props;
+    const { results, limit, releventCourses } = props;
     const isTraining = useIsTraining().isTraining;
     return (
         <CourseSection id="contact" {...props}>
             <SectionTitle>
-                <h2>Find The Right Online Courses For You</h2>
+                <h2>{releventCourses ? 'Relevent Courses ' : 'Courses'}</h2>
                 <p>
                     You don't have to struggle alone, you've got our assistance
                     and help.

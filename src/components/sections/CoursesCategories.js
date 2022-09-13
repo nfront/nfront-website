@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
+import { push } from 'gatsby';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -95,7 +96,7 @@ export default function CoursesCategories({ results }) {
                 <Fade top>
                     <StyledTitle>
                         <div>
-                            <h2>Explore Our Popular Courses</h2>
+                            <h2> Categories</h2>
                         </div>
                         <div>
                             <a href="#">View All Categories</a>
@@ -112,7 +113,24 @@ export default function CoursesCategories({ results }) {
                             tagLine,
                         } = category.courseCategories;
                         return (
-                            <div className="grid-item" key={title}>
+                            <div
+                                className="grid-item"
+                                key={title}
+                                onClick={() => {
+                                    const searchParams = {};
+                                    if (title) {
+                                        searchParams[
+                                            'releventCourseCategory'
+                                        ] = title;
+                                    }
+
+                                    push(
+                                        `/courses?${new URLSearchParams(
+                                            searchParams
+                                        ).toString()}`
+                                    );
+                                }}
+                            >
                                 <Art>
                                     <img
                                         src={icon && icon.fluid.src}

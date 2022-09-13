@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
@@ -7,7 +7,7 @@ import SEO from '@utils/SEO';
 import Courses from '../components/sections/Courses';
 import { useStaticQuery, graphql } from 'gatsby';
 
-export default () => {
+export default location => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulCourses {
@@ -36,6 +36,20 @@ export default () => {
         }
     `);
     const results = data.allContentfulCourses.nodes;
+    const params = new URLSearchParams(window.location.search);
+    const releventCourses = params.get('releventCourseCategory');
+    const [filterCourses, setFilteredCourses] = useState(results);
+
+    useEffect(() => {
+        if (releventCourses && filterCourses?.length) {
+            setFilteredCourses([
+                ...filterCourses.filter(
+                    course =>
+                        course?.courseCategories?.title === releventCourses
+                ),
+            ]);
+        }
+    }, [releventCourses]);
     return (
         <Layout>
             <SEO title={'Courses'} />
@@ -48,7 +62,11 @@ export default () => {
                     founders we work with!
                 </p>
             </Hero>
-            <Courses results={results} limit={'1000'} />
+            <Courses
+                results={filterCourses}
+                releventCourses={releventCourses}
+                limit={'1000'}
+            />
             <Footer />
         </Layout>
     );

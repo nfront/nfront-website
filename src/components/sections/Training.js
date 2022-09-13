@@ -11,7 +11,7 @@ import { FormFields, SearchBox } from '../../pages/jobs';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-import { useIsTraining } from '@utils/hooks/useIsHome';
+
 export const TrainingSection = styled.div`
     .gatsby-image-wrapper {
         min-height: 100vh;
@@ -20,12 +20,15 @@ export const TrainingSection = styled.div`
 const JobHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
-export default ({ location, user }) => {
+export default ({ location }) => {
     // console.log(user);
+
     const [filteredCourses, setFilteredCourses] = useState([]);
 
     const params = new URLSearchParams(location.search);
     const courseCategory = params.get('courseCategory');
+    const releventCourses = params.get('releventCourseCategory');
+
     const title = params.get('title');
     const data = useStaticQuery(graphql`
         query {
@@ -63,7 +66,6 @@ export default ({ location, user }) => {
     `);
     const results = data.allContentfulCourses.nodes;
     const courseCategories = data.allContentfulCoursesCategories.nodes;
-    const isTraining = useIsTraining().isTraining;
     useEffect(() => {
         if (results.length && !courseCategory && !title) {
             setFilteredCourses(results);
@@ -120,7 +122,7 @@ export default ({ location, user }) => {
                         </Link>
 
                         {/* )} */}
-                        {/* <SearchBox>
+                        <SearchBox>
                             <Formik
                                 onSubmit={values => {
                                     const { courseCategory, title } = values;
@@ -195,11 +197,16 @@ export default ({ location, user }) => {
                                     </Form>
                                 )}
                             </Formik>
-                        </SearchBox> */}
+                        </SearchBox>
                     </JobHeaderSection>
                 </Hero>
             </TrainingSection>
-            <CoursesCategories results={results} />
+            <CoursesCategories
+                results={results}
+                courseCategories={courseCategories}
+                path="/training/"
+                relevent={releventCourses}
+            />
             <Courses limit="6" results={filteredCourses} />
             <Footer />
         </Layout>
