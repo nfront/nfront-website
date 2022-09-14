@@ -122,7 +122,7 @@ export default ({ location }) => {
                         </Link>
 
                         {/* )} */}
-                        <SearchBox>
+                        {/* <SearchBox>
                             <Formik
                                 onSubmit={values => {
                                     const { courseCategory, title } = values;
@@ -197,7 +197,7 @@ export default ({ location }) => {
                                     </Form>
                                 )}
                             </Formik>
-                        </SearchBox>
+                        </SearchBox> */}
                     </JobHeaderSection>
                 </Hero>
             </TrainingSection>
