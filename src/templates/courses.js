@@ -11,7 +11,6 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FlexBox } from '../components/sections/Team';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
-// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const StyledContainer = styled(Container)`
     text-align: center;
@@ -59,10 +58,13 @@ function paragraphClass(node) {
 }
 
 const createJumpLink = (children) => {
-    console.log('c: ', children[0]);
+    const string = Array.isArray(children[0])
+        ? children[0].filter((value) => typeof value === 'string').join(' ')
+        : children[0];
+
     return (
         <a
-            href={`#${slugify(children[0])}`}
+            href={`#${slugify(string, {lower: true})}`}
             className="
           relative
           before:md:content-['#']
@@ -117,8 +119,8 @@ const renderOptions = (body) => {
 
         renderNode: {
             [INLINES.HYPERLINK]: (node, children) => {
-                console.log('Inline hyperlink: ');
-                console.log(node);
+                // console.log('Inline hyperlink: ');
+                // console.log(node);
 
                 if (node.data.uri.indexOf('youtu') !== -1) {
                     return (
@@ -169,9 +171,9 @@ const renderOptions = (body) => {
 
                 const sys_id =
                     referenceMap.get(contentful_id).sys.contentType.sys.id;
-                console.log('Inline embedded entry / node: ');
-                console.log(referenceMap.get(contentful_id));
-                console.log(node);
+                // console.log('Inline embedded entry / node: ');
+                // console.log(referenceMap.get(contentful_id));
+                // console.log(node);
 
                 // target the contentType of the EMBEDDED_ENTRY to display as you need
                 if (sys_id === 'courses' || sys_id === 'coursesCategories') {
@@ -186,8 +188,8 @@ const renderOptions = (body) => {
                 </h2>
             ),
             [BLOCKS.HEADING_2]: (node, children) => {
-                console.log('heading: ');
-                console.log(children);
+                // console.log('heading: ');
+                // console.log(children);
                 return (
                     <h2 className="text-3xl sm:text-4xl text-left font-black text-gray-700 leading-tight mb-2">
                         {createJumpLink(children)}
@@ -218,8 +220,8 @@ const renderOptions = (body) => {
             ),
 
             [BLOCKS.PARAGRAPH]: (node, children) => {
-                console.log('Blocks paragraph: ');
-                console.log(node);
+                // console.log('Blocks paragraph: ');
+                // console.log(node);
                 return <p className={paragraphClass(node)}>{children}</p>;
                 //     if (node.content[0].value === '') {
                 //         return <br />;
@@ -237,8 +239,8 @@ const renderOptions = (body) => {
             [BLOCKS.HR]: () => <hr className="mb-6" />,
 
             [BLOCKS.EMBEDDED_ASSET]: (node) => {
-                console.log('Blocks embedded asset: ');
-                console.log(node);
+                // console.log('Blocks embedded asset: ');
+                // console.log(node);
 
                 const { gatsbyImageData, description, title, file } =
                     node.data.target;
@@ -272,9 +274,9 @@ const renderOptions = (body) => {
 
                 const sys_id =
                     referenceMap.get(contentful_id).sys.contentType.sys.id;
-                console.log('Blocks embedded entry / node: ');
-                console.log(referenceMap.get(contentful_id));
-                console.log(node);
+                // console.log('Blocks embedded entry / node: ');
+                // console.log(referenceMap.get(contentful_id));
+                // console.log(node);
 
                 if (sys_id === 'video') {
                     return (
@@ -319,8 +321,8 @@ const courses = ({ data }) => {
     const { title, coverImage, body, courseCategories } =
         data.contentfulCourses;
 
-    console.log('body:');
-    console.log(body);
+    // console.log('body:');
+    // console.log(body);
     const pluginImage = getImage(coverImage);
 
     return (
