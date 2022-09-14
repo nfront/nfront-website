@@ -6,11 +6,12 @@ import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
+import slugify from '@utils/slugify';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FlexBox } from '../components/sections/Team';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
-// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
+// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const StyledContainer = styled(Container)`
     text-align: center;
@@ -20,7 +21,7 @@ const StyledContainer = styled(Container)`
 `;
 
 const DetailedSection = styled.div`
-    flex: 1 1 300px;
+    flex: 1 1 500px;
     @media (min-width: 708px) {
         margin-left: 1.5rem;
     }
@@ -57,165 +58,269 @@ function paragraphClass(node) {
     return className;
 }
 
-// Render richTextResponse.json to the DOM using
-// documentToReactComponents from "@contentful/rich-text-react-renderer"
-
-// function RichTextResponse(richTextResponse) {
-//     return (
-//         <>
-//             {documentToReactComponents(
-//                 richTextResponse.json,
-//                 renderOptions(richTextResponse.links)
-//             )}
-//         </>
-//     );
-// }
+const createJumpLink = (children) => {
+    console.log('c: ', children[0]);
+    return (
+        <a
+            href={`#${slugify(children[0])}`}
+            className="
+          relative
+          before:md:content-['#']
+          before:absolute 
+          before:inset-x-hash 
+          before:text-md 
+          before:text-gray-300
+          hover:md:before:content-['#']
+          hover:before:text-brand-default"
+        >
+            {children}
+        </a>
+    );
+};
 
 // INLINES.EMBEDDED_ENTRY (linked inline entries e.g. a reference to another blog post)
 // and BLOCKS.EMBEDDED_ASSET (linked assets e.g. images)
 
-const renderOptions = {
-    // Replace instances of \n produced by Shift + Enter with <br/> React elements
-    renderText: (text) => {
-        return text.split('\n').reduce((children, textSegment, index) => {
-            return [...children, index > 0 && <br key={index} />, textSegment];
-        }, []);
-    },
+const renderOptions = (body) => {
+    const references = body.references;
 
-    // renderText: text => text.replace('!', '?'),
+    // map contentful_id to references with sys.id
+    const referenceMap = new Map();
+    for (const reference of references) {
+        referenceMap.set(reference.contentful_id, reference);
+    }
 
-    renderMark: {
-        [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
-        [MARKS.ITALIC]: (text) => <i className="font-italic">{text}</i>,
-        [MARKS.UNDERLINE]: (text) => <u className="underline">{text}</u>,
-        [MARKS.CODE]: (text) => (
-            <code className="font-mono px-1 py-2 mx-1 bg-gray-100 rounded text-sm">
-                {text}
-            </code>
-        ),
-    },
-
-    renderNode: {
-        [INLINES.HYPERLINK]: (node) => {
-            if (node.data.uri.indexOf('youtu') !== -1) {
-                return (
-                    <IframeContainer>
-                        <iframe
-                            title="nFront Ventures Video Player"
-                            src={node.data.uri}
-                            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                            frameBorder="0"
-                            allowFullScreen
-                        ></iframe>
-                    </IframeContainer>
-                );
-            } else if (node.data.uri.indexOf('vimeo.com') !== -1) {
-                return (
-                    <IframeContainer>
-                        <iframe
-                            title="Unique Title 001"
-                            src={node.data.uri}
-                            frameBorder="0"
-                            allowFullScreen
-                        ></iframe>
-                    </IframeContainer>
-                );
-            } else
-                return (
-                    <a
-                        href={node.data.uri}
-                        target={`${
-                            node.data.uri.startsWith(website_url)
-                                ? '_self'
-                                : '_blank'
-                        }`}
-                        rel={`${
-                            node.data.uri.startsWith(website_url)
-                                ? ''
-                                : 'noopener noreferrer'
-                        }`}
-                    >
-                        {node.content[0].value}
-                    </a>
-                );
+    return {
+        // Replace instances of \n produced by Shift + Enter with <br/> React elements
+        renderText: (text) => {
+            return text.split('\n').reduce((children, textSegment, index) => {
+                return [
+                    ...children,
+                    index > 0 && <br key={index} />,
+                    textSegment,
+                ];
+            }, []);
         },
 
-        [INLINES.EMBEDDED_ENTRY]: (node, children) => {
-            // target the contentType of the EMBEDDED_ENTRY to display as you need
-            if (node.data.target.sys.contentType.sys.id === 'classLink') {
-                return (
-                    <a href={`/training/${node.data.target.fields.slug}`}>
-                        {' '}
-                        {node.data.target.fields.title}
-                    </a>
-                );
-            }
+        // renderText: text => text.replace('!', '?'),
+
+        renderMark: {
+            [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
+            [MARKS.ITALIC]: (text) => <i className="font-italic">{text}</i>,
+            [MARKS.UNDERLINE]: (text) => <u className="underline">{text}</u>,
+            [MARKS.CODE]: (text) => (
+                <code className="font-mono px-1 py-2 mx-1 bg-gray-100 rounded text-sm">
+                    {text}
+                </code>
+            ),
         },
 
-        // swap h1 with h2, so we only have one h1
-        [BLOCKS.HEADING_1]: (node, children) => (
-            <h2 className="text-3xl sm:text-4xl text-left font-black text-gray-700 leading-tight mb-2">
-                {children}
-            </h2>
-        ),
+        renderNode: {
+            [INLINES.HYPERLINK]: (node, children) => {
+                console.log('Inline hyperlink: ');
+                console.log(node);
 
-        [BLOCKS.PARAGRAPH]: (node, children) => {
-            if (node.content[0].value === '') {
-                return <br />;
-            } else {
+                if (node.data.uri.indexOf('youtu') !== -1) {
+                    return (
+                        <IframeContainer>
+                            <iframe
+                                title="nFront Ventures Video Player"
+                                src={node.data.uri}
+                                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                    );
+                } else if (node.data.uri.indexOf('vimeo.com') !== -1) {
+                    return (
+                        <IframeContainer>
+                            <iframe
+                                title="nFront Ventures Video Player"
+                                src={node.data.uri}
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                    );
+                } else
+                    return (
+                        <a
+                            href={node.data.uri}
+                            target={`${
+                                node.data.uri.startsWith(website_url)
+                                    ? '_self'
+                                    : '_blank'
+                            }`}
+                            rel={`${
+                                node.data.uri.startsWith(website_url)
+                                    ? ''
+                                    : 'noopener noreferrer'
+                            }`}
+                            className=""
+                        >
+                            {children}
+                        </a>
+                    );
+            },
+
+            [INLINES.EMBEDDED_ENTRY]: (node, children) => {
+                const { slug, title, contentful_id } = node.data.target;
+
+                const sys_id =
+                    referenceMap.get(contentful_id).sys.contentType.sys.id;
+                console.log('Inline embedded entry / node: ');
+                console.log(referenceMap.get(contentful_id));
+                console.log(node);
+
+                // target the contentType of the EMBEDDED_ENTRY to display as you need
+                if (sys_id === 'courses' || sys_id === 'coursesCategories') {
+                    return <a href={`/training/${slug}`}> {title}</a>;
+                }
+            },
+
+            // swap h1 with h2, so we only have one h1
+            [BLOCKS.HEADING_1]: (node, children) => (
+                <h2 className="text-3xl sm:text-4xl text-left font-black text-gray-700 leading-tight mb-2">
+                    {children}
+                </h2>
+            ),
+            [BLOCKS.HEADING_2]: (node, children) => {
+                console.log('heading: ');
+                console.log(children);
+                return (
+                    <h2 className="text-3xl sm:text-4xl text-left font-black text-gray-700 leading-tight mb-2">
+                        {createJumpLink(children)}
+                    </h2>
+                );
+            },
+            [BLOCKS.HEADING_3]: (node, children) => (
+                <h3 className="text-2xl sm:text-3xl text-left font-black text-gray-700 leading-tight mb-2">
+                    {createJumpLink(children)}
+                </h3>
+            ),
+            [BLOCKS.HEADING_4]: (node, children) => {
+                return (
+                    <h4 className="text-xl sm:text-2xl text-left font-black text-gray-700 leading-tight mb-2">
+                        {createJumpLink(children)}
+                    </h4>
+                );
+            },
+            [BLOCKS.HEADING_5]: (node, children) => (
+                <h5 className="text-lg sm:text-xl text-left font-black text-gray-700 leading-tight mb-2">
+                    {createJumpLink(children)}
+                </h5>
+            ),
+            [BLOCKS.HEADING_6]: (node, children) => (
+                <h6 className="text-md sm:text-lg text-left font-black text-gray-700 leading-tight mb-2">
+                    {createJumpLink(children)}
+                </h6>
+            ),
+
+            [BLOCKS.PARAGRAPH]: (node, children) => {
+                console.log('Blocks paragraph: ');
+                console.log(node);
                 return <p className={paragraphClass(node)}>{children}</p>;
-            }
-        },
+                //     if (node.content[0].value === '') {
+                //         return <br />;
+                //     } else {
+                //         return <p className={paragraphClass(node)}>{children}</p>;
+                //     }
+            },
 
-        [BLOCKS.QUOTE]: (children) => (
-            <blockquote className="border-l-4 border-brand-primary bg-gray-50 p-3 rounded font-bold my-6">
-                <>"{children.content[0].content[0].value}"</>
-            </blockquote>
-        ),
+            [BLOCKS.QUOTE]: (children) => (
+                <blockquote className="border-l-4 border-brand-primary bg-gray-50 p-3 rounded font-bold my-6">
+                    <>"{children.content[0].content[0].value}"</>
+                </blockquote>
+            ),
 
-        [BLOCKS.HR]: () => <hr className="mb-6" />,
+            [BLOCKS.HR]: () => <hr className="mb-6" />,
 
-        [BLOCKS.EMBEDDED_ASSET]: (node) => {
-            const { gatsbyImageData, description } = node.data.target;
-            if (!gatsbyImageData) return null;
-            return (
-                <GatsbyImage
-                    image={getImage(gatsbyImageData)}
-                    alt={description}
-                />
-            );
-        },
+            [BLOCKS.EMBEDDED_ASSET]: (node) => {
+                console.log('Blocks embedded asset: ');
+                console.log(node);
 
-        [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
-            // target the contentType of the EMBEDDED_ENTRY to display as you need
-            if (node.data.target.sys.contentType.sys.id === 'codeBlock') {
+                const { gatsbyImageData, description, title, file } =
+                    node.data.target;
+
+                if (file.contentType.includes('video')) {
+                    return (
+                        <IframeContainer>
+                            <iframe
+                                title={title}
+                                src={file.url}
+                                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                    );
+                }
+
+                if (!gatsbyImageData) return null;
                 return (
-                    <pre>
-                        <code>{node.data.target.fields.code}</code>
-                    </pre>
-                );
-            }
-
-            if (node.data.target.sys.contentType.sys.id === 'videoEmbed') {
-                return (
-                    <iframe
-                        src={node.data.target.fields.embedUrl}
-                        height="100%"
-                        width="100%"
-                        frameBorder="0"
-                        scrolling="no"
-                        title={node.data.target.fields.title}
-                        allowFullScreen={true}
+                    <GatsbyImage
+                        image={getImage(gatsbyImageData)}
+                        alt={description}
                     />
                 );
-            }
+            },
+
+            [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
+                const { video, title, candidate, slug, code, contentful_id } =
+                    node.data.target;
+
+                const sys_id =
+                    referenceMap.get(contentful_id).sys.contentType.sys.id;
+                console.log('Blocks embedded entry / node: ');
+                console.log(referenceMap.get(contentful_id));
+                console.log(node);
+
+                if (sys_id === 'video') {
+                    return (
+                        <IframeContainer>
+                            <iframe
+                                title={title}
+                                src={video.url}
+                                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                    );
+                }
+
+                // target the contentType of the EMBEDDED_ENTRY to display as you need
+                if (sys_id === 'codeBlock') {
+                    return (
+                        <pre>
+                            <code>{code}</code>
+                        </pre>
+                    );
+                }
+
+                // fix: make this look nicer
+                if (
+                    sys_id === 'courses' ||
+                    sys_id === 'post' ||
+                    sys_id === 'coursesCategories'
+                ) {
+                    return <a href={`/training/${slug}`}> {title}</a>;
+                }
+
+                if (sys_id === 'employeeTestimonials')
+                    return <a href={`/training/${slug}`}> {candidate}</a>;
+            },
         },
-    },
+    };
 };
 
 const courses = ({ data }) => {
-    const { title, coverImage, body, courseCategories } = data.contentfulCourses;
+    const { title, coverImage, body, courseCategories } =
+        data.contentfulCourses;
 
+    console.log('body:');
+    console.log(body);
     const pluginImage = getImage(coverImage);
 
     return (
@@ -240,14 +345,14 @@ const courses = ({ data }) => {
             )}
             <Section>
                 <StyledContainer>
-                    <ModifiedFlexBox>
-                        <DetailedSection>
-                            <p className="category">{courseCategories.title}</p>
-                            <div>
-                                {body && renderRichText(body, renderOptions)}
-                            </div>
-                        </DetailedSection>
-                    </ModifiedFlexBox>
+                    {/* <ModifiedFlexBox> */}
+                    <DetailedSection>
+                        <p className="category">{courseCategories.title}</p>
+                        <div>
+                            {body && renderRichText(body, renderOptions(body))}
+                        </div>
+                    </DetailedSection>
+                    {/* </ModifiedFlexBox> */}
                 </StyledContainer>
             </Section>
             <Footer />
@@ -273,12 +378,79 @@ export const query = graphql`
                         # You'll need to query contentful_id in each reference
                         contentful_id
                         __typename
+                        title
+                        description
+                        file {
+                            contentType
+                            url
+                        }
                         gatsbyImageData(layout: FIXED, width: 1000)
                     }
                     ... on ContentfulCoursesCategories {
                         contentful_id
                         title
                         slug
+                        sys {
+                            contentType {
+                                sys {
+                                    id
+                                    type
+                                }
+                            }
+                        }
+                    }
+                    ... on ContentfulCourses {
+                        contentful_id
+                        title
+                        slug
+                        sys {
+                            contentType {
+                                sys {
+                                    id
+                                    type
+                                }
+                            }
+                        }
+                    }
+                    ... on ContentfulEmployeeTestimonials {
+                        contentful_id
+                        candidate
+                        sys {
+                            contentType {
+                                sys {
+                                    id
+                                    type
+                                }
+                            }
+                        }
+                    }
+                    ... on ContentfulPost {
+                        contentful_id
+                        title
+                        slug
+                        sys {
+                            contentType {
+                                sys {
+                                    id
+                                    type
+                                }
+                            }
+                        }
+                    }
+                    ... on ContentfulVideo {
+                        contentful_id
+                        title
+                        video {
+                            url
+                        }
+                        sys {
+                            contentType {
+                                sys {
+                                    id
+                                    type
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -288,59 +460,3 @@ export const query = graphql`
         }
     }
 `;
-
-// Create a bespoke renderOptions object to target BLOCKS.EMBEDDED_ENTRY (linked entries e.g. videoEmbed)
-// and BLOCKS.EMBEDDED_ASSET (linked assets e.g. images)
-
-// function renderOptions(links) {
-//     // create an asset block map
-//     const assetBlockMap = new Map();
-//     // loop through the assets and add them to the map
-//     for (const asset of links.assets.block) {
-//         assetBlockMap.set(asset.sys.id, asset);
-//     }
-
-//     // create an entry block map
-//     const entryBlockMap = new Map();
-//     // loop through the entries and add them to the map
-//     for (const entry of links.entries.block) {
-//         entryBlockMap.set(entry.sys.id, entry);
-//     }
-
-//     return {
-//         // other options...
-
-//         renderNode: {
-//             // other options...
-
-//             [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
-//                 // find the entry in the entryBlockMap by ID
-//                 const entry = entryBlockMap.get(node.data.target.sys.id);
-
-//                 // render the entries as needed by looking at the __typename
-//                 // referenced in the GraphQL query
-
-//                 if (entry.__typename === 'VideoEmbed') {
-//                     return (
-//                         <iframe
-//                             src={entry.embedUrl}
-//                             height="100%"
-//                             width="100%"
-//                             frameBorder="0"
-//                             scrolling="no"
-//                             title={entry.title}
-//                             allowFullScreen={true}
-//                         />
-//                     );
-//                 }
-//             },
-//             [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
-//                 // find the asset in the assetBlockMap by ID
-//                 const asset = assetBlockMap.get(node.data.target.sys.id);
-
-//                 // render the asset accordingly
-//                 return <img src={asset.url} alt="My image alt text" />;
-//             },
-//         },
-//     };
-// }
