@@ -59,7 +59,7 @@ function paragraphClass(node) {
 }
 
 const createJumpLink = (children) => {
-    console.log('c: ', children[0]);
+    console.log('c: ', children);
     return (
         <a
             href={`#${slugify(children[0])}`}
