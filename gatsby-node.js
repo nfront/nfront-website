@@ -80,7 +80,7 @@ exports.createPages = ({ graphql, actions }) => {
             if (result.errors) {
                 console.log('Error retrieving contentful data', result.errors);
             }
-            const jobsTemplate = path.resolve('./src/templates/courses.js');
+            const jobsTemplate = path.resolve('./src/templates/classes.js');
             result.data.allContentfulCourses.edges.forEach(edge => {
                 createPage({
                     path: `/training/${edge.node.slug}/`,

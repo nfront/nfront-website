@@ -75,12 +75,14 @@ const jobs = ({ data }) => {
     } = data.contentfulJobs;
 
     const pluginImageHero = getImage(heroImage);
+    console.log('heroImage', heroImage);
     const pluginImageProfile = getImage(profileImage);
 
     return (
         <Layout>
             <Seo title={title} />
             <Navbar fluid />
+            {console.log('heroImage2: ', heroImage)}
             {heroImage != null && (
                 <div style={{ display: 'grid' }}>
                     <GatsbyImage
@@ -167,16 +169,10 @@ export const query = graphql`
                 }
             }
             heroImage {
-                gatsbyImageData(
-                    placeholder: BLURRED
-                    formats: [AUTO, WEBP, AVIF]
-                )
+                gatsbyImageData
             }
             profileImage {
-                gatsbyImageData(
-                    placeholder: BLURRED
-                    formats: [AUTO, WEBP, AVIF]
-                )
+                gatsbyImageData
             }
         }
     }
