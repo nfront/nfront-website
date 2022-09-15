@@ -5,36 +5,37 @@ import Hero from '@common/hero';
 import Seo from '@utils/SEO';
 import Footer from '@common/footer';
 import Courses from './Courses';
-import CoursesCategories from './CoursesCategories';
+import Classes from './Classes';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 // import { FormFields, SearchBox } from '../../pages/jobs';
 // import AnchorLink from 'react-anchor-link-smooth-scroll';
 // import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-// import { useIsTraining } from '@utils/hooks/useIsHome';
-export const TrainingSection = styled.div`
+// import { useIsAcademy } from '@utils/hooks/useCheckLocation';
+export const AcademySection = styled.div`
     /* .gatsby-image-wrapper {
         min-height: 100vh;
     } */
 `;
-const JobHeaderSection = styled.div`
+const AcademyHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
-const Training = ({ location, user }) => {
-    const [filteredCourses, setFilteredCourses] = useState([]);
+const Academy = ({ location, user }) => {
+    const [filteredClasses, setFilteredClasses] = useState([]);
 
     const params = new URLSearchParams(location.search);
-    const courseCategory = params.get('courseCategory');
+    const course = params.get('course');
     const title = params.get('title');
+    
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCoursesCategories {
+            allContentfulCourses {
                 nodes {
                     title
                     slug
                 }
             }
-            allContentfulCourses {
+            allContentfulClasses {
                 nodes {
                     # id
                     slug
@@ -46,7 +47,7 @@ const Training = ({ location, user }) => {
                             layout: CONSTRAINED
                         )
                     }
-                    courseCategories {
+                    course {
                         title
                         tagLine
                         slug
@@ -61,19 +62,19 @@ const Training = ({ location, user }) => {
             }
         }
     `);
-    const results = data.allContentfulCourses.nodes;
-    // const courseCategories = data.allContentfulCoursesCategories.nodes;
-    // const isTraining = useIsTraining().isTraining;
+    const results = data.allContentfulClasses.nodes;
+    // const courseCategories = data.allContentfulClassesCategories.nodes;
+    // const isAcademy = useIsAcademy().isAcademy;
     useEffect(() => {
-        if (results.length && !courseCategory && !title) {
-            setFilteredCourses(results);
+        if (results.length && !course && !title) {
+            setFilteredClasses(results);
             return;
         }
-        if (courseCategory && title) {
-            setFilteredCourses(
+        if (course && title) {
+            setFilteredClasses(
                 results.filter(
-                    course =>
-                        course?.courseCategories?.slug === courseCategory &&
+                    aClass =>
+                        aClass?.course?.slug === course &&
                         course?.title
                             .toLocaleLowerCase()
                             .includes(title.toLocaleLowerCase())
@@ -82,37 +83,37 @@ const Training = ({ location, user }) => {
             return;
         }
         if (title) {
-            setFilteredCourses(
-                results.filter(course =>
-                    course?.title
+            setFilteredClasses(
+                results.filter(aClass =>
+                    aClass?.title
                         .toLocaleLowerCase()
                         .includes(title.toLocaleLowerCase())
                 )
             );
             return;
         }
-        if (courseCategory) {
-            setFilteredCourses(
+        if (course) {
+            setFilteredClasses(
                 results.filter(
-                    course => course?.courseCategories?.slug === courseCategory
+                    aClass => aClass?.course?.slug === course
                 )
             );
             return;
         }
-    }, [results, courseCategory, title]);
+    }, [results, course, title]);
     return (
         <Layout>
-            <Seo title={'Training'} />
+            <Seo title={'Fundraising Academy'} />
             <Navbar fluid />
-            <TrainingSection>
+            <AcademySection>
                 <Hero fileName="LA.jpg">
-                    <JobHeaderSection>
+                    <AcademyHeaderSection>
                         <h2>Online Tutorial From Top Instructor.</h2>
                         <p>
                             Meet university and cultural institutions, who'll
                             share their experience.
                         </p>
-                        {/* {isTraining && ( */}
+                        {/* {isAcademy && ( */}
                         <Link to="/courses/">
                             <button className="button center">
                                 View All Courses
@@ -123,25 +124,25 @@ const Training = ({ location, user }) => {
                         {/* <SearchBox>
                             <Formik
                                 onSubmit={values => {
-                                    const { courseCategory, title } = values;
+                                    const { course, title } = values;
 
                                     const searchParams = {};
-                                    if (courseCategory) {
+                                    if (course) {
                                         searchParams[
-                                            'courseCategory'
-                                        ] = courseCategory;
+                                            'course'
+                                        ] = course;
                                     }
                                     if (title) {
                                         searchParams['title'] = title;
                                     }
 
                                     push(
-                                        `/training?${new URLSearchParams(
+                                        `/academy?${new URLSearchParams(
                                             searchParams
                                         ).toString()}`
                                     );
                                 }}
-                                initialValues={{ title, courseCategory }}
+                                initialValues={{ title, course }}
                                 enableReinitialize
                             >
                                 {({ values, handleSubmit }) => (
@@ -157,8 +158,8 @@ const Training = ({ location, user }) => {
                                             />
                                             <Field
                                                 component="select"
-                                                name="courseCategory"
-                                                value={values.courseCategory}
+                                                name="course"
+                                                value={values.course}
                                             >
                                                 <option
                                                     value=""
@@ -196,14 +197,14 @@ const Training = ({ location, user }) => {
                                 )}
                             </Formik>
                         </SearchBox> */}
-                    </JobHeaderSection>
+                    </AcademyHeaderSection>
                 </Hero>
-            </TrainingSection>
-            <CoursesCategories results={results} />
-            <Courses limit="6" results={filteredCourses} />
+            </AcademySection>
+            <Courses results={results} />
+            <Classes limit="6" results={filteredClasses} />
             <Footer />
         </Layout>
     );
 };
 
-export default Training;
+export default Academy;

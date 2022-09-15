@@ -99,15 +99,15 @@ export default function Header({ fileName }) {
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "art" } }
+                    filter: { sourceInstanceName: { eq: "art" }, extension: {ne: "svg"} }
                 ) {
                     edges {
                         node {
                             relativePath
+                            publicURL
+                            name
                             childImageSharp {
-                                gatsbyImageData(
-                                    layout: FULL_WIDTH
-                                )
+                                gatsbyImageData(layout: FULL_WIDTH)
                             }
                         }
                     }
@@ -124,18 +124,23 @@ export default function Header({ fileName }) {
         return null;
     }
 
-    const pluginImage = getImage(image);
+    const svg = !image.childImageSharp && image.extension === 'svg';
+    const pluginImage = svg ? null : getImage(image);
 
     return (
         <>
             <div style={{ display: 'grid' }}>
-                <GatsbyImage
-                    image={pluginImage}
-                    style={{
-                        gridArea: '1/1',
-                        height: `100vh`,
-                    }}
-                />
+                {svg && <img src={image.publicURL} alt={image.name} />}
+                {!svg && (
+                    <GatsbyImage
+                        image={pluginImage}
+                        alt={image.name}
+                        style={{
+                            gridArea: '1/1',
+                            height: `100vh`,
+                        }}
+                    />
+                )}
                 <Overlay alt />
             </div>
             <HeaderWrapper id="top">
@@ -150,18 +155,6 @@ export default function Header({ fileName }) {
                         </HeaderText>
                     </Fade>
                 </div>
-                {/* <Link to="/contact/">
-                        <button className="button">Get in touch</button>
-                    </Link> */}
-                {/* keeping it for future use }
-                    <Form className="pb-0">
-                        <Contact />
-                    </Form> */}
-                {/*
-                <AnchorLink href="#capital" class="mouse">
-                    <div class="scroller"></div>
-                </AnchorLink>
-                <div class="scroll">SCROLL</div> */}
             </HeaderWrapper>
         </>
     );

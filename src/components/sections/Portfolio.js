@@ -6,7 +6,7 @@ import IndicatorDots from '@utils/carousel/indicator-dots';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
-import { useIsHome } from '@utils/hooks/useIsHome';
+import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 // import ReadMore from '../../utils/readmore/ReadMore';
 

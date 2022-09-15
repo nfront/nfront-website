@@ -7,13 +7,13 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 const Placeholder = styled.div`
     .gatsby-image-wrapper {
         /* height: 70vh; */
-        height: ${props => props.long ? "100vh" : "70vh"};
+        height: ${(props) => (props.long ? '100vh' : '70vh')};
 
         @media (min-width: ${(props) => props.theme.screen.sm}) {
-            height: ${props => props.long ? "100vh" : "60vh"};
+            height: ${(props) => (props.long ? '100vh' : '60vh')};
         }
         @media (min-width: ${(props) => props.theme.screen.lg}) {
-            height: ${props => props.long ? "100vh" : "70vh"};
+            height: ${(props) => (props.long ? '100vh' : '70vh')};
         }
     }
 
@@ -39,11 +39,13 @@ const Hero = ({ fileName, children, long }) => {
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "art" } }
+                    filter: { sourceInstanceName: { eq: "art" }, extension: {ne: "svg"} }
                 ) {
                     edges {
                         node {
                             relativePath
+                            publicURL
+                            name
                             childImageSharp {
                                 gatsbyImageData(layout: FULL_WIDTH)
                             }
@@ -62,22 +64,28 @@ const Hero = ({ fileName, children, long }) => {
         return null;
     }
 
-    const pluginImage = getImage(image);
+    const svg = !image.childImageSharp && image.extension === 'svg';
+    const pluginImage = svg ? null : getImage(image);
 
     return (
         <Placeholder long={long}>
             <div style={{ display: 'grid' }}>
-                <GatsbyImage
-                    image={pluginImage}
-                    style={{
-                        gridArea: '1/1',
-                    }}
-                />
+                {svg && <img src={image.publicURL} alt={image.name}/>}
+                {!svg && (
+                    <GatsbyImage
+                        image={pluginImage}
+                        alt={image.name}
+                        style={{
+                            gridArea: '1/1',
+                        }}
+                    />
+                )}
+
                 <Overlay />
                 <OverlayText>{children}</OverlayText>
             </div>
         </Placeholder>
     );
-}
+};
 
 export default Hero;

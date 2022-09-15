@@ -49,16 +49,15 @@ const CoInvestors = () => {
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "nfront" } }
+                    filter: { sourceInstanceName: { eq: "nfront" }, extension: {ne: "svg"} }
                 ) {
                     edges {
                         node {
                             relativePath
+                            publicURL
+                            name
                             childImageSharp {
-                                gatsbyImageData(
-                                    layout: CONSTRAINED
-                                    width: 885
-                                )
+                                gatsbyImageData(layout: CONSTRAINED, width: 885)
                             }
                         }
                     }
@@ -84,11 +83,22 @@ const CoInvestors = () => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;
-                        const pluginImage = getImage(img);
+                        const svg =
+                            !img.childImageSharp && img.extension === 'svg';
+                        const pluginImage = svg ? null : getImage(image);
+
                         return (
                             <Box>
                                 <label>{name}</label>
-                                <GatsbyImage image={pluginImage} alt={name} />
+                                {svg && (
+                                    <img src={image.publicURL} alt={name} />
+                                )}
+                                {!svg && (
+                                    <GatsbyImage
+                                        image={pluginImage}
+                                        alt={name}
+                                    />
+                                )}
                             </Box>
                         );
                     })}

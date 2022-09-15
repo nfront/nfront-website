@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { useScrollMonitor } from '@utils/hooks/useScrollMonitor';
-import { useIsHome } from '@utils/hooks/useIsHome';
+import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
 import { logout, isAuthenticated } from '@utils/auth';
 import { ReactComponent as Logo } from '@static/nfront-logo.svg';
@@ -19,7 +19,7 @@ import {
 } from '@styles/navstyles.js';
 
 const ListLink = (props) => (
-    <NavItem className={clsx(props.to !== '/training/' && "underscore")}>
+    <NavItem className={clsx(props.to !== '/academy/' && "underscore")}>
         <Link to={props.to}>{props.children}</Link>
     </NavItem>
 );
@@ -97,7 +97,7 @@ export default function Navbar(props) {
                         <ListLinkScroll to="top" callback={() => setIsMenuOpen(false)}>Home</ListLinkScroll>
                         <ListLink to="/thesis/">Thesis</ListLink>
                         <ListLink to="/portfolio/">Portfolio</ListLink>
-                        {/* <ListLink to="/training/">Training</ListLink> */}
+                        {/* <ListLink to="/academy/">Academy</ListLink> */}
                         <ListLink to="/jobs">careers</ListLink>
                         <ListLink to="/team-mentors/">Team & Mentors</ListLink>
                         <ListLink to="/news/">News</ListLink>
@@ -107,7 +107,7 @@ export default function Navbar(props) {
                                 Logout
                             </ListLinkScroll>
                         )}
-                        <ListLink to="/training/">
+                        <ListLink to="/academy/">
                             <button className="call-to-action-button">
                                 Academy
                             </button>
@@ -137,7 +137,7 @@ export default function Navbar(props) {
                                 <AnchorLink href="#">Logout</AnchorLink>
                             </NavItem>
                         )}
-                        <ListLink to="/training/">
+                        <ListLink to="/academy/">
                             <button className="call-to-action-button">
                                 Academy
                             </button>

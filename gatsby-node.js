@@ -64,9 +64,9 @@ exports.createPages = ({ graphql, actions }) => {
             console.log('Error retrieving contentful data', error);
         });
 
-    const courses = graphql(`
+    const classes = graphql(`
         {
-            allContentfulCourses {
+            allContentfulClasses {
                 edges {
                     node {
                         id
@@ -80,11 +80,11 @@ exports.createPages = ({ graphql, actions }) => {
             if (result.errors) {
                 console.log('Error retrieving contentful data', result.errors);
             }
-            const jobsTemplate = path.resolve('./src/templates/classes.js');
-            result.data.allContentfulCourses.edges.forEach(edge => {
+            const classTemplate = path.resolve('./src/templates/classes.js');
+            result.data.allContentfulClasses.edges.forEach(edge => {
                 createPage({
-                    path: `/training/${edge.node.slug}/`,
-                    component: jobsTemplate,
+                    path: `/academy/${edge.node.slug}/`,
+                    component: classTemplate,
                     context: {
                         slug: edge.node.slug,
                         id: edge.node.id,
@@ -96,7 +96,7 @@ exports.createPages = ({ graphql, actions }) => {
             console.log('Error retrieving contentful data', error);
         });
 
-    return Promise.all([news, jobs, courses]);
+    return Promise.all([news, jobs, classes]);
 };
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     if (stage === 'build-html') {

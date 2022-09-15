@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
-import { useIsHome } from '@utils/hooks/useIsHome';
+import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const StyledGrid = styled(Grid)`

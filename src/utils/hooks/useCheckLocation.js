@@ -14,16 +14,16 @@ export const useIsHome = () => {
     return { isHome };
 };
 
-export const useIsTraining = () => {
-    const [isTraining, setIsTraining] = useState(false);
+export const useIsAcademy = () => {
+    const [isAcademy, setIsAcademy] = useState(false);
 
     useEffect(() => {
-        if (window.location.pathname === '/training/') {
-            setIsTraining(true);
+        if (window.location.pathname === '/academy/') {
+            setIsAcademy(true);
         } else {
-            setIsTraining(false);
+            setIsAcademy(false);
         }
     }, []);
 
-    return { isTraining };
+    return { isAcademy };
 };

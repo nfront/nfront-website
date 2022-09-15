@@ -315,12 +315,7 @@ const JobsPage = ({ location }) => {
                                                 onClick={handleSubmit}
                                                 className="button"
                                             >
-                                                {/* <button
-                                                        className="button"
-                                                        type="submit"
-                                                    > */}
                                                 Submit
-                                                {/* </button> */}
                                             </AnchorLink>
                                         </FormFields>
                                     </Form>

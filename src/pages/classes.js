@@ -4,13 +4,13 @@ import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
-import Courses from '../components/sections/Courses';
+import Classes from '../components/sections/Classes';
 import { useStaticQuery, graphql } from 'gatsby';
 
-const CoursesPage = () => {
+const ClassesPage = () => {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCourses {
+            allContentfulClasses {
                 nodes {
                     # id
                     slug
@@ -18,28 +18,23 @@ const CoursesPage = () => {
                     price
                     author
                     coverImage {
-                        gatsbyImageData(
-                            layout: CONSTRAINED
-                        )
+                        gatsbyImageData
                     }
-                    courseCategories {
+                    course {
                         title
                         tagLine
                         icon {
-                            gatsbyImageData(
-                                layout: CONSTRAINED
-                                height: 100
-                            )
+                            gatsbyImageData(height: 100)
                         }
                     }
                 }
             }
         }
     `);
-    const results = data.allContentfulCourses.nodes;
+    const results = data.allContentfulClasses.nodes;
     return (
         <Layout>
-            <Seo title={'Courses'} />
+            <Seo title={'Classes'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>Courses</h2>
@@ -49,10 +44,10 @@ const CoursesPage = () => {
                     founders we work with!
                 </p>
             </Hero>
-            <Courses results={results} limit={'1000'} />
+            <Classes results={results} limit={'1000'} />
             <Footer />
         </Layout>
     );
 };
 
-export default CoursesPage;
+export default ClassesPage;

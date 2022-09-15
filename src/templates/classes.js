@@ -8,7 +8,7 @@ import Footer from '@common/footer';
 import Seo from '@utils/SEO';
 import slugify from '@utils/slugify';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { FlexBox } from '../components/sections/Team';
+// import { FlexBox } from '../components/sections/Team';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 
@@ -27,12 +27,12 @@ const DetailedSection = styled.div`
     text-align: left;
 `;
 
-const ModifiedFlexBox = styled(FlexBox)`
-    padding: 0;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
-        padding: 0 1.5rem;
-    }
-`;
+// const ModifiedFlexBox = styled(FlexBox)`
+//     padding: 0;
+//     @media (min-width: ${(props) => props.theme.screen.xs}) {
+//         padding: 0 1.5rem;
+//     }
+// `;
 
 const IframeContainer = styled.span`
     padding-bottom: 56.25%;
@@ -176,8 +176,8 @@ const renderOptions = (body) => {
                 // console.log(node);
 
                 // target the contentType of the EMBEDDED_ENTRY to display as you need
-                if (sys_id === 'courses' || sys_id === 'coursesCategories') {
-                    return <a href={`/training/${slug}`}> {title}</a>;
+                if (sys_id === 'classes' || sys_id === 'courses') {
+                    return <a href={`/academy/${slug}`}> {title}</a>;
                 }
             },
 
@@ -303,23 +303,23 @@ const renderOptions = (body) => {
 
                 // fix: make this look nicer
                 if (
-                    sys_id === 'courses' ||
+                    sys_id === 'classes' ||
                     sys_id === 'post' ||
-                    sys_id === 'coursesCategories'
+                    sys_id === 'courses'
                 ) {
-                    return <a href={`/training/${slug}`}> {title}</a>;
+                    return <a href={`/academy/${slug}`}> {title}</a>;
                 }
 
                 if (sys_id === 'employeeTestimonials')
-                    return <a href={`/training/${slug}`}> {candidate}</a>;
+                    return <a href={`/academy/${slug}`}> {candidate}</a>;
             },
         },
     };
 };
 
-const courses = ({ data }) => {
-    const { title, coverImage, body, courseCategories } =
-        data.contentfulCourses;
+const classes = ({ data }) => {
+    const { title, coverImage, body, course } =
+        data.contentfulClasses;
 
     // console.log('body:');
     // console.log(body);
@@ -349,7 +349,7 @@ const courses = ({ data }) => {
                 <StyledContainer>
                     {/* <ModifiedFlexBox> */}
                     <DetailedSection>
-                        <p className="category">{courseCategories.title}</p>
+                        <p className="category">{course.title}</p>
                         <div>
                             {body && renderRichText(body, renderOptions(body))}
                         </div>
@@ -362,14 +362,14 @@ const courses = ({ data }) => {
     );
 };
 
-export default courses;
+export default classes;
 
 export const query = graphql`
     query ($slug: String!) {
-        contentfulCourses(slug: { eq: $slug }) {
+        contentfulClasses(slug: { eq: $slug }) {
             title
             slug
-            courseCategories {
+            course {
                 title
             }
             # This is the rich text field, the name depends on your field configuration in Contentful
@@ -388,7 +388,7 @@ export const query = graphql`
                         }
                         gatsbyImageData(layout: FIXED, width: 1000)
                     }
-                    ... on ContentfulCoursesCategories {
+                    ... on ContentfulCourses {
                         contentful_id
                         title
                         slug
@@ -401,7 +401,7 @@ export const query = graphql`
                             }
                         }
                     }
-                    ... on ContentfulCourses {
+                    ... on ContentfulClasses {
                         contentful_id
                         title
                         slug
