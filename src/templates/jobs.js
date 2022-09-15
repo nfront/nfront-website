@@ -68,7 +68,7 @@ const jobs = ({ data }) => {
         body,
         heroImage,
         publishDate,
-        profileImage,
+        icon,
         salary,
         experience,
         streetAddress,
@@ -76,7 +76,7 @@ const jobs = ({ data }) => {
 
     const pluginImageHero = getImage(heroImage);
     console.log('heroImage', heroImage);
-    const pluginImageProfile = getImage(profileImage);
+    const iconImage = getImage(icon);
 
     return (
         <Layout>
@@ -104,7 +104,7 @@ const jobs = ({ data }) => {
                     <ModifiedFlexBox>
                         <InfoSection>
                             <StyledImg
-                                image={pluginImageProfile}
+                                image={iconImage}
                                 alt="profile image"
                             />
                             <div className="info-card">
@@ -171,7 +171,7 @@ export const query = graphql`
             heroImage {
                 gatsbyImageData
             }
-            profileImage {
+            icon {
                 gatsbyImageData
             }
         }

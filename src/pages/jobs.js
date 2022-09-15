@@ -140,9 +140,7 @@ const JobsPage = ({ location }) => {
                     }
                     availablity
                     icon {
-                        file {
-                            url
-                        }
+                        gatsbyImageData
                     }
                 }
             }

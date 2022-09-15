@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 export const CardStyle = styled.div`
     padding: 25px;
@@ -74,14 +75,17 @@ export default function Card({ results }) {
                         availablity,
                     } = val;
 
+                    const iconImage = getImage(icon);
+
                     return (
                         <CardStyle>
                             <div className="job-info">
-                                <img
-                                    className="mr-1"
-                                    src={icon.file.url}
-                                    alt="icon"
+                                <GatsbyImage
+                                    image={iconImage}
+                                    alt={title}
+                                    className={'mr-1'}
                                 />
+
                                 <div>
                                     <Link to={`/jobs/${slug}`}>
                                         <h3 className="mb-05">{title}</h3>{' '}
