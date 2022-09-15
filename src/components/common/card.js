@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+
 export const CardStyle = styled.div`
     padding: 25px;
     background-color: #fff;
@@ -15,49 +17,46 @@ export const CardStyle = styled.div`
     position: relative;
     margin-bottom: 1rem;
     img {
-    width: 60px;
-    height: 60px;
-    @media (min-width: ${props => props.theme.screen.lg}) {
+        width: 60px;
+        height: 60px;
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        }
     }
-
-}
-.job-info{
-    @media (min-width: ${props => props.theme.screen.lg}) {
-        display: flex;
+    .job-info {
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+            display: flex;
+        }
+        padding-bottom: 1rem;
     }
-    padding-bottom: 1rem;
-}
-.available{
-    justify-content: space-between;
-    h3 {
-        margin-top: 1rem ;
-    }    
-    @media (min-width: ${props => props.theme.screen.lg}) {
-        display: flex;
-        margin-top: 0 !important;
+    .available {
+        justify-content: space-between;
+        h3 {
+            margin-top: 1rem;
+        }
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+            display: flex;
+            margin-top: 0 !important;
+        }
+
+        a {
+            color: var(--blue);
+            background-color: var(--accent-color);
+            height: fit-content;
+            margin-top: 1rem;
+
+            padding: 0.2rem 0.5rem;
+        }
     }
-
-    a{
-        color: var(--blue) ;
-        background-color:  var(--accent-color); 
-        height: fit-content;
-        margin-top: 1rem ;
-
-        padding: 0.2rem 0.5rem;
-    }
-
-}
-.job-details{
-    @media (min-width: ${props => props.theme.screen.lg}) {
-        display: flex;
-    }
-    // color: var(--blue);
-
-    p{ 
+    .job-details {
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+            display: flex;
+        }
         // color: var(--blue);
-        width: 100% !important;
-    } 
-}
+
+        p {
+            // color: var(--blue);
+            width: 100% !important;
+        }
     }
 `;
 
@@ -65,7 +64,7 @@ export default function Card({ results }) {
     return (
         <Container>
             {results &&
-                results.map(val => {
+                results.map((val) => {
                     const {
                         title,
                         categories,
@@ -76,14 +75,17 @@ export default function Card({ results }) {
                         availablity,
                     } = val;
 
+                    const iconImage = getImage(icon);
+
                     return (
                         <CardStyle>
                             <div className="job-info">
-                                <img
-                                    className="mr-1"
-                                    src={icon.file.url}
-                                    alt="icon"
+                                <GatsbyImage
+                                    image={iconImage}
+                                    alt={title}
+                                    className={'mr-1'}
                                 />
+
                                 <div>
                                     <Link to={`/jobs/${slug}`}>
                                         <h3 className="mb-05">{title}</h3>{' '}
