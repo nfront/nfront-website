@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
-import { push } from 'gatsby';
+import { Link, push } from 'gatsby';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -89,64 +89,73 @@ const Art = styled.div`
     }
 `;
 
-export default function CoursesCategories({ results }) {
+export default function CoursesCategories({ results, limit }) {
     return (
         <Section>
             <Container>
                 <Fade top>
                     <StyledTitle>
                         <div>
-                            <h2> Categories</h2>
+                            <h2>Categories</h2>
                         </div>
                         <div>
-                            <a href="#">View All Categories</a>
+                            <Link to="/categories/">View All Categories</Link>
                         </div>
                     </StyledTitle>
                 </Fade>
             </Container>
             <Container>
-                <GRID>
-                    {results.map(category => {
-                        const {
-                            title,
-                            icon,
-                            tagLine,
-                        } = category.courseCategories;
-                        return (
-                            <div
-                                className="grid-item"
-                                key={title}
-                                onClick={() => {
-                                    const searchParams = {};
-                                    if (title) {
-                                        searchParams[
-                                            'releventCourseCategory'
-                                        ] = title;
-                                    }
+                {results?.length ? (
+                    <GRID>
+                        {results.slice(0, limit).map(category => {
+                            const {
+                                title,
+                                icon,
+                                tagLine,
+                            } = category.courseCategories;
+                            return (
+                                <div
+                                    className="grid-item"
+                                    key={title}
+                                    onClick={() => {
+                                        const searchParams = {};
+                                        if (title) {
+                                            searchParams[
+                                                'releventCourseCategory'
+                                            ] = title;
+                                        }
 
-                                    push(
-                                        `/courses?${new URLSearchParams(
-                                            searchParams
-                                        ).toString()}`
-                                    );
-                                }}
-                            >
-                                <Art>
-                                    <img
-                                        src={icon && icon.fluid.src}
-                                        alt={'img'}
-                                    />
-                                </Art>
-                                <Text>
-                                    <Fade left>
-                                        <h3>{title}</h3>
-                                        <p>{tagLine}</p>
-                                    </Fade>
-                                </Text>
-                            </div>
-                        );
-                    })}
-                </GRID>
+                                        push(
+                                            `/courses?${new URLSearchParams(
+                                                searchParams
+                                            ).toString()}`
+                                        );
+                                    }}
+                                >
+                                    <Art>
+                                        <img
+                                            src={icon && icon.fluid.src}
+                                            alt={'img'}
+                                        />
+                                    </Art>
+                                    <Text>
+                                        <Fade left>
+                                            <h3>{title}</h3>
+                                            <p>{tagLine}</p>
+                                        </Fade>
+                                    </Text>
+                                </div>
+                            );
+                        })}
+                    </GRID>
+                ) : (
+                    <div className="center">
+                        No List Found{' '}
+                        <span role="img" aria-label="emoji name">
+                            ❗️
+                        </span>
+                    </div>
+                )}
             </Container>
         </Section>
     );

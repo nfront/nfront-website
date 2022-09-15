@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
+import { Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -94,7 +97,24 @@ const Art = styled.div`
     }
 `;
 
-export default function Categories({ categories, getPositionCount }) {
+const ItemGrid = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        margin-bottom: 0;
+        color: #002e5f;
+    }
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: ${props => props.theme.screen.md}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`;
+
+export default function Categories({ categories, getPositionCount, results }) {
+    console.log("🚀 ~ results", results)
     return (
         <Section>
             <Container>
@@ -126,21 +146,31 @@ export default function Categories({ categories, getPositionCount }) {
             </Container>
             <Container>
                 <GRID>
-                    {categories?.map(category => {
+                    {results?.map((category, index) => {
                         const { title, coverImg, slug } = category;
                         return (
-                            <div className="grid-item" key={title}>
-                                <Art>
+                            <div className="grid-item" key={index}>
+                                {/* <Art>
                                     <img src={coverImg.fluid.src} alt={'img'} />
-                                </Art>
+                                </Art> */}
                                 <Text>
-                                    <Fade left>
-                                        <h3>{title}</h3>
-                                        <p>
-                                            {getPositionCount(slug, 'category')}{' '}
-                                            Open Positions
+                                    <h3>{category.title}</h3>
+                                    <hr />
+                                    <ItemGrid>
+                                        <p className="category">
+                                            {category.title}
                                         </p>
-                                    </Fade>
+                                        <Link
+                                            className="know-details"
+                                            to={`/training/${category.slug}`}
+                                        >
+                                            Know Details
+                                            <FontAwesomeIcon
+                                                icon={faArrowRight}
+                                                size="1px"
+                                            />
+                                        </Link>
+                                    </ItemGrid>
                                 </Text>
                             </div>
                         );

@@ -115,12 +115,11 @@ export default ({ location }) => {
                             share their experience.
                         </p>
                         {/* {isTraining && ( */}
-                        <Link to="/courses/">
-                            <button className="button center">
-                                View All Courses
-                            </button>
-                        </Link>
-
+                            <Link to="/courses/">
+                                <button className="button center">
+                                    View All Courses
+                                </button>
+                            </Link>
                         {/* )} */}
                         {/* <SearchBox>
                             <Formik
@@ -206,6 +205,7 @@ export default ({ location }) => {
                 courseCategories={courseCategories}
                 path="/training/"
                 relevent={releventCourses}
+                limit="6"
             />
             <Courses limit="6" results={filteredCourses} />
             <Footer />
