@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -35,7 +36,7 @@ const StyledTitle = styled.div`
 //         padding-top: 0;
 //     }
 // `;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
@@ -62,6 +63,23 @@ const GRID = styled(Grid)`
     }
 `;
 
+const ItemGrid = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        margin-bottom: 0;
+        color: #002e5f;
+    }
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: ${(props) => props.theme.screen.md}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`;
+
+
 const Text = styled.div`
     padding: 1.5rem 0.5rem;
     text-align: center;
@@ -86,7 +104,7 @@ const Art = styled.div`
     text-align: center;
     padding: 0.5rem;
     overflow: hidden;
-    img {
+    .img-style {
         max-height: 300px;
         @media (min-width: ${props => props.theme.screen.md}) {
             max-height: 400px;
@@ -97,24 +115,7 @@ const Art = styled.div`
     }
 `;
 
-const ItemGrid = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    p {
-        margin-bottom: 0;
-        color: #002e5f;
-    }
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-`;
-
-export default function Categories({ categories, getPositionCount, results }) {
-    console.log("🚀 ~ results", results)
+export default function JobCategories({ categories, getPositionCount }) {
     return (
         <Section>
             <Container>
@@ -145,14 +146,15 @@ export default function Categories({ categories, getPositionCount, results }) {
                 </Fade>
             </Container>
             <Container>
-                <GRID>
-                    {results?.map((category, index) => {
+                <StyledGrid>
+                    {categories?.map(category => {
                         const { title, coverImg, slug } = category;
+                        const image = getImage(coverImg);
                         return (
-                            <div className="grid-item" key={index}>
-                                {/* <Art>
-                                    <img src={coverImg.fluid.src} alt={'img'} />
-                                </Art> */}
+                            <div className="grid-item" key={title}>
+                                <Art>
+                                    <GatsbyImage className={"img-style"} image={image} alt={title} />
+                                </Art>
                                 <Text>
                                     <h3>{category.title}</h3>
                                     <hr />
@@ -175,7 +177,7 @@ export default function Categories({ categories, getPositionCount, results }) {
                             </div>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
         </Section>
     );

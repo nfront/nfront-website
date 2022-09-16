@@ -9,12 +9,12 @@ const WaveWrapper = styled.div`
         width: 100%;
         fill: white;
         margin-bottom: -1rem;
-        @media (min-width: ${props => props.theme.screen.sm}) {
+        @media (min-width: ${(props) => props.theme.screen.sm}) {
             margin-bottom: -2rem;
         }
     }
 
-    ${props =>
+    ${(props) =>
         props.accent === 'dark' &&
         `
         svg {
@@ -22,7 +22,7 @@ const WaveWrapper = styled.div`
         }
     `};
 
-    ${props =>
+    ${(props) =>
         props.shade &&
         `
         background: var(--shade-color);
@@ -31,7 +31,7 @@ const WaveWrapper = styled.div`
         }
     `};
 
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
         svg {
@@ -40,8 +40,12 @@ const WaveWrapper = styled.div`
     `};
 `;
 
-export default props => (
-    <WaveWrapper {...props}>
-        <Wave />
-    </WaveWrapper>
-);
+const WaveWrapperComponent = (props) => {
+    return (
+        <WaveWrapper {...props}>
+            <Wave />
+        </WaveWrapper>
+    );
+};
+
+export default WaveWrapperComponent;

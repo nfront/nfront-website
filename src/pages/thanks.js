@@ -4,7 +4,7 @@ import Menu from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Contact from '@sections/Contact';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import ExternalLink from '@utils/externalLink';
 import { Section, Container } from '@styles/global';
 import styled from 'styled-components';
@@ -27,11 +27,11 @@ const Grid = styled.div`
     }
 `;
 
-export default () => {
+const thanks = () => {
     const title = 'Thank you';
     return (
         <Layout>
-            <SEO title={title} />
+            <Seo title={title} />
             <Menu fluid />
             <Hero fileName="LA.jpg">
                 <h2>{title}</h2>
@@ -63,3 +63,5 @@ export default () => {
         </Layout>
     );
 };
+
+export default thanks;

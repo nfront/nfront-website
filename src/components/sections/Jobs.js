@@ -1,25 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import Categories from './Categories';
+import JobCategories from './JobCategories';
 import EmployeeTestimonials from './EmployeeTestimonials';
-import FeaturedCities from './FeaturedCities';
+import JobCities from './JobCities';
 import RecentJobs from './RecentJobs';
 
 const StyledSection = styled.div`
-    .featuredCities {
+    .jobCities {
         background-color: var(--accent-color);
     }
 `;
 
-function Jobs({ categories, cities, jobs, getPositionCount }) {
+export default function Jobs({ categories, cities, jobs, getPositionCount }) {
     return (
         <StyledSection>
-            <Categories
+            <JobCategories
                 categories={categories}
                 getPositionCount={getPositionCount}
             />
-            <div className="featuredCities">
-                <FeaturedCities
+            <div className="jobCities">
+                <JobCities
                     cities={cities}
                     getPositionCount={getPositionCount}
                 />
@@ -29,5 +29,3 @@ function Jobs({ categories, cities, jobs, getPositionCount }) {
         </StyledSection>
     );
 }
-
-export default Jobs;

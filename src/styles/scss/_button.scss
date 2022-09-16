@@ -71,3 +71,34 @@ $buttonBorderRadius: 35px;
         margin: 3rem auto -3rem auto;
     }
 }
+
+.call-to-action-button {
+    /* font-family: var(--font-headline); */
+    /* font-feature-settings: var(--font-headline-feature-settings); */
+
+    --button-color-foreground: var(--secondary-color);
+    --button-color-background: var(--yellow);
+
+    font-size: 1em;
+    color: var(--button-color-foreground);
+    border-radius: var(--border-radius);
+    padding: 0.5em 1.5em;
+    text-decoration: none;
+    // text-transform: uppercase;
+    background-color: var(--button-color-background);
+    transition: background 0.2s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.call-to-action-button-blue {
+        --button-color-foreground: var(--alt-color);
+        --button-color-background: var(--primary);
+    }
+
+    &:active,
+    &:hover {
+        // --button-color-foreground: var(--alt-color);
+        // --button-color-background: var(--color-blue-B700);
+        filter: brightness(85%);
+    }
+}

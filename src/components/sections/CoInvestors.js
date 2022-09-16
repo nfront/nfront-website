@@ -1,16 +1,16 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Section, Container, Box, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
-const GRID = styled.div`
+const StyledGrid = styled.div`
     display: grid;
     grid-gap: 30px;
     grid-template-columns: 1fr;
     transition: transform 0.3s ease-in-out;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -44,20 +44,20 @@ const REGIONS = [
     },
 ];
 
-export default () => {
+const CoInvestors = () => {
     const data = useStaticQuery(
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "nfront" } }
+                    filter: { sourceInstanceName: { eq: "nfront" }, extension: {ne: "svg"} }
                 ) {
                     edges {
                         node {
                             relativePath
+                            publicURL
+                            name
                             childImageSharp {
-                                fluid(maxWidth: 885) {
-                                    ...GatsbyImageSharpFluid
-                                }
+                                gatsbyImageData(layout: CONSTRAINED, width: 885)
                             }
                         }
                     }
@@ -66,7 +66,7 @@ export default () => {
         `
     );
     return (
-        <Section accent='alt' id="co-investors">
+        <Section accent="alt" id="co-investors">
             <Container>
                 <SectionTitle>
                     <h2>Co-Investment Network</h2>
@@ -78,23 +78,34 @@ export default () => {
                         Here are some of the investors in our network:
                     </p>
                 </SectionTitle>
-                <GRID>
+                <StyledGrid>
                     {REGIONS.map(({ name, image }) => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;
+                        const svg =
+                            !img.childImageSharp && img.extension === 'svg';
+                        const pluginImage = svg ? null : getImage(image);
+
                         return (
                             <Box>
                                 <label>{name}</label>
-                                <Img
-                                    fluid={img.childImageSharp.fluid}
-                                    alt={name}
-                                />
+                                {svg && (
+                                    <img src={image.publicURL} alt={name} />
+                                )}
+                                {!svg && (
+                                    <GatsbyImage
+                                        image={pluginImage}
+                                        alt={name}
+                                    />
+                                )}
                             </Box>
                         );
                     })}
-                </GRID>
+                </StyledGrid>
             </Container>
         </Section>
     );
 };
+
+export default CoInvestors;

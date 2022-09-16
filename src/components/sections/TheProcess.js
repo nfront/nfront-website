@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Slide from 'react-reveal/Slide';
 import { Section, Container, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
@@ -118,14 +118,16 @@ const Timeline = styled.div``;
 export const timelineImage = graphql`
     fragment timelineImage on File {
         childImageSharp {
-            fluid(maxWidth: 420, maxHeight: 320) {
-                ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(
+                layout: CONSTRAINED
+                width: 420
+                height: 320
+            )
         }
     }
 `;
 
-export default () => {
+const Process = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -141,6 +143,9 @@ export default () => {
             }
         `
     );
+    const imageStep1 = getImage(data.step1);
+    const imageStep2 = getImage(data.step2);
+    const imageStep3 = getImage(data.step3);
     return (
         <Section accent='alt'>
             <Container>
@@ -160,8 +165,8 @@ export default () => {
                     <Step>
                         <Art>
                             <Slide left>
-                                <Img
-                                    fluid={data.step1.childImageSharp.fluid}
+                                <GatsbyImage
+                                    image={imageStep1}
                                     alt=""
                                 />
                             </Slide>
@@ -186,8 +191,8 @@ export default () => {
                     <Step accent="inverse">
                         <Art>
                             <Slide right>
-                                <Img
-                                    fluid={data.step2.childImageSharp.fluid}
+                                <GatsbyImage
+                                    image={imageStep2}
                                     alt=""
                                 />
                             </Slide>
@@ -213,8 +218,8 @@ export default () => {
                     <Step>
                         <Art>
                             <Slide left>
-                                <Img
-                                    fluid={data.step3.childImageSharp.fluid}
+                                <GatsbyImage
+                                    image={imageStep3}
                                     alt=""
                                 />
                             </Slide>
@@ -239,8 +244,8 @@ export default () => {
                     <Step accent="inverse">
                         <Art>
                             <Slide right>
-                                <Img
-                                    fluid={data.step3.childImageSharp.fluid}
+                                <GatsbyImage
+                                    image={imageStep3}
                                     alt=""
                                 />
                             </Slide>
@@ -268,3 +273,5 @@ export default () => {
         </Section>
     );
 };
+
+export default Process;

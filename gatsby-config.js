@@ -46,6 +46,12 @@ module.exports = {
                 path: `${__dirname}/src/images/logos`,
             },
         },
+        {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                path: `${__dirname}/gatsby-config.js`,
+            },
+        },
         // {
         //     resolve: `gatsby-source-filesystem`,
         //     options: {
@@ -70,11 +76,23 @@ module.exports = {
         },
         `gatsby-plugin-sass`,
         `gatsby-plugin-svgr`,
+        `gatsby-plugin-image`,
         `gatsby-plugin-styled-components`,
-        `gatsby-plugin-sharp`,
+        {
+            resolve: `gatsby-plugin-sharp`,
+            options: {
+                defaults: {
+                    formats: [`auto`, `webp`, `avif`],
+                    placeholder: `blurred`,
+                    quality: 100,
+                    breakpoints: [750, 1080, 1366, 1920, 2048],
+                },
+            },
+        },
         `gatsby-background-image`,
         `gatsby-transformer-remark`,
         `gatsby-transformer-sharp`,
+        `gatsby-transformer-inline-svg`,
         {
             resolve: `gatsby-plugin-typography`,
             options: {

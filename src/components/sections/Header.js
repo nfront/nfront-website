@@ -1,9 +1,9 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Fade from 'react-reveal/Fade';
-import BackgroundImage from 'gatsby-background-image';
 import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 /** keep it here in case we want to have a CTA box 
  * 
@@ -43,7 +43,7 @@ export const HeaderWrapper = styled(Container)`
     flex-flow: column;
     justify-content: center;
 
-    @media (max-width: ${props => props.theme.screen.sm}) {
+    @media (max-width: ${(props) => props.theme.screen.sm}) {
         margin-top: 8rem;
     }
 `;
@@ -55,28 +55,28 @@ export const HeaderText = styled.h1`
     letter-spacing: 2px;
     text-transform: uppercase;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         font-size: 3rem;
     }
 
-    @media (min-width: ${props => props.theme.screen.lg}) {
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
         font-size: 4rem;
     }
 
     span {
         color: var(--yellow);
         font-size: 2.5rem;
-        @media (min-width: ${props => props.theme.screen.sm}) {
+        @media (min-width: ${(props) => props.theme.screen.sm}) {
             font-size: 4rem;
         }
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             font-size: 5rem;
         }
     }
 
     p {
         color: white;
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             font-size: 1.2rem;
         }
         font-size: 1rem;
@@ -94,19 +94,20 @@ export const Text = styled.h2`
 `;
 
 export default function Header({ fileName }) {
+    // Was previously width: 2480
     const data = useStaticQuery(
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "art" } }
+                    filter: { sourceInstanceName: { eq: "art" }, extension: {ne: "svg"} }
                 ) {
                     edges {
                         node {
                             relativePath
+                            publicURL
+                            name
                             childImageSharp {
-                                fluid(maxWidth: 2480, quality: 100) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+                                gatsbyImageData(layout: FULL_WIDTH)
                             }
                         }
                     }
@@ -123,22 +124,25 @@ export default function Header({ fileName }) {
         return null;
     }
 
+    const svg = !image.childImageSharp && image.extension === 'svg';
+    const pluginImage = svg ? null : getImage(image);
+
     return (
         <>
-            <BackgroundImage
-                fluid={image.childImageSharp.fluid}
-                style={{
-                    height: `100vh`,
-                    width: `100vw`,
-                    backgroundColor: `transparent`,
-                    backgroundSize: `cover`,
-                    backgroundPosition: `center center`,
-                    display: `flex`,
-                    alignItems: `center`,
-                }}
-            >
+            <div style={{ display: 'grid' }}>
+                {svg && <img src={image.publicURL} alt={image.name} />}
+                {!svg && (
+                    <GatsbyImage
+                        image={pluginImage}
+                        alt={image.name}
+                        style={{
+                            gridArea: '1/1',
+                            height: `100vh`,
+                        }}
+                    />
+                )}
                 <Overlay alt />
-            </BackgroundImage>
+            </div>
             <HeaderWrapper id="top">
                 <div>
                     <Fade top>
@@ -151,18 +155,6 @@ export default function Header({ fileName }) {
                         </HeaderText>
                     </Fade>
                 </div>
-                {/* <Link to="/contact/">
-                        <button className="button">Get in touch</button>
-                    </Link> */}
-                {/* keeping it for future use }
-                    <Form className="pb-0">
-                        <Contact />
-                    </Form> */}
-                {/*
-                <AnchorLink href="#capital" class="mouse">
-                    <div class="scroller"></div>
-                </AnchorLink>
-                <div class="scroll">SCROLL</div> */}
             </HeaderWrapper>
         </>
     );

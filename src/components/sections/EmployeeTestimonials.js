@@ -6,6 +6,7 @@ import useWindowSize from '@utils/hooks/useWindowSize';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 export default function EmployeeTestimonials() {
     const StyledContainer = styled(Container)`
@@ -28,7 +29,7 @@ export default function EmployeeTestimonials() {
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
-            border-top: 15px solid var9--white);
+            /* border-top: 15px solid var9--white); */
             transform: translate(-50%,-0%);
         }
         .tooltip {
@@ -105,9 +106,7 @@ export default function EmployeeTestimonials() {
                     }
                     candidate
                     avatar {
-                        fluid(quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(layout: CONSTRAINED)
                     }
                 }
             }
@@ -124,6 +123,7 @@ export default function EmployeeTestimonials() {
             <StyledContainer>
                 <Slider {...settings}>
                     {results.map(({ title, candidate, avatar, tooltip }) => {
+                        const image = getImage(avatar)
                         return (
                             <Slide key={title}>
                                 <p className="tooltip">
@@ -131,8 +131,8 @@ export default function EmployeeTestimonials() {
                                     {tooltip.childMarkdownRemark.excerpt}
                                 </p>
                                 <Art>
-                                    <img
-                                        src={avatar.fluid.src}
+                                    <GatsbyImage
+                                        image={image}
                                         alt={candidate}
                                     />
                                 </Art>

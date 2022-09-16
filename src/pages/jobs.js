@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import { Container } from '@styles/global';
 import Jobs from '@components/sections/Jobs';
 import styled from 'styled-components';
@@ -11,12 +11,14 @@ import Footer from '@common/footer';
 import { push } from 'gatsby-link';
 import { useStaticQuery, graphql } from 'gatsby';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-export const JobSection = styled.div`
-    .gatsby-image-wrapper {
+
+const JobSection = styled.div`
+    /* .gatsby-image-wrapper {
         min-height: 100vh;
-    }
+    } */
 `;
-export const SearchBox = styled(Container)`
+
+const SearchBox = styled(Container)`
     background-color: white;
     width: 100%;
     border-radius: 4px;
@@ -32,11 +34,11 @@ export const SearchBox = styled(Container)`
         color: initial;
     }
 `;
-export const FormFields = styled(Container)`
+const FormFields = styled(Container)`
     justify-content: space-between;
     flex-direction: row;
     padding: 1rem;
-    justify-item: center;
+    justify-items: center;
     align-items: center;
     @media (min-width: ${props => props.theme.screen.lg}) {
         display: flex;
@@ -79,13 +81,13 @@ export const FormFields = styled(Container)`
         border-bottom: 1px solid var(--button-color);
     }
 `;
-export const JobHeaderSection = styled.div`
+const JobHeaderSection = styled.div`
     span {
         color: var(--yellow);
     }
     margin-bottom: -2rem;
 `;
-export default ({ location }) => {
+const JobsPage = ({ location }) => {
     const [filteredJobs, setFilteredJobs] = useState([]);
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
@@ -99,9 +101,10 @@ export default ({ location }) => {
                     title
                     totalJobs
                     featuredImage {
-                        fluid(quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(
+                            layout: CONSTRAINED
+                            height: 50
+                        )
                     }
                     slug
                 }
@@ -111,9 +114,9 @@ export default ({ location }) => {
                     title
                     positions
                     coverImg {
-                        fluid(maxWidth: 100, quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(
+                            width: 100
+                        )
                     }
                     slug
                 }
@@ -137,9 +140,7 @@ export default ({ location }) => {
                     }
                     availablity
                     icon {
-                        file {
-                            url
-                        }
+                        gatsbyImageData
                     }
                 }
             }
@@ -213,9 +214,9 @@ export default ({ location }) => {
     return (
         <Layout>
             <JobSection>
-                <SEO title={'Jobs'} />
+                <Seo title={'Jobs'} />
                 <Navbar fluid />
-                <Hero fileName="LA.jpg">
+                <Hero fileName="LA.jpg" long>
                     <JobHeaderSection>
                         <h2>Work with us</h2>
                         <p>
@@ -314,12 +315,7 @@ export default ({ location }) => {
                                                 onClick={handleSubmit}
                                                 className="button"
                                             >
-                                                {/* <button
-                                                        className="button"
-                                                        type="submit"
-                                                    > */}
                                                 Submit
-                                                {/* </button> */}
                                             </AnchorLink>
                                         </FormFields>
                                     </Form>
@@ -339,3 +335,5 @@ export default ({ location }) => {
         </Layout>
     );
 };
+
+export default JobsPage;

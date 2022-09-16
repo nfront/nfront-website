@@ -1,152 +1,135 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
-import { useIsTraining } from '@utils/hooks/useIsHome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const CourseSection = styled(Section)`
-    background: #f3f4f8;
+import { Section, Container, Grid } from '@styles/global';
+import wave from '@images/art/wave.svg';
+import Fade from 'react-reveal/Fade';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+
+const StyledTitle = styled.div`
+    padding-top: 1.5rem;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    @media (min-width: ${props => props.theme.screen.lg}) {
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    @media (min-width: ${props => props.theme.screen.sm}) {
+    }
+    ${props =>
+        props.alt &&
+        `
+        padding-left: 0;
+        text-align: left;
+    `};
 `;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
-        background: white;
         border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+        padding: 40px 10px;
+        margin-bottom: 20px;
+        position: relative;
+        cursor: pointer;
+        &::after {
+            background-image: url(${wave});
+            background-size: center;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
     }
-    .grid-item:hover img {
-        transform: scale(1.1);
-    }
-`;
-const ItemGrid = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    p {
-        margin-bottom: 0;
-        color: #002e5f;
-    }
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(2, 1fr);
+    .grid-item:hover {
+        box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
     }
 `;
 
 const Text = styled.div`
-    padding: 1rem;
-
+    padding: 1.5rem 0.5rem;
+    text-align: center;
+    overflow: hidden;
     h3 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 20px;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
     }
-
     .label {
         font-weight: 500;
-    }
-    a {
-        color: black;
-        font-size: 0.95rem;
     }
 
     p:not(.label) {
         font-size: 16px;
     }
-    .know-details {
-        &:hover {
-            color: var(--blue);
-            .fa-arrow-right {
-                margin-left: 10px;
-                transition: all 0.3s ease-out 0s;
-            }
-        }
-        .fa-arrow-right {
-            margin-left: 5px;
-        }
-    }
 `;
 
 const Art = styled.div`
+    @media (min-width: ${props => props.theme.screen.xs}) {
+        flex: 0 1 50%;
+    }
+    text-align: center;
+    padding: 0.5rem;
     overflow: hidden;
-    img {
-        margin-bottom: 0;
-        border-top-left-radius: 0.375rem;
-        border-top-right-radius: 0.375rem;
-        transition: all 0.3s ease-out 0s;
-        vertical-align: middle;
-
+    .img-style {
+        max-height: 300px;
         @media (min-width: ${props => props.theme.screen.md}) {
-            /* min-height: 240px; */
+            max-height: 400px;
+        }
+        @media (min-width: ${props => props.theme.screen.xs}) {
+            margin-bottom: 0;
         }
     }
 `;
 
-export default function Courses(props) {
-    const { results, limit, releventCourses } = props;
-    const isTraining = useIsTraining().isTraining;
+export default function Courses({ results }) {
     return (
-        <CourseSection id="contact" {...props}>
-            <SectionTitle>
-                <h2>{releventCourses ? 'Relevent Courses ' : 'Courses'}</h2>
-                <p>
-                    You don't have to struggle alone, you've got our assistance
-                    and help.
-                </p>
-            </SectionTitle>
+        <Section>
             <Container>
-                {results.length ? (
-                    <GRID>
-                        {results.slice(0, limit).map(courses => (
-                            <div key={courses.title} className="grid-item">
-                                <Link to={`/training/${courses.slug}`}>
-                                    <Art>
-                                        <img
-                                            src={courses.coverImage.fluid.src}
-                                            alt={courses.title}
-                                        />
-                                    </Art>
-                                    <Text>
-                                        <h3>{courses.title}</h3>
-                                        {/* <p className="label">{courses.author}</p> */}
-                                        <hr />
-                                        <ItemGrid>
-                                            {/* <p>{`$${courses.price}`}</p> */}
-                                            <p className="category">
-                                                {courses.courseCategories.title}
-                                            </p>
-                                            <Link
-                                                className="know-details"
-                                                to={`/training/${courses.slug}`}
-                                            >
-                                                Know Details
-                                                <FontAwesomeIcon
-                                                    icon={faArrowRight}
-                                                    size="1px"
-                                                />
-                                            </Link>
-                                        </ItemGrid>
-                                    </Text>
-                                </Link>
-                            </div>
-                        ))}
-                    </GRID>
-                ) : (
-                    <div className="center">
-                        No List Found{' '}
-                        <span role="img" aria-label="emoji name">
-                            ❗️
-                        </span>
-                    </div>
-                )}
+                <Fade top>
+                    <StyledTitle>
+                        <div>
+                            <h2>Explore Our Popular Courses</h2>
+                        </div>
+                        <div>
+                            <a href={`/classes/`}>View All Courses</a>
+                        </div>
+                    </StyledTitle>
+                </Fade>
             </Container>
-            {isTraining && (
-                <Link to="/courses/">
-                    <button className="button center">View All Courses</button>
-                </Link>
-            )}
-        </CourseSection>
+            <Container>
+                <StyledGrid>
+                    {results.map(aClass => {
+                        const {
+                            title,
+                            icon,
+                            tagLine,
+                        } = aClass.course;
+                        const image = getImage(icon);
+                        return (
+                            <div className="grid-item" key={title}>
+                                <Art>
+                                    <GatsbyImage className="img-style" image={image} alt={title} />
+                                </Art>
+                                <Text>
+                                    <Fade left>
+                                        <h3>{title}</h3>
+                                        <p>{tagLine}</p>
+                                    </Fade>
+                                </Text>
+                            </div>
+                        );
+                    })}
+                </StyledGrid>
+            </Container>
+        </Section>
     );
 }

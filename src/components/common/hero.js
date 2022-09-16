@@ -1,27 +1,21 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import BackgroundImage from 'gatsby-background-image';
 import { Overlay, OverlayText } from '@styles/global';
 import styled from 'styled-components';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const Placeholder = styled.div`
     .gatsby-image-wrapper {
-        min-height: 70vh;
-        @media (min-width: ${props => props.theme.screen.sm}) {
-            min-height: 60vh;
+        /* height: 70vh; */
+        height: ${(props) => (props.long ? '100vh' : '70vh')};
+
+        @media (min-width: ${(props) => props.theme.screen.sm}) {
+            height: ${(props) => (props.long ? '100vh' : '60vh')};
         }
-        @media (min-width: ${props => props.theme.screen.lg}) {
-            min-height: 70vh;
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+            height: ${(props) => (props.long ? '100vh' : '70vh')};
         }
     }
-
-    ${props =>
-        props.fluid &&
-        `
-        .gatsby-image-wrapper {
-            min-height: 100vh;
-        }
-    `};
 
     h2 {
         color: var(--accent-color);
@@ -30,7 +24,7 @@ const Placeholder = styled.div`
         letter-spacing: 1.5px;
         font-weight: 800;
 
-        @media (min-width: ${props => props.theme.screen.sm}) {
+        @media (min-width: ${(props) => props.theme.screen.sm}) {
             font-size: 3rem;
         }
     }
@@ -40,20 +34,20 @@ const Placeholder = styled.div`
     }
 `;
 
-export default function({ fileName, children }) {
+const Hero = ({ fileName, children, long }) => {
     const data = useStaticQuery(
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "art" } }
+                    filter: { sourceInstanceName: { eq: "art" }, extension: {ne: "svg"} }
                 ) {
                     edges {
                         node {
                             relativePath
+                            publicURL
+                            name
                             childImageSharp {
-                                fluid(maxWidth: 2480, quality: 100) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+                                gatsbyImageData(layout: FULL_WIDTH)
                             }
                         }
                     }
@@ -70,23 +64,28 @@ export default function({ fileName, children }) {
         return null;
     }
 
+    const svg = !image.childImageSharp && image.extension === 'svg';
+    const pluginImage = svg ? null : getImage(image);
+
     return (
-        <Placeholder>
-            <BackgroundImage
-                fluid={image.childImageSharp.fluid}
-                style={{
-                    width: `100vw`,
-                    backgroundColor: `transparent`,
-                    backgroundSize: `cover`,
-                    backgroundPosition: `center center`,
-                    display: `flex`,
-                    alignItems: `center`,
-                    paddingTop: `1rem`,
-                }}
-            >
+        <Placeholder long={long}>
+            <div style={{ display: 'grid' }}>
+                {svg && <img src={image.publicURL} alt={image.name}/>}
+                {!svg && (
+                    <GatsbyImage
+                        image={pluginImage}
+                        alt={image.name}
+                        style={{
+                            gridArea: '1/1',
+                        }}
+                    />
+                )}
+
                 <Overlay />
                 <OverlayText>{children}</OverlayText>
-            </BackgroundImage>
+            </div>
         </Placeholder>
     );
-}
+};
+
+export default Hero;

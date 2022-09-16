@@ -10,7 +10,7 @@ import { ReactComponent as IconTwo } from '@images/nfront/graph.svg';
 import { ReactComponent as IconThree } from '@images/nfront/geography.svg';
 import { ReactComponent as IconFour } from '@images/nfront/speed.svg';
 
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     grid-gap: 10px;
 
     @media (min-width: ${props => props.theme.screen.md}) {
@@ -53,7 +53,7 @@ const Art = styled.div`
     padding: 0 0 1.6rem 0;
 `;
 
-export default () => {
+const thesis = () => {
     return (
         <>
             <Section>
@@ -77,7 +77,7 @@ export default () => {
                             throughout fundraising and after.
                         </p>
                     </SectionTitle>
-                    <GRID>
+                    <StyledGrid>
                         <Item alt>
                             <Art>
                                 <IconThree />
@@ -124,9 +124,11 @@ export default () => {
                                 size / trends.
                             </p>
                         </Item>
-                    </GRID>
+                    </StyledGrid>
                 </Container>
             </Section>
         </>
     );
 };
+
+export default thesis;

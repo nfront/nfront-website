@@ -5,19 +5,19 @@ import Layout from '@common/layout';
 import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
-import SEO from '@utils/SEO';
-import BackgroundImage from 'gatsby-background-image';
+import Seo from '@utils/SEO';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FlexBox } from '../components/sections/Team';
-import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faLocationDot,
     faDollarSign,
     faShieldAlt,
 } from '@fortawesome/free-solid-svg-icons';
+
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         text-align: left;
     }
 `;
@@ -37,7 +37,7 @@ const InfoSection = styled.div`
             margin-bottom: 0 !important;
         }
     }
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         // margin-right: 3rem;
         // text-align: center;
     }
@@ -50,59 +50,61 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
-const StyledImg = styled(Img)`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+const StyledImg = styled(GatsbyImage)`
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         // margin-right: 3rem;
         /* text-align: left; */
     }
 `;
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         padding: 0 1.5rem;
     }
 `;
-export default ({ data }) => {
+const jobs = ({ data }) => {
     const {
         title,
         body,
         heroImage,
         publishDate,
-        profileImage,
+        icon,
         salary,
         experience,
         streetAddress,
     } = data.contentfulJobs;
+
+    const pluginImageHero = getImage(heroImage);
+    console.log('heroImage', heroImage);
+    const iconImage = getImage(icon);
+
     return (
         <Layout>
-            <SEO title={title} />
+            <Seo title={title} />
             <Navbar fluid />
+            {console.log('heroImage2: ', heroImage)}
             {heroImage != null && (
-                <BackgroundImage
-                    fluid={heroImage.fluid}
-                    style={{
-                        height: `50vh`,
-                        width: `100vw`,
-                        backgroundColor: `transparent`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center center`,
-                        display: `flex`,
-                        alignItems: `center`,
-                    }}
-                >
+                <div style={{ display: 'grid' }}>
+                    <GatsbyImage
+                        image={pluginImageHero}
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                    />
                     <Overlay />
                     <OverlayText className="text-light">
                         <p>{publishDate}</p>
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
-                </BackgroundImage>
+                </div>
             )}
             <Section>
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <InfoSection>
                             <StyledImg
-                                fluid={profileImage.fluid}
+                                image={iconImage}
                                 alt="profile image"
                             />
                             <div className="info-card">
@@ -150,8 +152,10 @@ export default ({ data }) => {
     );
 };
 
+export default jobs;
+
 export const query = graphql`
-    query($slug: String!) {
+    query ($slug: String!) {
         contentfulJobs(slug: { eq: $slug }) {
             title
             publishDate(fromNow: true)
@@ -165,14 +169,10 @@ export const query = graphql`
                 }
             }
             heroImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
+                gatsbyImageData
             }
-            profileImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
+            icon {
+                gatsbyImageData
             }
         }
     }

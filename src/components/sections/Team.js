@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Section, Container, SectionTitle } from '@styles/global';
 
 export const Divider = styled.hr`
@@ -10,14 +10,14 @@ export const Divider = styled.hr`
 `;
 
 const Divider2 = styled(Divider)`
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         display: none;
     }
 `;
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         text-align: left;
     }
 `;
@@ -26,7 +26,7 @@ export const FlexBox = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         justify-content: left;
     }
     padding: 0 1.5rem;
@@ -46,15 +46,17 @@ export const FlexBox = styled.div`
     p:last-child {
         margin-bottom: 0rem;
     }
-`;
 
-const StyledImg = styled(Img)`
-    flex: 0 1 300px;
-    margin-right: 0rem;
-    margin-bottom: 1.5rem;
-    @media (min-width: ${props => props.theme.screen.xs}) {
-        margin-right: 3rem;
-        /* text-align: left; */
+    .gatsby-image-wrapper {
+        flex: 0 1 300px;
+        margin-right: 0rem;
+        margin-bottom: 1.5rem;
+        max-width: 250px;
+        max-height: 250px;
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
+            margin-right: 3rem;
+            /* text-align: left; */
+        }
     }
 `;
 
@@ -67,7 +69,7 @@ const Analysts = styled.div`
     flex: 1 1 400px;
     /* margin-right: 2rem; */
     /* margin-left: 2rem; */
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         margin-right: 2rem;
         text-align: left;
         margin-left: 0rem;
@@ -82,21 +84,19 @@ const Mentors = styled.div`
     /* margin-left: 1.5rem; */
 `;
 
-export default () => {
+const Team = () => {
     const data = useStaticQuery(
         graphql`
             query {
                 file(relativePath: { eq: "magnus-gaarder.jpg" }) {
                     childImageSharp {
-                        fluid(maxWidth: 250, quality: 100) {
-                            ...GatsbyImageSharpFluid
-                            ...GatsbyImageSharpFluidLimitPresentationSize
-                        }
+                        gatsbyImageData(width: 250)
                     }
                 }
             }
         `
     );
+    const image = getImage(data.file);
     return (
         <>
             <Section>
@@ -113,9 +113,9 @@ export default () => {
                     </SectionTitle>
                     <Divider />
                     <FlexBox>
-                        <StyledImg
+                        <GatsbyImage
                             className="rounded"
-                            fluid={data.file.childImageSharp.fluid}
+                            image={image}
                             alt="Magnus Gaarder"
                         />
                         <Founder>
@@ -181,3 +181,5 @@ export default () => {
         </>
     );
 };
+
+export default Team;

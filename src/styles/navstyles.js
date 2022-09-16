@@ -21,6 +21,17 @@ export const Nav = styled.nav`
     z-index: 999;
     padding: 1rem 1.5rem;
 
+    /* font-size: 90%; */
+    font-size: 80%;
+    font-weight: 500;
+    
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    @media (min-width: ${props => props.theme.screen.sm}) {
+        font-size: 90%;
+    }
+
     @media (max-width: ${props => props.theme.screen.md}) {
         position: absolute;
     }
@@ -31,6 +42,9 @@ export const Nav = styled.nav`
 
     a {
         color: var(--accent-color);
+        &:hover{
+            color: var(--accent-color);
+        }
     }
 
     &.is-open {
@@ -46,11 +60,6 @@ export const Nav = styled.nav`
         }
     }
 
-    font-size: 90%;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
     ${props =>
         props.fluid /** stretch menu to 100% width  */ &&
         `
@@ -63,6 +72,7 @@ export const NavList = styled.div`
         list-style: none;
         display: flex;
         flex-direction: column;
+        align-items: center;
         margin: 1rem 0;
 
         ${props =>
@@ -101,7 +111,7 @@ export const NavItem = styled.li`
     }
 
     @media (min-width: ${props => props.theme.screen.md}) {
-        ::after {
+        &.underscore::after {
             content: '';
             position: absolute;
             width: 100%;
@@ -113,7 +123,7 @@ export const NavItem = styled.li`
             transform-origin: bottom right;
             transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
-        :hover::after {
+        &.underscore:hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }

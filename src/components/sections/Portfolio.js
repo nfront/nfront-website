@@ -6,12 +6,13 @@ import IndicatorDots from '@utils/carousel/indicator-dots';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
-import { useIsHome } from '@utils/hooks/useIsHome';
+import { useIsHome } from '@utils/hooks/useCheckLocation';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 // import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)``;
-const GRID = styled(Grid)`
+const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
         border: 1px solid var(--border-color);
@@ -128,7 +129,7 @@ const FundList = styled.div`
     }
 `;
 
-export default () => {
+const Portfolio = () => {
     const windowWidth = useWindowSize().width;
     const isMobile = windowWidth <= 575;
     const data = useStaticQuery(graphql`
@@ -146,9 +147,7 @@ export default () => {
                         }
                     }
                     logo {
-                        fluid(maxHeight: 500) {
-                            src
-                        }
+                        gatsbyImageData
                     }
                     link
                     cInvestors
@@ -179,11 +178,12 @@ export default () => {
                                         cInvestors,
                                     } = val;
                                     const { description } = val.description;
+                                    const image = getImage(logo)
                                     return (
                                         <Slide>
                                             <Art>
-                                                <img
-                                                    src={logo.fluid.src}
+                                                <GatsbyImage
+                                                    image={image}
                                                     alt={brand}
                                                 />
                                             </Art>
@@ -232,8 +232,8 @@ export default () => {
                                                 <span>HQ:</span> {location}
                                             </p>
                                             <Art>
-                                                <img
-                                                    src={logo.fluid.src}
+                                                <GatsbyImage
+                                                    image={logo}
                                                     alt={brand}
                                                 />
                                             </Art>
@@ -260,7 +260,7 @@ export default () => {
                 </>
             ) : (
                 <Container>
-                    <GRID>
+                    <StyledGrid>
                         {result.map(val => {
                             const { brand, link, icon } = val;
                             const { description } = val.description;
@@ -327,12 +327,14 @@ export default () => {
                                 </>
                             );
                         })}
-                    </GRID>
+                    </StyledGrid>
                 </Container>
             )}
         </StyledSection>
     );
 };
+
+export default Portfolio;
 
 /** 
  *                                      

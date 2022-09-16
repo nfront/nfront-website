@@ -6,12 +6,12 @@ import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 // import Courses from '../components/sections/Courses';
 import { useStaticQuery, graphql } from 'gatsby';
-import Categories from '../components/sections/Categories';
+// import Categories from '../components/sections/Categories';
 
 export default location => {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCoursesCategories {
+            allContentfulCourses {
                 nodes {
                     title
                     slug
@@ -47,11 +47,11 @@ export default location => {
                     founders we work with!
                 </p>
             </Hero>
-            <Categories
+            {/* <Categories
                 results={filterCategories}
                 releventCategories={releventCategories}
                 limit={'1000'}
-            />
+            /> */}
             <Footer />
         </Layout>
     );

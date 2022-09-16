@@ -30,3 +30,13 @@ class SessionCheck extends React.Component {
 export const wrapRootElement = ({ element }) => {
     return <SessionCheck>{element}</SessionCheck>;
 };
+
+export const onRouteUpdate = ({ location }) => {
+    const hash = document.querySelectorAll(`a[href="${location.hash}"]`)[0];
+    if (hash) {
+        window.scrollTo({
+            top: hash.offsetTop,
+        });
+    }
+    return true;
+};

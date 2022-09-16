@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import ExternalLink from '@utils/externalLink';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 /**
 import ExternalLink from '@utils/externalLink';
@@ -60,13 +61,18 @@ const Text = styled.div`
 const Art = styled.div`
     width: 100%;
     /* text-align: left; */
+    .gatsby-image-wrapper {
+        margin-top: 2rem;
+        text-align: center;
+        display: inline-block;
+    }
 
     img {
         min-width: 220px;
         border-radius: 0%;
         border: none;
-        margin-top: 2rem;
         margin-bottom: 0;
+        /* margin-top: 2rem; */
         /* transition: 0.15s ease-in-out; */
         filter: grayscale(100%);
 
@@ -84,7 +90,7 @@ const Placeholder = styled.div`
     }
 `;
 
-export default () => {
+const Mentors = () => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -96,9 +102,10 @@ export default () => {
                         company
                         city
                         headshot {
-                            fixed(height: 200, quality: 100) {
-                                src
-                            }
+                            gatsbyImageData(
+                                layout: FIXED
+                                height: 220
+                            )
                         }
                         link
                     }
@@ -133,14 +140,16 @@ export default () => {
                                 headshot,
                                 link,
                             }) => {
+                                const hs = getImage(headshot);
                                 return (
                                     <Placeholder>
                                         <Art>
                                             <ExternalLink href={link}>
-                                                <img
+                                                {/* <img
                                                     src={headshot.fixed.src}
                                                     alt={name}
-                                                />
+                                                /> */}
+                                                <GatsbyImage image={hs} alt={hs.title} />
                                             </ExternalLink>
                                         </Art>
                                         <Text>
@@ -162,3 +171,5 @@ export default () => {
         </>
     );
 };
+
+export default Mentors;

@@ -2,43 +2,40 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 import Footer from '@common/footer';
 import Courses from './Courses';
-import CoursesCategories from './CoursesCategories';
-import { useStaticQuery, graphql, push, Link } from 'gatsby';
-import { FormFields, SearchBox } from '../../pages/jobs';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { Field, Form, Formik } from 'formik';
+import Classes from './Classes';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+// import { FormFields, SearchBox } from '../../pages/jobs';
+// import AnchorLink from 'react-anchor-link-smooth-scroll';
+// import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-
-export const TrainingSection = styled.div`
-    .gatsby-image-wrapper {
+// import { useIsAcademy } from '@utils/hooks/useCheckLocation';
+export const AcademySection = styled.div`
+    /* .gatsby-image-wrapper {
         min-height: 100vh;
-    }
+    } */
 `;
-const JobHeaderSection = styled.div`
+const AcademyHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
-export default ({ location }) => {
-    // console.log(user);
-
-    const [filteredCourses, setFilteredCourses] = useState([]);
+const Academy = ({ location, user }) => {
+    const [filteredClasses, setFilteredClasses] = useState([]);
 
     const params = new URLSearchParams(location.search);
-    const courseCategory = params.get('courseCategory');
-    const releventCourses = params.get('releventCourseCategory');
-
+    const course = params.get('course');
     const title = params.get('title');
+    
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCoursesCategories {
+            allContentfulCourses {
                 nodes {
                     title
                     slug
                 }
             }
-            allContentfulCourses {
+            allContentfulClasses {
                 nodes {
                     # id
                     slug
@@ -46,36 +43,38 @@ export default ({ location }) => {
                     price
                     author
                     coverImage {
-                        fluid(quality: 100) {
-                            src
-                        }
+                        gatsbyImageData(
+                            layout: CONSTRAINED
+                        )
                     }
-                    courseCategories {
+                    course {
                         title
                         tagLine
                         slug
                         icon {
-                            fluid(maxHeight: 100, quality: 100) {
-                                src
-                            }
+                            gatsbyImageData(
+                                layout: CONSTRAINED
+                                height: 100
+                            )
                         }
                     }
                 }
             }
         }
     `);
-    const results = data.allContentfulCourses.nodes;
-    const courseCategories = data.allContentfulCoursesCategories.nodes;
+    const results = data.allContentfulClasses.nodes;
+    // const courseCategories = data.allContentfulClassesCategories.nodes;
+    // const isAcademy = useIsAcademy().isAcademy;
     useEffect(() => {
-        if (results.length && !courseCategory && !title) {
-            setFilteredCourses(results);
+        if (results.length && !course && !title) {
+            setFilteredClasses(results);
             return;
         }
-        if (courseCategory && title) {
-            setFilteredCourses(
+        if (course && title) {
+            setFilteredClasses(
                 results.filter(
-                    course =>
-                        course?.courseCategories?.slug === courseCategory &&
+                    aClass =>
+                        aClass?.course?.slug === course &&
                         course?.title
                             .toLocaleLowerCase()
                             .includes(title.toLocaleLowerCase())
@@ -84,65 +83,66 @@ export default ({ location }) => {
             return;
         }
         if (title) {
-            setFilteredCourses(
-                results.filter(course =>
-                    course?.title
+            setFilteredClasses(
+                results.filter(aClass =>
+                    aClass?.title
                         .toLocaleLowerCase()
                         .includes(title.toLocaleLowerCase())
                 )
             );
             return;
         }
-        if (courseCategory) {
-            setFilteredCourses(
+        if (course) {
+            setFilteredClasses(
                 results.filter(
-                    course => course?.courseCategories?.slug === courseCategory
+                    aClass => aClass?.course?.slug === course
                 )
             );
             return;
         }
-    }, [results, courseCategory, title]);
+    }, [results, course, title]);
     return (
         <Layout>
-            <SEO title={'Training'} />
+            <Seo title={'Fundraising Academy'} />
             <Navbar fluid />
-            <TrainingSection>
+            <AcademySection>
                 <Hero fileName="LA.jpg">
-                    <JobHeaderSection>
+                    <AcademyHeaderSection>
                         <h2>Online Tutorial From Top Instructor.</h2>
                         <p>
                             Meet university and cultural institutions, who'll
                             share their experience.
                         </p>
-                        {/* {isTraining && ( */}
-                            <Link to="/courses/">
-                                <button className="button center">
-                                    View All Courses
-                                </button>
-                            </Link>
+                        {/* {isAcademy && ( */}
+                        <Link to="/courses/">
+                            <button className="button center">
+                                View All Courses
+                            </button>
+                        </Link>
+
                         {/* )} */}
                         {/* <SearchBox>
                             <Formik
                                 onSubmit={values => {
-                                    const { courseCategory, title } = values;
+                                    const { course, title } = values;
 
                                     const searchParams = {};
-                                    if (courseCategory) {
+                                    if (course) {
                                         searchParams[
-                                            'courseCategory'
-                                        ] = courseCategory;
+                                            'course'
+                                        ] = course;
                                     }
                                     if (title) {
                                         searchParams['title'] = title;
                                     }
 
                                     push(
-                                        `/training?${new URLSearchParams(
+                                        `/academy?${new URLSearchParams(
                                             searchParams
                                         ).toString()}`
                                     );
                                 }}
-                                initialValues={{ title, courseCategory }}
+                                initialValues={{ title, course }}
                                 enableReinitialize
                             >
                                 {({ values, handleSubmit }) => (
@@ -158,8 +158,8 @@ export default ({ location }) => {
                                             />
                                             <Field
                                                 component="select"
-                                                name="courseCategory"
-                                                value={values.courseCategory}
+                                                name="course"
+                                                value={values.course}
                                             >
                                                 <option
                                                     value=""
@@ -197,18 +197,14 @@ export default ({ location }) => {
                                 )}
                             </Formik>
                         </SearchBox> */}
-                    </JobHeaderSection>
+                    </AcademyHeaderSection>
                 </Hero>
-            </TrainingSection>
-            <CoursesCategories
-                results={results}
-                courseCategories={courseCategories}
-                path="/training/"
-                relevent={releventCourses}
-                limit="6"
-            />
-            <Courses limit="6" results={filteredCourses} />
+            </AcademySection>
+            <Courses results={results} />
+            <Classes limit="6" results={filteredClasses} />
             <Footer />
         </Layout>
     );
 };
+
+export default Academy;

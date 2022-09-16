@@ -4,15 +4,15 @@ import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Wave from '@utils/divider/wave';
-import SEO from '@utils/SEO';
+import Seo from '@utils/SEO';
 
 /** */
 import Mentors from '@sections/Mentors';
 import Team from '@sections/Team';
 
-export default () => (
+const team = () => (
     <Layout>
-        <SEO title={'Team & Mentors'} />
+        <Seo title={'Team & Mentors'} />
         <Navbar fluid />
         <Hero fileName="LA.jpg">
             <h2>Team & Mentors</h2>
@@ -27,3 +27,5 @@ export default () => (
         <Footer />
     </Layout>
 );
+
+export default team;
