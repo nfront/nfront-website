@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { Link } from 'gatsby';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -55,6 +58,22 @@ const StyledGrid = styled(Grid)`
     }
 `;
 
+const ItemGrid = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        margin-bottom: 0;
+        color: #002e5f;
+    }
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: ${(props) => props.theme.screen.md}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`;
+
 const Text = styled.div`
     padding: 1.5rem 0.5rem;
     text-align: center;
@@ -90,7 +109,7 @@ const Art = styled.div`
     }
 `;
 
-export default function Courses({ results }) {
+export default function Courses({ results, limit }) {
     return (
         <Section>
             <Container>
@@ -100,35 +119,90 @@ export default function Courses({ results }) {
                             <h2>Explore Our Popular Courses</h2>
                         </div>
                         <div>
-                            <a href={`/classes/`}>View All Courses</a>
+                            <Link to='/courses/'>
+                            View All Courses
+                            </Link>
                         </div>
                     </StyledTitle>
                 </Fade>
             </Container>
             <Container>
+            {results.length ? (
                 <StyledGrid>
-                    {results.map(aClass => {
-                        const {
-                            title,
-                            icon,
-                            tagLine,
-                        } = aClass.course;
-                        const image = getImage(icon);
+                    {results.slice(0,limit).map(aClass => {
+                        const image = getImage(aClass.coverImage);
                         return (
-                            <div className="grid-item" key={title}>
+                            <div className="grid-item" key={aClass.title}>
                                 <Art>
-                                    <GatsbyImage className="img-style" image={image} alt={title} />
+                                    <GatsbyImage className="img-style" image={image} alt={aClass.title} />
                                 </Art>
                                 <Text>
                                     <Fade left>
-                                        <h3>{title}</h3>
-                                        <p>{tagLine}</p>
+                                        <h3>{aClass.title}</h3>
+                                        <p>{aClass.slug}</p>
                                     </Fade>
                                 </Text>
                             </div>
+                            // <div key={aClass.title} className="grid-item">
+                            //     <Link to={`/academy/${aClass.slug}`}>
+                            //         <Art>
+                            //             <GatsbyImage
+                            //                 className="img-style"
+                            //                 image={image}
+                            //                 alt={aClass.title}
+                            //             />
+                            //         </Art>
+                            //         <Text>
+                            //             <h3>
+                            //                 {aClass.title}
+                            //             </h3>
+                            //             <hr />
+                            //             <ItemGrid>
+                            //                 <p className="category">
+                            //                     {
+                            //                         aClass?.course?.title
+                            //                     }
+                            //                 </p>
+                            //                 <Link
+                            //                     className="know-details"
+                            //                     to={`/academy/${aClass.slug}`}
+                            //                 >
+                            //                     Know Details
+                            //                     <FontAwesomeIcon
+                            //                         icon={faArrowRight}
+                            //                         size="1px"
+                            //                     />
+                            //                 </Link>
+                            //             </ItemGrid>
+                            //         </Text>
+                            //     </Link>
+                            // </div>
                         );
+                        // const { title, slug, icon } = aClass.course;
+                        // const image = getImage(icon);
+                        // return (
+                        //     <div className="grid-item" key={title}>
+                        //         <Art>
+                        //             <GatsbyImage className="img-style" image={image} alt={title} />
+                        //         </Art>
+                        //         <Text>
+                        //             <Fade left>
+                        //                 <h3>{title}</h3>
+                        //                 <p>{slug}</p>
+                        //             </Fade>
+                        //         </Text>
+                        //     </div>
+                        // );
                     })}
                 </StyledGrid>
+            ) : (
+                <div className="center">
+                    No List Found{' '}
+                    <span role="img" aria-label="emoji name">
+                        ❗️
+                    </span>
+                </div>
+            )}
             </Container>
         </Section>
     );

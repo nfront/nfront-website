@@ -129,13 +129,11 @@ export default function Classes(props) {
                                             <h3>
                                                 {aClass.title}
                                             </h3>
-                                            {/* <p className="label">{aClass.author}</p> */}
                                             <hr />
                                             <ItemGrid>
-                                                {/* <p>{`$${aClass.price}`}</p> */}
                                                 <p className="category">
                                                     {
-                                                        aClass.course.title
+                                                        aClass?.course?.title
                                                     }
                                                 </p>
                                                 <Link
@@ -164,11 +162,11 @@ export default function Classes(props) {
                     </div>
                 )}
             </Container>
-            {isAcademy && (
-                <Link to="/courses/">
+            {/* {isAcademy && ( */}
+                <Link to="/classes/">
                     <button className="button center">View All Courses</button>
                 </Link>
-            )}
+            {/* )} */}
         </ClassesSection>
     );
 }

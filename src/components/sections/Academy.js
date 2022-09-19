@@ -63,6 +63,7 @@ const Academy = ({ location, user }) => {
         }
     `);
     const results = data.allContentfulClasses.nodes;
+    const coursesResult = data.allContentfulCourses.nodes;
     // const courseCategories = data.allContentfulClassesCategories.nodes;
     // const isAcademy = useIsAcademy().isAcademy;
     useEffect(() => {
@@ -200,7 +201,7 @@ const Academy = ({ location, user }) => {
                     </AcademyHeaderSection>
                 </Hero>
             </AcademySection>
-            <Courses results={results} />
+            <Courses limit="6" results={coursesResult} />
             <Classes limit="6" results={filteredClasses} />
             <Footer />
         </Layout>

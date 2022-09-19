@@ -37,7 +37,7 @@ const ClassesPage = () => {
             <Seo title={'Classes'} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
-                <h2>Courses</h2>
+                <h2>Classes</h2>
                 <p>
                     We have had the privilege to invest across a range of stages
                     and sectors, and are incredibly proud of the rockstar
