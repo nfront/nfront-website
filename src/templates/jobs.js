@@ -8,7 +8,7 @@ import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 import BackgroundImage from 'gatsby-background-image';
 import { FlexBox } from '../components/sections/Team';
-import Img from 'gatsby-image';
+// import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faLocationDot,
@@ -50,12 +50,12 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
-const StyledImg = styled(Img)`
-    @media (min-width: ${props => props.theme.screen.xs}) {
-        // margin-right: 3rem;
-        /* text-align: left; */
-    }
-`;
+// const StyledImg = styled(Img)`
+//     @media (min-width: ${props => props.theme.screen.xs}) {
+//         // margin-right: 3rem;
+//         /* text-align: left; */
+//     }
+// `;
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
     @media (min-width: ${props => props.theme.screen.xs}) {
@@ -69,7 +69,7 @@ export default ({ data }) => {
         body,
         heroImage,
         publishDate,
-        profileImage,
+        // profileImage,
         salary,
         experience,
         streetAddress,
@@ -102,10 +102,10 @@ export default ({ data }) => {
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <InfoSection>
-                            <StyledImg
+                            {/* <StyledImg
                                 fluid={profileImage.fluid}
                                 alt="profile image"
-                            />
+                            /> */}
                             <div className="info-card">
                                 <h2>Job Details</h2>
                                 <h3>
@@ -170,11 +170,11 @@ export const query = graphql`
                     ...GatsbyContentfulFluid
                 }
             }
-            profileImage {
-                fluid(quality: 100) {
-                    ...GatsbyContentfulFluid
-                }
-            }
+            # profileImage {
+            #     fluid(quality: 100) {
+            #         ...GatsbyContentfulFluid
+            #     }
+            # }
         }
     }
 `;
