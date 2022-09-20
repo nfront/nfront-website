@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
+import { useIsAcademy } from '@utils/hooks/useCheckLocation';
 import { Link, push } from 'gatsby';
 
 const StyledTitle = styled.div`
@@ -11,19 +12,24 @@ const StyledTitle = styled.div`
     display: flex;
     text-align: center;
     align-items: center;
-    @media (min-width: ${props => props.theme.screen.lg}) {
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
         justify-content: space-between;
         flex-direction: row;
     }
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
     }
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
     padding-left: 0;
     text-align: left;  
 `};
 `;
+
+const CategorySection = styled(Section)`
+    padding: 0 0 6rem 0;
+`;
+
 const GRID = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);
@@ -71,48 +77,51 @@ const Text = styled.div`
     }
 `;
 
-const Art = styled.div`
-    @media (min-width: ${props => props.theme.screen.xs}) {
-        flex: 0 1 50%;
-    }
-    text-align: center;
-    padding: 0.5rem;
-    overflow: hidden;
-    img {
-        max-height: 300px;
-        @media (min-width: ${props => props.theme.screen.md}) {
-            max-height: 400px;
-        }
-        @media (min-width: ${props => props.theme.screen.xs}) {
-            margin-bottom: 0;
-        }
-    }
-`;
+// const Art = styled.div`
+//     @media (min-width: ${(props) => props.theme.screen.xs}) {
+//         flex: 0 1 50%;
+//     }
+//     text-align: center;
+//     padding: 0.5rem;
+//     overflow: hidden;
+//     img {
+//         max-height: 300px;
+//         @media (min-width: ${(props) => props.theme.screen.md}) {
+//             max-height: 400px;
+//         }
+//         @media (min-width: ${(props) => props.theme.screen.xs}) {
+//             margin-bottom: 0;
+//         }
+//     }
+// `;
 
-export default function CoursesCategories({ results, limit }) {
+export default function Categories({ results, limit }) {
+    const isAcademy = useIsAcademy().isAcademy;
     return (
-        <Section>
+        <CategorySection>
             <Container>
                 <Fade top>
                     <StyledTitle>
-                        <div>
-                            <h2>Categories</h2>
-                        </div>
-                        <div>
-                            <Link to="/categories/">View All Categories</Link>
-                        </div>
+                        {isAcademy && (
+                            <>
+                                <div>
+                                    <h2>Categories</h2>
+                                </div>
+                                <div>
+                                    <Link to="/categories/">
+                                        View All Categories
+                                    </Link>
+                                </div>
+                            </>
+                        )}
                     </StyledTitle>
                 </Fade>
             </Container>
             <Container>
                 {results?.length ? (
                     <GRID>
-                        {results.slice(0, limit).map(category => {
-                            const {
-                                title,
-                                icon,
-                                tagLine,
-                            } = category.courseCategories;
+                        {results.slice(0, limit).map((category) => {
+                            const { title, slug } = category;
                             return (
                                 <div
                                     className="grid-item"
@@ -132,16 +141,10 @@ export default function CoursesCategories({ results, limit }) {
                                         );
                                     }}
                                 >
-                                    <Art>
-                                        <img
-                                            src={icon && icon.fluid.src}
-                                            alt={'img'}
-                                        />
-                                    </Art>
                                     <Text>
                                         <Fade left>
                                             <h3>{title}</h3>
-                                            <p>{tagLine}</p>
+                                            <p>{slug}</p>
                                         </Fade>
                                     </Text>
                                 </div>
@@ -157,6 +160,6 @@ export default function CoursesCategories({ results, limit }) {
                     </div>
                 )}
             </Container>
-        </Section>
+        </CategorySection>
     );
 }

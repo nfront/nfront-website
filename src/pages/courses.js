@@ -87,11 +87,25 @@ const ClassesPage = ({ location }) => {
                     slug
                 }
             }
+            allContentfulCategories {
+                nodes {
+                    title
+                    positions
+                    coverImg {
+                        gatsbyImageData(
+                            width: 100
+                        )
+                    }
+                    slug
+                }
+            }
         }
     `);
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
-    const results = data.allContentfulCourses.nodes;
+    const category = params.get('category');
+    const courses = data.allContentfulCourses.nodes;
+    const categories = data.allContentfulCategories.nodes;
 
     // useEffect(() => {
     //     if (title) {
@@ -120,11 +134,14 @@ const ClassesPage = ({ location }) => {
                 <SearchBox>
                     <Formik
                         onSubmit={(values) => {
-                            const { title } = values;
+                            const { title, category } = values;
 
                             const searchParams = {};
                             if (title) {
                                 searchParams['title'] = title;
+                            }
+                            if (category) {
+                                searchParams['category'] = category;
                             }
 
                             push(
@@ -133,7 +150,7 @@ const ClassesPage = ({ location }) => {
                                 ).toString()}`
                             );
                         }}
-                        initialValues={{ title }}
+                        initialValues={{ title, category }}
                         enableReinitialize
                     >
                         {({ values, handleSubmit }) => (
@@ -147,6 +164,31 @@ const ClassesPage = ({ location }) => {
                                         autoComplete="off"
                                         value={values.title}
                                     />
+                                    <Field
+                                        component="select"
+                                        name="category"
+                                        value={values.category}
+                                    >
+                                        <option
+                                            value=""
+                                            disabled
+                                            selected
+                                        >
+                                            Select category
+                                        </option>
+                                        <option value={''}>None</option>
+                                        {categories.map(category => {
+                                            const {
+                                                title,
+                                                slug,
+                                            } = category;
+                                            return (
+                                                <option value={slug}>
+                                                    {title}
+                                                </option>
+                                            );
+                                        })}
+                                    </Field>
                                     <AnchorLink
                                         href="#contact"
                                         onClick={handleSubmit}
@@ -160,7 +202,7 @@ const ClassesPage = ({ location }) => {
                     </Formik>
                 </SearchBox>
             </Hero>
-            <Courses results={results} limit={'1000'} />
+            <Courses courses={courses} limit={'1000'} />
             <Footer />
         </Layout>
     );

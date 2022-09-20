@@ -6,12 +6,12 @@ import Footer from '@common/footer';
 import SEO from '@utils/SEO';
 // import Courses from '../components/sections/Courses';
 import { useStaticQuery, graphql } from 'gatsby';
-// import Categories from '../components/sections/Categories';
+import Categories from '../components/sections/Categories';
 
 export default location => {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCourses {
+            allContentfulCategories {
                 nodes {
                     title
                     slug
@@ -19,11 +19,10 @@ export default location => {
             }
         }
     `);
-    const results = data.allContentfulCoursesCategories.nodes;
+    const results = data.allContentfulCategories.nodes;
     const params = new URLSearchParams(window.location.search);
     const releventCategories = params.get('releventCourseCategory');
     const [filterCategories, setFilteredCategories] = useState(results);
-    // console.log("🚀 ~ filterCategories", filterCategories)
 
     useEffect(() => {
         if (releventCategories && filterCategories?.length) {
@@ -47,11 +46,11 @@ export default location => {
                     founders we work with!
                 </p>
             </Hero>
-            {/* <Categories
+            <Categories
                 results={filterCategories}
                 releventCategories={releventCategories}
                 limit={'1000'}
-            /> */}
+            />
             <Footer />
         </Layout>
     );
