@@ -26,7 +26,7 @@ const Academy = ({ location, user }) => {
     const params = new URLSearchParams(location.search);
     const course = params.get('course');
     const title = params.get('title');
-    
+
     const data = useStaticQuery(graphql`
         query {
             allContentfulCourses {
@@ -43,19 +43,14 @@ const Academy = ({ location, user }) => {
                     price
                     author
                     coverImage {
-                        gatsbyImageData(
-                            layout: CONSTRAINED
-                        )
+                        gatsbyImageData(layout: CONSTRAINED)
                     }
                     course {
                         title
                         tagLine
                         slug
                         icon {
-                            gatsbyImageData(
-                                layout: CONSTRAINED
-                                height: 100
-                            )
+                            gatsbyImageData(layout: CONSTRAINED, height: 100)
                         }
                     }
                 }
@@ -74,7 +69,7 @@ const Academy = ({ location, user }) => {
         if (course && title) {
             setFilteredClasses(
                 results.filter(
-                    aClass =>
+                    (aClass) =>
                         aClass?.course?.slug === course &&
                         course?.title
                             .toLocaleLowerCase()
@@ -85,7 +80,7 @@ const Academy = ({ location, user }) => {
         }
         if (title) {
             setFilteredClasses(
-                results.filter(aClass =>
+                results.filter((aClass) =>
                     aClass?.title
                         .toLocaleLowerCase()
                         .includes(title.toLocaleLowerCase())
@@ -95,9 +90,7 @@ const Academy = ({ location, user }) => {
         }
         if (course) {
             setFilteredClasses(
-                results.filter(
-                    aClass => aClass?.course?.slug === course
-                )
+                results.filter((aClass) => aClass?.course?.slug === course)
             );
             return;
         }
@@ -201,8 +194,8 @@ const Academy = ({ location, user }) => {
                     </AcademyHeaderSection>
                 </Hero>
             </AcademySection>
-            <Courses limit="6" results={coursesResult} />
-            <Classes limit="6" results={filteredClasses} />
+            <Courses limit={6} results={coursesResult} />
+            <Classes limit={6} results={filteredClasses} />
             <Footer />
         </Layout>
     );
