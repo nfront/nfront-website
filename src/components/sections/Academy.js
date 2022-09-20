@@ -11,7 +11,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 // import AnchorLink from 'react-anchor-link-smooth-scroll';
 // import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-import Categories from './Categories';
+// import Categories from './Categories';
 // import { useIsAcademy } from '@utils/hooks/useCheckLocation';
 
 export const AcademySection = styled.div`
@@ -204,7 +204,7 @@ const Academy = ({ location, user }) => {
             </AcademySection>
             <Courses limit="6" courses={coursesResult} />
             <Classes limit="6" results={filteredClasses} />
-            <Categories limit="6" results={categoriesResult} />
+            {/* <Categories limit="6" results={categoriesResult} /> */}
             <Footer />
         </Layout>
     );

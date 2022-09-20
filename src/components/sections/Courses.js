@@ -107,8 +107,7 @@ const Art = styled.div`
     }
 `;
 
-export default function Courses({ results, limit }) {
-    console.log(limit);
+export default function Courses({ courses, limit }) {
     return (
         <Section>
             <Container>
@@ -117,7 +116,7 @@ export default function Courses({ results, limit }) {
                         <div>
                             <h2>Explore Our Popular Courses</h2>
                         </div>
-                        {limit === 6 && (
+                        {limit === "6" && (
                             <div>
                                 <Link to="/courses/">View All Courses</Link>
                             </div>

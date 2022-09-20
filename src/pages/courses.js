@@ -148,7 +148,7 @@ const ClassesPage = ({ location }) => {
                                 ).toString()}`
                             );
                         }}
-                        initialValues={{ title, category }}
+                        initialValues={{ title }}
                         enableReinitialize
                     >
                         {({ values, handleSubmit }) => (
@@ -162,7 +162,7 @@ const ClassesPage = ({ location }) => {
                                         autoComplete="off"
                                         value={values.title}
                                     />
-                                    <Field
+                                    {/* <Field
                                         component="select"
                                         name="category"
                                         value={values.category}
@@ -186,7 +186,7 @@ const ClassesPage = ({ location }) => {
                                                 </option>
                                             );
                                         })}
-                                    </Field>
+                                    </Field> */}
                                     <AnchorLink
                                         href="#contact"
                                         onClick={handleSubmit}
@@ -200,7 +200,7 @@ const ClassesPage = ({ location }) => {
                     </Formik>
                 </SearchBox>
             </Hero>
-            <Courses courses={courses} limit={'1000'} />
+            <Courses courses={results} limit={'1000'} />
             <Footer />
         </Layout>
     );
