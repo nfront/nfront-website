@@ -11,7 +11,7 @@
     "@svgr/webpack": "^4.3.3",
     "dotenv": "^8.2.0",
     "formik": "^1.5.8",
-    "gatsby": "^2.21.21",
+    "gatsby": "^4.23.0",
     "gatsby-awesome-pagination": "^0.3.5",
     "gatsby-background-image": "^0.8.19",
     "gatsby-cli": "^2.12.36",
