@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
-import { useIsAcademy } from '@utils/hooks/useCheckLocation';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Link } from 'gatsby';
 
@@ -59,21 +56,21 @@ const StyledGrid = styled(Grid)`
     }
 `;
 
-const ItemGrid = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    p {
-        margin-bottom: 0;
-        color: #002e5f;
-    }
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: ${(props) => props.theme.screen.md}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-`;
+// const ItemGrid = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     p {
+//         margin-bottom: 0;
+//         color: #002e5f;
+//     }
+//     @media (min-width: ${(props) => props.theme.screen.sm}) {
+//         grid-template-columns: repeat(2, 1fr);
+//     }
+//     @media (min-width: ${(props) => props.theme.screen.md}) {
+//         grid-template-columns: repeat(2, 1fr);
+//     }
+// `;
 
 const Text = styled.div`
     padding: 1.5rem 0.5rem;
@@ -110,22 +107,20 @@ const Art = styled.div`
     }
 `;
 
-export default function Courses({ courses, limit }) {
-    const isAcademy = useIsAcademy().isAcademy;
+export default function Courses({ results, limit }) {
+    console.log(limit);
     return (
         <Section>
             <Container>
                 <Fade top>
                     <StyledTitle>
-                        {isAcademy && (
-                            <>
-                                <div>
-                                    <h2>Explore Our Popular Courses</h2>
-                                </div>
-                                <div>
-                                    <Link to="/courses/">View All Courses</Link>
-                                </div>
-                            </>
+                        <div>
+                            <h2>Explore Our Popular Courses</h2>
+                        </div>
+                        {limit === 6 && (
+                            <div>
+                                <Link to="/courses/">View All Courses</Link>
+                            </div>
                         )}
                     </StyledTitle>
                 </Fade>
@@ -151,7 +146,56 @@ export default function Courses({ courses, limit }) {
                                         </Fade>
                                     </Text>
                                 </div>
+                                // <div key={aClass.title} className="grid-item">
+                                //     <Link to={`/academy/${aClass.slug}`}>
+                                //         <Art>
+                                //             <GatsbyImage
+                                //                 className="img-style"
+                                //                 image={image}
+                                //                 alt={aClass.title}
+                                //             />
+                                //         </Art>
+                                //         <Text>
+                                //             <h3>
+                                //                 {aClass.title}
+                                //             </h3>
+                                //             <hr />
+                                //             <ItemGrid>
+                                //                 <p className="category">
+                                //                     {
+                                //                         aClass?.course?.title
+                                //                     }
+                                //                 </p>
+                                //                 <Link
+                                //                     className="know-details"
+                                //                     to={`/academy/${aClass.slug}`}
+                                //                 >
+                                //                     Know Details
+                                //                     <FontAwesomeIcon
+                                //                         icon={faArrowRight}
+                                //                         size="1px"
+                                //                     />
+                                //                 </Link>
+                                //             </ItemGrid>
+                                //         </Text>
+                                //     </Link>
+                                // </div>
                             );
+                            // const { title, slug, icon } = aClass.course;
+                            // const image = getImage(icon);
+                            // return (
+                            //     <div className="grid-item" key={title}>
+                            //         <Art>
+                            //             <GatsbyImage className="img-style" image={image} alt={title} />
+                            //         </Art>
+                            //         <Text>
+                            //             <Fade left>
+                            //                 <h3>{title}</h3>
+                            //                 <p>{slug}</p>
+                            //             </Fade>
+                            //         </Text>
+                            //     </div>
+                            // );
                         })}
                     </StyledGrid>
                 ) : (

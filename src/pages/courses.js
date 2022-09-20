@@ -103,10 +103,8 @@ const ClassesPage = ({ location }) => {
     `);
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
-    const category = params.get('category');
-    const courses = data.allContentfulCourses.nodes;
-    const categories = data.allContentfulCategories.nodes;
-
+    const results = data.allContentfulCourses.nodes;
+    console.log(results);
     // useEffect(() => {
     //     if (title) {
     //         setFilteredJobs(
@@ -154,7 +152,7 @@ const ClassesPage = ({ location }) => {
                         enableReinitialize
                     >
                         {({ values, handleSubmit }) => (
-                            <Form style={{marginBottom: "0"}}>
+                            <Form style={{ marginBottom: '0' }}>
                                 <FormFields>
                                     <Field
                                         type="text"
