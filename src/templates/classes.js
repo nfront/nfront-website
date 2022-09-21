@@ -426,7 +426,7 @@ export const query = graphql`
                             }
                         }
                     }
-                    ... on ContentfulPost {
+                    ... on ContentfulNewsPost {
                         contentful_id
                         title
                         slug

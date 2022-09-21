@@ -96,7 +96,7 @@ const JobsPage = ({ location }) => {
 
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCities {
+            allContentfulJobCities {
                 nodes {
                     title
                     totalJobs
@@ -109,7 +109,7 @@ const JobsPage = ({ location }) => {
                     slug
                 }
             }
-            allContentfulCategories {
+            allContentfulJobCategories {
                 nodes {
                     title
                     positions

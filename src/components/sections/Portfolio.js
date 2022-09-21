@@ -134,7 +134,7 @@ const Portfolio = () => {
     const isMobile = windowWidth <= 575;
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCaseStudies {
+            allContentfulPortfolioCompanies {
                 nodes {
                     brand
                     location

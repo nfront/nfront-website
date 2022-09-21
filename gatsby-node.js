@@ -3,7 +3,7 @@ exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions;
     const news = graphql(`
         {
-            allContentfulPost {
+            allContentfulNewsPosts {
                 edges {
                     node {
                         id
