@@ -426,7 +426,7 @@ export const query = graphql`
                             }
                         }
                     }
-                    ... on ContentfulNewsPost {
+                    ... on ContentfulNewsPosts {
                         contentful_id
                         title
                         slug
@@ -439,7 +439,7 @@ export const query = graphql`
                             }
                         }
                     }
-                    ... on ContentfulVideo {
+                    ... on ContentfulVideos {
                         contentful_id
                         title
                         video {
