@@ -108,9 +108,9 @@ const Art = styled.div`
 `;
 
 export default function Courses({ results, limit }) {
-    console.log(limit);
+    console.log(results);
     return (
-        <Section>
+        <Section id="contact">
             <Container>
                 <Fade top>
                     <StyledTitle>
@@ -141,7 +141,11 @@ export default function Courses({ results, limit }) {
                                     </Art>
                                     <Text>
                                         <Fade left>
-                                            <h3>{aClass.title}</h3>
+                                            <Link
+                                                to={`/courses/${aClass.slug}`}
+                                            >
+                                                <h3>{aClass.title}</h3>
+                                            </Link>
                                             <p>{aClass.slug}</p>
                                         </Fade>
                                     </Text>

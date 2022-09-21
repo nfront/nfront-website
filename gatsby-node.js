@@ -13,12 +13,12 @@ exports.createPages = ({ graphql, actions }) => {
             }
         }
     `)
-        .then(result => {
+        .then((result) => {
             if (result.errors) {
                 console.log('Error retrieving contentful data', result.errors);
             }
             const newsTemplate = path.resolve('./src/templates/news.js');
-            result.data.allContentfulPost.edges.forEach(edge => {
+            result.data.allContentfulPost.edges.forEach((edge) => {
                 createPage({
                     path: `/news/${edge.node.slug}/`,
                     component: newsTemplate,
@@ -29,7 +29,7 @@ exports.createPages = ({ graphql, actions }) => {
                 });
             });
         })
-        .catch(error => {
+        .catch((error) => {
             console.log('Error retrieving contentful data', error);
         });
     const jobs = graphql(`
@@ -44,12 +44,12 @@ exports.createPages = ({ graphql, actions }) => {
             }
         }
     `)
-        .then(result => {
+        .then((result) => {
             if (result.errors) {
                 console.log('Error retrieving contentful data', result.errors);
             }
             const jobsTemplate = path.resolve('./src/templates/jobs.js');
-            result.data.allContentfulJobs.edges.forEach(edge => {
+            result.data.allContentfulJobs.edges.forEach((edge) => {
                 createPage({
                     path: `/jobs/${edge.node.slug}/`,
                     component: jobsTemplate,
@@ -60,7 +60,7 @@ exports.createPages = ({ graphql, actions }) => {
                 });
             });
         })
-        .catch(error => {
+        .catch((error) => {
             console.log('Error retrieving contentful data', error);
         });
 
@@ -76,12 +76,12 @@ exports.createPages = ({ graphql, actions }) => {
             }
         }
     `)
-        .then(result => {
+        .then((result) => {
             if (result.errors) {
                 console.log('Error retrieving contentful data', result.errors);
             }
             const classTemplate = path.resolve('./src/templates/classes.js');
-            result.data.allContentfulClasses.edges.forEach(edge => {
+            result.data.allContentfulClasses.edges.forEach((edge) => {
                 createPage({
                     path: `/academy/${edge.node.slug}/`,
                     component: classTemplate,
@@ -92,11 +92,44 @@ exports.createPages = ({ graphql, actions }) => {
                 });
             });
         })
-        .catch(error => {
+        .catch((error) => {
             console.log('Error retrieving contentful data', error);
         });
 
-    return Promise.all([news, jobs, classes]);
+    // Courses Templete
+    const courses = graphql(`
+        {
+            allContentfulCourses {
+                edges {
+                    node {
+                        id
+                        slug
+                    }
+                }
+            }
+        }
+    `)
+        .then((result) => {
+            if (result.errors) {
+                console.log('Error retrieving contentful data', result.errors);
+            }
+            const courseTemplate = path.resolve('./src/templates/courses.js');
+            result.data.allContentfulCourses.edges.forEach((edge) => {
+                createPage({
+                    path: `/courses/${edge.node.slug}/`,
+                    component: courseTemplate,
+                    context: {
+                        slug: edge.node.slug,
+                        id: edge.node.id,
+                    },
+                });
+            });
+        })
+        .catch((error) => {
+            console.log('Error retrieving contentful data', error);
+        });
+
+    return Promise.all([news, jobs, classes, courses]);
 };
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     if (stage === 'build-html') {

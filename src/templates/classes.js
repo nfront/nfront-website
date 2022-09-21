@@ -64,7 +64,7 @@ const createJumpLink = (children) => {
 
     return (
         <a
-            href={`#${slugify(string, {lower: true})}`}
+            href={`#${slugify(string, { lower: true })}`}
             className="
           relative
           before:md:content-['#']
@@ -318,8 +318,7 @@ const renderOptions = (body) => {
 };
 
 const classes = ({ data }) => {
-    const { title, coverImage, body, course } =
-        data.contentfulClasses;
+    const { title, coverImage, body, course } = data.contentfulClasses;
 
     // console.log('body:');
     // console.log(body);

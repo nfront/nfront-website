@@ -91,8 +91,7 @@ const ClassesPage = ({ location }) => {
     `);
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
-    const results = data.allContentfulCourses.nodes;
-    console.log(results);
+    const courses = data.allContentfulCourses.nodes;
     // useEffect(() => {
     //     if (title) {
     //         setFilteredJobs(
@@ -128,7 +127,7 @@ const ClassesPage = ({ location }) => {
                             }
 
                             push(
-                                `/jobs?${new URLSearchParams(
+                                `/courses?${new URLSearchParams(
                                     searchParams
                                 ).toString()}`
                             );
@@ -160,7 +159,7 @@ const ClassesPage = ({ location }) => {
                     </Formik>
                 </SearchBox>
             </Hero>
-            <Courses results={results} limit={'1000'} />
+            <Courses results={courses} limit={'1000'} />
             <Footer />
         </Layout>
     );

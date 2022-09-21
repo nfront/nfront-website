@@ -59,6 +59,7 @@ const Academy = ({ location, user }) => {
     `);
     const results = data.allContentfulClasses.nodes;
     const coursesResult = data.allContentfulCourses.nodes;
+    console.log(coursesResult);
     // const courseCategories = data.allContentfulClassesCategories.nodes;
     // const isAcademy = useIsAcademy().isAcademy;
     useEffect(() => {
@@ -108,9 +109,9 @@ const Academy = ({ location, user }) => {
                             share their experience.
                         </p>
                         {/* {isAcademy && ( */}
-                        <Link to="/courses/">
+                        <Link to="/classes/">
                             <button className="button center">
-                                View All Courses
+                                View All Classes
                             </button>
                         </Link>
 
