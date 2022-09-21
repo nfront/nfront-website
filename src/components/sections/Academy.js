@@ -11,7 +11,9 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 // import AnchorLink from 'react-anchor-link-smooth-scroll';
 // import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
+// import Categories from './Categories';
 // import { useIsAcademy } from '@utils/hooks/useCheckLocation';
+
 export const AcademySection = styled.div`
     /* .gatsby-image-wrapper {
         min-height: 100vh;
@@ -55,11 +57,16 @@ const Academy = ({ location, user }) => {
                     }
                 }
             }
+            allContentfulCategories {
+                nodes {
+                    title
+                    slug
+                }
+            }
         }
     `);
     const results = data.allContentfulClasses.nodes;
     const coursesResult = data.allContentfulCourses.nodes;
-    console.log(coursesResult);
     // const courseCategories = data.allContentfulClassesCategories.nodes;
     // const isAcademy = useIsAcademy().isAcademy;
     useEffect(() => {
@@ -195,8 +202,9 @@ const Academy = ({ location, user }) => {
                     </AcademyHeaderSection>
                 </Hero>
             </AcademySection>
-            <Courses limit={6} results={coursesResult} />
-            <Classes limit={6} results={filteredClasses} />
+            <Courses limit="6" courses={coursesResult} />
+            <Classes limit="6" results={filteredClasses} />
+            {/* <Categories limit="6" results={categoriesResult} /> */}
             <Footer />
         </Layout>
     );

@@ -117,7 +117,7 @@ export default function Courses({ results, limit }) {
                         <div>
                             <h2>Explore Our Popular Courses</h2>
                         </div>
-                        {limit === 6 && (
+                        {limit === '6' && (
                             <div>
                                 <Link to="/courses/">View All Courses</Link>
                             </div>
@@ -126,9 +126,9 @@ export default function Courses({ results, limit }) {
                 </Fade>
             </Container>
             <Container>
-                {results.length ? (
+                {courses?.length ? (
                     <StyledGrid>
-                        {results.slice(0, limit).map((aClass) => {
+                        {courses.slice(0, limit).map((aClass) => {
                             const image = getImage(aClass.coverImage);
                             return (
                                 <div className="grid-item" key={aClass.title}>

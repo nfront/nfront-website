@@ -162,11 +162,11 @@ export default function Classes(props) {
                     </div>
                 )}
             </Container>
-            {/* {isAcademy && ( */}
+            {isAcademy && (
                 <Link to="/classes/">
                     <button className="button center">View All Courses</button>
                 </Link>
-            {/* )} */}
+            )}
         </ClassesSection>
     );
 }
