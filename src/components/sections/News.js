@@ -54,7 +54,7 @@ export default function News(props) {
     const { limit } = props;
     const data = useStaticQuery(graphql`
         query {
-            allContentfulPost(
+            allContentfulNewsPosts(
                 sort: { order: DESC, fields: publishDate }
                 limit: 1000
             ) {

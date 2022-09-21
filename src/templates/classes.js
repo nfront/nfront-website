@@ -64,7 +64,7 @@ const createJumpLink = (children) => {
 
     return (
         <a
-            href={`#${slugify(string, { lower: true })}`}
+            href={`#${slugify(string, {lower: true})}`}
             className="
           relative
           before:md:content-['#']
@@ -318,7 +318,8 @@ const renderOptions = (body) => {
 };
 
 const classes = ({ data }) => {
-    const { title, coverImage, body, course } = data.contentfulClasses;
+    const { title, coverImage, body, course } =
+        data.contentfulClasses;
 
     // console.log('body:');
     // console.log(body);
@@ -425,7 +426,7 @@ export const query = graphql`
                             }
                         }
                     }
-                    ... on ContentfulPost {
+                    ... on ContentfulNewsPosts {
                         contentful_id
                         title
                         slug
@@ -438,7 +439,7 @@ export const query = graphql`
                             }
                         }
                     }
-                    ... on ContentfulVideo {
+                    ... on ContentfulVideos {
                         contentful_id
                         title
                         video {

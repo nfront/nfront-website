@@ -3,7 +3,7 @@ exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions;
     const news = graphql(`
         {
-            allContentfulPost {
+            allContentfulNewsPosts {
                 edges {
                     node {
                         id
@@ -81,7 +81,7 @@ exports.createPages = ({ graphql, actions }) => {
                 console.log('Error retrieving contentful data', result.errors);
             }
             const classTemplate = path.resolve('./src/templates/classes.js');
-            result.data.allContentfulClasses.edges.forEach((edge) => {
+            result.data.allContentfulClasses.edges.forEach(edge => {
                 createPage({
                     path: `/academy/${edge.node.slug}/`,
                     component: classTemplate,
@@ -96,40 +96,7 @@ exports.createPages = ({ graphql, actions }) => {
             console.log('Error retrieving contentful data', error);
         });
 
-    // Courses Templete
-    const courses = graphql(`
-        {
-            allContentfulCourses {
-                edges {
-                    node {
-                        id
-                        slug
-                    }
-                }
-            }
-        }
-    `)
-        .then((result) => {
-            if (result.errors) {
-                console.log('Error retrieving contentful data', result.errors);
-            }
-            const courseTemplate = path.resolve('./src/templates/courses.js');
-            result.data.allContentfulCourses.edges.forEach((edge) => {
-                createPage({
-                    path: `/courses/${edge.node.slug}/`,
-                    component: courseTemplate,
-                    context: {
-                        slug: edge.node.slug,
-                        id: edge.node.id,
-                    },
-                });
-            });
-        })
-        .catch((error) => {
-            console.log('Error retrieving contentful data', error);
-        });
-
-    return Promise.all([news, jobs, classes, courses]);
+    return Promise.all([news, jobs, classes]);
 };
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     if (stage === 'build-html') {

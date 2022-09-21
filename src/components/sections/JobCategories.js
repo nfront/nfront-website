@@ -4,9 +4,6 @@ import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { Link } from 'gatsby';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;

@@ -4,7 +4,6 @@ import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Link } from 'gatsby';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -12,13 +11,13 @@ const StyledTitle = styled.div`
     display: flex;
     text-align: center;
     align-items: center;
-    @media (min-width: ${(props) => props.theme.screen.lg}) {
+    @media (min-width: ${props => props.theme.screen.lg}) {
         justify-content: space-between;
         flex-direction: row;
     }
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media (min-width: ${props => props.theme.screen.sm}) {
     }
-    ${(props) =>
+    ${props =>
         props.alt &&
         `
         padding-left: 0;
@@ -90,7 +89,7 @@ const Text = styled.div`
 `;
 
 const Art = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media (min-width: ${props => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
     text-align: center;
@@ -98,118 +97,54 @@ const Art = styled.div`
     overflow: hidden;
     .img-style {
         max-height: 300px;
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media (min-width: ${props => props.theme.screen.md}) {
             max-height: 400px;
         }
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media (min-width: ${props => props.theme.screen.xs}) {
             margin-bottom: 0;
         }
     }
 `;
 
-export default function Courses({ courses, limit }) {
-    console.log(courses);
+export default function Courses({ results }) {
     return (
-        <Section id="contact">
+        <Section>
             <Container>
                 <Fade top>
                     <StyledTitle>
                         <div>
                             <h2>Explore Our Popular Courses</h2>
                         </div>
-                        {limit === '6' && (
-                            <div>
-                                <Link to="/courses/">View All Courses</Link>
-                            </div>
-                        )}
+                        <div>
+                            <a href={`/classes/`}>View All Courses</a>
+                        </div>
                     </StyledTitle>
                 </Fade>
             </Container>
             <Container>
-                {courses?.length ? (
-                    <StyledGrid>
-                        {courses.slice(0, limit).map((aClass) => {
-                            const image = getImage(aClass.coverImage);
-                            return (
-                                <div className="grid-item" key={aClass.title}>
-                                    <Art>
-                                        <GatsbyImage
-                                            className="img-style"
-                                            image={image}
-                                            alt={aClass.title}
-                                        />
-                                    </Art>
-                                    <Text>
-                                        <Fade left>
-                                            <Link
-                                                to={`/courses/${aClass.slug}`}
-                                            >
-                                                <h3>{aClass.title}</h3>
-                                            </Link>
-                                            <p>{aClass.slug}</p>
-                                        </Fade>
-                                    </Text>
-                                </div>
-                                // <div key={aClass.title} className="grid-item">
-                                //     <Link to={`/academy/${aClass.slug}`}>
-                                //         <Art>
-                                //             <GatsbyImage
-                                //                 className="img-style"
-                                //                 image={image}
-                                //                 alt={aClass.title}
-                                //             />
-                                //         </Art>
-                                //         <Text>
-                                //             <h3>
-                                //                 {aClass.title}
-                                //             </h3>
-                                //             <hr />
-                                //             <ItemGrid>
-                                //                 <p className="category">
-                                //                     {
-                                //                         aClass?.course?.title
-                                //                     }
-                                //                 </p>
-                                //                 <Link
-                                //                     className="know-details"
-                                //                     to={`/academy/${aClass.slug}`}
-                                //                 >
-                                //                     Know Details
-                                //                     <FontAwesomeIcon
-                                //                         icon={faArrowRight}
-                                //                         size="1px"
-                                //                     />
-                                //                 </Link>
-                                //             </ItemGrid>
-                                //         </Text>
-                                //     </Link>
-                                // </div>
-                            );
-                            // const { title, slug, icon } = aClass.course;
-                            // const image = getImage(icon);
-                            // return (
-                            //     <div className="grid-item" key={title}>
-                            //         <Art>
-                            //             <GatsbyImage className="img-style" image={image} alt={title} />
-                            //         </Art>
-                            //         <Text>
-                            //             <Fade left>
-                            //                 <h3>{title}</h3>
-                            //                 <p>{slug}</p>
-                            //             </Fade>
-                            //         </Text>
-                            //     </div>
-                            // );
-                        })}
-                    </StyledGrid>
-                ) : (
-                    <div className="center">
-                        No List Found{' '}
-                        <span role="img" aria-label="emoji name">
-                            ❗️
-                        </span>
-                    </div>
-                )}
+                <StyledGrid>
+                    {results.map(aClass => {
+                        const {
+                            title,
+                            icon,
+                            tagLine,
+                        } = aClass.course;
+                        const image = getImage(icon);
+                        return (
+                            <div className="grid-item" key={title}>
+                                <Art>
+                                    <GatsbyImage className="img-style" image={image} alt={title} />
+                                </Art>
+                                <Text>
+                                    <Fade left>
+                                        <h3>{title}</h3>
+                                        <p>{tagLine}</p>
+                                    </Fade>
+                                </Text>
+                            </div>
+                        );
+                    })}
+                </StyledGrid>
             </Container>
         </Section>
     );

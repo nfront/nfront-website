@@ -68,7 +68,7 @@ export default news;
 
 export const query = graphql`
     query ($slug: String!) {
-        contentfulPost(slug: { eq: $slug }) {
+        contentfulNewsPosts(slug: { eq: $slug }) {
             title
             publishDate(fromNow: true)
             slug
