@@ -107,8 +107,8 @@ const Art = styled.div`
     }
 `;
 
-export default function Courses({ results, limit }) {
-    console.log(results);
+export default function Courses({ courses, limit }) {
+    console.log(courses);
     return (
         <Section id="contact">
             <Container>
