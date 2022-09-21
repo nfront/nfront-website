@@ -77,7 +77,7 @@ export default function News(props) {
             }
         }
     `);
-    const results = data.allContentfulPost.edges;
+    const results = data.allContentfulNewsPosts.edges;
     const isHome = useIsHome().isHome;
     return (
         <Section {...props}>

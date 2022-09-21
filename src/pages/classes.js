@@ -13,7 +13,6 @@ import { Field, Form, Formik } from 'formik';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { push } from 'gatsby-link';
 
-<<<<<<<< HEAD:src/pages/courses.js
 const SearchBox = styled(Container)`
     background-color: white;
     width: 100%;
@@ -80,47 +79,20 @@ const FormFields = styled(Container)`
 `;
 
 const ClassesPage = ({ location }) => {
-========
-const ClassesPage = () => {
->>>>>>>> origin/magnus:src/pages/classes.js
+// const ClassesPage = () => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulClasses {
                 nodes {
                     title
-<<<<<<<< HEAD:src/pages/courses.js
-                    slug
-                }
-            }
-            allContentfulCategories {
-                nodes {
-                    title
-                    positions
-                    coverImg {
-                        gatsbyImageData(width: 100)
-========
-                    price
-                    author
-                    coverImage {
-                        gatsbyImageData
-                    }
-                    course {
-                        title
-                        tagLine
-                        icon {
-                            gatsbyImageData(height: 100)
-                        }
->>>>>>>> origin/magnus:src/pages/classes.js
-                    }
                     slug
                 }
             }
         }
     `);
-<<<<<<<< HEAD:src/pages/courses.js
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
-    const courses = data.allContentfulCourses.nodes;
+    const courses = data.allContentfulClasses.nodes;
     // useEffect(() => {
     //     if (title) {
     //         setFilteredJobs(
@@ -136,13 +108,7 @@ const ClassesPage = () => {
 
     return (
         <Layout>
-            <Seo title={'Courses'} />
-========
-    const results = data.allContentfulClasses.nodes;
-    return (
-        <Layout>
             <Seo title={'Classes'} />
->>>>>>>> origin/magnus:src/pages/classes.js
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <h2>Courses</h2>
@@ -222,11 +188,7 @@ const ClassesPage = () => {
                     </Formik>
                 </SearchBox>
             </Hero>
-<<<<<<<< HEAD:src/pages/courses.js
-            <Courses courses={courses} limit={'1000'} />
-========
-            <Classes results={results} limit={'1000'} />
->>>>>>>> origin/magnus:src/pages/classes.js
+            <Classes results={courses} limit={'1000'} />
             <Footer />
         </Layout>
     );

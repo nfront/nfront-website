@@ -155,7 +155,7 @@ const Portfolio = () => {
             }
         }
     `);
-    const result = data.allContentfulCaseStudies.nodes;
+    const result = data.allContentfulPortfolioCompanies.nodes;
     const isHome = useIsHome().isHome;
 
     return (

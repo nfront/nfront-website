@@ -146,8 +146,8 @@ const JobsPage = ({ location }) => {
             }
         }
     `);
-    const categories = data.allContentfulCategories.nodes;
-    const cities = data.allContentfulCities.nodes;
+    const categories = data.allContentfulJobCategories.nodes;
+    const cities = data.allContentfulJobCities.nodes;
     const jobs = data.allContentfulJobs.nodes;
 
     const getPositionCount = (slug, type) => {

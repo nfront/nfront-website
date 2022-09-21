@@ -135,7 +135,7 @@ export default function Classes(props) {
                                                 {/* <p>{`$${aClass.price}`}</p> */}
                                                 <p className="category">
                                                     {
-                                                        aClass.course.title
+                                                        aClass?.course?.title
                                                     }
                                                 </p>
                                                 <Link
