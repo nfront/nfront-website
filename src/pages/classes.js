@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
 import Classes from '../components/sections/Classes';
-import { useStaticQuery, graphql } from 'gatsby';
-import Courses from '../components/sections/Courses';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { Container } from '@styles/global';
 import { Field, Form, Formik } from 'formik';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { push } from 'gatsby-link';
+import Accordion from 'react-bootstrap/Accordion';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SearchBox = styled(Container)`
     background-color: white;
@@ -78,6 +81,82 @@ const FormFields = styled(Container)`
     }
 `;
 
+const ItemGrid = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        margin-bottom: 0;
+        color: #002e5f;
+    }
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: ${(props) => props.theme.screen.md}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`;
+
+const Text = styled.div`
+    padding: 1rem;
+
+    h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        @media (min-width: ${(props) => props.theme.screen.md}) {
+            min-height: 2.5rem;
+        }
+    }
+
+    .label {
+        font-weight: 500;
+    }
+    a {
+        color: black;
+        font-size: 0.95rem;
+    }
+
+    /* p:not(.label) {
+        font-size: 16px;
+    } */
+    .know-details {
+        margin-left: 1rem;
+        text-align: right;
+
+        font-size: 0.8rem;
+        @media (min-width: ${(props) => props.theme.screen.lg}) {
+            font-size: 1rem;
+        }
+
+        &:hover {
+            color: var(--blue);
+            .fa-arrow-right {
+                margin-left: 10px;
+                transition: all 0.3s ease-out 0s;
+            }
+        }
+        .fa-arrow-right {
+            margin-left: 5px;
+        }
+    }
+`;
+
+const Art = styled.div`
+    overflow: hidden;
+    .img-style {
+        margin-bottom: 0;
+        border-top-left-radius: 0.375rem;
+        border-top-right-radius: 0.375rem;
+        transition: all 0.3s ease-out 0s;
+        vertical-align: middle;
+
+        @media (min-width: ${(props) => props.theme.screen.md}) {
+            /* min-height: 240px; */
+        }
+    }
+`;
+
 const ClassesPage = ({ location }) => {
     const data = useStaticQuery(graphql`
         query {
@@ -85,26 +164,20 @@ const ClassesPage = ({ location }) => {
                 nodes {
                     title
                     slug
+                    course {
+                        title
+                        slug
+                    }
+                    coverImage {
+                        gatsbyImageData(layout: CONSTRAINED)
+                    }
                 }
             }
         }
     `);
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
-    const courses = data.allContentfulClasses.nodes;
-    
-    // useEffect(() => {
-    //     if (title) {
-    //         setFilteredJobs(
-    //             jobs.filter(job =>
-    //                 job?.title
-    //                     .toLocaleLowerCase()
-    //                     .includes(title.toLocaleLowerCase())
-    //             )
-    //         );
-    //         return;
-    //     }
-    // }, [ title]);
+    const classes = data.allContentfulClasses.nodes;
 
     return (
         <Layout>
@@ -120,14 +193,11 @@ const ClassesPage = ({ location }) => {
                 <SearchBox>
                     <Formik
                         onSubmit={(values) => {
-                            const { title, category } = values;
+                            const { title } = values;
 
                             const searchParams = {};
                             if (title) {
                                 searchParams['title'] = title;
-                            }
-                            if (category) {
-                                searchParams['category'] = category;
                             }
 
                             push(
@@ -150,31 +220,6 @@ const ClassesPage = ({ location }) => {
                                         autoComplete="off"
                                         value={values.title}
                                     />
-                                    {/* <Field
-                                        component="select"
-                                        name="category"
-                                        value={values.category}
-                                    >
-                                        <option
-                                            value=""
-                                            disabled
-                                            selected
-                                        >
-                                            Select category
-                                        </option>
-                                        <option value={''}>None</option>
-                                        {categories.map(category => {
-                                            const {
-                                                title,
-                                                slug,
-                                            } = category;
-                                            return (
-                                                <option value={slug}>
-                                                    {title}
-                                                </option>
-                                            );
-                                        })}
-                                    </Field> */}
                                     <AnchorLink
                                         href="#contact"
                                         onClick={handleSubmit}
@@ -188,7 +233,50 @@ const ClassesPage = ({ location }) => {
                     </Formik>
                 </SearchBox>
             </Hero>
-            <Classes results={courses} limit={'1000'} />
+            {classes.map((classes, key) => {
+                const image = getImage(classes.coverImage);
+                return (
+                    <Accordion defaultActiveKey="0">
+                        <Accordion.Item eventKey={key}>
+                            <Accordion.Header>
+                                {classes?.course?.title}
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                {/* <Classes /> */}
+                            <Art>
+                                <GatsbyImage
+                                    className="img-style"
+                                    image={image}
+                                    alt={classes.title}
+                                />
+                            </Art>
+                            <Text>
+                                <h3>{classes.title}</h3>
+                                <hr />
+                                <ItemGrid>
+                                    <p className="category">
+                                        {classes?.course?.title}
+                                    </p>
+                                    <Link
+                                        className="know-details"
+                                        to={`/academy/${classes.slug}`}
+                                    >
+                                        Know Details
+                                        <FontAwesomeIcon
+                                            icon={faArrowRight}
+                                            size="1px"
+                                        />
+                                    </Link>
+                                </ItemGrid>
+                            </Text>
+                            </Accordion.Body>
+                            {/* <Accordion.Body>
+                                {classes?.title}
+                            </Accordion.Body> */}
+                        </Accordion.Item>
+                    </Accordion>
+                );
+            })}
             <Footer />
         </Layout>
     );

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
-import { useIsAcademy } from '@utils/hooks/useCheckLocation';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
@@ -10,6 +9,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 const ClassesSection = styled(Section)`
     background: #f3f4f8;
 `;
+
 const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
@@ -22,6 +22,7 @@ const StyledGrid = styled(Grid)`
         transition: all 0.3s ease-out 0s;
     }
 `;
+
 const ItemGrid = styled.div`
     display: flex;
     justify-content: space-between;
@@ -100,7 +101,6 @@ const Art = styled.div`
 
 export default function Classes(props) {
     const { results, limit } = props;
-    const isAcademy = useIsAcademy().isAcademy;
     return (
         <ClassesSection id="classes" {...props}>
             <SectionTitle>
@@ -158,7 +158,7 @@ export default function Classes(props) {
                     </div>
                 )}
             </Container>
-            {limit == "6" && (
+            {limit == '6' && (
                 <Link to="/classes/">
                     <button className="button center">View All Classes</button>
                 </Link>
