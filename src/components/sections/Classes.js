@@ -126,17 +126,11 @@ export default function Classes(props) {
                                             />
                                         </Art>
                                         <Text>
-                                            <h3>
-                                                {aClass.title}
-                                            </h3>
-                                            {/* <p className="label">{aClass.author}</p> */}
+                                            <h3>{aClass.title}</h3>
                                             <hr />
                                             <ItemGrid>
-                                                {/* <p>{`$${aClass.price}`}</p> */}
                                                 <p className="category">
-                                                    {
-                                                        aClass?.course?.title
-                                                    }
+                                                    {aClass?.course?.title}
                                                 </p>
                                                 <Link
                                                     className="know-details"
@@ -164,9 +158,9 @@ export default function Classes(props) {
                     </div>
                 )}
             </Container>
-            {isAcademy && (
-                <Link to="/courses/">
-                    <button className="button center">View All Courses</button>
+            {limit == "6" && (
+                <Link to="/classes/">
+                    <button className="button center">View All Classes</button>
                 </Link>
             )}
         </ClassesSection>

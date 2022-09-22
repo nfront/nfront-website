@@ -79,7 +79,6 @@ const FormFields = styled(Container)`
 `;
 
 const ClassesPage = ({ location }) => {
-// const ClassesPage = () => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulClasses {
@@ -93,6 +92,7 @@ const ClassesPage = ({ location }) => {
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
     const courses = data.allContentfulClasses.nodes;
+    
     // useEffect(() => {
     //     if (title) {
     //         setFilteredJobs(

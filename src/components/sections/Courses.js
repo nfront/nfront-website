@@ -4,6 +4,7 @@ import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from 'react-reveal/Fade';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { Link } from 'gatsby';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -106,7 +107,7 @@ const Art = styled.div`
     }
 `;
 
-export default function Courses({ results }) {
+export default function Courses({ results, limit }) {
     return (
         <Section>
             <Container>
@@ -116,14 +117,14 @@ export default function Courses({ results }) {
                             <h2>Explore Our Popular Courses</h2>
                         </div>
                         <div>
-                            <a href={`/classes/`}>View All Courses</a>
+                            <Link to='/classes'>View All Courses</Link>
                         </div>
                     </StyledTitle>
                 </Fade>
             </Container>
             <Container>
                 <StyledGrid>
-                    {results.map(aClass => {
+                    {results.slice(0, limit).map(aClass => {
                         const {
                             title,
                             icon,

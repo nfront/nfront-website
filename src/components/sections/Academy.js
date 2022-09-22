@@ -7,26 +7,19 @@ import Footer from '@common/footer';
 import Courses from './Courses';
 import Classes from './Classes';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-// import { FormFields, SearchBox } from '../../pages/jobs';
-// import AnchorLink from 'react-anchor-link-smooth-scroll';
-// import { Field, Form, Formik } from 'formik';
 import styled from 'styled-components';
-// import { useIsAcademy } from '@utils/hooks/useCheckLocation';
+
 export const AcademySection = styled.div`
     /* .gatsby-image-wrapper {
         min-height: 100vh;
     } */
 `;
+
 const AcademyHeaderSection = styled.div`
     margin-bottom: -2rem;
 `;
-const Academy = ({ location, user }) => {
-    const [filteredClasses, setFilteredClasses] = useState([]);
 
-    const params = new URLSearchParams(location.search);
-    const course = params.get('course');
-    const title = params.get('title');
-    
+const Academy = ({ location, user }) => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulCourses {
@@ -43,28 +36,28 @@ const Academy = ({ location, user }) => {
                     price
                     author
                     coverImage {
-                        gatsbyImageData(
-                            layout: CONSTRAINED
-                        )
+                        gatsbyImageData(layout: CONSTRAINED)
                     }
                     course {
                         title
                         tagLine
                         slug
                         icon {
-                            gatsbyImageData(
-                                layout: CONSTRAINED
-                                height: 100
-                            )
+                            gatsbyImageData(layout: CONSTRAINED, height: 100)
                         }
                     }
                 }
             }
         }
     `);
+
     const results = data.allContentfulClasses.nodes;
-    // const courseCategories = data.allContentfulClassesCategories.nodes;
-    // const isAcademy = useIsAcademy().isAcademy;
+    const [filteredClasses, setFilteredClasses] = useState([]);
+
+    const params = new URLSearchParams(location.search);
+    const course = params.get('course');
+    const title = params.get('title');
+
     useEffect(() => {
         if (results.length && !course && !title) {
             setFilteredClasses(results);
@@ -73,7 +66,7 @@ const Academy = ({ location, user }) => {
         if (course && title) {
             setFilteredClasses(
                 results.filter(
-                    aClass =>
+                    (aClass) =>
                         aClass?.course?.slug === course &&
                         course?.title
                             .toLocaleLowerCase()
@@ -84,7 +77,7 @@ const Academy = ({ location, user }) => {
         }
         if (title) {
             setFilteredClasses(
-                results.filter(aClass =>
+                results.filter((aClass) =>
                     aClass?.title
                         .toLocaleLowerCase()
                         .includes(title.toLocaleLowerCase())
@@ -94,13 +87,12 @@ const Academy = ({ location, user }) => {
         }
         if (course) {
             setFilteredClasses(
-                results.filter(
-                    aClass => aClass?.course?.slug === course
-                )
+                results.filter((aClass) => aClass?.course?.slug === course)
             );
             return;
         }
     }, [results, course, title]);
+
     return (
         <Layout>
             <Seo title={'Fundraising Academy'} />
@@ -114,12 +106,11 @@ const Academy = ({ location, user }) => {
                             share their experience.
                         </p>
                         {/* {isAcademy && ( */}
-                        <Link to="/courses/">
+                        <Link to="/classes/">
                             <button className="button center">
                                 View All Classes
                             </button>
                         </Link>
-
                         {/* )} */}
                         {/* <SearchBox>
                             <Formik
@@ -200,7 +191,7 @@ const Academy = ({ location, user }) => {
                     </AcademyHeaderSection>
                 </Hero>
             </AcademySection>
-            <Courses results={results} />
+            <Courses limit="6" results={results} />
             <Classes limit="6" results={filteredClasses} />
             <Footer />
         </Layout>
