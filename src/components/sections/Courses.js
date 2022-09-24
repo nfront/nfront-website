@@ -25,6 +25,7 @@ const StyledTitle = styled.div`
         text-align: left;
     `};
 `;
+
 const StyledGrid = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);

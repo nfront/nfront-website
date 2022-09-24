@@ -36,6 +36,7 @@ const StyledTitle = styled.div`
 //         padding-top: 0;
 //     }
 // `;
+
 const StyledGrid = styled(Grid)`
     .grid-item {
         border: 1px transparent var(--border-color);

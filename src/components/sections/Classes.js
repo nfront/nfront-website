@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Class from '../common/class';
 
 const ClassesSection = styled(Section)`

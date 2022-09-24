@@ -4,7 +4,6 @@ import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
-import Classes from '../components/sections/Classes';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { Container } from '@styles/global';
@@ -12,10 +11,8 @@ import { Field, Form, Formik } from 'formik';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { push } from 'gatsby-link';
 import Accordion from 'react-bootstrap/Accordion';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Class from '../components/common/class';
+import { Grid } from '../styles/global';
 
 const SearchBox = styled(Container)`
     background-color: white;
@@ -79,6 +76,43 @@ const FormFields = styled(Container)`
         color: var(--text-color) !important;
         width: 100%;
         border-bottom: 1px solid var(--button-color);
+    }
+`;
+
+const StyledGrid = styled(Grid)`
+    .grid-item {
+        border: 1px transparent var(--border-color);
+        border-radius: 0.375rem;
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+        padding: 40px 10px;
+        margin-bottom: 20px;
+        position: relative;
+        cursor: pointer;
+        &::after {
+            background-size: center;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
+    }
+    .grid-item:hover {
+        box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+    }
+`;
+
+const StyledContainer = styled(Container)`
+    text-align: center;
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
+        text-align: left;
     }
 `;
 
@@ -181,16 +215,24 @@ const ClassesPage = ({ location }) => {
                 return (
                     <Accordion defaultActiveKey="0">
                         <Accordion.Item eventKey={key}>
-                            <Accordion.Header>
-                                {courses?.title}
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                {courses?.classes?.map((courseClass) => {
-                                    return(
-                                        <Class results={courseClass} />
-                                    )
-                                })}
-                            </Accordion.Body>
+                            <StyledContainer>
+                                <Accordion.Header>
+                                    {courses?.title}
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <StyledGrid>
+                                        {courses?.classes?.map(
+                                            (courseClass) => {
+                                                return (
+                                                    <Class
+                                                        results={courseClass}
+                                                    />
+                                                );
+                                            }
+                                        )}
+                                    </StyledGrid>
+                                </Accordion.Body>
+                            </StyledContainer>
                         </Accordion.Item>
                     </Accordion>
                 );
