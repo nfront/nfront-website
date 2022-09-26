@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Europe from '../../images/nfront/europe.jpg';
 
 const ItemGrid = styled.div`
     display: flex;
@@ -87,11 +88,21 @@ export default function Class({ results }) {
         <div key={results.title} className="grid-item">
             <Link to={`/academy/${results.slug}`}>
                 <Art>
-                    <GatsbyImage
-                        className="img-style"
-                        image={image}
-                        alt={results.title}
-                    />
+                    {image ? (
+                        <GatsbyImage
+                            className="img-style"
+                            image={image}
+                            alt={results.title}
+                        />
+                    ) : (
+                        <StaticImage
+                            class="img-style"
+                            width={800}
+                            height={476}
+                            src="../../images/nfront/no-image-found.jpg"
+                            alt="preview"
+                        />
+                    )}
                 </Art>
                 <Text>
                     <h3>{results.title}</h3>
