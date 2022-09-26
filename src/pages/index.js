@@ -5,7 +5,6 @@ import Navbar from '@common/navbar';
 import Cta from '@common/CTA';
 import Footer from '@common/footer';
 import Header from '@sections/Header';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 /** */
 import About from '@sections/About';

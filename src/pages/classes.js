@@ -10,9 +10,15 @@ import { Container } from '@styles/global';
 import { Field, Form, Formik } from 'formik';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { push } from 'gatsby-link';
-import Accordion from 'react-bootstrap/Accordion';
 import Class from '../components/common/class';
 import { Grid } from '../styles/global';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const SearchBox = styled(Container)`
     background-color: white;
@@ -84,9 +90,6 @@ const StyledGrid = styled(Grid)`
         border: 1px transparent var(--border-color);
         border-radius: 0.375rem;
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
-        margin-top: 2rem;
-        padding: 40px 10px;
-        margin-bottom: 20px;
         position: relative;
         cursor: pointer;
         &::after {
@@ -111,6 +114,7 @@ const StyledGrid = styled(Grid)`
 
 const StyledContainer = styled(Container)`
     text-align: center;
+    padding: 0 1rem;
     @media (min-width: ${(props) => props.theme.screen.xs}) {
         text-align: left;
     }
@@ -213,28 +217,47 @@ const ClassesPage = ({ location }) => {
             </Hero>
             {result.map((courses, key) => {
                 return (
-                    <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey={key}>
-                            <StyledContainer>
-                                <Accordion.Header>
-                                    {courses?.title}
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <StyledGrid>
-                                        {courses?.classes?.map(
-                                            (courseClass) => {
-                                                return (
-                                                    <Class
-                                                        results={courseClass}
-                                                    />
-                                                );
-                                            }
-                                        )}
-                                    </StyledGrid>
-                                </Accordion.Body>
-                            </StyledContainer>
-                        </Accordion.Item>
-                    </Accordion>
+                    <StyledContainer>
+                        <Accordion key={key}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography>{courses?.title}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <StyledGrid>
+                                    {courses?.classes?.map((courseClass) => {
+                                        return <Class results={courseClass} />;
+                                    })}
+                                </StyledGrid>
+                            </AccordionDetails>
+                        </Accordion>
+                    </StyledContainer>
+
+                    // <Accordion defaultActiveKey="0">
+                    //     <Accordion.Item eventKey={key}>
+                    //         <StyledContainer>
+                    //             <Accordion.Header>
+                    //                 {courses?.title}
+                    //             </Accordion.Header>
+                    //             <Accordion.Body>
+                    //                 <StyledGrid>
+                    //                     {courses?.classes?.map(
+                    //                         (courseClass) => {
+                    //                             return (
+                    //                                 <Class
+                    //                                     results={courseClass}
+                    //                                 />
+                    //                             );
+                    //                         }
+                    //                     )}
+                    //                 </StyledGrid>
+                    //             </Accordion.Body>
+                    //         </StyledContainer>
+                    //     </Accordion.Item>
+                    // </Accordion>
                 );
             })}
             <Footer />
