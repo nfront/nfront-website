@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { Container } from '@styles/global';
 import { Field, Form, Formik } from 'formik';
@@ -115,6 +115,8 @@ const StyledGrid = styled(Grid)`
 const StyledContainer = styled(Container)`
     text-align: center;
     padding: 0 1rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
     @media (min-width: ${(props) => props.theme.screen.xs}) {
         text-align: left;
     }
@@ -218,7 +220,9 @@ const ClassesPage = ({ location }) => {
             {result.map((courses, key) => {
                 return (
                     <StyledContainer>
-                        <Accordion key={key}>
+                        <Accordion
+                            key={key}
+                        >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -228,36 +232,19 @@ const ClassesPage = ({ location }) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <StyledGrid>
-                                    {courses?.classes?.map((courseClass) => {
-                                        return <Class results={courseClass} />;
-                                    })}
+                                    {courses?.classes?.map(
+                                        (courseClass) => {
+                                            return (
+                                                <Class
+                                                    results={courseClass}
+                                                />
+                                            );
+                                        }
+                                    )}
                                 </StyledGrid>
                             </AccordionDetails>
                         </Accordion>
                     </StyledContainer>
-
-                    // <Accordion defaultActiveKey="0">
-                    //     <Accordion.Item eventKey={key}>
-                    //         <StyledContainer>
-                    //             <Accordion.Header>
-                    //                 {courses?.title}
-                    //             </Accordion.Header>
-                    //             <Accordion.Body>
-                    //                 <StyledGrid>
-                    //                     {courses?.classes?.map(
-                    //                         (courseClass) => {
-                    //                             return (
-                    //                                 <Class
-                    //                                     results={courseClass}
-                    //                                 />
-                    //                             );
-                    //                         }
-                    //                     )}
-                    //                 </StyledGrid>
-                    //             </Accordion.Body>
-                    //         </StyledContainer>
-                    //     </Accordion.Item>
-                    // </Accordion>
                 );
             })}
             <Footer />

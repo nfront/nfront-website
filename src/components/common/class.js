@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Europe from '../../images/nfront/europe.jpg';
 
 const ItemGrid = styled.div`
     display: flex;
@@ -96,7 +95,6 @@ export default function Class({ results }) {
                         />
                     ) : (
                         <StaticImage
-                            class="img-style"
                             width={800}
                             height={476}
                             src="../../images/nfront/no-image-found.jpg"
