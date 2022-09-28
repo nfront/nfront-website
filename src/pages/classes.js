@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';

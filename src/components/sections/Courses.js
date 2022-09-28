@@ -12,13 +12,13 @@ const StyledTitle = styled.div`
     display: flex;
     text-align: center;
     align-items: center;
-    @media (min-width: ${props => props.theme.screen.lg}) {
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
         justify-content: space-between;
         flex-direction: row;
     }
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
     }
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
         padding-left: 0;
@@ -91,7 +91,7 @@ const Text = styled.div`
 `;
 
 const Art = styled.div`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
     text-align: center;
@@ -99,10 +99,10 @@ const Art = styled.div`
     overflow: hidden;
     .img-style {
         max-height: 300px;
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             max-height: 400px;
         }
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             margin-bottom: 0;
         }
     }
@@ -118,31 +118,33 @@ export default function Courses({ results, limit }) {
                             <h2>Explore Our Popular Courses</h2>
                         </div>
                         <div>
-                            <Link to='/classes'>View All Courses</Link>
+                            <Link to="/classes">View All Courses</Link>
                         </div>
                     </StyledTitle>
                 </Fade>
             </Container>
             <Container>
                 <StyledGrid>
-                    {results.slice(0, limit).map(aClass => {
-                        const {
-                            title,
-                            icon,
-                            tagLine,
-                        } = aClass.course;
+                    {results.slice(0, limit).map((aClass) => {
+                        const { title, icon, tagLine, slug } = aClass.course;
                         const image = getImage(icon);
                         return (
                             <div className="grid-item" key={title}>
-                                <Art>
-                                    <GatsbyImage className="img-style" image={image} alt={title} />
-                                </Art>
-                                <Text>
-                                    <Fade left>
-                                        <h3>{title}</h3>
-                                        <p>{tagLine}</p>
-                                    </Fade>
-                                </Text>
+                                <Link to={`/academy/${slug}`}>
+                                    <Art>
+                                        <GatsbyImage
+                                            className="img-style"
+                                            image={image}
+                                            alt={title}
+                                        />
+                                    </Art>
+                                    <Text>
+                                        <Fade left>
+                                            <h3>{title}</h3>
+                                            <p>{tagLine}</p>
+                                        </Fade>
+                                    </Text>
+                                </Link>
                             </div>
                         );
                     })}
