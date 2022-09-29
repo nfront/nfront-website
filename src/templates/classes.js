@@ -11,6 +11,8 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 // import { FlexBox } from '../components/sections/Team';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import CourseCard from '../components/common/courseSummaryCard';
+import RelatedCourse from '../components/common/relatedCourse';
 
 const StyledContainer = styled(Container)`
     text-align: center;
@@ -20,11 +22,22 @@ const StyledContainer = styled(Container)`
 `;
 
 const DetailedSection = styled.div`
-    flex: 1 1 500px;
-    @media (min-width: 708px) {
-        margin-left: 1.5rem;
-    }
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* flex: 1 1 500px; */
     text-align: left;
+    // @media (min-width: 708px) {
+    //     margin-left: 1.5rem;
+    // }
+`;
+
+const CourseDetail = styled.div`
+    width: 70%;
+`;
+
+const CourseSuggestion = styled.div`
+    width: 30%;
 `;
 
 // const ModifiedFlexBox = styled(FlexBox)`
@@ -64,7 +77,7 @@ const createJumpLink = (children) => {
 
     return (
         <a
-            href={`#${slugify(string, {lower: true})}`}
+            href={`#${slugify(string, { lower: true })}`}
             className="
           relative
           before:md:content-['#']
@@ -318,8 +331,7 @@ const renderOptions = (body) => {
 };
 
 const classes = ({ data }) => {
-    const { title, coverImage, body, course } =
-        data.contentfulClasses;
+    const { title, coverImage, body, course } = data.contentfulClasses;
 
     // console.log('body:');
     // console.log(body);
@@ -347,14 +359,16 @@ const classes = ({ data }) => {
             )}
             <Section>
                 <StyledContainer>
-                    {/* <ModifiedFlexBox> */}
                     <DetailedSection>
-                        <p className="category">{course.title}</p>
-                        <div>
+                        <CourseDetail>
+                            <p className="category">{course.title}</p>
                             {body && renderRichText(body, renderOptions(body))}
-                        </div>
+                        </CourseDetail>
+                        <CourseSuggestion>
+                            <CourseCard props={data} />
+                            <RelatedCourse props={data} />
+                        </CourseSuggestion>
                     </DetailedSection>
-                    {/* </ModifiedFlexBox> */}
                 </StyledContainer>
             </Section>
             <Footer />
