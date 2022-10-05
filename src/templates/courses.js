@@ -7,7 +7,7 @@ import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Seo from '@utils/SEO';
-import { Grid } from '../styles/global';
+import { OverlayText } from '../styles/global';
 import CourseCard from '../components/common/courseSummaryCard';
 import RelatedCourse from '../components/common/relatedCourse';
 
@@ -29,36 +29,67 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const StyledGrid = styled(Grid)`
-    .grid-item {
-        border: 1px transparent var(--border-color);
-        border-radius: 0.375rem;
-        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
-        position: relative;
-        cursor: pointer;
-        &::after {
-            background-size: center;
-            background-repeat: no-repeat;
-            background-position: bottom;
-            content: '';
-            width: 100%;
-            height: 100%;
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: -1;
-        }
+const CourseSection = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+`;
+
+const CourseTagline = styled(OverlayText)`
+    padding: 0;
+    display: block;
+    text-align: left;
+`;
+
+const IframeContainer = styled.span`
+    padding-bottom: 56.25%;
+    position: relative;
+    display: block;
+    width: 100%;
+
+    > iframe {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
     }
-    .grid-item:hover {
-        box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
-        transform: translateY(-5px);
+`;
+
+const TabsContainer = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+`;
+
+const TabButtons = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+    margin-top: 30px;
+`;
+
+const TabButton = styled.button`
+    background: blue;
+    color: black;
+    width: 105px;
+    height: 35px;
+    border: 1px solid blue;
+    border-radius: 6px;
+    font-family: 'Poppins';
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+        transition: 0.5s;
+        background: blue;
+        color: white;
     }
 `;
 
 const courses = ({ data }) => {
-    const result = data.allContentfulCourses.edges;
-    // const res = result.map((course) => course?.node);
+    const result = data.allContentfulCourses.nodes;
 
     return (
         <Layout>
@@ -66,102 +97,65 @@ const courses = ({ data }) => {
             <Navbar fluid />
             <Hero fileName="LA.jpg" />
             <Section>
-                <div style={{ maxWidth: '345px' }}>
-                    <CourseCard props={result} />
-                    <RelatedCourse props={result} />
-                </div>
+                <StyledContainer>
+                    {result.map((course) => {
+                        return (
+                            <>
+                                <div>
+                                    <p className="category">{course?.title}</p>
+                                </div>
+                                <CourseTagline>
+                                    <h2 className="mb-0">{course?.tagLine}</h2>
+                                </CourseTagline>
+                                <IframeContainer>
+                                    <iframe
+                                        title="nFront Ventures Video Player"
+                                        src={course?.introductionVideo?.url}
+                                        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                        frameBorder="0"
+                                        allowFullScreen
+                                    ></iframe>
+                                </IframeContainer>
+                                <TabsContainer>
+                                    <TabButtons>
+                                        <TabButton>dsadasd</TabButton>
+                                        <TabButton>dsadasd</TabButton>
+                                        <TabButton>dsadasd</TabButton>
+                                        <TabButton>dsadasd</TabButton>
+                                    </TabButtons>
+                                </TabsContainer>
+                            </>
+                        );
+                    })}
+                    <div style={{ maxWidth: '345px' }}>
+                        {/* <CourseCard props={data.allContentfulCourses} />
+                        <RelatedCourse props={data.allContentfulCourses} /> */}
+                    </div>
+                </StyledContainer>
             </Section>
             <Footer />
         </Layout>
     );
 };
 
-{
-    /* <StyledGrid>
-        {result?.map((course, key) => {
-            return (
-                <Card sx={{ maxWidth: 345 }} key={key}>
-                    <CardActionArea>
-                        <CardContent>
-                            <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                                textAlign="center"
-                            >
-                                Course Summary
-                            </Typography>
-                        </CardContent>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image={Europe}
-                            alt="green iguana"
-                        />
-                        <CardContent>
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'end',
-                                }}
-                            >
-                                <HomeIcon />
-                                Course : {course?.node?.title}
-                            </Typography>
-                            <Divider
-                                style={{
-                                    marginTop: '10px',
-                                    marginBottom: '10px',
-                                }}
-                            />
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'end',
-                                }}
-                            >
-                                <BookIcon />
-                                Classes : 5
-                            </Typography>
-                            <Divider
-                                style={{
-                                    marginTop: '10px',
-                                    marginBottom: '10px',
-                                }}
-                            />
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'end',
-                                }}
-                            >
-                                <LanguageIcon />
-                                Language : English
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            );
-        })}
-    </StyledGrid> */
-}
-
 export default courses;
 
 export const query = graphql`
     query {
         allContentfulCourses {
-            edges {
-                node {
-                    id
-                    slug
+            nodes {
+                title
+                tagLine
+                courseDescription {
+                    childMarkdownRemark {
+                        html
+                    }
+                }
+                classes {
                     title
+                }
+                introductionVideo {
+                    url
                 }
             }
         }

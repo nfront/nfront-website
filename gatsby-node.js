@@ -32,6 +32,7 @@ exports.createPages = ({ graphql, actions }) => {
         .catch((error) => {
             console.log('Error retrieving contentful data', error);
         });
+
     const jobs = graphql(`
         {
             allContentfulJobs {
@@ -103,7 +104,6 @@ exports.createPages = ({ graphql, actions }) => {
                     node {
                         id
                         slug
-                        title
                     }
                 }
             }

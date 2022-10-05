@@ -21,6 +21,7 @@ const StyledContainer = styled(Container)`
         text-align: left;
     }
 `;
+
 const InfoSection = styled.div`
     flex: 0 1 300px;
     margin-right: 0rem;
@@ -50,18 +51,21 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
+
 const StyledImg = styled(GatsbyImage)`
     @media (min-width: ${(props) => props.theme.screen.xs}) {
         // margin-right: 3rem;
         /* text-align: left; */
     }
 `;
+
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
     @media (min-width: ${(props) => props.theme.screen.xs}) {
         padding: 0 1.5rem;
     }
 `;
+
 const jobs = ({ data }) => {
     const {
         title,
@@ -75,14 +79,12 @@ const jobs = ({ data }) => {
     } = data.contentfulJobs;
 
     const pluginImageHero = getImage(heroImage);
-    console.log('heroImage', heroImage);
     const iconImage = getImage(icon);
 
     return (
         <Layout>
             <Seo title={title} />
             <Navbar fluid />
-            {console.log('heroImage2: ', heroImage)}
             {heroImage != null && (
                 <div style={{ display: 'grid' }}>
                     <GatsbyImage
@@ -103,10 +105,7 @@ const jobs = ({ data }) => {
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <InfoSection>
-                            <StyledImg
-                                image={iconImage}
-                                alt="profile image"
-                            />
+                            <StyledImg image={iconImage} alt="profile image" />
                             <div className="info-card">
                                 <h2>Job Details</h2>
                                 <h3>

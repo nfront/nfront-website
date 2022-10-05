@@ -34,122 +34,140 @@ const StyledContainer = styled(Container)`
 
 export default function CourseCard({ props }) {
     const image = getImage(props.coverImage);
+    const cardImage = require('../../images/nfront/no-image-found.jpg');
     return (
         <StyledContainer>
-            <Card style={{ margniBottom: '15px' }}>
-                <CardActionArea>
-                    <CardContent>
-                        <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            textAlign="center"
-                        >
-                            Course Summary
-                        </Typography>
-                    </CardContent>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image={props.image}
-                        alt="green iguana"
-                    />
-                    <CardContent>
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            <HomeIcon />
-                            Course : {props.courseName}
-                        </Typography>
-                        <Divider
-                            style={{
-                                marginTop: '10px',
-                                marginBottom: '10px',
-                            }}
-                        />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            <BookIcon />
-                            Classes : 5
-                        </Typography>
-                        <Divider
-                            style={{
-                                marginTop: '10px',
-                                marginBottom: '10px',
-                            }}
-                        />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            <LanguageIcon />
-                            Language : English
-                        </Typography>
-                    </CardContent>
-                    {/* <CardContent>
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            <HomeIcon />
-                            Course : {props.courseName}
-                        </Typography>
-                        <Divider
-                            style={{
-                                marginTop: '10px',
-                                marginBottom: '10px',
-                            }}
-                        />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            <BookIcon />
-                            Classes : 5
-                        </Typography>
-                        <Divider
-                            style={{
-                                marginTop: '10px',
-                                marginBottom: '10px',
-                            }}
-                        />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            <LanguageIcon />
-                            Language : English
-                        </Typography>
-                    </CardContent> */}
-                </CardActionArea>
-            </Card>
+            {props?.nodes?.map((course) => {
+                return (
+                    <Card style={{ marginBottom: '15px' }}>
+                        <CardActionArea>
+                            <CardContent>
+                                <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="div"
+                                    textAlign="center"
+                                >
+                                    Course Summary
+                                </Typography>
+                            </CardContent>
+                            {image ? (
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={props.image}
+                                    alt="green iguana"
+                                />
+                            ) : (
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={cardImage?.default}
+                                    alt="green iguana 2"
+                                    style={{ marginBottom: '1rem' }}
+                                />
+                            )}
+                            <CardContent>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'end',
+                                        justifyContent: 'flex-start',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'flex-end',
+                                            width: '35px',
+                                        }}
+                                    >
+                                        <HomeIcon color="#0770f3" />
+                                    </div>
+                                    <div>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                        >
+                                            Course : {course?.title}
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Divider
+                                    style={{
+                                        marginTop: '10px',
+                                        marginBottom: '10px',
+                                    }}
+                                />
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'end',
+                                        justifyContent: 'flex-start',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'flex-end',
+                                            width: '35px',
+                                        }}
+                                    >
+                                        <BookIcon />
+                                    </div>
+                                    <div>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'end',
+                                            }}
+                                        >
+                                            Classes : 5
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Divider
+                                    style={{
+                                        marginTop: '10px',
+                                        marginBottom: '10px',
+                                    }}
+                                />
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'end',
+                                        justifyContent: 'flex-start',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'flex-end',
+                                            width: '35px',
+                                        }}
+                                    >
+                                        <LanguageIcon />
+                                    </div>
+                                    <div>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'end',
+                                            }}
+                                        >
+                                            Language : English
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                );
+            })}
         </StyledContainer>
     );
 }

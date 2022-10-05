@@ -40,7 +40,7 @@ const FormFields = styled(Container)`
     padding: 1rem;
     justify-items: center;
     align-items: center;
-    @media (min-width: ${props => props.theme.screen.lg}) {
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
         display: flex;
     }
     input,
@@ -101,10 +101,7 @@ const JobsPage = ({ location }) => {
                     title
                     totalJobs
                     featuredImage {
-                        gatsbyImageData(
-                            layout: CONSTRAINED
-                            height: 50
-                        )
+                        gatsbyImageData(layout: CONSTRAINED, height: 50)
                     }
                     slug
                 }
@@ -114,9 +111,7 @@ const JobsPage = ({ location }) => {
                     title
                     positions
                     coverImg {
-                        gatsbyImageData(
-                            width: 100
-                        )
+                        gatsbyImageData(width: 100)
                     }
                     slug
                 }
@@ -153,9 +148,9 @@ const JobsPage = ({ location }) => {
     const getPositionCount = (slug, type) => {
         switch (type) {
             case 'city':
-                return cities.filter(city => city.slug === slug).length;
+                return cities.filter((city) => city.slug === slug).length;
             case 'category':
-                return categories.filter(cat => cat.slug === slug).length;
+                return categories.filter((cat) => cat.slug === slug).length;
             default:
                 return null;
         }
@@ -169,7 +164,7 @@ const JobsPage = ({ location }) => {
         if (category && city) {
             setFilteredJobs(
                 jobs.filter(
-                    job =>
+                    (job) =>
                         job?.city?.slug === city &&
                         job?.categories?.slug === category
                 )
@@ -179,7 +174,7 @@ const JobsPage = ({ location }) => {
         if (category && city && title) {
             setFilteredJobs(
                 jobs.filter(
-                    job =>
+                    (job) =>
                         job?.city?.slug === city &&
                         job?.categories?.slug === category &&
                         job?.title
@@ -191,7 +186,7 @@ const JobsPage = ({ location }) => {
         }
         if (title) {
             setFilteredJobs(
-                jobs.filter(job =>
+                jobs.filter((job) =>
                     job?.title
                         .toLocaleLowerCase()
                         .includes(title.toLocaleLowerCase())
@@ -200,12 +195,12 @@ const JobsPage = ({ location }) => {
             return;
         }
         if (city) {
-            setFilteredJobs(jobs.filter(job => job?.city?.slug === city));
+            setFilteredJobs(jobs.filter((job) => job?.city?.slug === city));
             return;
         }
         if (category) {
             setFilteredJobs(
-                jobs.filter(job => job?.categories?.slug === category)
+                jobs.filter((job) => job?.categories?.slug === category)
             );
             return;
         }
@@ -226,7 +221,7 @@ const JobsPage = ({ location }) => {
                         <SearchBox>
                             {' '}
                             <Formik
-                                onSubmit={values => {
+                                onSubmit={(values) => {
                                     const { city, category, title } = values;
 
                                     const searchParams = {};
@@ -273,11 +268,9 @@ const JobsPage = ({ location }) => {
                                                     Select category
                                                 </option>
                                                 <option value={''}>None</option>
-                                                {categories.map(category => {
-                                                    const {
-                                                        title,
-                                                        slug,
-                                                    } = category;
+                                                {categories.map((category) => {
+                                                    const { title, slug } =
+                                                        category;
                                                     return (
                                                         <option value={slug}>
                                                             {title}
@@ -298,11 +291,9 @@ const JobsPage = ({ location }) => {
                                                     Select city
                                                 </option>{' '}
                                                 <option value={''}>None</option>
-                                                {cities.map(city => {
-                                                    const {
-                                                        title,
-                                                        slug,
-                                                    } = city;
+                                                {cities.map((city) => {
+                                                    const { title, slug } =
+                                                        city;
                                                     return (
                                                         <option value={slug}>
                                                             {title}

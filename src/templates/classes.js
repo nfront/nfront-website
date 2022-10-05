@@ -25,11 +25,7 @@ const DetailedSection = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    /* flex: 1 1 500px; */
     text-align: left;
-    // @media (min-width: 708px) {
-    //     margin-left: 1.5rem;
-    // }
 `;
 
 const CourseDetail = styled.div`
@@ -39,13 +35,6 @@ const CourseDetail = styled.div`
 const CourseSuggestion = styled.div`
     width: 30%;
 `;
-
-// const ModifiedFlexBox = styled(FlexBox)`
-//     padding: 0;
-//     @media (min-width: ${(props) => props.theme.screen.xs}) {
-//         padding: 0 1.5rem;
-//     }
-// `;
 
 const IframeContainer = styled.span`
     padding-bottom: 56.25%;
@@ -332,9 +321,7 @@ const renderOptions = (body) => {
 
 const classes = ({ data }) => {
     const { title, coverImage, body, course } = data.contentfulClasses;
-
-    // console.log('body:');
-    // console.log(body);
+    console.log('🚀 ~ body', body);
     const pluginImage = getImage(coverImage);
 
     return (
@@ -364,10 +351,10 @@ const classes = ({ data }) => {
                             <p className="category">{course.title}</p>
                             {body && renderRichText(body, renderOptions(body))}
                         </CourseDetail>
-                        <CourseSuggestion>
+                        {/* <CourseSuggestion>
                             <CourseCard props={data} />
                             <RelatedCourse props={data} />
-                        </CourseSuggestion>
+                        </CourseSuggestion> */}
                     </DetailedSection>
                 </StyledContainer>
             </Section>
@@ -385,90 +372,6 @@ export const query = graphql`
             slug
             course {
                 title
-            }
-            # This is the rich text field, the name depends on your field configuration in Contentful
-            body {
-                raw
-                references {
-                    ... on ContentfulAsset {
-                        # You'll need to query contentful_id in each reference
-                        contentful_id
-                        __typename
-                        title
-                        description
-                        file {
-                            contentType
-                            url
-                        }
-                        gatsbyImageData(layout: FIXED, width: 1000)
-                    }
-                    ... on ContentfulCourses {
-                        contentful_id
-                        title
-                        slug
-                        sys {
-                            contentType {
-                                sys {
-                                    id
-                                    type
-                                }
-                            }
-                        }
-                    }
-                    ... on ContentfulClasses {
-                        contentful_id
-                        title
-                        slug
-                        sys {
-                            contentType {
-                                sys {
-                                    id
-                                    type
-                                }
-                            }
-                        }
-                    }
-                    ... on ContentfulEmployeeTestimonials {
-                        contentful_id
-                        candidate
-                        sys {
-                            contentType {
-                                sys {
-                                    id
-                                    type
-                                }
-                            }
-                        }
-                    }
-                    ... on ContentfulNewsPosts {
-                        contentful_id
-                        title
-                        slug
-                        sys {
-                            contentType {
-                                sys {
-                                    id
-                                    type
-                                }
-                            }
-                        }
-                    }
-                    ... on ContentfulVideos {
-                        contentful_id
-                        title
-                        video {
-                            url
-                        }
-                        sys {
-                            contentType {
-                                sys {
-                                    id
-                                    type
-                                }
-                            }
-                        }
-                    }
-                }
             }
             coverImage {
                 gatsbyImageData
