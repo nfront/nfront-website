@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
@@ -8,6 +8,9 @@ import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Seo from '@utils/SEO';
 import { OverlayText } from '../styles/global';
+import DescriptionIcon from '@mui/icons-material/Description';
+import StarRateIcon from '@mui/icons-material/StarRate';
+import BookIcon from '@mui/icons-material/Book';
 import CourseCard from '../components/common/courseSummaryCard';
 import RelatedCourse from '../components/common/relatedCourse';
 
@@ -46,6 +49,7 @@ const IframeContainer = styled.span`
     position: relative;
     display: block;
     width: 100%;
+    margin-bottom: 50px;
 
     > iframe {
         height: 100%;
@@ -57,39 +61,63 @@ const IframeContainer = styled.span`
 
 const TabsContainer = styled.div`
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 `;
 
 const TabButtons = styled.div`
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
     margin-bottom: 15px;
     margin-top: 30px;
 `;
 
 const TabButton = styled.button`
-    background: blue;
+    background: #edeef3;
     color: black;
-    width: 105px;
-    height: 35px;
-    border: 1px solid blue;
-    border-radius: 6px;
+    width: 100%;
+    height: 45px;
+    border: 1px solid #edeef3;
     font-family: 'Poppins';
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
         transition: 0.5s;
-        background: blue;
+        background: #2b4eff;
+        border: 1px solid #2b4eff;
         color: white;
     }
+
+    ${({ active }) =>
+        active &&
+        `
+        color: white;
+        background: #2b4eff;
+    `}
 `;
 
-const courses = ({ data }) => {
+const Courses = ({ data }) => {
     const result = data.allContentfulCourses.nodes;
+    const types = [
+        {
+            icon: <DescriptionIcon />,
+            title: 'Description',
+            description: result.map(
+                (courseDesc) =>
+                    courseDesc.courseDescription?.childMarkdownRemark?.html
+            ),
+        },
+        { icon: <BookIcon />, title: 'Classes' },
+        { icon: <StarRateIcon />, title: 'Files' },
+    ];
+    const [active, setActive] = useState(0);
 
     return (
         <Layout>
@@ -98,7 +126,7 @@ const courses = ({ data }) => {
             <Hero fileName="LA.jpg" />
             <Section>
                 <StyledContainer>
-                    {result.map((course) => {
+                    {result.map((course, key) => {
                         return (
                             <>
                                 <div>
@@ -118,12 +146,23 @@ const courses = ({ data }) => {
                                 </IframeContainer>
                                 <TabsContainer>
                                     <TabButtons>
-                                        <TabButton>dsadasd</TabButton>
-                                        <TabButton>dsadasd</TabButton>
-                                        <TabButton>dsadasd</TabButton>
-                                        <TabButton>dsadasd</TabButton>
+                                        {types.map((list, index) => {
+                                            return (
+                                                <TabButton
+                                                    key={index}
+                                                    active={active === index}
+                                                    onClick={() =>
+                                                        setActive(index)
+                                                    }
+                                                >
+                                                    {list?.icon}
+                                                    {list?.title}
+                                                </TabButton>
+                                            );
+                                        })}
                                     </TabButtons>
                                 </TabsContainer>
+                                {types[active]?.description}
                             </>
                         );
                     })}
@@ -138,7 +177,7 @@ const courses = ({ data }) => {
     );
 };
 
-export default courses;
+export default Courses;
 
 export const query = graphql`
     query {
