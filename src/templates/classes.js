@@ -65,50 +65,55 @@ const createJumpLink = (children) => {
 
     if (!Array.isArray(children)) children = [children];
 
-    const flatArray = children.flat();
+    console.log(children);
+    console.log({ children });
+    const combined = unWrapReact(children);
+    console.log(combined);
 
     function unWrapReact(child) {
         if (typeof child === 'Symbol(react.element)') {
             const flatChildArray = child.props.children.flat();
-            if (flatChildArray.length <= 1) {
-                return flatChildArray[0];
-            } else {
-                
-            }
+            unWrapReact(flatChildArray);
         } else {
-            //call combineEntries again
-            if (typeof array[0] === 'string')
-                return array[0] + unWrapReact(array.slice(1));
+            if (child.length <= 1) {
+                if (typeof child[0] === 'Symbol(react.element)')
+                    unWrapReact(child[0]);
+                else return child[0];
+            } else {
+                //call combineEntries again
+                if (typeof child[0] === 'string')
+                    return child[0] + unWrapReact(child.slice(1));
 
-            return unWrapReact(array.slice(1));
+                return unWrapReact(array.slice(1));
+            }
         }
     }
 
     // const flatArray = Array.isArray(children) ? children.flat() : children;
 
-    console.log(children);
-    console.log(flatArray);
+    // console.log(children);
+    // console.log(flatArray);
 
-    const string = combineEntries(children);
-    console.log(string);
+    // const string = combineEntries(children);
+    // console.log(string);
 
-    function combineEntries(array) {
-        if (array.length <= 1) {
-            return array[0];
-        } else {
-            //call combineEntries again
-            if (typeof array[0] === 'string')
-                return array[0] + combineEntries(array.slice(1));
+    // function combineEntries(array) {
+    //     if (array.length <= 1) {
+    //         return array[0];
+    //     } else {
+    //         //call combineEntries again
+    //         if (typeof array[0] === 'string')
+    //             return array[0] + combineEntries(array.slice(1));
 
-            return combineEntries(array.slice(1));
-        }
-    }
+    //         return combineEntries(array.slice(1));
+    //     }
+    // }
 
-    if (typeof string != 'string')
-        return <a href={`#${Math.random().toString()}`}>{children}</a>;
+    // if (typeof string != 'string')
+    //     return <a href={`#${Math.random().toString()}`}>{children}</a>;
     return (
         <a
-            href={`#${slugify(string, { lower: true })}`}
+            href={`#${slugify(combined, { lower: true })}`}
             className="
           relative
           before:md:content-['#']
