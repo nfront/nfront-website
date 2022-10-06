@@ -33,7 +33,6 @@ const Academy = ({ location, user }) => {
                     # id
                     slug
                     title
-                    price
                     author
                     coverImage {
                         gatsbyImageData(layout: CONSTRAINED)

@@ -18,7 +18,7 @@ exports.createPages = ({ graphql, actions }) => {
                 console.log('Error retrieving contentful data', result.errors);
             }
             const newsTemplate = path.resolve('./src/templates/news.js');
-            result.data.allContentfulPost.edges.forEach((edge) => {
+            result.data.allContentfulNewsPosts.edges.forEach((edge) => {
                 createPage({
                     path: `/news/${edge.node.slug}/`,
                     component: newsTemplate,

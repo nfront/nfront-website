@@ -58,13 +58,57 @@ function paragraphClass(node) {
 }
 
 const createJumpLink = (children) => {
-    const string = Array.isArray(children[0])
-        ? children[0].filter((value) => typeof value === 'string').join(' ')
-        : children[0];
+    // console.log(children);
+    // const string = Array.isArray(children[0])
+    //     ? children[0].filter((value) => typeof value === 'string').join(' ')
+    //     : children[0];
 
+    if (!Array.isArray(children)) children = [children];
+
+    const flatArray = children.flat();
+
+    function unWrapReact(child) {
+        if (typeof child === 'Symbol(react.element)') {
+            const flatChildArray = child.props.children.flat();
+            if (flatChildArray.length <= 1) {
+                return flatChildArray[0];
+            } else {
+                
+            }
+        } else {
+            //call combineEntries again
+            if (typeof array[0] === 'string')
+                return array[0] + unWrapReact(array.slice(1));
+
+            return unWrapReact(array.slice(1));
+        }
+    }
+
+    // const flatArray = Array.isArray(children) ? children.flat() : children;
+
+    console.log(children);
+    console.log(flatArray);
+
+    const string = combineEntries(children);
+    console.log(string);
+
+    function combineEntries(array) {
+        if (array.length <= 1) {
+            return array[0];
+        } else {
+            //call combineEntries again
+            if (typeof array[0] === 'string')
+                return array[0] + combineEntries(array.slice(1));
+
+            return combineEntries(array.slice(1));
+        }
+    }
+
+    if (typeof string != 'string')
+        return <a href={`#${Math.random().toString()}`}>{children}</a>;
     return (
         <a
-            href={`#${slugify(string, {lower: true})}`}
+            href={`#${slugify(string, { lower: true })}`}
             className="
           relative
           before:md:content-['#']
@@ -196,11 +240,15 @@ const renderOptions = (body) => {
                     </h2>
                 );
             },
-            [BLOCKS.HEADING_3]: (node, children) => (
-                <h3 className="text-2xl sm:text-3xl text-left font-black text-gray-700 leading-tight mb-2">
-                    {createJumpLink(children)}
-                </h3>
-            ),
+            [BLOCKS.HEADING_3]: (node, children) => {
+                // console.log('HEADING 3:');
+                // console.log(children);
+                return (
+                    <h3 className="text-2xl sm:text-3xl text-left font-black text-gray-700 leading-tight mb-2">
+                        {createJumpLink(children)}
+                    </h3>
+                );
+            },
             [BLOCKS.HEADING_4]: (node, children) => {
                 return (
                     <h4 className="text-xl sm:text-2xl text-left font-black text-gray-700 leading-tight mb-2">
@@ -318,8 +366,7 @@ const renderOptions = (body) => {
 };
 
 const classes = ({ data }) => {
-    const { title, coverImage, body, course } =
-        data.contentfulClasses;
+    const { title, coverImage, body, course } = data.contentfulClasses;
 
     // console.log('body:');
     // console.log(body);
@@ -387,19 +434,6 @@ export const query = graphql`
                             url
                         }
                         gatsbyImageData(layout: FIXED, width: 1000)
-                    }
-                    ... on ContentfulCourses {
-                        contentful_id
-                        title
-                        slug
-                        sys {
-                            contentType {
-                                sys {
-                                    id
-                                    type
-                                }
-                            }
-                        }
                     }
                     ... on ContentfulClasses {
                         contentful_id
