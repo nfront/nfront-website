@@ -15,6 +15,8 @@ import CourseCard from '../components/common/courseSummaryCard';
 import RelatedCourse from '../components/common/relatedCourse';
 
 const StyledContainer = styled(Container)`
+    display: flex;
+    justify-content: center;
     img {
         position: relative;
         left: 50%;
@@ -32,10 +34,8 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const CourseSection = styled.div`
+const CourseDetail = styled.div`
     width: 100%;
-    display: flex;
-    justify-content: center;
 `;
 
 const CourseTagline = styled(OverlayText)`
@@ -105,6 +105,7 @@ const TabButton = styled.button`
 
 const Courses = ({ data }) => {
     const result = data.allContentfulCourses.nodes;
+    console.log('🚀 ~ result', result);
     const types = [
         {
             icon: <DescriptionIcon />,
@@ -114,8 +115,20 @@ const Courses = ({ data }) => {
                     courseDesc.courseDescription?.childMarkdownRemark?.html
             ),
         },
-        { icon: <BookIcon />, title: 'Classes' },
-        { icon: <StarRateIcon />, title: 'Files' },
+        {
+            icon: <BookIcon />,
+            title: 'Classes',
+            classes: result.map((courseClasses) =>
+                courseClasses?.classes?.map((classes) => classes?.title)
+            ),
+        },
+        {
+            icon: <StarRateIcon />,
+            title: 'Files',
+            files: result.map((courseFiles) =>
+                courseFiles?.files?.map((file) => file?.title)
+            ),
+        },
     ];
     const [active, setActive] = useState(0);
 
@@ -125,10 +138,10 @@ const Courses = ({ data }) => {
             <Navbar fluid />
             <Hero fileName="LA.jpg" />
             <Section>
-                <StyledContainer>
-                    {result.map((course, key) => {
-                        return (
-                            <>
+                {result.map((course) => {
+                    return (
+                        <StyledContainer>
+                            <CourseDetail>
                                 <div>
                                     <p className="category">{course?.title}</p>
                                 </div>
@@ -163,14 +176,18 @@ const Courses = ({ data }) => {
                                     </TabButtons>
                                 </TabsContainer>
                                 {types[active]?.description}
-                            </>
-                        );
-                    })}
-                    <div style={{ maxWidth: '345px' }}>
-                        {/* <CourseCard props={data.allContentfulCourses} />
-                        <RelatedCourse props={data.allContentfulCourses} /> */}
-                    </div>
-                </StyledContainer>
+                                {types[active]?.classes}
+                                {types[active]?.files}
+                            </CourseDetail>
+                            <div style={{ maxWidth: '345px' }}>
+                                <CourseCard props={data.allContentfulCourses} />
+                                <RelatedCourse
+                                    props={data.allContentfulCourses}
+                                />
+                            </div>
+                        </StyledContainer>
+                    );
+                })}
             </Section>
             <Footer />
         </Layout>
@@ -195,6 +212,9 @@ export const query = graphql`
                 }
                 introductionVideo {
                     url
+                }
+                files {
+                    title
                 }
             }
         }
