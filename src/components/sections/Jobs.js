@@ -12,7 +12,6 @@ const StyledSection = styled.div`
 `;
 
 export default function Jobs({ categories, cities, jobs, getPositionCount }) {
-    console.log('🚀 ~ jobs', jobs);
     return (
         <StyledSection>
             <JobCategories

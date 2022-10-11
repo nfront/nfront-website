@@ -54,6 +54,7 @@ const StyledGrid = styled(Grid)`
     .grid-item:hover {
         box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
         transform: translateY(-5px);
+        transition: 0.5s;
     }
 `;
 
@@ -109,6 +110,13 @@ const Art = styled.div`
 `;
 
 export default function Courses({ results, limit }) {
+    const uniqueArray = results.filter(
+        (v, key, courses) =>
+            courses.findIndex(
+                (course) => course?.course?.title === v?.course?.title
+            ) === key
+    );
+
     return (
         <Section>
             <Container>
@@ -125,7 +133,7 @@ export default function Courses({ results, limit }) {
             </Container>
             <Container>
                 <StyledGrid>
-                    {results.slice(0, limit).map((aClass) => {
+                    {uniqueArray.slice(0, limit).map((aClass) => {
                         const { title, icon, tagLine, slug } = aClass.course;
                         const image = getImage(icon);
                         return (

@@ -5,9 +5,10 @@ import Layout from '@common/layout';
 import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
+import Hero from '@common/hero';
 import Seo from '@utils/SEO';
 import slugify from '@utils/slugify';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
 // import { FlexBox } from '../components/sections/Team';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
@@ -320,15 +321,15 @@ const renderOptions = (body) => {
 };
 
 const classes = ({ data }) => {
+    console.log('🚀 ~ data', data);
     const { title, coverImage, body, course } = data.contentfulClasses;
-    console.log('🚀 ~ body', body);
     const pluginImage = getImage(coverImage);
 
     return (
         <Layout>
             <Seo title={title} />
             <Navbar fluid />
-            {coverImage != null && (
+            {pluginImage ? (
                 <div style={{ display: 'grid' }}>
                     <GatsbyImage
                         image={pluginImage}
@@ -339,11 +340,46 @@ const classes = ({ data }) => {
                     />
                     <Overlay />
                     <OverlayText className="text-light">
-                        {/* <p>{publishDate}</p> */}
+                        <h2 className="mb-0">{title}</h2>
+                    </OverlayText>
+                    {/* <GatsbyImage
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                        image={pluginImage}
+                    /> */}
+                </div>
+            ) : (
+                <div style={{ display: 'grid' }}>
+                    <Hero
+                        fileName="LA.jpg"
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                    />
+                    <Overlay />
+                    <OverlayText className="text-light">
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
                 </div>
             )}
+            {/* {coverImage != null && (
+                <div style={{ display: 'grid' }}>
+                    <GatsbyImage
+                        image={pluginImage}
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                    />
+                    <Overlay />
+                    <OverlayText className="text-light">
+                        <h2 className="mb-0">{title}</h2>
+                    </OverlayText>
+                </div>
+            )} */}
             <Section>
                 <StyledContainer>
                     <DetailedSection>

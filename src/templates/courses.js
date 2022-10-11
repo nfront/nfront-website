@@ -104,30 +104,56 @@ const TabButton = styled.button`
 `;
 
 const Courses = ({ data }) => {
-    const result = data.allContentfulCourses.nodes;
-    console.log('🚀 ~ result', result);
+    const {
+        title,
+        tagLine,
+        introductionVideo,
+        classes,
+        courseDescription,
+        files,
+    } = data.contentfulCourses;
+    console.log('🚀 ~ result', data.contentfulCourses);
+
+    // const types = [
+    //     {
+    //         icon: <DescriptionIcon />,
+    //         title: 'Description',
+    //         description: result.map(
+    //             (courseDesc) =>
+    //                 courseDesc.courseDescription?.childMarkdownRemark?.html
+    //         ),
+    //     },
+    //     {
+    //         icon: <BookIcon />,
+    //         title: 'Classes',
+    //         classes: result.map((courseClasses) =>
+    //             courseClasses?.classes?.map((classes) => classes?.title)
+    //         ),
+    //     },
+    //     {
+    //         icon: <StarRateIcon />,
+    //         title: 'Files',
+    //         files: result.map((courseFiles) =>
+    //             courseFiles?.files?.map((file) => file?.title)
+    //         ),
+    //     },
+    // ];
+
     const types = [
         {
             icon: <DescriptionIcon />,
             title: 'Description',
-            description: result.map(
-                (courseDesc) =>
-                    courseDesc.courseDescription?.childMarkdownRemark?.html
-            ),
+            description: courseDescription?.childMarkdownRemark?.html,
         },
         {
             icon: <BookIcon />,
             title: 'Classes',
-            classes: result.map((courseClasses) =>
-                courseClasses?.classes?.map((classes) => classes?.title)
-            ),
+            classes: classes?.map((classes) => classes?.title),
         },
         {
             icon: <StarRateIcon />,
             title: 'Files',
-            files: result.map((courseFiles) =>
-                courseFiles?.files?.map((file) => file?.title)
-            ),
+            files: files?.map((file) => file?.title),
         },
     ];
     const [active, setActive] = useState(0);
@@ -138,56 +164,60 @@ const Courses = ({ data }) => {
             <Navbar fluid />
             <Hero fileName="LA.jpg" />
             <Section>
-                {result.map((course) => {
-                    return (
-                        <StyledContainer>
-                            <CourseDetail>
-                                <div>
-                                    <p className="category">{course?.title}</p>
-                                </div>
-                                <CourseTagline>
-                                    <h2 className="mb-0">{course?.tagLine}</h2>
-                                </CourseTagline>
-                                <IframeContainer>
-                                    <iframe
-                                        title="nFront Ventures Video Player"
-                                        src={course?.introductionVideo?.url}
-                                        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                                        frameBorder="0"
-                                        allowFullScreen
-                                    ></iframe>
-                                </IframeContainer>
-                                <TabsContainer>
-                                    <TabButtons>
-                                        {types.map((list, index) => {
-                                            return (
-                                                <TabButton
-                                                    key={index}
-                                                    active={active === index}
-                                                    onClick={() =>
-                                                        setActive(index)
-                                                    }
-                                                >
-                                                    {list?.icon}
-                                                    {list?.title}
-                                                </TabButton>
-                                            );
-                                        })}
-                                    </TabButtons>
-                                </TabsContainer>
-                                {types[active]?.description}
-                                {types[active]?.classes}
-                                {types[active]?.files}
-                            </CourseDetail>
-                            <div style={{ maxWidth: '345px' }}>
-                                <CourseCard props={data.allContentfulCourses} />
-                                <RelatedCourse
-                                    props={data.allContentfulCourses}
-                                />
-                            </div>
-                        </StyledContainer>
-                    );
-                })}
+                <StyledContainer>
+                    <CourseDetail>
+                        <div>
+                            <p className="category">{title}</p>
+                        </div>
+                        <CourseTagline>
+                            <h2 className="mb-0">{tagLine}</h2>
+                        </CourseTagline>
+                        <IframeContainer>
+                            <iframe
+                                title="nFront Ventures Video Player"
+                                src={introductionVideo?.url}
+                                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                                frameBorder="0"
+                                allowFullScreen
+                            ></iframe>
+                        </IframeContainer>
+                        <TabsContainer>
+                            <TabButtons>
+                                {types.map((list, index) => {
+                                    return (
+                                        <TabButton
+                                            key={index}
+                                            active={active === index}
+                                            onClick={() => setActive(index)}
+                                        >
+                                            {list?.icon}
+                                            {list?.title}
+                                        </TabButton>
+                                    );
+                                })}
+                            </TabButtons>
+                        </TabsContainer>
+                        {types[active]?.description}
+                        {types[active]?.classes?.map((classes) => {
+                            return (
+                                <ul>
+                                    <li>{classes}</li>
+                                </ul>
+                            );
+                        })}
+                        {types[active]?.files?.map((files) => {
+                            return (
+                                <ul>
+                                    <li>{files}</li>
+                                </ul>
+                            );
+                        })}
+                    </CourseDetail>
+                    <div style={{ width: '450px' }}>
+                        <CourseCard props={data.contentfulCourses} />
+                        <RelatedCourse props={data.contentfulCourses} />
+                    </div>
+                </StyledContainer>
             </Section>
             <Footer />
         </Layout>
@@ -197,25 +227,27 @@ const Courses = ({ data }) => {
 export default Courses;
 
 export const query = graphql`
-    query {
-        allContentfulCourses {
-            nodes {
+    query ($slug: String!) {
+        contentfulCourses(slug: { eq: $slug }) {
+            title
+            tagLine
+            slug
+            courseDescription {
+                childMarkdownRemark {
+                    html
+                }
+            }
+            classes {
                 title
-                tagLine
-                courseDescription {
-                    childMarkdownRemark {
-                        html
-                    }
-                }
-                classes {
-                    title
-                }
-                introductionVideo {
-                    url
-                }
-                files {
-                    title
-                }
+            }
+            introductionVideo {
+                url
+            }
+            files {
+                title
+            }
+            icon {
+                url
             }
         }
     }
