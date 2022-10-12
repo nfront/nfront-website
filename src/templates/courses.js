@@ -103,6 +103,24 @@ const TabButton = styled.button`
     `}
 `;
 
+const ClassContainer = styled.div`
+    background: #edeef3;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 700;
+    border-radius: 8px;
+    .title {
+        margin: 0;
+    }
+    .button {
+        border-radius: 5px;
+        padding: 3px 25px;
+        margin-top: 10px;
+        font-weight: 700;
+        margin-left: 25px;
+    }
+`;
+
 const Courses = ({ data }) => {
     const {
         title,
@@ -112,7 +130,6 @@ const Courses = ({ data }) => {
         courseDescription,
         files,
     } = data.contentfulCourses;
-    console.log('🚀 ~ result', data.contentfulCourses);
 
     // const types = [
     //     {
@@ -202,11 +219,14 @@ const Courses = ({ data }) => {
                             </TabButtons>
                         </TabsContainer>
                         {types[active]?.description}
-                        {types[active]?.classes?.map((classes) => {
+                        {types[active]?.classes?.map((classes, key) => {
                             return (
-                                <ul>
-                                    <li>{classes}</li>
-                                </ul>
+                                <ClassContainer>
+                                    <h3 className="title">{`${
+                                        key + 1
+                                    }. ${classes}`}</h3>
+                                    <button className="button">Start</button>
+                                </ClassContainer>
                             );
                         })}
                         {types[active]?.files?.map((files) => {
