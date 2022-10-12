@@ -33,9 +33,7 @@ const StyledContainer = styled(Container)`
 `;
 
 export default function CourseCard({ props }) {
-    const image = getImage(props?.icon?.url);
     const cardImage = require('../../images/nfront/no-image-found.jpg');
-    console.log('🚀 ~ image', image);
 
     return (
         <StyledContainer>
@@ -51,12 +49,13 @@ export default function CourseCard({ props }) {
                             Course Summary
                         </Typography>
                     </CardContent>
-                    {image ? (
+                    {props?.icon?.url ? (
                         <CardMedia
                             component="img"
                             height="140"
                             image={props?.icon?.url}
                             alt="green iguana"
+                            style={{ objectFit: 'fill' }}
                         />
                     ) : (
                         <CardMedia
