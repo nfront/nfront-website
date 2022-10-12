@@ -162,7 +162,11 @@ const Courses = ({ data }) => {
         <Layout>
             <Seo title={'title'} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg" />
+            <Hero fileName="LA.jpg">
+                <OverlayText className="text-light">
+                    <h2 className="mb-0">{title}</h2>
+                </OverlayText>
+            </Hero>
             <Section>
                 <StyledContainer>
                     <CourseDetail>
