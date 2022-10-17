@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
 import { Section, Container } from '@styles/global';
@@ -11,6 +11,10 @@ import { OverlayText } from '../styles/global';
 import DescriptionIcon from '@mui/icons-material/Description';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import BookIcon from '@mui/icons-material/Book';
+import FeedIcon from '@mui/icons-material/Feed';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 import CourseCard from '../components/common/courseSummaryCard';
 import RelatedCourse from '../components/common/relatedCourse';
 
@@ -81,17 +85,17 @@ const TabButton = styled.button`
     width: 100%;
     height: 45px;
     border: 1px solid #edeef3;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 
     &:hover {
         transition: 0.5s;
         background: #2b4eff;
-        border: 1px solid #2b4eff;
         color: white;
     }
 
@@ -121,6 +125,47 @@ const ClassContainer = styled.div`
     }
 `;
 
+const FilesContainer = styled.div`
+    width: 100%;
+`;
+
+const FilesDistribution = styled.div`
+    border: 1px solid #edeef3;
+    padding: 10px;
+    font-size: 700;
+    .reading {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .file-title {
+        width: 50%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 25px;
+        gap: 10px;
+    }
+    .file-details {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        margin-right: 25px;
+        gap: 10px;
+        font-size: 17px;
+        .files {
+            background: #f2277e;
+            color: white;
+            padding: 0 11px;
+            border-radius: 8px;
+        }
+    }
+`;
+
 const Courses = ({ data }) => {
     const {
         title,
@@ -129,55 +174,31 @@ const Courses = ({ data }) => {
         classes,
         courseDescription,
         files,
+        relatedCourses,
     } = data.contentfulCourses;
-
-    // const types = [
-    //     {
-    //         icon: <DescriptionIcon />,
-    //         title: 'Description',
-    //         description: result.map(
-    //             (courseDesc) =>
-    //                 courseDesc.courseDescription?.childMarkdownRemark?.html
-    //         ),
-    //     },
-    //     {
-    //         icon: <BookIcon />,
-    //         title: 'Classes',
-    //         classes: result.map((courseClasses) =>
-    //             courseClasses?.classes?.map((classes) => classes?.title)
-    //         ),
-    //     },
-    //     {
-    //         icon: <StarRateIcon />,
-    //         title: 'Files',
-    //         files: result.map((courseFiles) =>
-    //             courseFiles?.files?.map((file) => file?.title)
-    //         ),
-    //     },
-    // ];
 
     const types = [
         {
             icon: <DescriptionIcon />,
             title: 'Description',
-            description: courseDescription?.childMarkdownRemark?.html,
+            description: courseDescription,
         },
         {
             icon: <BookIcon />,
             title: 'Classes',
-            classes: classes?.map((classes) => classes?.title),
+            classes: classes,
         },
         {
             icon: <StarRateIcon />,
             title: 'Files',
-            files: files?.map((file) => file?.title),
+            files: files,
         },
     ];
     const [active, setActive] = useState(0);
 
     return (
         <Layout>
-            <Seo title={'title'} />
+            <Seo title={title} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
                 <OverlayText className="text-light">
@@ -218,28 +239,94 @@ const Courses = ({ data }) => {
                                 })}
                             </TabButtons>
                         </TabsContainer>
-                        {types[active]?.description}
+                        {types[active]?.description?.childMarkdownRemark?.html}
                         {types[active]?.classes?.map((classes, key) => {
                             return (
                                 <ClassContainer>
-                                    <h3 className="title">{`${
-                                        key + 1
-                                    }. ${classes}`}</h3>
-                                    <button className="button">Start</button>
+                                    <h3 className="title">{`${key + 1}. ${
+                                        classes?.title
+                                    }`}</h3>
+                                    <Link
+                                        className="know-details"
+                                        to={`/academy/${classes.slug}`}
+                                    >
+                                        <button className="button">
+                                            Start
+                                        </button>
+                                    </Link>
                                 </ClassContainer>
                             );
                         })}
-                        {types[active]?.files?.map((files) => {
+                        {types[active]?.files?.map((files, key) => {
                             return (
-                                <ul>
-                                    <li>{files}</li>
-                                </ul>
+                                <FilesContainer>
+                                    <FilesDistribution>
+                                        <div className="reading">
+                                            <div className="file-title">
+                                                <FeedIcon />
+                                                Reading: {files?.title}
+                                            </div>
+                                            <div className="file-details">
+                                                <WatchLaterIcon />
+                                                14 minutes
+                                                <button className="files">
+                                                    2 questions
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </FilesDistribution>
+                                    <FilesDistribution>
+                                        <div className="reading">
+                                            <div className="file-title">
+                                                <VideocamIcon />
+                                                Video: {files?.title}
+                                            </div>
+                                            <div className="file-details">
+                                                <WatchLaterIcon />
+                                                14 minutes
+                                                <button className="files">
+                                                    2 questions
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </FilesDistribution>
+                                    <FilesDistribution>
+                                        <div className="reading">
+                                            <div className="file-title">
+                                                <HeadphonesIcon />
+                                                Audio: {files?.title}
+                                            </div>
+                                            <div className="file-details">
+                                                <WatchLaterIcon />
+                                                14 minutes
+                                                <button className="files">
+                                                    2 questions
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </FilesDistribution>
+                                    <FilesDistribution>
+                                        <div className="reading">
+                                            <div className="file-title">
+                                                <FeedIcon />
+                                                Reading: {files?.title}
+                                            </div>
+                                            <div className="file-details">
+                                                <WatchLaterIcon />
+                                                14 minutes
+                                                <button className="files">
+                                                    2 questions
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </FilesDistribution>
+                                </FilesContainer>
                             );
                         })}
                     </CourseDetail>
                     <div style={{ width: '450px' }}>
                         <CourseCard props={data.contentfulCourses} />
-                        <RelatedCourse props={data.contentfulCourses} />
+                        <RelatedCourse props={relatedCourses} />
                     </div>
                 </StyledContainer>
             </Section>
@@ -263,6 +350,7 @@ export const query = graphql`
             }
             classes {
                 title
+                slug
             }
             introductionVideo {
                 url
@@ -272,6 +360,13 @@ export const query = graphql`
             }
             icon {
                 url
+            }
+            relatedCourses {
+                ... on ContentfulCourses {
+                    id
+                    title
+                    slug
+                }
             }
         }
     }

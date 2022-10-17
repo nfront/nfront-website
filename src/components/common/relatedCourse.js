@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container } from '../../styles/global';
-import { getImage } from 'gatsby-plugin-image';
 import {
     Button,
     Card,
     CardActionArea,
     CardContent,
-    CardMedia,
-    Divider,
     Typography,
 } from '@mui/material';
+import { Link } from 'gatsby';
 
 const StyledContainer = styled(Container)`
     img {
@@ -46,99 +44,48 @@ export default function RelatedCourse({ props }) {
                         </Typography>
                     </CardContent>
                     <CardContent>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '15px 0',
-                            }}
-                        >
-                            <div>
-                                <Typography
-                                    variant="subtitle2"
-                                    color="text.secondary"
-                                >
-                                    Term Sheet
-                                </Typography>
-                            </div>
-                            <div>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    style={{
-                                        width: '95px',
-                                        height: '30px',
-                                        background: '#0770f3',
-                                        color: 'white',
-                                    }}
-                                >
-                                    Start
-                                </Button>
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '15px 0',
-                            }}
-                        >
-                            <div>
-                                <Typography
-                                    variant="subtitle2"
-                                    color="text.secondary"
-                                >
-                                    Valuation
-                                </Typography>
-                            </div>
-                            <div>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    style={{
-                                        width: '95px',
-                                        height: '30px',
-                                        background: '#0770f3',
-                                        color: 'white',
-                                    }}
-                                >
-                                    Start
-                                </Button>
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '15px 0',
-                            }}
-                        >
-                            <div>
-                                <Typography
-                                    variant="subtitle2"
-                                    color="text.secondary"
-                                >
-                                    Metrics
-                                </Typography>
-                            </div>
-                            <div>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    style={{
-                                        width: '95px',
-                                        height: '30px',
-                                        background: '#0770f3',
-                                        color: 'white',
-                                    }}
-                                >
-                                    Start
-                                </Button>
-                            </div>
-                        </div>
+                        {props &&
+                            props?.map((relCourse, key) => {
+                                return (
+                                    <div
+                                        key={key}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            padding: '15px 0',
+                                        }}
+                                    >
+                                        <div>
+                                            <Typography
+                                                variant="subtitle2"
+                                                color="text.secondary"
+                                            >
+                                                {relCourse?.title}
+                                            </Typography>
+                                        </div>
+                                        <div>
+                                            <Link
+                                                className="know-details"
+                                                to={`/academy/${relCourse?.slug}`}
+                                            >
+                                                <Button
+                                                    variant="outlined"
+                                                    size="small"
+                                                    style={{
+                                                        width: '95px',
+                                                        height: '30px',
+                                                        background: '#0770f3',
+                                                        color: 'white',
+                                                    }}
+                                                >
+                                                    Start
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                     </CardContent>
                 </CardActionArea>
             </Card>

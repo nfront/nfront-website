@@ -406,6 +406,7 @@ export const query = graphql`
         contentfulClasses(slug: { eq: $slug }) {
             title
             slug
+            subTitle
             course {
                 title
             }
