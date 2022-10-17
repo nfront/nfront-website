@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'gatsby';
+import React, { forwardRef } from 'react';
+import Link from '@common/link';
 import styled from 'styled-components';
 import { Section, Container, Box } from '@styles/global';
 import SweetSpot from '@sections/SweetSpot';
-import Fade from 'react-reveal/Fade';
+import Fade from '@common/fade';
 
 const StyledSection = styled(Section)``;
 
@@ -17,10 +17,10 @@ const StyledGrid = styled(Container)`
     }
 `;
 
-const About = () => {
+const About = forwardRef((props, ref) => {
     return (
         <>
-            <StyledSection accent="alt2" id="about">
+            <StyledSection ref={ref} accent="alt2" id="about">
                 <StyledGrid>
                     <Fade top>
                         <h2>Support and Capital</h2>
@@ -43,6 +43,6 @@ const About = () => {
             </StyledSection>
         </>
     );
-};
+});
 
 export default About;

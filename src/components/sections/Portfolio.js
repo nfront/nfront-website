@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Carousel from 're-carousel';
-import Buttons from '@utils/carousel/button';
-import IndicatorDots from '@utils/carousel/indicator-dots';
+// import Carousel from 're-carousel';
+// import IndicatorDots from '@utils/carousel/indicator-dots';
+// import Buttons from '@utils/carousel/button';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 // import ReadMore from '../../utils/readmore/ReadMore';
 
 /** use if you need to style your section differently, otherwise leave it empty */
@@ -22,17 +24,17 @@ const StyledContainer = styled(Container)`
     padding: 0 2.5rem;
     /* height: 400px; */
 
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         height: 500px;
     }
-    /* @media (min-width: ${props => props.theme.screen.md}) {
+    /* @media (min-width: ${(props) => props.theme.screen.md}) {
         height: 500px;
     } */
 
     h2 {
         font-size: 1.5rem;
         margin-bottom: 5px;
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             font-size: 2rem;
         }
     }
@@ -49,24 +51,24 @@ const Slide = styled.div`
 `;
 
 const Art = styled.div`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
     text-align: center;
     img {
         max-height: 300px;
         margin-bottom: 0.5rem !important;
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             max-height: 500px;
         }
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             margin-bottom: 0 !important;
         }
     }
 `;
 
 const Text = styled.div`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
 
@@ -78,7 +80,7 @@ const Text = styled.div`
     }
 
     p:last-child {
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             margin-bottom: 0;
         }
     }
@@ -86,14 +88,14 @@ const Text = styled.div`
     p,
     h2 {
         text-align: center;
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             text-align: left;
         }
     }
 
     .label {
         text-align: center;
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             text-align: left;
         }
         font-size: 12px;
@@ -107,7 +109,7 @@ const Divider = styled.hr`
 `;
 
 const FundList = styled.div`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         /* margin-top: -1.666rem; */
     }
     margin-bottom: 1.666rem;
@@ -117,7 +119,7 @@ const FundList = styled.div`
     ul {
         list-style-position: inside;
         list-style-type: none;
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             list-style-type: inherit;
         }
         padding: 0;
@@ -129,9 +131,23 @@ const FundList = styled.div`
     }
 `;
 
-const Portfolio = () => {
+const Portfolio = (props) => {
     const windowWidth = useWindowSize().width;
     const isMobile = windowWidth <= 575;
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: isMobile ? 1 : 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        centerMode: true,
+        centerPadding: '10px',
+        className: 'center',
+    };
+
     const data = useStaticQuery(graphql`
         query {
             allContentfulPortfolioCompanies {
@@ -164,13 +180,8 @@ const Portfolio = () => {
                 <>
                     {!isMobile ? (
                         <StyledContainer>
-                            <Carousel
-                                auto
-                                loop
-                                interval={7000}
-                                widgets={[Buttons, IndicatorDots]}
-                            >
-                                {result.map(val => {
+                            <Slider {...settings}>
+                                {result.map((val) => {
                                     const {
                                         brand,
                                         location,
@@ -178,7 +189,7 @@ const Portfolio = () => {
                                         cInvestors,
                                     } = val;
                                     const { description } = val.description;
-                                    const image = getImage(logo)
+                                    const image = getImage(logo);
                                     return (
                                         <Slide>
                                             <Art>
@@ -212,17 +223,13 @@ const Portfolio = () => {
                                         </Slide>
                                     );
                                 })}
-                            </Carousel>
+                            </Slider>
                         </StyledContainer>
                     ) : (
                         <StyledContainer>
-                            {result.map(val => {
-                                const {
-                                    brand,
-                                    location,
-                                    logo,
-                                    cInvestors,
-                                } = val;
+                            {result.map((val) => {
+                                const { brand, location, logo, cInvestors } =
+                                    val;
                                 const { description } = val.description;
                                 return (
                                     <>
@@ -261,7 +268,7 @@ const Portfolio = () => {
             ) : (
                 <Container>
                     <StyledGrid>
-                        {result.map(val => {
+                        {result.map((val) => {
                             const { brand, link, icon } = val;
                             const { description } = val.description;
                             return (

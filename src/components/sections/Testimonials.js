@@ -1,10 +1,12 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Carousel from 're-carousel';
-import IndicatorDots from '@utils/carousel/indicator-dots';
+// import Carousel from 're-carousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import IndicatorDots from '@utils/carousel/indicator-dots';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { Section, Container, SectionTitle } from '@styles/global';
+import useWindowSize from '@utils/hooks/useWindowSize';
 
 const REVIEW = [
     {
@@ -58,6 +60,8 @@ const Art = styled.div`
     }
 `;
 
+// const swiper = new Swiper('.swiper', {...swiperSettings});
+
 const Testimonials = () => {
     const data = useStaticQuery(
         graphql`
@@ -69,10 +73,7 @@ const Testimonials = () => {
                         node {
                             relativePath
                             childImageSharp {
-                                gatsbyImageData(
-                                    layout: FIXED
-                                    width: 96
-                                )
+                                gatsbyImageData(layout: FIXED, width: 96)
                             }
                         }
                     }
@@ -80,13 +81,29 @@ const Testimonials = () => {
             }
         `
     );
+
+    const windowWidth = useWindowSize().width;
+    const isMobile = windowWidth <= 1199;
+
+    const swiperSettings = {
+        navigation: true,
+        pagination: true,
+        rewind: true,
+        autoplay: { delay: 4000 },
+        speed: 500,
+        slidesPerView: isMobile ? 1 : 3,
+        centeredSlides: true,
+        spaceBetween: '10px',
+        grabCursor: true,
+    };
+
     return (
         <StyledSection>
             <SectionTitle>
                 <h2>Testimonials</h2>
             </SectionTitle>
             <StyledContainer>
-                <Carousel auto interval={8000} loop widgets={[IndicatorDots]}>
+                <Swiper {...swiperSettings}>
                     {REVIEW.map(({ name, image, line1, line2 }) => {
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
@@ -95,7 +112,10 @@ const Testimonials = () => {
                         return (
                             <Slide>
                                 <Art>
-                                    <GatsbyImage image={pluginImage} alt={name} />
+                                    <GatsbyImage
+                                        image={pluginImage}
+                                        alt={name}
+                                    />
                                 </Art>
                                 <p>
                                     {line1}
@@ -106,7 +126,7 @@ const Testimonials = () => {
                             </Slide>
                         );
                     })}
-                </Carousel>
+                </Swiper>
             </StyledContainer>
         </StyledSection>
     );

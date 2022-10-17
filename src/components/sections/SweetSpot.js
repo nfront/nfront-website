@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container, Box } from '@styles/global';
-import Fade from 'react-reveal/Fade';
+import Fade from '@common/fade';
 
 import { ReactComponent as IconOne } from '@images/nfront/global.svg';
 import { ReactComponent as IconTwo } from '@images/nfront/graph.svg';

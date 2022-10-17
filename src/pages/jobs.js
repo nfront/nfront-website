@@ -10,7 +10,7 @@ import { Formik, Form, Field } from 'formik';
 import Footer from '@common/footer';
 import { push } from 'gatsby-link';
 import { useStaticQuery, graphql } from 'gatsby';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
+import Link from '@common/link';
 
 const JobSection = styled.div`
     /* .gatsby-image-wrapper {
@@ -310,13 +310,13 @@ const JobsPage = ({ location }) => {
                                                     );
                                                 })}
                                             </Field>
-                                            <AnchorLink
+                                            <Link
                                                 href="#contact"
                                                 onClick={handleSubmit}
                                                 className="button"
                                             >
                                                 Submit
-                                            </AnchorLink>
+                                            </Link>
                                         </FormFields>
                                     </Form>
                                 )}

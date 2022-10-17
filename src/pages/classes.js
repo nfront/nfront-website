@@ -8,7 +8,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { Container } from '@styles/global';
 import { Field, Form, Formik } from 'formik';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
+import Link from '@common/link';
 import { push } from 'gatsby-link';
 import Class from '../components/common/class';
 import { Grid } from '../styles/global';
@@ -204,13 +204,13 @@ const ClassesPage = ({ location }) => {
                                         autoComplete="off"
                                         value={values.title}
                                     />
-                                    <AnchorLink
+                                    <Link
                                         href="#contact"
                                         onClick={handleSubmit}
                                         className="button"
                                     >
                                         Submit
-                                    </AnchorLink>
+                                    </Link>
                                 </FormFields>
                             </Form>
                         )}

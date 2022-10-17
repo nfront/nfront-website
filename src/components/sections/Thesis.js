@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid, Box, SectionTitle } from '@styles/global';
-import { Link } from 'gatsby';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
+// import { Link } from 'gatsby';
+import Link from '@common/link';
 
 /** */
 import { ReactComponent as IconOne } from '@images/nfront/global.svg';
@@ -53,7 +53,9 @@ const Art = styled.div`
     padding: 0 0 1.6rem 0;
 `;
 
-const thesis = () => {
+const thesis = ({thesisRefs}) => {
+    const {coInvestorsRef} = thesisRefs;
+
     return (
         <>
             <Section>
@@ -67,9 +69,9 @@ const thesis = () => {
                         </p>
                         <p>
                             With one of Europe's largest{' '}
-                            <AnchorLink href="#co-investors">
+                            <Link anchorRef={coInvestorsRef} href="#co-investors">
                                 deal-sharing
-                            </AnchorLink>{' '}
+                            </Link>{' '}
                             networks and <Link to="/team-mentors/#mentors">mentors</Link> ranging
                             from top-tier VCs to technology influencers and
                             corporate decision makers, nFront strives to provide

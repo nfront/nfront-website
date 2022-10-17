@@ -93,12 +93,12 @@ module.exports = {
         `gatsby-transformer-remark`,
         `gatsby-transformer-sharp`,
         `gatsby-transformer-inline-svg`,
-        {
-            resolve: `gatsby-plugin-typography`,
-            options: {
-                pathToConfigModule: `src/utils/typography`,
-            },
-        },
+        // {
+        //     resolve: `gatsby-plugin-typography`,
+        //     options: {
+        //         pathToConfigModule: `src/utils/typography`,
+        //     },
+        // },
         {
             resolve: `gatsby-plugin-alias-imports`,
             options: {

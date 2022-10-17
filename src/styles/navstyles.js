@@ -5,7 +5,7 @@ export const NavContainer = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: ${props => props.theme.screen.md}) {
+    @media (max-width: ${(props) => props.theme.screen.md}) {
         padding: 0 1.5rem;
     }
 `;
@@ -21,28 +21,28 @@ export const Nav = styled.nav`
     z-index: 999;
     padding: 1rem 1.5rem;
 
-    /* font-size: 90%; */
-    font-size: 80%;
-    font-weight: 500;
-    
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         font-size: 90%;
     }
 
-    @media (max-width: ${props => props.theme.screen.md}) {
+    @media (max-width: ${(props) => props.theme.screen.md}) {
         position: absolute;
     }
 
-    @media (max-width: ${props => props.theme.screen.md}) {
+    @media (max-width: ${(props) => props.theme.screen.md}) {
         padding: 1rem 0;
     }
 
-    a {
+    a,
+    .menu-button {
+        font-size: 90%;
+        font-weight: 500;
+        font-family: inherit;
+
+        text-transform: uppercase;
+        letter-spacing: 1px;
         color: var(--accent-color);
-        &:hover{
+        &:hover {
             color: var(--accent-color);
         }
     }
@@ -52,7 +52,7 @@ export const Nav = styled.nav`
         background-color: var(--alt-color) !important;
         height: 100vh;
         overflow: hidden;
-        a {
+        a, .menu-button {
             color: var(--primary-color);
         }
         svg {
@@ -60,7 +60,7 @@ export const Nav = styled.nav`
         }
     }
 
-    ${props =>
+    ${(props) =>
         props.fluid /** stretch menu to 100% width  */ &&
         `
         max-width: 100%;
@@ -72,10 +72,10 @@ export const NavList = styled.div`
         list-style: none;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
         margin: 1rem 0;
 
-        ${props =>
+        ${(props) =>
             props.desktop &&
             `
             flex-direction: row;
@@ -94,7 +94,7 @@ export const NavItem = styled.li`
     margin-left: 1.5rem;
     padding-left: 0;
 
-    @media (max-width: ${props => props.theme.screen.md}) {
+    @media (max-width: ${(props) => props.theme.screen.md}) {
         margin-left: 0;
         padding: 0.75rem 1.5rem;
         border-bottom: 1px solid rgba(225, 225, 225, 0.4);
@@ -110,7 +110,7 @@ export const NavItem = styled.li`
         }
     }
 
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         &.underscore::after {
             content: '';
             position: absolute;
@@ -143,7 +143,7 @@ export const Mobile = styled.div`
     display: none;
     transition: all 0.25s ease;
 
-    @media (max-width: ${props => props.theme.screen.md}) {
+    @media (max-width: ${(props) => props.theme.screen.md}) {
         opacity: 1;
         display: block;
         visibility: visible;

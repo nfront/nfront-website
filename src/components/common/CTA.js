@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Section, Container } from '@styles/global';
 
@@ -9,7 +9,7 @@ const StyledContainer = styled(Container)`
     align-items: center;
     text-align: center;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         /* text-align: center; */
     }
 
@@ -20,10 +20,13 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-export default function CTA({ id, children }) {
+const CTA = forwardRef((props, ref) => {
+    const { id } = props;
     return (
-        <Section id={id} accent="alt">
-            <StyledContainer>{children}</StyledContainer>
+        <Section ref={ref} id={id} accent="alt">
+            <StyledContainer>{props.children}</StyledContainer>
         </Section>
     );
-}
+});
+
+export default CTA;

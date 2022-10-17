@@ -1,14 +1,12 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Fade from 'react-reveal/Fade';
+import Fade from '@common/fade';
 import { Container, Overlay } from '@styles/global';
 import styled from 'styled-components';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 /** keep it here in case we want to have a CTA box 
- * 
- * 
-import AnchorLink from 'react-anchor-link-smooth-scroll';
+ 
 
 import Contact from '@sections/Contact';
 

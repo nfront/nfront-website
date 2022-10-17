@@ -11,7 +11,7 @@ const academy = () => {
         return (
             <div
                 style={{
-                    height: "100vh",
+                    height: '100vh',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -25,6 +25,7 @@ const academy = () => {
     const user = getProfile();
 
     return (
+        // <Academy path="/academy/" user={user} />
         <Router>
             <Academy path="/academy/" user={user} />
         </Router>

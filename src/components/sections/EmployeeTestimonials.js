@@ -79,6 +79,7 @@ export default function EmployeeTestimonials() {
             border-radius: 50%;
         }
     `;
+    
     const windowWidth = useWindowSize().width;
     const isMobile = windowWidth <= 1199;
 

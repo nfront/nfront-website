@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'gatsby';
+import React, { useRef } from 'react';
+import Link from '@common/link';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Cta from '@common/CTA';
@@ -14,19 +14,25 @@ import Testimonials from '@sections/Testimonials';
 import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
 
-const App = () => {    
+const App = () => {   
+    const contactUsRef = useRef(null);
+    const aboutUsRef = useRef(null);
+    const navRef = useRef(null);
+    const frontPageRefs = { aboutUsRef: aboutUsRef, contactUsRef: contactUsRef };
+    // <Navbar frontPageRefs={frontPageRefs} ref={navRef} navRef={navRef} fluid />
+    
     return (
     <Layout>
         <Seo title={'Capital and Fundraising'} />
-        <Navbar fluid />
+        <Navbar ref={navRef} frontPageRefs={frontPageRefs} navRef={navRef} fluid />
         <Header fileName="SH.jpg" />
-        <About />
+        <About ref={aboutUsRef} />
         <Wave />
-        <Portfolio />
+        <Portfolio navRef={navRef} frontPageRefs={frontPageRefs}/>
         <News accent="alt2" limit="6"/>
         <Wave />
         <Testimonials />
-        <Cta id="contact">
+        <Cta ref={contactUsRef} id="contact">
             <h2>Contact</h2>
             <p>
                 Are you an early-to-growth stage company, with global ambitions,

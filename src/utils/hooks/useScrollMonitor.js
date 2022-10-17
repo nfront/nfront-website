@@ -10,9 +10,12 @@ export const useScrollMonitor = (ids, navRef) => {
     const [activeId, setActiveId] = useState('');
 
     useLayoutEffect(() => {
+        // console.log('IN SCROLLM: ', navRef);
         const listener = () => {
             const scroll = window.pageYOffset;
-            const {height: offset} = navRef.current.getBoundingClientRect();
+
+            // A HACK, NAVREF DOES NOT WORK
+            const {height: offset} = navRef?.current?.getBoundingClientRect() || {height: 0};
 
             const position = ids
                 .map((id) => {

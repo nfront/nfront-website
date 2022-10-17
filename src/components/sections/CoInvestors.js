@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Section, Container, Box, SectionTitle } from '@styles/global';
@@ -44,7 +44,7 @@ const REGIONS = [
     },
 ];
 
-const CoInvestors = () => {
+const CoInvestors = forwardRef((props, ref) => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -66,7 +66,7 @@ const CoInvestors = () => {
         `
     );
     return (
-        <Section accent="alt" id="co-investors">
+        <Section accent="alt" ref={ref} id="co-investors">
             <Container>
                 <SectionTitle>
                     <h2>Co-Investment Network</h2>
@@ -106,6 +106,6 @@ const CoInvestors = () => {
             </Container>
         </Section>
     );
-};
+});
 
 export default CoInvestors;

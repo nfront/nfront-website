@@ -84,7 +84,7 @@ const createJumpLink = (children) => {
                 if (typeof child[0] === 'string')
                     return child[0] + unWrapReact(child.slice(1));
 
-                return unWrapReact(array.slice(1));
+                return unWrapReact(child.slice(1));
             }
         }
     }

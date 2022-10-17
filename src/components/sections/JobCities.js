@@ -8,7 +8,7 @@ import {
     Overlay,
     OverlayText,
 } from '@styles/global';
-import Fade from 'react-reveal/Fade';
+import Fade from '@common/fade';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const StyledGrid = styled(Grid)`

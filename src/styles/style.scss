@@ -1,6 +1,7 @@
 @charset 'utf-8';
 @import 'scss/mixins';
 @import 'scss/variables';
+@import 'scss/swipeVariables';
 @import 'scss/form';
 @import 'scss/table';
 @import 'scss/button';
@@ -18,10 +19,33 @@
 html * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    // font-size: 18px;
+    // line-height: 1.666;
+}
+
+html {
+    font: 112.5%/1.666 'Roboto', 'Helvetica Neue';
+    box-sizing: border-box;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    overflow: hidden;
+    // overflow: hidden;
+    color: hsla(0, 0%, 0%, 0.8);
+    font-family: 'Roboto', 'Helvetica Neue';
+    font-weight: normal;
+    word-wrap: break-word;
+    font-kerning: normal;
+    font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+}
+
+*:before {
+    box-sizing: inherit;
+}
+
+*:after {
+    box-sizing: inherit;
 }
 
 button {
@@ -50,18 +74,86 @@ h6,
 th {
     color: var(--heading-color);
     font-weight: 600;
+    font-family: 'Avenir Next', 'Helvetica Neue', 'Segoe UI', 'Helvetica',
+        'Arial', 'sans-serif';
+}
+
+h1 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.666rem;
+    color: inherit;
+    font-family: 'Avenir Next','Helvetica Neue','Segoe UI','Helvetica','Arial',sans-serif;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    font-size: 2rem;
+    line-height: 1.1;
 }
 
 h2 {
     font-size: 2rem;
+
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.666rem;
+    text-rendering: optimizeLegibility;
+    line-height: 1.1;
 
     @include breakpoint(sm) {
         font-size: 2rem;
     }
 }
 
+h3 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.666rem;
+    font-family: 'Avenir Next', 'Helvetica Neue', 'Segoe UI', 'Helvetica',
+        'Arial', sans-serif;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    font-size: 1.31951rem;
+    line-height: 1.1;
+}
+
 p {
     color: var(--text-color);
+
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.666rem;
+}
+
+img {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.666rem;
 }
 
 blockquote {
@@ -158,6 +250,10 @@ sup {
         color: rgba($white, 0.8);
         font-weight: 500;
     }
+}
+
+li *:last-child {
+    margin-bottom: 0;
 }
 
 ul {

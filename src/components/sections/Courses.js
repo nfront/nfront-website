@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
-import Fade from 'react-reveal/Fade';
+import Fade from '@common/fade';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Link } from 'gatsby';
 

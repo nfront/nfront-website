@@ -2,24 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
-import Fade from 'react-reveal/Fade';
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { Link } from 'gatsby';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Fade from '@common/fade';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
     // flex-direction: column;
     // display: flex;
     text-align: center;
-    // @media (min-width: ${props => props.theme.screen.lg}) {
+    // @media (min-width: ${(props) => props.theme.screen.lg}) {
     //     justify-content: space-between;
     //     flex-direction: row;
     // }
-    // @media (min-width: ${props => props.theme.screen.sm}) {
+    // @media (min-width: ${(props) => props.theme.screen.sm}) {
     // }
-    ${props =>
+    ${(props) =>
         props.alt &&
         `
     padding-left: 0;
@@ -80,7 +77,6 @@ const ItemGrid = styled.div`
     }
 `;
 
-
 const Text = styled.div`
     padding: 1.5rem 0.5rem;
     text-align: center;
@@ -99,7 +95,7 @@ const Text = styled.div`
 `;
 
 const Art = styled.div`
-    @media (min-width: ${props => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
     text-align: center;
@@ -107,10 +103,10 @@ const Art = styled.div`
     overflow: hidden;
     .img-style {
         max-height: 300px;
-        @media (min-width: ${props => props.theme.screen.md}) {
+        @media (min-width: ${(props) => props.theme.screen.md}) {
             max-height: 400px;
         }
-        @media (min-width: ${props => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.xs}) {
             margin-bottom: 0;
         }
     }
@@ -148,16 +144,27 @@ export default function JobCategories({ categories, getPositionCount }) {
             </Container>
             <Container>
                 <StyledGrid>
-                    {categories?.map(category => {
+                    {categories?.map((category) => {
                         const { title, coverImg, slug } = category;
                         const image = getImage(coverImg);
                         return (
                             <div className="grid-item" key={title}>
                                 <Art>
-                                    <GatsbyImage className={"img-style"} image={image} alt={title} />
+                                    <GatsbyImage
+                                        className={'img-style'}
+                                        image={image}
+                                        alt={title}
+                                    />
                                 </Art>
                                 <Text>
-                                    <h3>{category.title}</h3>
+                                    <Fade left>
+                                        <h3>{title}</h3>
+                                        <p>
+                                            {getPositionCount(slug, 'category')}{' '}
+                                            Open Positions
+                                        </p>
+                                    </Fade>
+                                    {/* <h3>{category.title}</h3>
                                     <hr />
                                     <ItemGrid>
                                         <p className="category">
@@ -173,7 +180,7 @@ export default function JobCategories({ categories, getPositionCount }) {
                                                 size="1px"
                                             />
                                         </Link>
-                                    </ItemGrid>
+                                    </ItemGrid> */}
                                 </Text>
                             </div>
                         );
