@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 const theme = {
     screen: {
-        xs: '575px',
-        sm: '767px',
-        md: '991px',
-        lg: '1199px',
+        mobile: '600px', // 37.5em <-- Corresponds to mobile SCSS breakpoint
+        xs: '575px', // 36em
+        sm: '767px', // 48em
+        md: '991px', // 62em <-- Closest to lg SCSS breakpoint
+        desktop: '1120', // 70em <-- Corresponds to desktop SCSS breakpoint
+        lg: '1199px', // 75em
     },
 };
 export default theme;

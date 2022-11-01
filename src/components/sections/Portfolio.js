@@ -1,19 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-// import Carousel from 're-carousel';
-// import IndicatorDots from '@utils/carousel/indicator-dots';
-// import Buttons from '@utils/carousel/button';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
 import styled from 'styled-components';
-import { Section, Container, Grid } from '@styles/global';
+import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 // import ReadMore from '../../utils/readmore/ReadMore';
+import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+import 'swiper/css/a11y';
 
 /** use if you need to style your section differently, otherwise leave it empty */
-const StyledSection = styled(Section)``;
+const StyledSection = styled(Section)`
+    padding-top: 3rem;
+`;
+
 const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
@@ -40,14 +47,16 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const Slide = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    margin: 0 8%;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+const CustomSwiper = styled(Swiper)`
+    .swiper-slide {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        padding: 0 4rem 4rem;
+        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+            padding: 2rem 4rem 5rem;
+        }
+    }
 `;
 
 const Art = styled.div`
@@ -55,11 +64,11 @@ const Art = styled.div`
         flex: 0 1 50%;
     }
     text-align: center;
-    img {
+    .gatsby-image-wrapper img {
         max-height: 300px;
         margin-bottom: 0.5rem !important;
         @media (min-width: ${(props) => props.theme.screen.md}) {
-            max-height: 500px;
+            max-height: 400px;
         }
         @media (min-width: ${(props) => props.theme.screen.xs}) {
             margin-bottom: 0 !important;
@@ -135,17 +144,16 @@ const Portfolio = (props) => {
     const windowWidth = useWindowSize().width;
     const isMobile = windowWidth <= 575;
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: isMobile ? 1 : 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        centerMode: true,
-        centerPadding: '10px',
-        className: 'center',
+    const swiperSettings = {
+        modules: [A11y, Navigation, Pagination, Autoplay],
+        a11y: true,
+        navigation: true,
+        pagination: true,
+        rewind: true,
+        // autoplay: { delay: 4000, disableOnInteraction: false },
+        // speed: 500,
+        slidesPerView: isMobile ? 1 : 1,
+        grabCursor: true,
     };
 
     const data = useStaticQuery(graphql`
@@ -178,9 +186,12 @@ const Portfolio = (props) => {
         <StyledSection id="portfolio">
             {isHome ? (
                 <>
+                    <SectionTitle>
+                        <h2>Recent Transactions</h2>
+                    </SectionTitle>
                     {!isMobile ? (
                         <StyledContainer>
-                            <Slider {...settings}>
+                            <CustomSwiper {...swiperSettings}>
                                 {result.map((val) => {
                                     const {
                                         brand,
@@ -191,7 +202,7 @@ const Portfolio = (props) => {
                                     const { description } = val.description;
                                     const image = getImage(logo);
                                     return (
-                                        <Slide>
+                                        <SwiperSlide>
                                             <Art>
                                                 <GatsbyImage
                                                     image={image}
@@ -220,10 +231,10 @@ const Portfolio = (props) => {
                                                 </FundList>
                                                 <p>{description}</p>
                                             </Text>
-                                        </Slide>
+                                        </SwiperSlide>
                                     );
                                 })}
-                            </Slider>
+                            </CustomSwiper>
                         </StyledContainer>
                     ) : (
                         <StyledContainer>
@@ -342,12 +353,3 @@ const Portfolio = (props) => {
 };
 
 export default Portfolio;
-
-/** 
- *                                      
-<Link to={link}>
-    <button className="button small">
-        View Case Study
-    </button>
-</Link>
- */
