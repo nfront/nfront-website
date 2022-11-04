@@ -34,7 +34,7 @@ export const Nav = styled.nav`
     }
 
     a,
-    .menu-button {
+    .link-button {
         font-size: 90%;
         font-weight: 500;
         font-family: inherit;
@@ -52,7 +52,7 @@ export const Nav = styled.nav`
         background-color: var(--alt-color) !important;
         height: 100vh;
         overflow: hidden;
-        a, .menu-button {
+        a, .link-button {
             color: var(--primary-color);
         }
         svg {

@@ -28,7 +28,7 @@ const App = () => {
         <Header fileName="SH.jpg" />
         <About ref={aboutUsRef} />
         <Wave />
-        <Portfolio navRef={navRef} frontPageRefs={frontPageRefs}/>
+        <Portfolio />
         <News accent="alt2" limit="6"/>
         <Wave />
         <Testimonials />

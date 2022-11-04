@@ -16,7 +16,6 @@ import {
     Mobile,
     Hamburger,
 } from '@styles/navstyles.js';
-import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 
 /*
 const mainMenu = ['About', 'Development', 'Case Studies'];
@@ -87,7 +86,7 @@ const ListLink = (props) => {
         </NavItem>
     );
 };
-// { frontPageRefs = {} } = {}, ...rest'
+
 const Menu = (props) => {
     /** render different menu for other pages except home */
     const { isHome } = useIsHome();
@@ -95,8 +94,6 @@ const Menu = (props) => {
 
     const scrollMonitorIdList = ['top', 'contact'];
     const activeId = useScrollMonitor(scrollMonitorIdList, props.navRef);
-    // console.log('props.navRef: ', rest.navRef);
-    // console.log('rest: ', rest);
 
     return (
         <>

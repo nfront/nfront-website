@@ -4,19 +4,16 @@ import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Seo from '@utils/SEO';
 import { Container } from '@styles/global';
-import Jobs from '@components/sections/Jobs';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
 import Footer from '@common/footer';
 import { push } from 'gatsby-link';
 import { useStaticQuery, graphql } from 'gatsby';
 import Link from '@common/link';
-
-const JobSection = styled.div`
-    /* .gatsby-image-wrapper {
-        min-height: 100vh;
-    } */
-`;
+import JobCategories from '@sections/JobCategories';
+import EmployeeTestimonials from '@sections/EmployeeTestimonials';
+import JobCities from '@sections/JobCities';
+import RecentJobs from '@sections/RecentJobs';
 
 const SearchBox = styled(Container)`
     background-color: white;
@@ -40,7 +37,7 @@ const FormFields = styled(Container)`
     padding: 1rem;
     justify-items: center;
     align-items: center;
-    @media (min-width: ${props => props.theme.screen.lg}) {
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
         display: flex;
     }
     input,
@@ -101,10 +98,7 @@ const JobsPage = ({ location }) => {
                     title
                     totalJobs
                     featuredImage {
-                        gatsbyImageData(
-                            layout: CONSTRAINED
-                            height: 50
-                        )
+                        gatsbyImageData(layout: CONSTRAINED, height: 50)
                     }
                     slug
                 }
@@ -114,9 +108,7 @@ const JobsPage = ({ location }) => {
                     title
                     positions
                     coverImg {
-                        gatsbyImageData(
-                            width: 100
-                        )
+                        gatsbyImageData(width: 100)
                     }
                     slug
                 }
@@ -153,9 +145,9 @@ const JobsPage = ({ location }) => {
     const getPositionCount = (slug, type) => {
         switch (type) {
             case 'city':
-                return cities.filter(city => city.slug === slug).length;
+                return cities.filter((city) => city.slug === slug).length;
             case 'category':
-                return categories.filter(cat => cat.slug === slug).length;
+                return categories.filter((cat) => cat.slug === slug).length;
             default:
                 return null;
         }
@@ -169,7 +161,7 @@ const JobsPage = ({ location }) => {
         if (category && city) {
             setFilteredJobs(
                 jobs.filter(
-                    job =>
+                    (job) =>
                         job?.city?.slug === city &&
                         job?.categories?.slug === category
                 )
@@ -179,7 +171,7 @@ const JobsPage = ({ location }) => {
         if (category && city && title) {
             setFilteredJobs(
                 jobs.filter(
-                    job =>
+                    (job) =>
                         job?.city?.slug === city &&
                         job?.categories?.slug === category &&
                         job?.title
@@ -191,7 +183,7 @@ const JobsPage = ({ location }) => {
         }
         if (title) {
             setFilteredJobs(
-                jobs.filter(job =>
+                jobs.filter((job) =>
                     job?.title
                         .toLocaleLowerCase()
                         .includes(title.toLocaleLowerCase())
@@ -200,12 +192,12 @@ const JobsPage = ({ location }) => {
             return;
         }
         if (city) {
-            setFilteredJobs(jobs.filter(job => job?.city?.slug === city));
+            setFilteredJobs(jobs.filter((job) => job?.city?.slug === city));
             return;
         }
         if (category) {
             setFilteredJobs(
-                jobs.filter(job => job?.categories?.slug === category)
+                jobs.filter((job) => job?.categories?.slug === category)
             );
             return;
         }
@@ -213,125 +205,114 @@ const JobsPage = ({ location }) => {
 
     return (
         <Layout>
-            <JobSection>
-                <Seo title={'Jobs'} />
-                <Navbar fluid />
-                <Hero fileName="LA.jpg" long>
-                    <JobHeaderSection>
-                        <h2>Work with us</h2>
-                        <p>
-                            Below follows a list of open positions. We look
-                            forward to meeting you.
-                        </p>
-                        <SearchBox>
-                            {' '}
-                            <Formik
-                                onSubmit={values => {
-                                    const { city, category, title } = values;
+            <Seo title={'Jobs'} />
+            <Navbar fluid />
+            <Hero fileName="LA.jpg" long>
+                <JobHeaderSection>
+                    <h2>Work with us</h2>
+                    <p>
+                        Below follows a list of open positions. We look forward
+                        to meeting you.
+                    </p>
+                    <SearchBox>
+                        {' '}
+                        <Formik
+                            onSubmit={(values) => {
+                                const { city, category, title } = values;
 
-                                    const searchParams = {};
-                                    if (city) {
-                                        searchParams['city'] = city;
-                                    }
-                                    if (category) {
-                                        searchParams['category'] = category;
-                                    }
-                                    if (title) {
-                                        searchParams['title'] = title;
-                                    }
+                                const searchParams = {};
+                                if (city) {
+                                    searchParams['city'] = city;
+                                }
+                                if (category) {
+                                    searchParams['category'] = category;
+                                }
+                                if (title) {
+                                    searchParams['title'] = title;
+                                }
 
-                                    push(
-                                        `/jobs?${new URLSearchParams(
-                                            searchParams
-                                        ).toString()}`
-                                    );
-                                }}
-                                initialValues={{ title, city, category }}
-                                enableReinitialize
-                            >
-                                {({ values, handleSubmit }) => (
-                                    <Form>
-                                        <FormFields>
-                                            <Field
-                                                type="text"
-                                                name="title"
-                                                id="title"
-                                                placeholder="Job Title, Keywords, or Phrase"
-                                                autoComplete="off"
-                                                value={values.title}
-                                            />
-                                            <Field
-                                                component="select"
-                                                name="category"
-                                                value={values.category}
-                                            >
-                                                <option
-                                                    value=""
-                                                    disabled
-                                                    selected
-                                                >
-                                                    Select category
-                                                </option>
-                                                <option value={''}>None</option>
-                                                {categories.map(category => {
-                                                    const {
-                                                        title,
-                                                        slug,
-                                                    } = category;
-                                                    return (
-                                                        <option value={slug}>
-                                                            {title}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </Field>
-                                            <Field
-                                                component="select"
-                                                name="city"
-                                                value={values.city}
-                                            >
-                                                <option
-                                                    value=""
-                                                    disabled
-                                                    selected
-                                                >
-                                                    Select city
-                                                </option>{' '}
-                                                <option value={''}>None</option>
-                                                {cities.map(city => {
-                                                    const {
-                                                        title,
-                                                        slug,
-                                                    } = city;
-                                                    return (
-                                                        <option value={slug}>
-                                                            {title}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </Field>
-                                            <Link
-                                                href="#contact"
-                                                onClick={handleSubmit}
-                                                className="button"
-                                            >
-                                                Submit
-                                            </Link>
-                                        </FormFields>
-                                    </Form>
-                                )}
-                            </Formik>
-                        </SearchBox>
-                    </JobHeaderSection>
-                </Hero>
-                <Jobs
-                    categories={categories}
+                                push(
+                                    `/jobs?${new URLSearchParams(
+                                        searchParams
+                                    ).toString()}`
+                                );
+                            }}
+                            initialValues={{ title, city, category }}
+                            enableReinitialize
+                        >
+                            {({ values, handleSubmit }) => (
+                                <Form>
+                                    <FormFields>
+                                        <Field
+                                            type="text"
+                                            name="title"
+                                            id="title"
+                                            placeholder="Job Title, Keywords, or Phrase"
+                                            autoComplete="off"
+                                            value={values.title}
+                                        />
+                                        <Field
+                                            component="select"
+                                            name="category"
+                                            value={values.category}
+                                        >
+                                            <option value="" disabled selected>
+                                                Select category
+                                            </option>
+                                            <option value={''}>None</option>
+                                            {categories.map((category) => {
+                                                const { title, slug } =
+                                                    category;
+                                                return (
+                                                    <option value={slug}>
+                                                        {title}
+                                                    </option>
+                                                );
+                                            })}
+                                        </Field>
+                                        <Field
+                                            component="select"
+                                            name="city"
+                                            value={values.city}
+                                        >
+                                            <option value="" disabled selected>
+                                                Select city
+                                            </option>{' '}
+                                            <option value={''}>None</option>
+                                            {cities.map((city) => {
+                                                const { title, slug } = city;
+                                                return (
+                                                    <option value={slug}>
+                                                        {title}
+                                                    </option>
+                                                );
+                                            })}
+                                        </Field>
+                                        <Link
+                                            href="#contact"
+                                            onClick={handleSubmit}
+                                            className="button"
+                                        >
+                                            Submit
+                                        </Link>
+                                    </FormFields>
+                                </Form>
+                            )}
+                        </Formik>
+                    </SearchBox>
+                </JobHeaderSection>
+            </Hero>
+            <JobCategories
+                categories={categories}
+                getPositionCount={getPositionCount}
+            />
+                <JobCities
                     cities={cities}
-                    jobs={filteredJobs}
                     getPositionCount={getPositionCount}
                 />
-                <Footer />
-            </JobSection>
+            <EmployeeTestimonials />
+            <RecentJobs jobs={filteredJobs} />
+            <Footer />
         </Layout>
     );
 };

@@ -1,5 +1,7 @@
 @at-root {
     :root {
+        --swiper-theme-color: var(--primary-color) !important;
+
         --swiper-pagination-color: var(--primary-color);
         --swiper-pagination-bullet-size: 8px;
         --swiper-pagination-bullet-width: 8px;

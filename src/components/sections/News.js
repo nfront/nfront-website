@@ -5,6 +5,11 @@ import styled from 'styled-components';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
+/** use if you need to style your section differently, otherwise leave it empty */
+const StyledSection = styled(Section)`
+    padding-bottom: 6rem;
+`;
+
 const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;
@@ -80,14 +85,14 @@ export default function News(props) {
     const results = data.allContentfulNewsPosts.edges;
     const isHome = useIsHome().isHome;
     return (
-        <Section {...props}>
+        <StyledSection {...props}>
             <SectionTitle>
                 <h2>News</h2>
             </SectionTitle>
             <Container>
                 <StyledGrid>
                     {results.slice(0, limit).map(({ node: news }) => {
-                        const image = getImage(news.heroImage)
+                        const image = getImage(news.heroImage);
                         return (
                             <div key={news.id} className="grid-item">
                                 <Link to={`/news/${news.slug}`}>
@@ -120,6 +125,6 @@ export default function News(props) {
                     <button className="button center">View All News</button>
                 </Link>
             )}
-        </Section>
+        </StyledSection>
     );
 }

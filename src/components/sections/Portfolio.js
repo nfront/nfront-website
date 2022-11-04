@@ -6,19 +6,12 @@ import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 // import ReadMore from '../../utils/readmore/ReadMore';
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
-import 'swiper/css/a11y';
+import CustomSwiper from '@common/swiper';
+import { SwiperSlide } from 'swiper/react';
+import {breakpoints} from '@styles/global';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)`
-    padding-top: 3rem;
 `;
 
 const StyledGrid = styled(Grid)`
@@ -28,16 +21,6 @@ const StyledGrid = styled(Grid)`
     }
 `;
 const StyledContainer = styled(Container)`
-    padding: 0 2.5rem;
-    /* height: 400px; */
-
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
-        height: 500px;
-    }
-    /* @media (min-width: ${(props) => props.theme.screen.md}) {
-        height: 500px;
-    } */
-
     h2 {
         font-size: 1.5rem;
         margin-bottom: 5px;
@@ -47,37 +30,25 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const CustomSwiper = styled(Swiper)`
-    .swiper-slide {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        padding: 0 4rem 4rem;
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
-            padding: 2rem 4rem 5rem;
-        }
-    }
-`;
-
 const Art = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.mobile}) {
         flex: 0 1 50%;
     }
     text-align: center;
     .gatsby-image-wrapper img {
         max-height: 300px;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 1rem !important;
         @media (min-width: ${(props) => props.theme.screen.md}) {
             max-height: 400px;
         }
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.mobile}) {
             margin-bottom: 0 !important;
         }
     }
 `;
 
 const Text = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.mobile}) {
         flex: 0 1 50%;
     }
 
@@ -89,7 +60,7 @@ const Text = styled.div`
     }
 
     p:last-child {
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.mobile}) {
             margin-bottom: 0;
         }
     }
@@ -97,14 +68,14 @@ const Text = styled.div`
     p,
     h2 {
         text-align: center;
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.mobile}) {
             text-align: left;
         }
     }
 
     .label {
         text-align: center;
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.mobile}) {
             text-align: left;
         }
         font-size: 12px;
@@ -118,7 +89,7 @@ const Divider = styled.hr`
 `;
 
 const FundList = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media (min-width: ${(props) => props.theme.screen.mobile}) {
         /* margin-top: -1.666rem; */
     }
     margin-bottom: 1.666rem;
@@ -128,7 +99,7 @@ const FundList = styled.div`
     ul {
         list-style-position: inside;
         list-style-type: none;
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media (min-width: ${(props) => props.theme.screen.mobile}) {
             list-style-type: inherit;
         }
         padding: 0;
@@ -141,20 +112,10 @@ const FundList = styled.div`
 `;
 
 const Portfolio = (props) => {
-    const windowWidth = useWindowSize().width;
-    const isMobile = windowWidth <= 575;
+    const { windowSize, isMobile } = useWindowSize();
+    const { width: windowWidth } = windowSize;
 
-    const swiperSettings = {
-        modules: [A11y, Navigation, Pagination, Autoplay],
-        a11y: true,
-        navigation: true,
-        pagination: true,
-        rewind: true,
-        // autoplay: { delay: 4000, disableOnInteraction: false },
-        // speed: 500,
-        slidesPerView: isMobile ? 1 : 1,
-        grabCursor: true,
-    };
+    const swiperNavigation = windowWidth > breakpoints.lg;
 
     const data = useStaticQuery(graphql`
         query {
@@ -191,7 +152,7 @@ const Portfolio = (props) => {
                     </SectionTitle>
                     {!isMobile ? (
                         <StyledContainer>
-                            <CustomSwiper {...swiperSettings}>
+                            <CustomSwiper row navigation={swiperNavigation}>
                                 {result.map((val) => {
                                     const {
                                         brand,
@@ -242,6 +203,7 @@ const Portfolio = (props) => {
                                 const { brand, location, logo, cInvestors } =
                                     val;
                                 const { description } = val.description;
+                                const image = getImage(logo);
                                 return (
                                     <>
                                         <Text>
@@ -251,7 +213,7 @@ const Portfolio = (props) => {
                                             </p>
                                             <Art>
                                                 <GatsbyImage
-                                                    image={logo}
+                                                    image={image}
                                                     alt={brand}
                                                 />
                                             </Art>

@@ -2,6 +2,11 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Section, Container } from '@styles/global';
 
+/** use if you need to style your section differently, otherwise leave it empty */
+const StyledSection = styled(Section)`
+    padding-bottom: 6rem;
+`;
+
 const StyledContainer = styled(Container)`
     display: flex;
     flex-flow: column;
@@ -23,9 +28,9 @@ const StyledContainer = styled(Container)`
 const CTA = forwardRef((props, ref) => {
     const { id } = props;
     return (
-        <Section ref={ref} id={id} accent="alt">
+        <StyledSection ref={ref} id={id} accent="alt">
             <StyledContainer>{props.children}</StyledContainer>
-        </Section>
+        </StyledSection>
     );
 });
 

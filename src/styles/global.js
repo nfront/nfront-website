@@ -12,6 +12,13 @@ const theme = {
 };
 export default theme;
 
+export const breakpoints = {
+    mobile: 600,
+    md: 800,
+    lg: 1024,
+    desktop: 1120,
+};
+
 export const Container = styled.div`
     max-width: var(--max-width);
     width: 100%;
@@ -26,7 +33,11 @@ export const Container = styled.div`
 `;
 
 export const Section = styled.section`
-    padding: 6rem 0;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        padding-bottom: 6rem;
+    }
 
     ${(props) =>
         props.alt &&

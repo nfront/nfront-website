@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { breakpoints } from '@styles/global';
 
-export default function useWindowSize() {
+const mobileWidth = breakpoints.mobile;
+
+const useWindowSize = () => {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
     const [windowSize, setWindowSize] = useState({
@@ -29,6 +32,13 @@ export default function useWindowSize() {
             // Remove event listener on cleanup
             return () => window.removeEventListener('resize', handleResize);
         }
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
-}
+    }, []);
+    // Empty array ensures that effect is only run on mount
+    // Because, the listener should only be created ONCE
+
+    const isMobile = windowSize.width < mobileWidth;
+
+    return { windowSize, isMobile };
+};
+
+export default useWindowSize;

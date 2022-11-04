@@ -1,38 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, Grid } from '@styles/global';
+import { Section, SectionTitle, Container, Grid } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from '@common/fade';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-
-const StyledTitle = styled.div`
-    padding-top: 1.5rem;
-    // flex-direction: column;
-    // display: flex;
-    text-align: center;
-    // @media (min-width: ${(props) => props.theme.screen.lg}) {
-    //     justify-content: space-between;
-    //     flex-direction: row;
-    // }
-    // @media (min-width: ${(props) => props.theme.screen.sm}) {
-    // }
-    ${(props) =>
-        props.alt &&
-        `
-    padding-left: 0;
-    text-align: left;  
-`};
-`;
-// const TotalCategories = styled.div`
-//     display: flex;
-//     padding-top: 2rem;
-//     div {
-//         margin-right: 1rem;
-//     }
-//     @media (min-width: ${props => props.theme.screen.lg}) {
-//         padding-top: 0;
-//     }
-// `;
 
 const StyledGrid = styled(Grid)`
     .grid-item {
@@ -114,10 +85,10 @@ const Art = styled.div`
 
 export default function JobCategories({ categories, getPositionCount }) {
     return (
-        <Section>
+        <Section accent="alt">
             <Container>
                 <Fade top>
-                    <StyledTitle>
+                    <SectionTitle>
                         <div>
                             <h2>Categories</h2>
                             <span>
@@ -125,21 +96,7 @@ export default function JobCategories({ categories, getPositionCount }) {
                                 eye out to find something that excites you.
                             </span>
                         </div>
-                        {/* <TotalCategories>
-                            <div>
-                                <h2>1800</h2>
-                                <span>Jobs Posted</span>
-                            </div>
-                            <div>
-                                <h2>4500</h2>
-                                <span>Tasks Posted</span>
-                            </div>
-                            <div>
-                                <h2>1500</h2>
-                                <span>Freelancers</span>
-                            </div>
-                        </TotalCategories> */}
-                    </StyledTitle>
+                    </SectionTitle>
                 </Fade>
             </Container>
             <Container>

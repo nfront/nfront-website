@@ -11,7 +11,7 @@ const Link = ({
     to,
     activeClassName,
     partiallyActive,
-    callback,
+    callback=()=>{},
     ...other
 }) => {
     // Tailor the following test to your environment.
@@ -54,7 +54,7 @@ const Link = ({
     // Best to switch to "button" element.
     if (samePage) {
         return (
-            <button className="menu-button" onClick={onClick} {...other}>
+            <button className="link-button" onClick={onClick} {...other}>
                 {children}
             </button>
         );

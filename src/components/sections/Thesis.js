@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Section, Container, Grid, Box, SectionTitle } from '@styles/global';
-// import { Link } from 'gatsby';
 import Link from '@common/link';
 
 /** */
@@ -53,8 +52,9 @@ const Art = styled.div`
     padding: 0 0 1.6rem 0;
 `;
 
-const thesis = ({thesisRefs}) => {
-    const {coInvestorsRef} = thesisRefs;
+const thesis = (props) => {
+    const {coInvestorsRef} = props.thesisRefs;
+    const { navRef } = props;
 
     return (
         <>
@@ -69,7 +69,7 @@ const thesis = ({thesisRefs}) => {
                         </p>
                         <p>
                             With one of Europe's largest{' '}
-                            <Link anchorRef={coInvestorsRef} href="#co-investors">
+                            <Link to="#co-investors" navRef={navRef} anchorRef={coInvestorsRef}>
                                 deal-sharing
                             </Link>{' '}
                             networks and <Link to="/team-mentors/#mentors">mentors</Link> ranging

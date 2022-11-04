@@ -17,11 +17,12 @@ import Testimonials from '@sections/Testimonials';
 const ThesisPage = () => {
     const coInvestorsRef = useRef(null);
     const thesisRefs = { coInvestorsRef: coInvestorsRef };
+    const navRef = useRef(null);
 
     return (
         <Layout>
             <Seo title={'Thesis'} />
-            <Navbar fluid />
+            <Navbar ref={navRef} fluid />
             <Hero fileName="LA.jpg">
                 <h2>nFront Ventures</h2>
                 <p>
@@ -29,7 +30,7 @@ const ThesisPage = () => {
                     groundbreaking ideas.
                 </p>
             </Hero>
-            <Thesis thesisRefs={thesisRefs} />
+            <Thesis navRef={navRef} thesisRefs={thesisRefs} />
             <CoInvestors ref={thesisRefs.coInvestorsRef} />
             <Testimonials />
             <Cta>
