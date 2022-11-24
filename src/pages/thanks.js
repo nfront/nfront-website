@@ -1,4 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
+import { useStaticQuery, graphql } from 'gatsby';
+
 import Layout from '@common/layout';
 import Menu from '@common/navbar';
 import Footer from '@common/footer';
@@ -7,14 +10,13 @@ import Contact from '@sections/Contact';
 import Seo from '@utils/SEO';
 import ExternalLink from '@utils/externalLink';
 import { Section, Container } from '@styles/global';
-import styled from 'styled-components';
 
 const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 50px;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -27,13 +29,14 @@ const Grid = styled.div`
     }
 `;
 
-const thanks = () => {
-    const title = 'Thank you';
+const ThanksPage = ({ data }) => {
+    const { title, heroImage } = data.allContentfulPages.nodes[0];
+
     return (
         <Layout>
             <Seo title={title} />
             <Menu fluid />
-            <Hero fileName="LA.jpg">
+            <Hero heroImage={heroImage}>
                 <h2>{title}</h2>
                 <p>
                     We appreciate you contacting us. We will be in touch as soon
@@ -64,4 +67,17 @@ const thanks = () => {
     );
 };
 
-export default thanks;
+export const query = graphql`
+    query {
+        allContentfulPages(filter: { title: { eq: "Thank You" } }) {
+            nodes {
+                title
+                heroImage {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                }
+            }
+        }
+    }
+`;
+
+export default ThanksPage;

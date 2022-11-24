@@ -4,7 +4,7 @@ import Card from '../common/card';
 
 export default function RecentJobs({ jobs }) {
     return (
-        <Section id="contact">
+        <Section id="contact" alt>
             <SectionTitle>
                 <h2>Current Job Openings</h2>
                 <p>{jobs.length} recently added jobs</p>

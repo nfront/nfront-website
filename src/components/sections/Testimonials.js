@@ -21,13 +21,6 @@ const REVIEW = [
     },
 ];
 
-/** use if you need to style your section differently, otherwise leave it empty */
-const StyledSection = styled(Section)`
-`;
-
-const StyledContainer = styled(Container)`
-`;
-
 const Art = styled.div`
     width: 100%;
     margin-bottom: 1rem;
@@ -60,11 +53,11 @@ const Testimonials = () => {
     );
 
     return (
-        <StyledSection>
+        <Section>
             <SectionTitle>
                 <h2>Testimonials</h2>
             </SectionTitle>
-            <StyledContainer>
+            <Container>
                 <CustomSwiper>
                     {REVIEW.map(({ name, image, line1, line2 }) => {
                         const img = data.placeholderImage.edges.find(
@@ -89,8 +82,8 @@ const Testimonials = () => {
                         );
                     })}
                 </CustomSwiper>
-            </StyledContainer>
-        </StyledSection>
+            </Container>
+        </Section>
     );
 };
 

@@ -10,6 +10,7 @@ import { SwiperSlide } from 'swiper/react';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)`
+    padding-bottom: 3rem;
 `;
 
 const StyledContainer = styled(Container)`

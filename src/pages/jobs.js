@@ -84,60 +84,18 @@ const JobHeaderSection = styled.div`
     }
     margin-bottom: -2rem;
 `;
-const JobsPage = ({ location }) => {
+const JobsPage = ({ data, location }) => {
     const [filteredJobs, setFilteredJobs] = useState([]);
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
     const city = params.get('city');
     const title = params.get('title');
 
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulJobCities {
-                nodes {
-                    title
-                    totalJobs
-                    featuredImage {
-                        gatsbyImageData(layout: CONSTRAINED, height: 50)
-                    }
-                    slug
-                }
-            }
-            allContentfulJobCategories {
-                nodes {
-                    title
-                    positions
-                    coverImg {
-                        gatsbyImageData(width: 100)
-                    }
-                    slug
-                }
-            }
-            allContentfulJobs {
-                nodes {
-                    title
-                    streetAddress
-                    slug
-                    price {
-                        min
-                        max
-                    }
-                    city {
-                        title
-                        slug
-                    }
-                    categories {
-                        title
-                        slug
-                    }
-                    availablity
-                    icon {
-                        gatsbyImageData
-                    }
-                }
-            }
-        }
-    `);
+    // const heroImage = data.allContentfulJobPages.heroImage;
+    // const pageTitle = data.allContentfulJobPages.title;
+
+    const { title: pageTitle, heroImage } = data.allContentfulPages.nodes[0];
+
     const categories = data.allContentfulJobCategories.nodes;
     const cities = data.allContentfulJobCities.nodes;
     const jobs = data.allContentfulJobs.nodes;
@@ -205,9 +163,9 @@ const JobsPage = ({ location }) => {
 
     return (
         <Layout>
-            <Seo title={'Jobs'} />
+            <Seo title={pageTitle} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg" long>
+            <Hero heroImage={heroImage} height='long'>
                 <JobHeaderSection>
                     <h2>Work with us</h2>
                     <p>
@@ -306,15 +264,68 @@ const JobsPage = ({ location }) => {
                 categories={categories}
                 getPositionCount={getPositionCount}
             />
-                <JobCities
-                    cities={cities}
-                    getPositionCount={getPositionCount}
-                />
+            <JobCities cities={cities} getPositionCount={getPositionCount} />
             <EmployeeTestimonials />
             <RecentJobs jobs={filteredJobs} />
             <Footer />
         </Layout>
     );
 };
+
+export const query = graphql`
+    query {
+        allContentfulPages(filter: { title: { eq: "Jobs" } }) {
+            nodes {
+                title
+                heroImage {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                }
+            }
+        }
+        allContentfulJobCategories {
+            nodes {
+                title
+                positions
+                coverImg {
+                    gatsbyImageData
+                }
+                slug
+            }
+        }
+        allContentfulJobCities {
+            nodes {
+                title
+                totalJobs
+                featuredImage {
+                    gatsbyImageData
+                }
+                slug
+            }
+        }
+        allContentfulJobs {
+            nodes {
+                title
+                streetAddress
+                slug
+                price {
+                    min
+                    max
+                }
+                city {
+                    title
+                    slug
+                }
+                categories {
+                    title
+                    slug
+                }
+                availablity
+                icon {
+                    gatsbyImageData
+                }
+            }
+        }
+    }
+`;
 
 export default JobsPage;

@@ -8,10 +8,11 @@ import Contact from '@sections/Contact';
 import ExternalLink from '@utils/externalLink';
 import { Section, Container } from '@styles/global';
 import styled from 'styled-components';
+import { useStaticQuery, graphql } from 'gatsby';
 
 const StyledSection = styled(Section)`
     padding: 5rem 0;
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         padding: 7rem 0;
     }
 `;
@@ -20,7 +21,7 @@ const Grid = styled.div`
     grid-template-columns: 1fr;
     grid-gap: 50px;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
     a {
@@ -28,13 +29,14 @@ const Grid = styled.div`
     }
 `;
 
-const contact = () => {
-    const title = 'Contact Us';
+const ContactPage = ({ data }) => {
+    const { title, heroImage } = data.allContentfulPages.nodes[0];
+
     return (
         <Layout>
-            <Seo title={'Contact Us'} />
+            <Seo title={title} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg">
+            <Hero heroImage={heroImage}>
                 <h2>{title}</h2>
                 <p>
                     Please reach out below and we will get back to you as soon
@@ -65,4 +67,17 @@ const contact = () => {
     );
 };
 
-export default contact;
+export const query = graphql`
+    query {
+        allContentfulPages(filter: { title: { eq: "Contact Us" } }) {
+            nodes {
+                title
+                heroImage {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                }
+            }
+        }
+    }
+`;
+
+export default ContactPage;

@@ -3,38 +3,17 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Section, Container, Grid, SectionTitle } from '@styles/global';
 import ExternalLink from '@utils/externalLink';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-
-/**
-import ExternalLink from '@utils/externalLink';
-import { ReactComponent as Icon } from '@static/icons/twitter.svg';
- */
-
-const StyledSection = styled(Section)``;
-const StyledContainer = styled(Container)``;
-
-/**
-
-const StyledContainer = styled(Container)`
-    height: 100vh;
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        height: 40vh;
-    }
-    @media (min-width: ${props => props.theme.screen.md}) {
-        height: 55vh;
-    }
-`;
-*/
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const MentorGrid = styled(Grid)`
     text-align: center;
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media (min-width: ${(props) => props.theme.screen.md}) {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
 
 const Text = styled.div`
-        /* text-align: center; */
+    /* text-align: center; */
     p {
         color: var(--yellow);
         margin: 10px auto 5px auto;
@@ -85,7 +64,7 @@ const Art = styled.div`
 const Placeholder = styled.div`
     min-width: 80%;
     text-align: center;
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
         min-width: 23%;
     }
 `;
@@ -102,10 +81,7 @@ const Mentors = () => {
                         company
                         city
                         headshot {
-                            gatsbyImageData(
-                                layout: FIXED
-                                height: 220
-                            )
+                            gatsbyImageData(layout: FIXED, height: 220)
                         }
                         link
                     }
@@ -117,19 +93,19 @@ const Mentors = () => {
     result.sort((a, b) => (a.order > b.order ? 1 : -1));
     return (
         <>
-            <StyledSection id="mentors" accent="alt">
-                <StyledContainer>
-                    <SectionTitle>
-                        <h2>Advisors & Portfolio Mentors</h2>
-                        <p>
-                            nFront's advisors and portfolio company mentors
-                            include top-tier VC investors, successful
-                            entrepreneurs and technology influencers. Deal flow
-                            is frequently shared with these standout
-                            individuals, who also provide mentorship to
-                            portfolio companies and expert advice on new prospects.
-                        </p>
-                    </SectionTitle>
+            <Section id="mentors" accent="alt">
+                <SectionTitle>
+                    <h2>Advisors & Portfolio Mentors</h2>
+                    <p>
+                        nFront's advisors and portfolio company mentors include
+                        top-tier VC investors, successful entrepreneurs and
+                        technology influencers. Deal flow is frequently shared
+                        with these standout individuals, who also provide
+                        mentorship to portfolio companies and expert advice on
+                        new prospects.
+                    </p>
+                </SectionTitle>
+                <Container>
                     <MentorGrid>
                         {result.map(
                             ({
@@ -149,7 +125,10 @@ const Mentors = () => {
                                                     src={headshot.fixed.src}
                                                     alt={name}
                                                 /> */}
-                                                <GatsbyImage image={hs} alt={hs.title} />
+                                                <GatsbyImage
+                                                    image={hs}
+                                                    alt={hs.title}
+                                                />
                                             </ExternalLink>
                                         </Art>
                                         <Text>
@@ -166,8 +145,8 @@ const Mentors = () => {
                     <p className="mt-4 mb-m3 text-uppercase text-center">
                         ...And more
                     </p>
-                </StyledContainer>
-            </StyledSection>
+                </Container>
+            </Section>
         </>
     );
 };

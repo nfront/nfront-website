@@ -1,36 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Box } from '@styles/global';
+import { Container, Box, Grid } from '@styles/global';
 import Fade from '@common/fade';
 
 import { ReactComponent as IconOne } from '@images/nfront/global.svg';
 import { ReactComponent as IconTwo } from '@images/nfront/graph.svg';
 import { ReactComponent as IconThree } from '@images/nfront/geography.svg';
 
-const StyledGrid = styled.div`
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: 1fr;
-    transition: transform 0.3s ease-in-out;
+const StyledGrid = styled(Grid)`
     margin-top: var(--spacer);
-
-    @media (min-width: ${props => props.theme.screen.md}) {
-        grid-template-columns: repeat(3, 1fr);
-    }
 
     h3 {
         font-size: 110%;
-        /* color: var(--primary-color) !important; */
         text-transform: uppercase;
         letter-spacing: 1px;
         margin-bottom: 0.5rem;
-    }
-
-    h4 {
-        /* font-family: Roboto, "Helvetica Neue";
-        font-size: 17px;
-        font-weight: 500; 
-        color: var(--grey); */
     }
 `;
 

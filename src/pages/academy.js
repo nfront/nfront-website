@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import Academy from '@sections/Academy';
 import { CircularProgress } from '@mui/material';
 
-const academy = () => {
+const AcademyPage = () => {
     if (!isAuthenticated()) {
         login();
         // return <p>Redirecting to login...</p>;
@@ -32,4 +32,4 @@ const academy = () => {
     );
 };
 
-export default academy;
+export default AcademyPage;

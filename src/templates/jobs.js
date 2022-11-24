@@ -2,7 +2,8 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { Section, Container, Overlay, OverlayText } from '@styles/global';
+import { Section, Container } from '@styles/global';
+import Hero from '@common/hero';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
@@ -74,39 +75,25 @@ const jobs = ({ data }) => {
         streetAddress,
     } = data.contentfulJobs;
 
-    const pluginImageHero = getImage(heroImage);
-    console.log('heroImage', heroImage);
+    // const pluginImageHero = getImage(heroImage);
     const iconImage = getImage(icon);
+    // console.log("here", heroImage);
 
     return (
         <Layout>
             <Seo title={title} />
             <Navbar fluid />
-            {console.log('heroImage2: ', heroImage)}
             {heroImage != null && (
-                <div style={{ display: 'grid' }}>
-                    <GatsbyImage
-                        image={pluginImageHero}
-                        style={{
-                            gridArea: '1/1',
-                            height: `50vh`,
-                        }}
-                    />
-                    <Overlay />
-                    <OverlayText className="text-light">
-                        <p>{publishDate}</p>
-                        <h2 className="mb-0">{title}</h2>
-                    </OverlayText>
-                </div>
+                <Hero heroImage={heroImage} height='short' small>
+                    <p>{publishDate}</p>
+                    <h2 className="mb-0">{title}</h2>
+                </Hero>
             )}
             <Section>
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <InfoSection>
-                            <StyledImg
-                                image={iconImage}
-                                alt="profile image"
-                            />
+                            <StyledImg image={iconImage} alt="profile image" />
                             <div className="info-card">
                                 <h2>Job Details</h2>
                                 <h3>

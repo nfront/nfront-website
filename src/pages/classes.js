@@ -122,26 +122,13 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const ClassesPage = ({ location }) => {
-    const data = useStaticQuery(graphql`
-        query {
-            allContentfulClasses {
-                nodes {
-                    title
-                    slug
-                    course {
-                        title
-                        slug
-                    }
-                    coverImage {
-                        gatsbyImageData(layout: CONSTRAINED)
-                    }
-                }
-            }
-        }
-    `);
+const ClassesPage = ({ data, location }) => {
+
+    const { title: pageTitle, heroImage } = data.allContentfulPages.nodes[0];
+    
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
+
     const classes = data.allContentfulClasses.nodes;
 
     // let uniqueChars = [];
@@ -165,9 +152,9 @@ const ClassesPage = ({ location }) => {
 
     return (
         <Layout>
-            <Seo title={'Classes'} />
+            <Seo title={pageTitle} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg">
+            <Hero heroImage={heroImage}>
                 <h2>Courses</h2>
                 <p>
                     We have had the privilege to invest across a range of stages
@@ -220,9 +207,7 @@ const ClassesPage = ({ location }) => {
             {result.map((courses, key) => {
                 return (
                     <StyledContainer>
-                        <Accordion
-                            key={key}
-                        >
+                        <Accordion key={key}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -232,15 +217,9 @@ const ClassesPage = ({ location }) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <StyledGrid>
-                                    {courses?.classes?.map(
-                                        (courseClass) => {
-                                            return (
-                                                <Class
-                                                    results={courseClass}
-                                                />
-                                            );
-                                        }
-                                    )}
+                                    {courses?.classes?.map((courseClass) => {
+                                        return <Class results={courseClass} />;
+                                    })}
                                 </StyledGrid>
                             </AccordionDetails>
                         </Accordion>
@@ -251,5 +230,31 @@ const ClassesPage = ({ location }) => {
         </Layout>
     );
 };
+
+export const query = graphql`
+    query {
+        allContentfulPages(filter: { title: { eq: "Classes" } }) {
+            nodes {
+                title
+                heroImage {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                }
+            }
+        }
+        allContentfulClasses {
+            nodes {
+                title
+                slug
+                course {
+                    title
+                    slug
+                }
+                coverImage {
+                    gatsbyImageData(layout: CONSTRAINED)
+                }
+            }
+        }
+    }
+`;
 
 export default ClassesPage;

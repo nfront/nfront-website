@@ -1,18 +1,21 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
-import Portfolio from '../components/sections/Portfolio';
+import Portfolio from '@sections/Portfolio';
 
-const portfolio = () => {
-    const title = 'Portfolio';
+const PortfolioPage = ({ data }) => {
+    const { title, heroImage } = data.allContentfulPages.nodes[0];
+
     return (
         <Layout>
-            <Seo title={'Portfolio'} />
+            <Seo title={title} />
             <Navbar fluid />
-            <Hero fileName="LA.jpg">
+            <Hero heroImage={heroImage}>
                 <h2>{title}</h2>
                 <p>
                     We have had the privilege to invest across a range of stages
@@ -26,4 +29,17 @@ const portfolio = () => {
     );
 };
 
-export default portfolio;
+export const query = graphql`
+    query {
+        allContentfulPages(filter: { title: { eq: "Portfolio" } }) {
+            nodes {
+                title
+                heroImage {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                }
+            }
+        }
+    }
+`;
+
+export default PortfolioPage;

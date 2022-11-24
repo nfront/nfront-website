@@ -15,7 +15,7 @@ export const useScrollMonitor = (ids, navRef) => {
             const scroll = window.pageYOffset;
 
             // A HACK, NAVREF DOES NOT WORK
-            const {height: offset} = navRef?.current?.getBoundingClientRect() || {height: 0};
+            const {height: navOffset} = navRef?.current?.getBoundingClientRect() || {height: 0};
 
             const position = ids
                 .map((id) => {
@@ -24,8 +24,8 @@ export const useScrollMonitor = (ids, navRef) => {
                     if (!element) return { id, top: -1, bottom: -1 };
 
                     const rect = element.getBoundingClientRect();
-                    const top = clamp(rect.top + scroll - offset);
-                    const bottom = clamp(rect.bottom + scroll - offset);
+                    const top = clamp(rect.top + scroll - navOffset);
+                    const bottom = clamp(rect.bottom + scroll - navOffset);
 
                     return { id, top, bottom };
                 })

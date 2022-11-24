@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { Link } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
@@ -7,23 +8,22 @@ import Hero from '@common/hero';
 import Cta from '@common/CTA';
 import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
-
-/** */
 import Thesis from '@sections/Thesis';
-// import NFrontProcess from '@sections/TheProcess';
 import CoInvestors from '@sections/CoInvestors';
 import Testimonials from '@sections/Testimonials';
 
-const ThesisPage = () => {
+const ThesisPage = ({ data }) => {
     const coInvestorsRef = useRef(null);
     const thesisRefs = { coInvestorsRef: coInvestorsRef };
     const navRef = useRef(null);
 
+    const { title, heroImage } = data.allContentfulPages.nodes[0];
+
     return (
         <Layout>
-            <Seo title={'Thesis'} />
+            <Seo title={title} />
             <Navbar ref={navRef} fluid />
-            <Hero fileName="LA.jpg">
+            <Hero heroImage={heroImage}>
                 <h2>nFront Ventures</h2>
                 <p>
                     We invest time and capital in exceptional entrepreneurs with
@@ -48,5 +48,18 @@ const ThesisPage = () => {
         </Layout>
     );
 };
+
+export const query = graphql`
+    query {
+        allContentfulPages(filter: { title: { eq: "Thesis" } }) {
+            nodes {
+                title
+                heroImage {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                }
+            }
+        }
+    }
+`;
 
 export default ThesisPage;

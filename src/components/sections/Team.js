@@ -100,17 +100,17 @@ const Team = () => {
     return (
         <>
             <Section>
+                <SectionTitle>
+                    <h2>nFront Team</h2>
+                    <p>
+                        nFront's team is focused on identifying a small group of
+                        exceptional companies per year. Diving in full-time, we
+                        work hard to provide the stand-out founders of these
+                        companies with operational support, capital and
+                        exceptional co-investors.
+                    </p>
+                </SectionTitle>
                 <StyledContainer>
-                    <SectionTitle>
-                        <h2>nFront Team</h2>
-                        <p>
-                            nFront's team is focused on identifying a small
-                            group of exceptional companies per year. Diving in
-                            full-time, we work hard to provide the stand-out
-                            founders of these companies with operational
-                            support, capital and exceptional co-investors.
-                        </p>
-                    </SectionTitle>
                     <Divider />
                     <FlexBox>
                         <GatsbyImage

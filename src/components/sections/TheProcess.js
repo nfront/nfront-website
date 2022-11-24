@@ -148,7 +148,6 @@ const Process = () => {
     const imageStep3 = getImage(data.step3);
     return (
         <Section accent='alt'>
-            <Container>
                 <SectionTitle>
                     <h2>The Process</h2>
                     <p>
@@ -161,6 +160,7 @@ const Process = () => {
                         new investors.
                     </p>
                 </SectionTitle>
+            <Container>
                 <Timeline>
                     <Step>
                         <Art>

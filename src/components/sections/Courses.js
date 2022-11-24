@@ -36,7 +36,12 @@ const StyledGrid = styled(Grid)`
         margin-bottom: 20px;
         position: relative;
         cursor: pointer;
-        &::after {
+
+        background-image: url(${wave});
+        background-repeat: no-repeat;
+        background-size: 100% 30%;
+        background-position: bottom;
+        /* &::after {
             background-image: url(${wave});
             background-size: center;
             background-repeat: no-repeat;
@@ -49,7 +54,7 @@ const StyledGrid = styled(Grid)`
             bottom: 0;
             left: 0;
             z-index: -1;
-        }
+        } */
     }
     .grid-item:hover {
         box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
@@ -111,18 +116,16 @@ const Art = styled.div`
 export default function Courses({ results, limit }) {
     return (
         <Section>
-            <Container>
-                <Fade top>
-                    <StyledTitle>
-                        <div>
-                            <h2>Explore Our Popular Courses</h2>
-                        </div>
-                        <div>
-                            <Link to="/classes">View All Courses</Link>
-                        </div>
-                    </StyledTitle>
-                </Fade>
-            </Container>
+            <Fade top>
+                <StyledTitle>
+                    <div>
+                        <h2>Explore Our Popular Courses</h2>
+                    </div>
+                    <div>
+                        <Link to="/classes">View All Courses</Link>
+                    </div>
+                </StyledTitle>
+            </Fade>
             <Container>
                 <StyledGrid>
                     {results.slice(0, limit).map((aClass) => {

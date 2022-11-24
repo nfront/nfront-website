@@ -67,7 +67,6 @@ const CoInvestors = forwardRef((props, ref) => {
     );
     return (
         <Section accent="alt" ref={ref} id="co-investors">
-            <Container>
                 <SectionTitle>
                     <h2>Co-Investment Network</h2>
                     <p>
@@ -78,6 +77,7 @@ const CoInvestors = forwardRef((props, ref) => {
                         Here are some of the investors in our network:
                     </p>
                 </SectionTitle>
+            <Container>
                 <StyledGrid>
                     {REGIONS.map(({ name, image }) => {
                         const img = data.placeholderImage.edges.find(

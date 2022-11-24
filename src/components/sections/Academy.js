@@ -22,10 +22,12 @@ const AcademyHeaderSection = styled.div`
 const Academy = ({ location, user }) => {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulCourses {
+            allContentfulPages(filter: { title: { eq: "Academy" } }) {
                 nodes {
-                    title
-                    slug
+                    heroImage {
+                        title
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
             allContentfulClasses {
@@ -49,6 +51,8 @@ const Academy = ({ location, user }) => {
             }
         }
     `);
+
+    const { title: pageTitle, heroImage } = data.allContentfulPages.nodes[0];
 
     const results = data.allContentfulClasses.nodes;
     const [filteredClasses, setFilteredClasses] = useState([]);
@@ -94,10 +98,10 @@ const Academy = ({ location, user }) => {
 
     return (
         <Layout>
-            <Seo title={'Fundraising Academy'} />
+            <Seo title={pageTitle} />
             <Navbar fluid />
             <AcademySection>
-                <Hero fileName="LA.jpg">
+                <Hero heroImage={heroImage}>
                     <AcademyHeaderSection>
                         <h2>Online Tutorial From Top Instructor.</h2>
                         <p>
