@@ -4,11 +4,11 @@ import Seo from '@utils/SEO';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
+import Link from '@common/link';
 import Contact from '@sections/Contact';
-import ExternalLink from '@utils/externalLink';
 import { Section, Container } from '@styles/global';
 import styled from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 
 const StyledSection = styled(Section)`
     padding: 5rem 0;
@@ -30,7 +30,7 @@ const Grid = styled.div`
 `;
 
 const ContactPage = ({ data }) => {
-    const { title, heroImage } = data.allContentfulPages.nodes[0];
+    const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
@@ -52,11 +52,11 @@ const ContactPage = ({ data }) => {
                             <p>info@nfrontventures.com</p>
                             <div class="label">Visit us at</div>
                             <p>
-                                <ExternalLink href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
+                                <Link href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157
                                     <br />
                                     Oslo, Norway
-                                </ExternalLink>
+                                </Link>
                             </p>
                         </div>
                     </Grid>
@@ -69,11 +69,14 @@ const ContactPage = ({ data }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Contact Us" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+        allContentfulPages(filter: { slug: { eq: "contact-us" } }) {
+            edges {
+                node {
+                    title
+                    slug
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }

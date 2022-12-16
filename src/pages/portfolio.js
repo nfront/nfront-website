@@ -9,7 +9,7 @@ import Seo from '@utils/SEO';
 import Portfolio from '@sections/Portfolio';
 
 const PortfolioPage = ({ data }) => {
-    const { title, heroImage } = data.allContentfulPages.nodes[0];
+    const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
@@ -31,15 +31,17 @@ const PortfolioPage = ({ data }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Portfolio" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+        allContentfulPages(filter: { slug: { eq: "portfolio" } }) {
+            edges {
+                node {
+                    title
+                    slug
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }
     }
 `;
-
 export default PortfolioPage;

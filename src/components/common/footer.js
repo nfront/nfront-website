@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Section, Container } from '@styles/global';
-import ExternalLink from '@utils/externalLink';
+import Link from '@common/link';
 
 /** social icons */
 import Twitter from '@static/icons/twitter.svg';
@@ -132,9 +131,9 @@ export default function Footer(props) {
                         <p className="label">Social</p>
                         <SocialIcons>
                             {SOCIAL.map(({ icon, link }) => (
-                                <ExternalLink key={icon} href={link}>
+                                <Link key={icon} to={link}>
                                     <img src={icon} alt="link" />
-                                </ExternalLink>
+                                </Link>
                             ))}
                         </SocialIcons>
                     </div>

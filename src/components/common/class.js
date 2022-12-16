@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
+import { StaticImage } from 'gatsby-plugin-image';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from '@common/image';
+import { ArtContainer } from '@styles/global';
+
 
 const ItemGrid = styled.div`
     display: flex;
@@ -66,34 +69,32 @@ const Text = styled.div`
     }
 `;
 
-const Art = styled.div`
-    overflow: hidden;
-    .img-style {
+// FIXME: NEEDED?
+const CustomArtContainer = styled(ArtContainer)`
+    .img-wrapper-style {
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
         transition: all 0.3s ease-out 0s;
         vertical-align: middle;
-
-        @media (min-width: ${(props) => props.theme.screen.md}) {
-            /* min-height: 240px; */
-        }
     }
 `;
 
 export default function Class({ results }) {
-    const image = getImage(results.coverImage);
+    const { coverImage } = results;
     return (
         <div key={results.title} className="grid-item">
             <Link to={`/academy/${results.slug}`}>
-                <Art>
-                    {image ? (
-                        <GatsbyImage
-                            className="img-style"
-                            image={image}
+                <CustomArtContainer>
+                    {coverImage ? (
+                        <Image
+                            className="img-wrapper-style"
+                            image={coverImage}
                             alt={results.title}
                         />
                     ) : (
+                        // NEEDED???
+                        // TODO: FIX
                         <StaticImage
                             width={800}
                             height={476}
@@ -101,7 +102,7 @@ export default function Class({ results }) {
                             alt="preview"
                         />
                     )}
-                </Art>
+                </CustomArtContainer>
                 <Text>
                     <h3>{results.title}</h3>
                     <hr />

@@ -10,14 +10,14 @@ import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
 import Thesis from '@sections/Thesis';
 import CoInvestors from '@sections/CoInvestors';
-import Testimonials from '@sections/Testimonials';
+import TransactionTestimonials from '@sections/TransactionTestimonials';
 
 const ThesisPage = ({ data }) => {
     const coInvestorsRef = useRef(null);
     const thesisRefs = { coInvestorsRef: coInvestorsRef };
     const navRef = useRef(null);
 
-    const { title, heroImage } = data.allContentfulPages.nodes[0];
+    const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
@@ -32,7 +32,7 @@ const ThesisPage = ({ data }) => {
             </Hero>
             <Thesis navRef={navRef} thesisRefs={thesisRefs} />
             <CoInvestors ref={thesisRefs.coInvestorsRef} />
-            <Testimonials />
+            <TransactionTestimonials />
             <Cta>
                 <h2>Contact</h2>
                 <p>
@@ -51,15 +51,19 @@ const ThesisPage = ({ data }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Thesis" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+        allContentfulPages(filter: { slug: { eq: "thesis" } }) {
+            edges {
+                node {
+                    title
+                    slug
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }
     }
 `;
+
 
 export default ThesisPage;

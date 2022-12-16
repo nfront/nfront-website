@@ -1,73 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
-import ExternalLink from '@utils/externalLink';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import {
+    Section,
+    Container,
+    ArtContainer,
+    TextContainer,
+    Grid,
+    GridItem,
+    SectionTitle,
+} from '@styles/global';
+import Link from '@common/link';
+import Image from '@common/image';
 
-const MentorGrid = styled(Grid)`
-    text-align: center;
-    @media (min-width: ${(props) => props.theme.screen.md}) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-`;
+import { motion } from 'framer-motion';
 
-const Text = styled.div`
-    /* text-align: center; */
-    p {
-        color: var(--yellow);
-        margin: 10px auto 5px auto;
-        width: 220px;
-        text-align: left;
-    }
-    label {
+const Text = styled(TextContainer)`
+    width: 220px; // Needed, so text aligns with image
+
+    div {
         color: var(--border-color);
         font-weight: 400;
-        width: 220px;
-        margin: 0 auto;
-        text-align: left;
     }
-    label:nth-child(3) {
-        /* color: var(--orange); */
+    div:first-child a {
+        color: var(--yellow);
+        margin-bottom: 5px;
     }
-    label:last-child {
-        /* color: var(--orange); */
-        /* font-style: italic; */
+    div:not(:first-child) {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    div:last-child {
         font-weight: bold;
     }
 `;
 
-const Art = styled.div`
-    width: 100%;
-    /* text-align: left; */
-    .gatsby-image-wrapper {
-        margin-top: 2rem;
-        text-align: center;
-        display: inline-block;
-    }
-
-    img {
-        min-width: 220px;
-        border-radius: 0%;
-        border: none;
-        margin-bottom: 0;
-        /* margin-top: 2rem; */
-        /* transition: 0.15s ease-in-out; */
-        filter: grayscale(100%);
-
-        &:hover {
-            border-color: var(--primary-color);
-        }
-    }
-`;
-
-const Placeholder = styled.div`
-    min-width: 80%;
-    text-align: center;
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
-        min-width: 23%;
-    }
-`;
+const MotionComponent = motion(Text);
 
 const Mentors = () => {
     const data = useStaticQuery(
@@ -81,7 +50,7 @@ const Mentors = () => {
                         company
                         city
                         headshot {
-                            gatsbyImageData(layout: FIXED, height: 220)
+                            gatsbyImageData(width: 220)
                         }
                         link
                     }
@@ -106,7 +75,7 @@ const Mentors = () => {
                     </p>
                 </SectionTitle>
                 <Container>
-                    <MentorGrid>
+                    <Grid minWidth="220px">
                         {result.map(
                             ({
                                 name,
@@ -116,33 +85,30 @@ const Mentors = () => {
                                 headshot,
                                 link,
                             }) => {
-                                const hs = getImage(headshot);
                                 return (
-                                    <Placeholder>
-                                        <Art>
-                                            <ExternalLink href={link}>
-                                                {/* <img
-                                                    src={headshot.fixed.src}
-                                                    alt={name}
-                                                /> */}
-                                                <GatsbyImage
-                                                    image={hs}
-                                                    alt={hs.title}
+                                    <GridItem className="mt-2" key={title} alignItems="center">
+                                        <ArtContainer grayscale hover rounded>
+                                            <Link to={link}>
+                                                <Image
+                                                    image={headshot}
+                                                    alt={title}
                                                 />
-                                            </ExternalLink>
-                                        </Art>
-                                        <Text>
-                                            <p>{name}</p>
-                                            <label>{title}</label>
-                                            <label>{company}</label>
-                                            <label>{city}</label>
-                                        </Text>
-                                    </Placeholder>
+                                            </Link>
+                                        </ArtContainer>
+                                        <MotionComponent style={{ x: 0 }} animate={{ x: 100 }}>
+                                            <div>
+                                                <Link to={link}>{name}</Link>
+                                            </div>
+                                            <div>{title}</div>
+                                            <div>{company}</div>
+                                            <div>{city}</div>
+                                        </MotionComponent>
+                                    </GridItem>
                                 );
                             }
                         )}
-                    </MentorGrid>
-                    <p className="mt-4 mb-m3 text-uppercase text-center">
+                    </Grid>
+                    <p className="mt-4 mb-0 text-uppercase text-center">
                         ...And more
                     </p>
                 </Container>

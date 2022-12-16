@@ -101,32 +101,49 @@ export const SectionTitle = styled.div`
 
 export const Grid = styled.div`
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: ${(props) =>
+        `repeat(auto-fit, minmax(${props.minWidth || '360px'}, 1fr))`};
     grid-template-rows: min-content;
-    grid-gap: 30px;
+    grid-gap: var(--spacer);
     justify-content: space-between;
+    align-items: ${(props) => props.alignItems || 'stretch'};
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    /* @media (min-width: ${(props) => props.theme.screen.sm}) {
         grid-template-columns: repeat(2, 1fr);
     }
     @media (min-width: ${(props) => props.theme.screen.md}) {
         grid-template-columns: repeat(3, 1fr);
-    }
+    } */
 `;
 
-export const GridItem = styled.div`
+// It is OK that the Fade becomes the GridItem,
+// because the below grid item does not have any props specific to grid.
+// Grid item properties are only needed when explicitly positioning items in a grid,
+// like when stretching an item over seleveral tracks, or when not placing items in turn.
+// (grid-area names on children and grid-template-areas on parent)
+// (or just grid-column/row-start/end)
+// Note: We could set the defaults for any children (*) inside
+export const FlexColumn = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: stretch;
+    justify-content: ${(props) => props.justifyContent || 'flex-start'};
+    align-items: ${(props) => props.alignItems || 'stretch'};
+
+    background: ${(props) => props.white && 'var(--alt-color)'};
+    border-radius: ${(props) => props.rounded && '5px'};
+    padding: ${(props) => props.padding || '0px'};
+
+    .with-shadow {
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+    }
 
     // For wrapping to happen in a coulm, a height (or max-height) must be set on container
 
     // Set defaults for flex children here
     // Can be overwritten in each component
     > * {
-        flex: 1 1 auto; // Default: 0 1 auto
+        flex: 0 1 auto; // Default: 0 1 auto
     }
 `;
 
@@ -141,21 +158,11 @@ export const Box = styled.div`
     }
 `;
 
-/**
- *  background overlay color
- *
- *  red -- rgba(210, 24, 76, 0.7)
- *  brown -- rgba(183, 73, 73, 0.7)
- *  blue -- rgba(29, 69, 106, 0.7)
- *  black --  rgba(16, 36, 55, 0.7)
- *  green -- rgba(0, 159, 153, 0.7)
- */
-
 export const Overlay = styled.div`
     display: grid;
-    height: ${props => props.height};
+    height: ${(props) => props.height};
     border-radius: inherit;
-    
+
     * {
         padding-top: 0 !important;
         padding-bottom: 0 !important;
@@ -173,8 +180,8 @@ export const OverlayText = styled(Container)`
     display: flex;
     flex-flow: column;
     justify-content: center;
-    align-items: ${props => props.left ? 'left' : 'center'};
-    text-align: ${props => props.left ? 'left' : 'center'};
+    align-items: ${(props) => (props.left ? 'left' : 'center')};
+    text-align: ${(props) => (props.left ? 'left' : 'center')};
 `;
 
 export const Shading = styled.div`
@@ -256,4 +263,71 @@ export const BoxArt = styled.div`
         max-width: 100px;
         margin-bottom: 0;
     }
+`;
+
+// See Image component for notes
+// GatsbyImage: A max width is set through GraphQL (width property), which then serves as the max width of the img (it scales down when container scales down)
+// If no width is set, source size is its max
+// To change width of container in JS, just change container size (ArtContainer), or add styles to GatsbyImage wrapper (see below)
+// ArtContainer is display: flex
+// Styles for GatsbyImage wrapper and img can be set via the classes "img-class" and "image-wrapper-class"
+// Those classes are defined below and are passed to GatsbyImage (in Image component)
+// See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-plugin-image/#shared-props
+// SVG is not controlled by GatsbyImage, so OK to define styles here / with StyledComponents
+export const ArtContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    align-content: ${(props) => props.alignContent || `center`};
+
+    // Opinionated defaults
+    /* padding: 0 0 1.6rem 0; */
+    margin-bottom: 1rem;
+
+    .img-class {
+        &:hover {
+            ${(props) =>
+                props.hover &&
+                `
+            transition: all 0.3s ease-out 0s;
+            transform: scale(1.1);
+            // border: 5px solid ${props.hoverColor || 'var(--primary-color)'};
+            `};
+        }
+        ${(props) => props.grayscale && `filter: grayscale(100%);`};
+        ${(props) => props.rounded && `border-radius: 0.375rem;`};
+    }
+
+    .image-wrapper-class {
+        ${(props) => props.minWidth && `min-width: ${props.minWidth};`};
+        ${(props) => props.maxWidth && `max-width: ${props.maxWidth};`};
+    }
+
+    svg {
+        // opinionated defaults
+        fill: var(--secondary-color);
+        width: 70px;
+        height: 70px;
+    }
+
+    /* img {
+        // Styles (size, rounded border, etc.) is set with prop on Image component
+        
+        @media (min-width: ${(props) => props.theme.screen.md}) {
+            max-height: 400px;
+        }
+    } */
+
+    &:hover {
+        /* border-color: var(--primary-color); */
+    }
+`;
+
+export const TextContainer = styled.p`
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    align-items: stretch;
+    color: var(--text-color);
+    margin-bottom: 0;
 `;

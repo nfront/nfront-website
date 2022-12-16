@@ -19,10 +19,10 @@ const JobCategories = ({ categories, getPositionCount }) => {
                 <SectionTitle>
                     <div>
                         <h2>Categories</h2>
-                        <span>
+                        <p>
                             We hire across different position types. Keep an eye
                             out to find something that excites you.
-                        </span>
+                        </p>
                     </div>
                 </SectionTitle>
             </Fade>

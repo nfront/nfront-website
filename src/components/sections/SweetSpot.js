@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Box, Grid } from '@styles/global';
+import {
+    Container,
+    Box,
+    Grid,
+    FlexColumn,
+    ArtContainer,
+    TextContainer,
+} from '@styles/global';
 import Fade from '@common/fade';
 
 import { ReactComponent as IconOne } from '@images/nfront/global.svg';
@@ -18,76 +25,64 @@ const StyledGrid = styled(Grid)`
     }
 `;
 
-const Art = styled.div`
-    svg {
-        fill: var(--button-color);
-        width: 70px;
-        height: 70px;
-    }
-    padding: 0 0 1.6rem 0;
-`;
-const Art2 = styled(Art)`
+const CustomArtContainer = styled(ArtContainer)`
+    margin-bottom: 2rem;
     svg {
         fill: var(--orange);
     }
 `;
 
-const Text = styled.p`
-    height: auto;
+const CustomTextContainer = styled(TextContainer)`
     font-size: 17px;
-    @media (min-width: ${props => props.theme.screen.md}) {
-        min-height: 150px;
-    }
-    margin-bottom: 0px;
 `;
 
 const sweetSpot = () => {
     return (
         <Container>
-            <StyledGrid>
+            <StyledGrid minWidth="300px">
                 <Fade bottom>
-                    <Box>
-                        <Art2>
+                    <FlexColumn white rounded className="pt-15 py-15 pb-2">
+                        <CustomArtContainer alignContent="flex-start">
                             <IconOne />
-                        </Art2>
+                        </CustomArtContainer>
                         <h3>Industries</h3>
                         <p>Software (B2B and B2C)</p>
-                        <Text>
+                        <CustomTextContainer>
                             Our core focus is on game-changing, capital
                             efficient, software propositions. We get excited by
                             fast-growing, scalable products operating in large
                             markets not yet fully disrupted by technology.
-                        </Text>
-                    </Box>
+                        </CustomTextContainer>
+                    </FlexColumn>
                 </Fade>
                 <Fade bottom>
-                    <Box>
-                        <Art2>
+                    <FlexColumn white rounded className="pt-15 py-15 pb-2">
+                        <CustomArtContainer alignContent="flex-start">
                             <IconTwo />
-                        </Art2>
+                        </CustomArtContainer>
                         <h3>Stages</h3>
                         <p>Seed to Series-B</p>
-                        <Text>
+                        <CustomTextContainer>
                             Our sweet spot is companies raising between €1m and
                             €20m. For B2B SaaS platforms, we normally engage
                             somewhere between €500k and €4m in annual revenues.
-                        </Text>
-                    </Box>
+                        </CustomTextContainer>
+                    </FlexColumn>
                 </Fade>
                 <Fade bottom>
-                    <Box>
-                        <Art2>
+                    <FlexColumn white rounded className="pt-15 py-15 pb-2">
+                        <CustomArtContainer alignContent="flex-start">
                             <IconThree />
-                        </Art2>
+                        </CustomArtContainer>
                         <h3>Geographies</h3>
                         <p>Europe and U.S.</p>
-                        <Text>
+                        <CustomTextContainer>
                             We are mainly focused on Europe, but look at U.S.
                             opportunistically. Regardless of home country, we
                             support businesses with international ambitions and
                             global potential.
-                        </Text>
-                    </Box>
+                        </CustomTextContainer>
+                    </FlexColumn>
                 </Fade>
             </StyledGrid>
         </Container>

@@ -124,7 +124,7 @@ const StyledContainer = styled(Container)`
 
 const ClassesPage = ({ data, location }) => {
 
-    const { title: pageTitle, heroImage } = data.allContentfulPages.nodes[0];
+    const { title: pageTitle, heroImage } = data.allContentfulPages.edges[0].node;
     
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
@@ -233,7 +233,7 @@ const ClassesPage = ({ data, location }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Classes" } }) {
+        allContentfulPages(filter: { slug: { eq: "classes" } }) {
             nodes {
                 title
                 heroImage {

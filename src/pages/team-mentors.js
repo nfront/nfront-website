@@ -12,7 +12,7 @@ import Mentors from '@sections/Mentors';
 import Team from '@sections/Team';
 
 const TeamPage = ({ data }) => {
-    const { title, heroImage } = data.allContentfulPages.nodes[0];
+    const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
@@ -35,11 +35,14 @@ const TeamPage = ({ data }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Team and Mentors" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+        allContentfulPages(filter: { slug: { eq: "team-and-mentors" } }) {
+            edges {
+                node {
+                    title
+                    slug
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }

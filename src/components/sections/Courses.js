@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, Grid } from '@styles/global';
+import { Section, Container, Grid, ArtContainer } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from '@common/fade';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import Image from '@common/image';
+import { getImage } from 'gatsby-plugin-image';
 import { Link } from 'gatsby';
 
 const StyledTitle = styled.div`
@@ -95,14 +96,14 @@ const Text = styled.div`
     }
 `;
 
-const Art = styled.div`
+// FIXME: Need all this?
+// FIXME: Move max size to GraphQL
+const CustomArtContainer = styled(ArtContainer)`
     @media (min-width: ${(props) => props.theme.screen.xs}) {
         flex: 0 1 50%;
     }
-    text-align: center;
     padding: 0.5rem;
-    overflow: hidden;
-    .img-style {
+    .img-wrapper-style {
         max-height: 300px;
         @media (min-width: ${(props) => props.theme.screen.md}) {
             max-height: 400px;
@@ -134,13 +135,13 @@ export default function Courses({ results, limit }) {
                         return (
                             <div className="grid-item" key={title}>
                                 <Link to={`/academy/${slug}`}>
-                                    <Art>
-                                        <GatsbyImage
-                                            className="img-style"
+                                    <CustomArtContainer>
+                                        <Image
+                                            className="img-wrapper-style"
                                             image={image}
                                             alt={title}
                                         />
-                                    </Art>
+                                    </CustomArtContainer>
                                     <Text>
                                         <Fade left>
                                             <h3>{title}</h3>

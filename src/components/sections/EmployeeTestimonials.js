@@ -3,9 +3,10 @@ import { SectionTitle, Container } from '@styles/global';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import useWindowSize from '@utils/hooks/useWindowSize';
-import { Section, breakpoints } from '@styles/global';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { Section, ArtContainer, breakpoints } from '@styles/global';
+import { getImage } from 'gatsby-plugin-image';
 import CustomSwiper from '@common/swiper';
+import Image from '@common/image';
 import { SwiperSlide } from 'swiper/react';
 
 /** use if you need to style your section differently, otherwise leave it empty */
@@ -44,18 +45,6 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const Art = styled.div`
-    width: 100%;
-    margin-bottom: 1rem;
-
-    display: flex;
-    justify-content: center;
-
-    img {
-        border-radius: 50%;
-    }
-`;
-
 export default function EmployeeTestimonials() {
     const { windowSize, isMobile } = useWindowSize();
     const { width: windowWidth } = windowSize;
@@ -78,7 +67,7 @@ export default function EmployeeTestimonials() {
                     }
                     candidate
                     avatar {
-                        gatsbyImageData(layout: CONSTRAINED)
+                        gatsbyImageData
                     }
                 }
             }
@@ -103,12 +92,13 @@ export default function EmployeeTestimonials() {
                                     {' '}
                                     {tooltip.childMarkdownRemark.excerpt}
                                 </p>
-                                <Art>
-                                    <GatsbyImage
+                                <ArtContainer>
+                                    <Image
                                         image={image}
                                         alt={candidate}
+                                        className="circled"
                                     />
-                                </Art>
+                                </ArtContainer>
                                 <p className="label">{candidate}</p>
                             </SwiperSlide>
                         );

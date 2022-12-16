@@ -3,26 +3,24 @@ import { Overlay, OverlayText, Shading, BgImage } from '@styles/global';
 import styled from 'styled-components';
 import { getImage } from 'gatsby-plugin-image';
 
-const Placeholder = styled.div`
-    .gatsby-image-wrapper {
-        height: ${(props) => (props.height === 'long' ? '100vh' : '70vh')};
+const Container = styled.div`
+    height: ${(props) => (props.height === 'long' ? '100vh' : '70vh')};
 
-        @media (min-width: ${(props) => props.theme.screen.sm}) {
-            height: ${(props) =>
-                props.height === 'long'
-                    ? '100vh'
-                    : props.height === 'short'
-                    ? '50vh'
-                    : '60vh'};
-        }
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
-            height: ${(props) =>
-                props.height === 'long'
-                    ? '100vh'
-                    : props.height === 'short'
-                    ? '50vh'
-                    : '70vh'};
-        }
+    @media (min-width: ${(props) => props.theme.screen.sm}) {
+        height: ${(props) =>
+            props.height === 'long'
+                ? '100vh'
+                : props.height === 'short'
+                ? '50vh'
+                : '60vh'};
+    }
+    @media (min-width: ${(props) => props.theme.screen.lg}) {
+        height: ${(props) =>
+            props.height === 'long'
+                ? '100vh'
+                : props.height === 'short'
+                ? '50vh'
+                : '70vh'};
     }
 
     h2 {
@@ -53,7 +51,7 @@ const Hero = ({ heroImage, children, height, small, left, altShading }) => {
     const pluginImage = svg ? null : getImage(heroImage);
 
     return (
-        <Placeholder height={height} small={small}>
+        <Container height={height} small={small}>
             <Overlay>
                 {svg && <img src={heroImage.publicURL} alt={heroImage.title} />}
                 {!svg && (
@@ -64,7 +62,7 @@ const Hero = ({ heroImage, children, height, small, left, altShading }) => {
                     {children}
                 </OverlayText>
             </Overlay>
-        </Placeholder>
+        </Container>
     );
 };
 

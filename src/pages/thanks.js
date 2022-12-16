@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import Layout from '@common/layout';
 import Menu from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
+import Link from '@common/link';
 import Contact from '@sections/Contact';
 import Seo from '@utils/SEO';
-import ExternalLink from '@utils/externalLink';
 import { Section, Container } from '@styles/global';
 
 const Grid = styled.div`
@@ -30,7 +30,7 @@ const Grid = styled.div`
 `;
 
 const ThanksPage = ({ data }) => {
-    const { title, heroImage } = data.allContentfulPages.nodes[0];
+    const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
@@ -52,11 +52,11 @@ const ThanksPage = ({ data }) => {
                             <p>info@nfrontventures.com</p>
                             <div class="label">Visit us at</div>
                             <p>
-                                <ExternalLink href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
+                                <Link to="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157
                                     <br />
                                     Oslo, Norway
-                                </ExternalLink>
+                                </Link>
                             </p>
                         </div>
                     </Grid>
@@ -69,11 +69,14 @@ const ThanksPage = ({ data }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Thank You" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+        allContentfulPages(filter: { slug: { eq: "thank-you" } }) {
+            edges {
+                node {
+                    title
+                    slug
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }

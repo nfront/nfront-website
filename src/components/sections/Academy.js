@@ -22,7 +22,7 @@ const AcademyHeaderSection = styled.div`
 const Academy = ({ location, user }) => {
     const data = useStaticQuery(graphql`
         query {
-            allContentfulPages(filter: { title: { eq: "Academy" } }) {
+            allContentfulPages(filter: { slug: { eq: "academy" } }) {
                 nodes {
                     heroImage {
                         title
@@ -52,7 +52,7 @@ const Academy = ({ location, user }) => {
         }
     `);
 
-    const { title: pageTitle, heroImage } = data.allContentfulPages.nodes[0];
+    const { title: pageTitle, heroImage } = data.allContentfulPages.edges[0].node;
 
     const results = data.allContentfulClasses.nodes;
     const [filteredClasses, setFilteredClasses] = useState([]);

@@ -82,21 +82,6 @@ const Text = styled.div`
     }
 `;
 
-const Art = styled.div`
-    overflow: hidden;
-    .img-style {
-        margin-bottom: 0;
-        border-top-left-radius: 0.375rem;
-        border-top-right-radius: 0.375rem;
-        transition: all 0.3s ease-out 0s;
-        vertical-align: middle;
-
-        @media (min-width: ${(props) => props.theme.screen.md}) {
-            /* min-height: 240px; */
-        }
-    }
-`;
-
 export default function Classes(props) {
     const { results, limit } = props;
     return (

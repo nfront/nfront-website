@@ -62,7 +62,7 @@ const Link = ({
 
     // <a> for external links
     return (
-        <a href={to} {...other}>
+        <a href={to} {...other} rel="noreferrer noopener" target="_blank">
             {children}
         </a>
     );

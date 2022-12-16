@@ -94,7 +94,7 @@ const JobsPage = ({ data, location }) => {
     // const heroImage = data.allContentfulJobPages.heroImage;
     // const pageTitle = data.allContentfulJobPages.title;
 
-    const { title: pageTitle, heroImage } = data.allContentfulPages.nodes[0];
+    const { title: pageTitle, heroImage } = data.allContentfulPages.edges[0].node;
 
     const categories = data.allContentfulJobCategories.nodes;
     const cities = data.allContentfulJobCities.nodes;
@@ -274,11 +274,14 @@ const JobsPage = ({ data, location }) => {
 
 export const query = graphql`
     query {
-        allContentfulPages(filter: { title: { eq: "Jobs" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+        allContentfulPages(filter: { slug: { eq: "jobs" } }) {
+            edges {
+                node {
+                    title
+                    slug
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }
