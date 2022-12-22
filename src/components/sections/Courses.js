@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, Grid, ArtContainer } from '@styles/global';
+import { device, Section, Container, Grid, ArtContainer } from '@styles/global';
 import wave from '@images/art/wave.svg';
 import Fade from '@common/fade';
 import Image from '@common/image';
@@ -13,11 +13,11 @@ const StyledTitle = styled.div`
     display: flex;
     text-align: center;
     align-items: center;
-    @media (min-width: ${(props) => props.theme.screen.lg}) {
+    @media ${device.laptop} {
         justify-content: space-between;
         flex-direction: row;
     }
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
     }
     ${(props) =>
         props.alt &&
@@ -63,22 +63,6 @@ const StyledGrid = styled(Grid)`
     }
 `;
 
-// const ItemGrid = styled.div`
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     p {
-//         margin-bottom: 0;
-//         color: #002e5f;
-//     }
-//     @media (min-width: ${(props) => props.theme.screen.sm}) {
-//         grid-template-columns: repeat(2, 1fr);
-//     }
-//     @media (min-width: ${(props) => props.theme.screen.md}) {
-//         grid-template-columns: repeat(2, 1fr);
-//     }
-// `;
-
 const Text = styled.div`
     padding: 1.5rem 0.5rem;
     text-align: center;
@@ -99,16 +83,16 @@ const Text = styled.div`
 // FIXME: Need all this?
 // FIXME: Move max size to GraphQL
 const CustomArtContainer = styled(ArtContainer)`
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         flex: 0 1 50%;
     }
     padding: 0.5rem;
     .img-wrapper-style {
         max-height: 300px;
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media ${device.laptop} {
             max-height: 400px;
         }
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media ${device.mobileL} {
             margin-bottom: 0;
         }
     }

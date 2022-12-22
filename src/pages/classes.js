@@ -11,7 +11,7 @@ import { Field, Form, Formik } from 'formik';
 import Link from '@common/link';
 import { push } from 'gatsby-link';
 import Class from '../components/common/class';
-import { Grid } from '../styles/global';
+import { device, Grid } from '@styles/global';
 import {
     Accordion,
     AccordionDetails,
@@ -43,7 +43,7 @@ const FormFields = styled(Container)`
     padding: 1rem;
     justify-items: center;
     align-items: center;
-    @media (min-width: ${(props) => props.theme.screen.lg}) {
+    @media ${device.laptop} {
         display: flex;
     }
     input,
@@ -117,7 +117,7 @@ const StyledContainer = styled(Container)`
     padding: 0 1rem;
     margin-top: 15px;
     margin-bottom: 15px;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         text-align: left;
     }
 `;
@@ -137,7 +137,6 @@ const ClassesPage = ({ data, location }) => {
     //         uniqueChars.push(element?.course?.title);
     //     }
     // });
-    // console.log('🚀 ~ uniqueChars', uniqueChars);
 
     const result = Object.values(
         classes?.reduce((acc, clas) => {

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
+
+import { NavBarContext } from '@context/myProviders.js';
 
 // Since DOM elements <a> cannot receive activeClassName
 // and partiallyActive, destructure the prop here and
@@ -18,9 +20,11 @@ const Link = ({
     // This example assumes that any internal link (intended for Gatsby)
     // will start with exactly one slash, and that anything else is external.
     const internal = /^\/(?!\/)/.test(to);
-
+    
     // Smooth scroll if it starts with #
     const samePage = /^#/.test(to);
+
+    const navRef2 = useContext(NavBarContext); // Returns value of passed context
 
     // Use Gatsby Link for internal links, and <a> for others
     if (internal) {
@@ -36,10 +40,13 @@ const Link = ({
         );
     }
 
+
     const onClick = (e) => {
         e.preventDefault();
         callback();
-        const {height: headerOffset} = navRef.current.getBoundingClientRect() || {height: 0};
+        console.log(`navRefState: ${navRef2}`);
+        const {height: headerOffset} = navRef2.current.getBoundingClientRect() || {height: 0};
+        console.log(`headerOffset: ${headerOffset}`);
         const elementPosition = anchorRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
         // anchorRef.current.scrollIntoView({ behavior: 'smooth' });

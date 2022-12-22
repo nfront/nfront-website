@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { Section, Container, Overlay, OverlayText } from '@styles/global';
+import { device, Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
@@ -14,7 +14,7 @@ import { renderRichText } from 'gatsby-source-contentful/rich-text';
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         text-align: left;
     }
 `;
@@ -26,13 +26,6 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
-
-// const ModifiedFlexBox = styled(FlexBox)`
-//     padding: 0;
-//     @media (min-width: ${(props) => props.theme.screen.xs}) {
-//         padding: 0 1.5rem;
-//     }
-// `;
 
 const IframeContainer = styled.span`
     padding-bottom: 56.25%;

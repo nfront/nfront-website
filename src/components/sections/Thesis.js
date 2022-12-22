@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, Grid, Box, SectionTitle } from '@styles/global';
+import { device, Section, Container, Grid, Box, SectionTitle } from '@styles/global';
 import Link from '@common/link';
 
 /** */
@@ -12,7 +12,7 @@ import { ReactComponent as IconFour } from '@images/nfront/speed.svg';
 const StyledGrid = styled(Grid)`
     grid-gap: 10px;
 
-    @media (min-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
@@ -28,7 +28,7 @@ const Item = styled(Box)`
 
     `};
 
-    @media (min-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         text-align: left;
     }
 

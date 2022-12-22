@@ -1,7 +1,8 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { device } from '@styles/global';
 
 const GRID = styled.div`
     display: grid;
@@ -11,7 +12,7 @@ const GRID = styled.div`
     justify-items: center;
     background-color: var(--accent-color);
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         grid-template-columns: repeat(2, 1fr);
         /** reverse the order of grid layout */
         ${(props) =>
@@ -37,7 +38,7 @@ const Placeholder = styled.div`
 
 const Text = styled.div`
     padding: 5rem 1.5rem;
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         width: 90%;
     }
 `;

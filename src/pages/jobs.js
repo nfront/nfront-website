@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { graphql } from 'gatsby';
+import styled from 'styled-components';
+import { Formik, Form, Field } from 'formik';
+import { push } from 'gatsby-link';
+import { device, Container } from '@styles/global';
+import Seo from '@utils/SEO';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
-import Seo from '@utils/SEO';
-import { Container } from '@styles/global';
-import styled from 'styled-components';
-import { Formik, Form, Field } from 'formik';
 import Footer from '@common/footer';
-import { push } from 'gatsby-link';
-import { useStaticQuery, graphql } from 'gatsby';
 import Link from '@common/link';
 import JobCategories from '@sections/JobCategories';
 import EmployeeTestimonials from '@sections/EmployeeTestimonials';
@@ -37,7 +37,7 @@ const FormFields = styled(Container)`
     padding: 1rem;
     justify-items: center;
     align-items: center;
-    @media (min-width: ${(props) => props.theme.screen.lg}) {
+    @media ${device.laptop} {
         display: flex;
     }
     input,

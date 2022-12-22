@@ -2,23 +2,25 @@ import styled from 'styled-components';
 import wave from '@images/art/wave.svg';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-const theme = {
-    screen: {
-        mobile: '600px', // 37.5em <-- Corresponds to mobile SCSS breakpoint
-        xs: '575px', // 36em
-        sm: '767px', // 48em
-        md: '991px', // 62em <-- Closest to lg SCSS breakpoint
-        desktop: '1120', // 70em <-- Corresponds to desktop SCSS breakpoint
-        lg: '1199px', // 75em
-    },
-};
-export default theme;
+const size = {
+    mobileS: '320px',
+    mobileM: '375px',
+    mobileL: '425px',
+    tablet: '768px',
+    laptop: '1024px',
+    laptopL: '1440px',
+    desktop: '2560px'
+}
 
-export const breakpoints = {
-    mobile: 600,
-    md: 800,
-    lg: 1024,
-    desktop: 1120,
+export const device = {
+    mobileS: `(min-width: ${size.mobileS})`,
+    mobileM: `(min-width: ${size.mobileM})`,
+    mobileL: `(min-width: ${size.mobileL})`,
+    tablet: `(min-width: ${size.tablet})`,
+    laptop: `(min-width: ${size.laptop})`,
+    laptopL: `(min-width: ${size.laptopL})`,
+    desktop: `(min-width: ${size.desktop})`,
+    desktopL: `(min-width: ${size.desktop})`
 };
 
 export const Container = styled.div`
@@ -37,15 +39,10 @@ export const Container = styled.div`
 export const Section = styled.section`
     padding-top: 3rem;
     padding-bottom: 3rem;
-    @media (min-width: ${(props) => props.theme.screen.mobile}) {
+
+    @media ${device.mobileL} {
         padding-bottom: 6rem;
     }
-
-    ${(props) =>
-        props.alt &&
-        `
-        background-color: var(--accent-color);
-    `};
 
     ${(props) =>
         /* Same as accent-color */
@@ -59,24 +56,13 @@ export const Section = styled.section`
         `
         background-color: var(--primary-color);
 
-        h2,
-        h3,
-        p {
+        h2 {
             color: var(--accent-color);
-        }
+        };
 
         hr {
             background: rgba(225, 225, 225, 0.2);
         }
-    `};
-
-    ${(props) =>
-        props.accent === 'alt2' &&
-        `
-        background-color: var(--primary-color);
-        h2 {
-            color: var(--accent-color);
-        };
     `};
 `;
 
@@ -87,7 +73,7 @@ export const SectionTitle = styled.div`
     margin: 0 auto;
     padding: 0 1.5rem;
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         margin-bottom: 3rem;
     }
 
@@ -99,25 +85,17 @@ export const SectionTitle = styled.div`
     `};
 `;
 
+// min() makes it 100% on small screens
 export const Grid = styled.div`
     display: grid;
     grid-template-columns: ${(props) =>
-        `repeat(auto-fit, minmax(${props.minWidth || '360px'}, 1fr))`};
-    grid-template-rows: min-content;
+        `repeat(auto-fit, minmax(min(${props.minWidth || '360px'}, 100%), 1fr))`};
     grid-gap: var(--spacer);
-    justify-content: space-between;
     align-items: ${(props) => props.alignItems || 'stretch'};
-
-    /* @media (min-width: ${(props) => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: ${(props) => props.theme.screen.md}) {
-        grid-template-columns: repeat(3, 1fr);
-    } */
 `;
 
-// It is OK that the Fade becomes the GridItem,
-// because the below grid item does not have any props specific to grid.
+// It is OK that the Fade (and other elements) become grid items,
+// because the below grid item (now called FlexColumn) does not have any props specific to grid.
 // Grid item properties are only needed when explicitly positioning items in a grid,
 // like when stretching an item over seleveral tracks, or when not placing items in turn.
 // (grid-area names on children and grid-template-areas on parent)
@@ -131,14 +109,13 @@ export const FlexColumn = styled.div`
     align-items: ${(props) => props.alignItems || 'stretch'};
 
     background: ${(props) => props.white && 'var(--alt-color)'};
-    border-radius: ${(props) => props.rounded && '5px'};
     padding: ${(props) => props.padding || '0px'};
 
     .with-shadow {
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
 
-    // For wrapping to happen in a coulm, a height (or max-height) must be set on container
+    // For wrapping to happen in a coulmn, a height (or max-height) must be set on container
 
     // Set defaults for flex children here
     // Can be overwritten in each component
@@ -147,20 +124,53 @@ export const FlexColumn = styled.div`
     }
 `;
 
-export const Box = styled.div`
-    position: relative;
-    background: var(--alt-color);
-    border-radius: 5px;
-    padding: 1.5rem;
+export const FlexRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: ${(props) => props.justifyContent || 'flex-start'};
 
-    &.with-shadow {
+    background: ${(props) => props.white && 'var(--alt-color)'};
+    padding: ${(props) => props.padding || '0px'};
+
+    grid-gap: var(--spacer);
+
+    .with-shadow {
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    // Set defaults for flex children here
+    // Can be overwritten in each component
+    > * {
+        flex: 1 1 350px; // Default: 0 1 auto
+    }
+
+    @media ${device.tablet} {
+        > * {
+            flex: 0 1 350px;
+        }
+    }
+`;
+
+export const FlexFlip = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: ${(props) => props.justifyContent || 'center'};
+    flex-wrap: wrap;
+    grid-gap: var(--spacer);
+
+    > * {
+        flex: 0 1 ${(props) => props.justifyContent || '350px'};
+    }
+
+    @media ${device.tablet} {
+        flex-direction: row;
     }
 `;
 
 export const Overlay = styled.div`
     display: grid;
-    height: ${(props) => props.height};
+    height: ${(props) => props.height || '100%'};
     border-radius: inherit;
 
     * {
@@ -195,7 +205,7 @@ export const Shading = styled.div`
     ${(props) =>
         props.alt &&
         `
-        @media (min-width: ${props.theme.screen.md}) {
+        @media ${device.laptop} {
             width: 70%;
             clip-path: polygon(0 0, 92% 0, 71% 100%, 0% 100%);
         }
@@ -208,7 +218,6 @@ export const BgImage = styled(GatsbyImage)`
 `;
 
 export const WaveBackground = styled.div`
-    width: 100%;
     height: 100%;
     background-image: url(${wave});
     background-repeat: no-repeat;
@@ -217,9 +226,8 @@ export const WaveBackground = styled.div`
 `;
 
 export const AnyBackground = styled.div`
-    width: 100%;
     height: 100%;
-    background-image: url(${(props) => console.log('hreh', props.url)});
+    background-image: url(${(props) => props.url});
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
@@ -257,9 +265,8 @@ export const BoxArt = styled.div`
     max-width: 80px;
     text-align: center;
     margin: 0 auto;
-    /* overflow: hidden; */
 
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         max-width: 100px;
         margin-bottom: 0;
     }
@@ -287,8 +294,8 @@ export const ArtContainer = styled.div`
     .img-class {
         &:hover {
             ${(props) =>
-                props.hover &&
-                `
+        props.hover &&
+        `
             transition: all 0.3s ease-out 0s;
             transform: scale(1.1);
             // border: 5px solid ${props.hoverColor || 'var(--primary-color)'};
@@ -313,7 +320,7 @@ export const ArtContainer = styled.div`
     /* img {
         // Styles (size, rounded border, etc.) is set with prop on Image component
         
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media ${device.laptop} {
             max-height: 400px;
         }
     } */

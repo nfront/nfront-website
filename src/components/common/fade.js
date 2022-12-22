@@ -3,7 +3,7 @@ import { motion, useAnimationControls } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import useElementSize from '@utils/hooks/useElementSize';
 
-import { NavbarSizeContext } from '../../pages/index.js';
+import { NavBarContext } from '@context/myProviders';
 
 const fadeVariant = {
     visible: {
@@ -29,18 +29,15 @@ const setVariant = (direction) => {
 const Fade = ({ direction, children }) => {
     const controls = useAnimationControls();
 
-    console.log('NavbarSizeContext', NavbarSizeContext);
-    const navBar = useContext(NavbarSizeContext);
-    const navbarSize = useElementSize(navBar);
+    const { navRect } = useContext(NavBarContext);
     
-    console.log('navBar', navBar);
-    console.log('navbarSize', navbarSize);
+    console.log('navbarSize in fade', navRect?.height);
+    const navbarSize = navRect?.height || '76';
 
     const [ref, inView] = useInView({
         margin: `0px 0px -${navbarSize}px 0px`
     });
 
-    
     setVariant(direction);
 
     useEffect(() => {

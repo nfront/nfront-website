@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { Section, Container } from '@styles/global';
+import { device, Section, Container } from '@styles/global';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)`
@@ -14,7 +14,7 @@ const StyledContainer = styled(Container)`
     align-items: center;
     text-align: center;
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         /* text-align: center; */
     }
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Overlay, OverlayText, Shading, BgImage } from '@styles/global';
+import { device, Overlay, OverlayText, Shading, BgImage } from '@styles/global';
 import styled from 'styled-components';
 import { getImage } from 'gatsby-plugin-image';
 
 const Container = styled.div`
     height: ${(props) => (props.height === 'long' ? '100vh' : '70vh')};
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         height: ${(props) =>
             props.height === 'long'
                 ? '100vh'
@@ -14,7 +14,7 @@ const Container = styled.div`
                 ? '50vh'
                 : '60vh'};
     }
-    @media (min-width: ${(props) => props.theme.screen.lg}) {
+    @media ${device.laptop} {
         height: ${(props) =>
             props.height === 'long'
                 ? '100vh'
@@ -31,7 +31,7 @@ const Container = styled.div`
 
         font-weight: ${(props) => (props.small ? '500' : '800')};
 
-        @media (min-width: ${(props) => props.theme.screen.sm}) {
+        @media ${device.tablet} {
             font-size: ${(props) => (props.small ? '2rem' : '3rem')};
         }
     }
@@ -46,7 +46,6 @@ const Hero = ({ heroImage, children, height, small, left, altShading }) => {
         return null;
     }
 
-    console.log('height', height);
     const svg = heroImage.svg ? true : false;
     const pluginImage = svg ? null : getImage(heroImage);
 

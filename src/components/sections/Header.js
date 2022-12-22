@@ -2,6 +2,7 @@ import React from 'react';
 import Fade from '@common/fade';
 import styled from 'styled-components';
 import Hero from '@common/hero';
+import { device } from '@styles/global';
 
 export const HeaderText = styled.div`
     h1 {
@@ -11,28 +12,28 @@ export const HeaderText = styled.div`
         letter-spacing: 2px;
         text-transform: uppercase;
 
-        @media (min-width: ${(props) => props.theme.screen.sm}) {
+        @media ${device.tablet} {
             font-size: 3rem;
         }
 
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
             font-size: 4rem;
         }
 
         span {
             color: var(--yellow);
             font-size: 2.5rem;
-            @media (min-width: ${(props) => props.theme.screen.sm}) {
+            @media ${device.tablet} {
                 font-size: 4rem;
             }
-            @media (min-width: ${(props) => props.theme.screen.md}) {
+            @media ${device.tablet} {
                 font-size: 5rem;
             }
         }
 
         p {
             color: white;
-            @media (min-width: ${(props) => props.theme.screen.md}) {
+            @media ${device.laptop} {
                 font-size: 1.2rem;
             }
             font-size: 1rem;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper } from 'swiper/react';
+import { device } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 
 // Import Swiper styles
@@ -34,7 +35,7 @@ const ModifiedSwiper = styled(Swiper)`
         overflow: hidden;
         text-align: center;
         padding: 0rem 0rem 2rem;
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        @media ${device.mobileL} {
             padding: ${(props) => props.navigation ? `2rem 4rem 5rem` : `2rem ${props.spacing}rem 5rem`};
         }
     }
@@ -49,8 +50,6 @@ const CustomSwiper = (props) => {
         swiperSettings.modules = [...swiperSettings.modules, Navigation];
         swiperSettings.navigation = true;
     }
-
-    console.log(swiperSettings.slidesPerView);
 
     const spacing = props.spacing || 0;
 

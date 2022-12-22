@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container } from '@styles/global';
 import Link from '@common/link';
 
 /** social icons */
 import Twitter from '@static/icons/twitter.svg';
 import Linkedin from '@static/icons/linkedin.svg';
 import Email from '@static/icons/email.svg';
+
+import {
+    Section,
+    Container,
+    FlexFlip,
+} from '@styles/global';
 
 const SOCIAL = [
     {
@@ -23,19 +28,6 @@ const SOCIAL = [
     },
 ];
 
-const FooterWrapper = styled.footer`
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--alt-color);
-    background-color: var(--footer-color);
-
-    a {
-        color: #af944f;
-    }
-`;
-
 const SocialIcons = styled.div`
     img {
         width: 24px;
@@ -44,18 +36,17 @@ const SocialIcons = styled.div`
     }
 `;
 
-const StyledGrid = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    @media (min-width: ${props => props.theme.screen.sm}) {
-        flex-direction: row;
-    }
-`;
-
 const StyledSection = styled(Section)`
     background: var(--footer-alt-color);
+
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    a {
+        color: #af944f;
+    }
 
     p {
         color: #6c757d;
@@ -85,60 +76,62 @@ const StyledSection = styled(Section)`
 
 export default function Footer(props) {
     return (
-        <FooterWrapper {...props}>
+        <footer>
             <StyledSection>
-                <StyledGrid>
-                    <div>
-                        <p className="label">Headquarters</p>
-                        <p>
-                            Tollbugata 24, 0157,
-                            <br />
-                            Oslo, Norway
-                        </p>
-                    </div>
-                    <div>
-                        <p className="label">NFRONT VENTURES</p>
-                        <ul>
-                            <li>
-                                <Link to="/thesis/">Thesis</Link>
-                            </li>
-                            <li>
-                                <Link to="/">Portfolio</Link>
-                            </li>
-                            <li>
-                                <Link to="/team-mentors/">Team & Mentors</Link>
-                            </li>
-                            <li>
-                                <Link to="/news/">News</Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p className="label">Legal</p>
-                        <ul>
-                            <li>
-                                <Link to="/">Privacy Policy</Link>
-                            </li>
-                            <li>
-                                <Link to="/">GDPR</Link>
-                            </li>
-                            <li>
-                                <Link to="/contact/">Contact</Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p className="label">Social</p>
-                        <SocialIcons>
-                            {SOCIAL.map(({ icon, link }) => (
-                                <Link key={icon} to={link}>
-                                    <img src={icon} alt="link" />
-                                </Link>
-                            ))}
-                        </SocialIcons>
-                    </div>
-                </StyledGrid>
+                <Container>
+                    <FlexFlip justifyContent="space-between">
+                        <div>
+                            <p className="label">Headquarters</p>
+                            <p>
+                                Tollbugata 24, 0157,
+                                <br />
+                                Oslo, Norway
+                            </p>
+                        </div>
+                        <div>
+                            <p className="label">NFRONT VENTURES</p>
+                            <ul>
+                                <li>
+                                    <Link to="/thesis/">Thesis</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">Portfolio</Link>
+                                </li>
+                                <li>
+                                    <Link to="/team-mentors/">Team & Mentors</Link>
+                                </li>
+                                <li>
+                                    <Link to="/news/">News</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p className="label">Legal</p>
+                            <ul>
+                                <li>
+                                    <Link to="/">Privacy Policy</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">GDPR</Link>
+                                </li>
+                                <li>
+                                    <Link to="/contact/">Contact</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p className="label">Social</p>
+                            <SocialIcons>
+                                {SOCIAL.map(({ icon, link }) => (
+                                    <Link key={icon} to={link}>
+                                        <img src={icon} alt="link" />
+                                    </Link>
+                                ))}
+                            </SocialIcons>
+                        </div>
+                    </FlexFlip>
+                </Container>
             </StyledSection>
-        </FooterWrapper>
+        </footer>
     );
 }

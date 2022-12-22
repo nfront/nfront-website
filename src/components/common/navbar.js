@@ -1,10 +1,11 @@
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, forwardRef, useEffect, useContext, createContext } from 'react';
 import Link from '@common/link';
 import { useScrollMonitor } from '@utils/hooks/useScrollMonitor';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
 import { logout, isAuthenticated } from '@utils/auth';
 import { ReactComponent as Logo } from '@static/nfront-logo.svg';
+import { NavBarContext } from '@context/myProviders';
 import clsx from 'clsx';
 
 import {
@@ -17,9 +18,6 @@ import {
     Hamburger,
 } from '@styles/navstyles.js';
 
-/*
-const mainMenu = ['About', 'Development', 'Case Studies'];
-*/
 
 const secondaryMenu = [
     {
@@ -59,31 +57,55 @@ const secondaryMenu = [
     },
 ];
 
-// const ListLinkScroll = (props) => (
-//     <NavItem className={clsx('underscore', props.to === activeId && 'active')}>
-//         <Link onClick={props.callback} href={`#${props.to}`}>
-//             {props.children}
-//         </Link>
-//     </NavItem>
-// );
+const Navbar = (props) => {
+    /** open dropdown menu on mobile */
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleClassName = isMenuOpen ? 'hamburger is-open' : 'hamburger';
+    const changeMenuColor = isMenuOpen ? 'is-open' : '';
 
-const ListLink = (props) => {
-    // const scrollMonitorIdList = ['top', 'contact'];
-    // const activeId = useScrollMonitor(scrollMonitorIdList, props.navRef);
+    /** change navbar background on scroll */
+    const navBackground = useIsScroll();
 
-    // console.log('Before mount: ', props);
+    const { setNavRect } = useContext(NavBarContext);
 
     return (
-        <NavItem
-            className={clsx(
-                props.to !== '/academy/' && 'underscore',
-                // props.to === activeId && 'active'
-            )}
+        <Nav
+            {...props}
+            className={changeMenuColor}
+            style={{
+                backgroundColor: navBackground
+                    ? 'var(--primary-color)'
+                    : 'transparent',
+            }}
+            ref={setNavRect}
         >
-            <Link {...props}>
-                {props.children}
-            </Link>
-        </NavItem>
+            <NavContainer>
+                <Brand>
+                    <Link to="/">
+                        <Logo />
+                    </Link>
+                </Brand>
+                <NavList desktop>
+                    <Menu {...props} />
+                </NavList>
+            </NavContainer>
+            <Mobile>
+                <Hamburger
+                    className={toggleClassName}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </Hamburger>
+
+                {isMenuOpen && (
+                    <NavList>
+                        <Menu {...props} />
+                    </NavList>
+                )}
+            </Mobile>
+        </Nav>
     );
 };
 
@@ -102,7 +124,6 @@ const Menu = (props) => {
                     <ListLink
                         to="#top"
                         callback={() => setIsMenuOpen(false)}
-                        navRef={props.navRef}
                         anchorRef={props.frontPageRefs?.aboutUsRef}
                     >
                         Home
@@ -116,7 +137,6 @@ const Menu = (props) => {
                     <ListLink
                         to="#contact"
                         callback={() => setIsMenuOpen(false)}
-                        navRef={props.navRef}
                         anchorRef={props.frontPageRefs?.contactUsRef}
                     >
                         Contact
@@ -171,67 +191,20 @@ const Menu = (props) => {
     );
 };
 
-const Navbar = forwardRef((props, ref) => {
-    /** open dropdown menu on mobile */
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const toggleClassName = isMenuOpen ? 'hamburger is-open' : 'hamburger';
-    const changeMenuColor = isMenuOpen ? 'is-open' : '';
-
-    /** change navbar background on scroll */
-    const navBackground = useIsScroll();
+const ListLink = (props) => {
 
     return (
-        <Nav
-            {...props}
-            className={changeMenuColor}
-            style={{
-                backgroundColor: navBackground
-                    ? 'var(--primary-color)'
-                    : 'transparent',
-            }}
-            ref={ref}
+        <NavItem
+            className={clsx(
+                props.to !== '/academy/' && 'underscore',
+                // props.to === activeId && 'active'
+            )}
         >
-            <NavContainer>
-                <Brand>
-                    <Link to="/">
-                        <Logo />
-                    </Link>
-                </Brand>
-                <NavList desktop>
-                    <Menu {...props} />
-                </NavList>
-            </NavContainer>
-            <Mobile>
-                <Hamburger
-                    className={toggleClassName}
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </Hamburger>
-
-                {isMenuOpen && (
-                    <NavList>
-                        <Menu {...props} />
-                    </NavList>
-                )}
-            </Mobile>
-        </Nav>
+            <Link {...props}>
+                {props.children}
+            </Link>
+        </NavItem>
     );
-});
+};
 
 export default Navbar;
-
-/**
-{mainMenu.map(navItem => (
-    <NavItem key={navItem}>
-        <AnchorLink
-            onClick={() => setIsMenuOpen(false)}
-            href={`#${navItem.toLowerCase()}`}
-        >
-            {navItem}
-        </AnchorLink>
-    </NavItem>
-))}
- */

@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Slide from 'react-reveal/Slide';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { device, Section, Container, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
 const Step = styled.div`
@@ -11,7 +11,7 @@ const Step = styled.div`
     align-items: center;
     counter-increment: section;
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         grid-template-columns: repeat(2, 1fr);
         ${props =>
             props.accent === 'inverse' &&
@@ -46,12 +46,12 @@ const Art = styled.div`
         width: 100%;
     }
 
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         border-right: 1px solid hsla(0, 0%, 74%, 0.3);
         border-top: 0;
     }
 
-    @media (min-width: ${props => props.theme.screen.md}) {
+    @media ${device.laptop} {
         .gatsby-image-wrapper {
             width: 70%;
             margin-left: 3rem;
@@ -78,7 +78,7 @@ const Art = styled.div`
         right: 0;
         width: 36px;
         height: 36px;
-        @media (min-width: ${props => props.theme.screen.sm}) {
+        @media ${device.tablet} {
             top: 0;
             right: -18px;
         }
@@ -89,7 +89,7 @@ const Art = styled.div`
         width: 54px;
         height: 54px;
         opacity: 0.2;
-        @media (min-width: ${props => props.theme.screen.sm}) {
+        @media ${device.tablet} {
             top: -18px;
             right: -36px;
             width: 72px;
@@ -100,7 +100,7 @@ const Art = styled.div`
 
 const Text = styled.div`
     padding: 3rem 0;
-    @media (min-width: ${props => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         padding: 0 3rem;
     }
     p,

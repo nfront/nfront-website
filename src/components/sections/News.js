@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import { device, Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
@@ -21,7 +21,7 @@ const StyledGrid = styled(Grid)`
 
 const Text = styled.div`
     padding: 1rem;
-    @media (min-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         min-height: 300px;
     }
 
@@ -42,14 +42,9 @@ const Text = styled.div`
 
 const Art = styled.div`
     img {
-        /* height: auto; */
         margin-bottom: 0;
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
-
-        @media (min-width: ${(props) => props.theme.screen.md}) {
-            /* min-height: 240px; */
-        }
     }
 `;
 
@@ -59,10 +54,7 @@ export default function News(props) {
     const { limit } = props;
     const data = useStaticQuery(graphql`
         query {
-            allContentfulNewsPosts(
-                sort: { order: DESC, fields: publishDate }
-                limit: 1000
-            ) {
+            allContentfulNewsPosts(sort: {publishDate: DESC}, limit: 1000) {
                 edges {
                     node {
                         id

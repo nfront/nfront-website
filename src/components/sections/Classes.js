@@ -21,67 +21,6 @@ const StyledGrid = styled(Grid)`
     }
 `;
 
-const ItemGrid = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    p {
-        margin-bottom: 0;
-        color: #002e5f;
-    }
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: ${(props) => props.theme.screen.md}) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-`;
-
-const Text = styled.div`
-    padding: 1rem;
-
-    h3 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        @media (min-width: ${(props) => props.theme.screen.md}) {
-            min-height: 2.5rem;
-        }
-    }
-
-    .label {
-        font-weight: 500;
-    }
-    a {
-        color: black;
-        font-size: 0.95rem;
-    }
-
-    /* p:not(.label) {
-        font-size: 16px;
-    } */
-    .know-details {
-        margin-left: 1rem;
-        text-align: right;
-
-        font-size: 0.8rem;
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
-            font-size: 1rem;
-        }
-
-        &:hover {
-            color: var(--blue);
-            .fa-arrow-right {
-                margin-left: 10px;
-                transition: all 0.3s ease-out 0s;
-            }
-        }
-        .fa-arrow-right {
-            margin-left: 5px;
-        }
-    }
-`;
-
 export default function Classes(props) {
     const { results, limit } = props;
     return (

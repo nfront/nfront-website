@@ -1,14 +1,15 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import { device, Section, Container, Grid, SectionTitle } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+
 // import ReadMore from '../../utils/readmore/ReadMore';
+
 import CustomSwiper from '@common/swiper';
 import { SwiperSlide } from 'swiper/react';
-import {breakpoints} from '@styles/global';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)`
@@ -24,31 +25,31 @@ const StyledContainer = styled(Container)`
     h2 {
         font-size: 1.5rem;
         margin-bottom: 5px;
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media ${device.laptop} {
             font-size: 2rem;
         }
     }
 `;
 
 const Art = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.mobile}) {
+    @media ${device.mobileL} {
         flex: 0 1 50%;
     }
     text-align: center;
     .gatsby-image-wrapper img {
         max-height: 300px;
         margin-bottom: 1rem !important;
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media ${device.laptop} {
             max-height: 400px;
         }
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        @media ${device.mobileL} {
             margin-bottom: 0 !important;
         }
     }
 `;
 
 const Text = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.mobile}) {
+    @media ${device.mobileL} {
         flex: 0 1 50%;
     }
 
@@ -60,7 +61,7 @@ const Text = styled.div`
     }
 
     p:last-child {
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        @media ${device.mobileL} {
             margin-bottom: 0;
         }
     }
@@ -68,14 +69,14 @@ const Text = styled.div`
     p,
     h2 {
         text-align: center;
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        @media ${device.mobileL} {
             text-align: left;
         }
     }
 
     .label {
         text-align: center;
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        @media ${device.mobileL} {
             text-align: left;
         }
         font-size: 12px;
@@ -89,9 +90,6 @@ const Divider = styled.hr`
 `;
 
 const FundList = styled.div`
-    @media (min-width: ${(props) => props.theme.screen.mobile}) {
-        /* margin-top: -1.666rem; */
-    }
     margin-bottom: 1.666rem;
     span {
         font-weight: 700;
@@ -99,7 +97,7 @@ const FundList = styled.div`
     ul {
         list-style-position: inside;
         list-style-type: none;
-        @media (min-width: ${(props) => props.theme.screen.mobile}) {
+        @media ${device.mobileL} {
             list-style-type: inherit;
         }
         padding: 0;
@@ -115,7 +113,7 @@ const Portfolio = (props) => {
     const { windowSize, isMobile } = useWindowSize();
     const { width: windowWidth } = windowSize;
 
-    const swiperNavigation = windowWidth > breakpoints.lg;
+    const swiperNavigation = windowWidth > device.laptop;
 
     const data = useStaticQuery(graphql`
         query {

@@ -1,13 +1,13 @@
 import React from 'react';
-import { SectionTitle, Container } from '@styles/global';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import useWindowSize from '@utils/hooks/useWindowSize';
-import { Section, ArtContainer, breakpoints } from '@styles/global';
 import { getImage } from 'gatsby-plugin-image';
+import { SwiperSlide } from 'swiper/react';
+
 import CustomSwiper from '@common/swiper';
 import Image from '@common/image';
-import { SwiperSlide } from 'swiper/react';
+import { device, SectionTitle, Container, Section, ArtContainer } from '@styles/global';
+import useWindowSize from '@utils/hooks/useWindowSize';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)`
@@ -39,7 +39,7 @@ const StyledContainer = styled(Container)`
         border-radius: 10px;
         padding: 1rem;
         margin-bottom: 2rem;
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
             font-size: 14px;
         }
     }
@@ -50,7 +50,7 @@ export default function EmployeeTestimonials() {
     const { width: windowWidth } = windowSize;
 
     const swiperSettings = {
-        slidesPerView: windowWidth > breakpoints.desktop ? 3 : 1,
+        slidesPerView: windowWidth > device.laptopL ? 3 : 1,
         loopAdditionalSlides: 5,
         centeredSlides: true
     };

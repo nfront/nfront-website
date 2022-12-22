@@ -5,9 +5,9 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from '@common/image';
-import { ArtContainer } from '@styles/global';
+import { ArtContainer, device } from '@styles/global';
 
-
+//FIXME: Replace with components from global
 const ItemGrid = styled.div`
     display: flex;
     justify-content: space-between;
@@ -16,10 +16,10 @@ const ItemGrid = styled.div`
         margin-bottom: 0;
         color: #002e5f;
     }
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet}{
         grid-template-columns: repeat(2, 1fr);
     }
-    @media (min-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         grid-template-columns: repeat(2, 1fr);
     }
 `;
@@ -31,7 +31,7 @@ const Text = styled.div`
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 20px;
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media ${device.laptop} {
             min-height: 2.5rem;
         }
     }
@@ -52,7 +52,7 @@ const Text = styled.div`
         text-align: right;
 
         font-size: 0.8rem;
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
             font-size: 1rem;
         }
 

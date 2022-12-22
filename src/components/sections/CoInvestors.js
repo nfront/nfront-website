@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Section, Container, Box, SectionTitle } from '@styles/global';
+import { device, Section, Container, FlexFlip, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
 
 const StyledGrid = styled.div`
@@ -10,7 +10,7 @@ const StyledGrid = styled.div`
     grid-template-columns: 1fr;
     transition: transform 0.3s ease-in-out;
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -67,16 +67,16 @@ const CoInvestors = forwardRef((props, ref) => {
     );
     return (
         <Section accent="alt" ref={ref} id="co-investors">
-                <SectionTitle>
-                    <h2>Co-Investment Network</h2>
-                    <p>
-                        As part of our value-add in investments, we bring in
-                        leading VCs and strategic high-net-worth individuals as
-                        co-investors.
-                        <br />
-                        Here are some of the investors in our network:
-                    </p>
-                </SectionTitle>
+            <SectionTitle className="text-white">
+                <h2>Co-Investment Network</h2>
+                <p>
+                    As part of our value-add in investments, we bring in
+                    leading VCs and strategic high-net-worth individuals as
+                    co-investors.
+                    <br />
+                    Here are some of the investors in our network:
+                </p>
+            </SectionTitle>
             <Container>
                 <StyledGrid>
                     {REGIONS.map(({ name, image }) => {
@@ -88,7 +88,7 @@ const CoInvestors = forwardRef((props, ref) => {
                         const pluginImage = svg ? null : getImage(image);
 
                         return (
-                            <Box>
+                            <FlexFlip className="rounded">
                                 <label>{name}</label>
                                 {svg && (
                                     <img src={image.publicURL} alt={name} />
@@ -99,7 +99,7 @@ const CoInvestors = forwardRef((props, ref) => {
                                         alt={name}
                                     />
                                 )}
-                            </Box>
+                            </FlexFlip>
                         );
                     })}
                 </StyledGrid>

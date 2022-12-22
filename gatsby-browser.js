@@ -1,6 +1,7 @@
 import './src/styles/style.scss';
 import React from 'react';
 import { silentAuth } from './src/utils/auth';
+import WrapRootElement from '@components/context/wrapRootElement';
 
 class SessionCheck extends React.Component {
     constructor(props) {
@@ -28,7 +29,11 @@ class SessionCheck extends React.Component {
 }
 
 export const wrapRootElement = ({ element }) => {
-    return <SessionCheck>{element}</SessionCheck>;
+    return (
+        <SessionCheck>
+            <WrapRootElement>{element}</WrapRootElement>
+        </SessionCheck>
+    );
 };
 
 export const onRouteUpdate = ({ location }) => {

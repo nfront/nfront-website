@@ -32,8 +32,6 @@ const TransactionTestimonials = () => {
         `
     );
 
-    console.log(data);
-
     return (
         <Section>
             <SectionTitle>
@@ -52,10 +50,6 @@ const TransactionTestimonials = () => {
                                 testimonialLineTwo: { testimonialLineTwo },
                             },
                         }) => {
-                            console.log(
-                                'testimonialLineOne',
-                                testimonialLineOne
-                            );
                             return (
                                 <SwiperSlide key={slug}>
                                     <ArtContainer>

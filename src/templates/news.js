@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { Section, Container } from '@styles/global';
+import { device, Section, Container } from '@styles/global';
 import Hero from '@common/hero';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
@@ -13,7 +13,7 @@ const StyledContainer = styled(Container)`
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        @media ${device.laptop} {
             max-width: 800px;
         }
         margin-bottom: 3rem;

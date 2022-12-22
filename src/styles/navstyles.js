@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { device } from '@styles/global';
 
 export const NavContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         padding: 0 1.5rem;
     }
 `;
@@ -21,15 +22,15 @@ export const Nav = styled.nav`
     z-index: 999;
     padding: 1rem 1.5rem;
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         font-size: 90%;
     }
 
-    @media (max-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         position: absolute;
     }
 
-    @media (max-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         padding: 1rem 0;
     }
 
@@ -76,12 +77,12 @@ export const NavList = styled.div`
         margin: 1rem 0;
 
         ${(props) =>
-            props.desktop &&
-            `
+        props.desktop &&
+        `
             flex-direction: row;
             margin: 0;
             
-            @media (max-width: ${props.theme.screen.md}) {
+            @media ${device.laptop} {
                 display: none;
             }
         `};
@@ -94,7 +95,7 @@ export const NavItem = styled.li`
     margin-left: 1.5rem;
     padding-left: 0;
 
-    @media (max-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         margin-left: 0;
         padding: 0.75rem 1.5rem;
         border-bottom: 1px solid rgba(225, 225, 225, 0.4);
@@ -110,7 +111,7 @@ export const NavItem = styled.li`
         }
     }
 
-    @media (min-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         &.underscore::after {
             content: '';
             position: absolute;
@@ -139,14 +140,14 @@ export const Brand = styled.div`
 `;
 
 export const Mobile = styled.div`
-    opacity: 0;
-    display: none;
-    transition: all 0.25s ease;
+    opacity: 1;
+    display: block;
+    visibility: visible;
 
-    @media (max-width: ${(props) => props.theme.screen.md}) {
-        opacity: 1;
-        display: block;
-        visibility: visible;
+    @media ${device.laptop} {
+        opacity: 0;
+        display: none;
+        transition: all 0.25s ease;
     }
 `;
 

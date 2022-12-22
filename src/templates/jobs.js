@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { Section, Container } from '@styles/global';
+import { device, Section, Container } from '@styles/global';
 import Hero from '@common/hero';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
@@ -18,7 +18,7 @@ import {
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         text-align: left;
     }
 `;
@@ -38,7 +38,7 @@ const InfoSection = styled.div`
             margin-bottom: 0 !important;
         }
     }
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         // margin-right: 3rem;
         // text-align: center;
     }
@@ -52,14 +52,14 @@ const DetailedSection = styled.div`
     text-align: left;
 `;
 const StyledImg = styled(GatsbyImage)`
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         // margin-right: 3rem;
         /* text-align: left; */
     }
 `;
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         padding: 0 1.5rem;
     }
 `;
@@ -75,9 +75,7 @@ const jobs = ({ data }) => {
         streetAddress,
     } = data.contentfulJobs;
 
-    // const pluginImageHero = getImage(heroImage);
     const iconImage = getImage(icon);
-    // console.log("here", heroImage);
 
     return (
         <Layout>

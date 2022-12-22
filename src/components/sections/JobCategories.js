@@ -3,8 +3,7 @@ import {
     Section,
     SectionTitle,
     Container,
-    Grid,
-    GridItem,
+    FlexFlip,
     BoxArt,
     BoxText,
     WaveBackground,
@@ -27,40 +26,35 @@ const JobCategories = ({ categories, getPositionCount }) => {
                 </SectionTitle>
             </Fade>
             <Container>
-                <Grid>
+                <FlexFlip>
                     {categories?.map((category) => {
                         const { title, coverImg, slug } = category;
                         const image = getImage(coverImg);
                         return (
-                            <WaveBackground className="rounded">
-                                <GridItem
-                                    className="grid-item rounded-and-shadow"
-                                    key={title}
-                                >
-                                    <BoxArt>
-                                        <GatsbyImage
-                                            className={'img-style'}
-                                            image={image}
-                                            alt={title}
-                                        />
-                                    </BoxArt>
-                                    <BoxText>
-                                        <Fade left>
-                                            <h3>{title}</h3>
-                                            <p>
-                                                {getPositionCount(
-                                                    slug,
-                                                    'category'
-                                                )}{' '}
-                                                Open Positions
-                                            </p>
-                                        </Fade>
-                                    </BoxText>
-                                </GridItem>
+                            <WaveBackground className="rounded-and-shadow" key={slug}>
+                                <BoxArt>
+                                    <GatsbyImage
+                                        className={'img-style'}
+                                        image={image}
+                                        alt={title}
+                                    />
+                                </BoxArt>
+                                <BoxText>
+                                    <Fade left>
+                                        <h3>{title}</h3>
+                                        <p>
+                                            {getPositionCount(
+                                                slug,
+                                                'category'
+                                            )}{' '}
+                                            Open Positions
+                                        </p>
+                                    </Fade>
+                                </BoxText>
                             </WaveBackground>
                         );
                     })}
-                </Grid>
+                </FlexFlip>
             </Container>
         </Section>
     );

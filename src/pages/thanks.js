@@ -7,16 +7,16 @@ import Menu from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Link from '@common/link';
-import Contact from '@sections/Contact';
 import Seo from '@utils/SEO';
-import { Section, Container } from '@styles/global';
+import Contact from '@sections/Contact';
+import { device, Section, Container } from '@styles/global';
 
 const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 50px;
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         grid-template-columns: repeat(2, 1fr);
     }
 

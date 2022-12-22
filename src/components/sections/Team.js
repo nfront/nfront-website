@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Section, Container, SectionTitle } from '@styles/global';
+import { device, Section, Container, SectionTitle } from '@styles/global';
 
 export const Divider = styled.hr`
     margin: 0 1.5rem 3rem 1.5rem;
@@ -10,14 +10,14 @@ export const Divider = styled.hr`
 `;
 
 const Divider2 = styled(Divider)`
-    @media (min-width: ${(props) => props.theme.screen.md}) {
+    @media ${device.laptop} {
         display: none;
     }
 `;
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         text-align: left;
     }
 `;
@@ -26,7 +26,7 @@ export const FlexBox = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         justify-content: left;
     }
     padding: 0 1.5rem;
@@ -53,7 +53,7 @@ export const FlexBox = styled.div`
         margin-bottom: 1.5rem;
         max-width: 250px;
         max-height: 250px;
-        @media (min-width: ${(props) => props.theme.screen.xs}) {
+        @media ${device.mobileL} {
             margin-right: 3rem;
             /* text-align: left; */
         }
@@ -69,7 +69,7 @@ const Analysts = styled.div`
     flex: 1 1 400px;
     /* margin-right: 2rem; */
     /* margin-left: 2rem; */
-    @media (min-width: ${(props) => props.theme.screen.xs}) {
+    @media ${device.mobileL} {
         margin-right: 2rem;
         text-align: left;
         margin-left: 0rem;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '@styles/global';
+import { Container, device } from '@styles/global';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,11 +19,11 @@ export const CardStyle = styled.div`
     img {
         width: 60px;
         height: 60px;
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
         }
     }
     .job-info {
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
             display: flex;
         }
         padding-bottom: 1rem;
@@ -33,7 +33,7 @@ export const CardStyle = styled.div`
         h3 {
             margin-top: 1rem;
         }
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
             display: flex;
             margin-top: 0 !important;
         }
@@ -48,7 +48,7 @@ export const CardStyle = styled.div`
         }
     }
     .job-details {
-        @media (min-width: ${(props) => props.theme.screen.lg}) {
+        @media ${device.laptop} {
             display: flex;
         }
         // color: var(--blue);

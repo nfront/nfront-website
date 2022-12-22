@@ -6,13 +6,13 @@ import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Link from '@common/link';
 import Contact from '@sections/Contact';
-import { Section, Container } from '@styles/global';
+import { device, Section, Container } from '@styles/global';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 
 const StyledSection = styled(Section)`
     padding: 5rem 0;
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         padding: 7rem 0;
     }
 `;
@@ -21,7 +21,7 @@ const Grid = styled.div`
     grid-template-columns: 1fr;
     grid-gap: 50px;
 
-    @media (min-width: ${(props) => props.theme.screen.sm}) {
+    @media ${device.tablet} {
         grid-template-columns: repeat(2, 1fr);
     }
     a {

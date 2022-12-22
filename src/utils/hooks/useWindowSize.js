@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { breakpoints } from '@styles/global';
+import { device } from '@styles/global';
 
-const mobileWidth = breakpoints.mobile;
+const mobileWidth = device.mobileL;
 
 const useWindowSize = () => {
     // Initialize state with undefined width/height so server and client renders match
