@@ -1,4 +1,5 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState, useContext } from 'react';
+import { NavBarContext } from '@context/myProviders';
 
 // Restrict value to be between the range [0, value]
 const clamp = (value) => Math.max(0, value);
@@ -8,12 +9,14 @@ const isBetween = (value, floor, ceil) => value >= floor && value <= ceil;
 
 export const useScrollMonitor = (ids, navRef) => {
     const [activeId, setActiveId] = useState('');
+    const { navRect } = useContext(NavBarContext);
 
     useLayoutEffect(() => {
         // console.log('IN SCROLLM: ', navRef);
         const listener = () => {
             const scroll = window.pageYOffset;
 
+            
             // A HACK, NAVREF DOES NOT WORK
             const {height: navOffset} = navRef?.current?.getBoundingClientRect() || {height: 0};
 

@@ -37,9 +37,11 @@ export const wrapRootElement = ({ element }) => {
 };
 
 export const onRouteUpdate = ({ location }) => {
+    // Returns list of DOM Nodes matching selector
     const hash = document.querySelectorAll(`a[href="${location.hash}"]`)[0];
     if (hash) {
         window.scrollTo({
+            // top: Specifies number of pixels along Y axis to scroll window
             top: hash.offsetTop,
         });
     }
