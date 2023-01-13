@@ -1,12 +1,13 @@
 import React from 'react';
-import { device, Overlay, OverlayText, Shading, BgImage } from '@styles/global';
 import styled from 'styled-components';
-import { getImage } from 'gatsby-plugin-image';
+import { Overlay, OverlayText, Shading } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import Image from '@common/image';
 
 const Container = styled.div`
     height: ${(props) => (props.height === 'long' ? '100vh' : '70vh')};
 
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         height: ${(props) =>
             props.height === 'long'
                 ? '100vh'
@@ -14,7 +15,7 @@ const Container = styled.div`
                 ? '50vh'
                 : '60vh'};
     }
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         height: ${(props) =>
             props.height === 'long'
                 ? '100vh'
@@ -31,7 +32,7 @@ const Container = styled.div`
 
         font-weight: ${(props) => (props.small ? '500' : '800')};
 
-        @media ${device.tablet} {
+        @media ${breakpoints.tablet} {
             font-size: ${(props) => (props.small ? '2rem' : '3rem')};
         }
     }
@@ -41,22 +42,16 @@ const Container = styled.div`
     }
 `;
 
-const Hero = ({ heroImage, children, height, small, left, altShading }) => {
+const Hero = ({ heroImage, children, height, small, left, polygonShading }) => {
     if (!heroImage) {
         return null;
     }
 
-    const svg = heroImage.svg ? true : false;
-    const pluginImage = svg ? null : getImage(heroImage);
-
     return (
         <Container height={height} small={small}>
             <Overlay>
-                {svg && <img src={heroImage.publicURL} alt={heroImage.title} />}
-                {!svg && (
-                    <BgImage image={pluginImage} alt={pluginImage.title} />
-                )}
-                <Shading alt={altShading} />
+                <Image image={heroImage} backgroundImage />
+                <Shading polygonShading={polygonShading} />
                 <OverlayText left={left} className={`${small && 'text-light'}`}>
                     {children}
                 </OverlayText>

@@ -2,13 +2,17 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { device, Section, Container } from '@styles/global';
 import Hero from '@common/hero';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
+import { Section, Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import Seo from '@utils/SEO';
+
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { FlexBox } from '../components/sections/Team';
+
+import { FlexBox } from '@components/sections/Team';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faLocationDot,
@@ -18,7 +22,7 @@ import {
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         text-align: left;
     }
 `;
@@ -38,7 +42,7 @@ const InfoSection = styled.div`
             margin-bottom: 0 !important;
         }
     }
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         // margin-right: 3rem;
         // text-align: center;
     }
@@ -52,14 +56,14 @@ const DetailedSection = styled.div`
     text-align: left;
 `;
 const StyledImg = styled(GatsbyImage)`
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         // margin-right: 3rem;
         /* text-align: left; */
     }
 `;
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         padding: 0 1.5rem;
     }
 `;

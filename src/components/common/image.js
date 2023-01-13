@@ -2,7 +2,7 @@ import * as React from 'react';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const imageWrapperStyle = {
-    gridArea: 1 / 1,
+    gridArea: '1/1',
     zIndex: 0,
 };
 
@@ -71,11 +71,19 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
         Boolean(svg) ||
         (ext && ext.includes('svg')) ||
         (extension && extension.includes('svg')) ||
-        (mimeType && mimeType.includes('svg'));
+        (mimeType && mimeType.includes('svg')) ||
+        (typeof image === 'string' && image.includes('svg'));
 
     const finalAlt = alt || name || title || '';
+    console.log('imageAlt', finalAlt);
 
-    const imageSource = svg ? publicURL : getImage(image);
+    const imageSource = isSvg
+        ? publicURL
+            ? publicURL
+            : image
+        : getImage(image);
+
+    const bgStyle = backgroundImage && imageWrapperStyle;
 
     // Image from filesystem contains ChildImageSharp
     // SVG: ChildImageSharp is null
@@ -88,6 +96,7 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
                 style={backgroundImage && imageWrapperStyle}
                 imgClassName="img-class"
                 className="image-wrapper-class"
+                src=""
                 {...rest}
             />
         );
@@ -100,6 +109,7 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
                 style={backgroundImage && imageWrapperStyle}
                 imgClassName="img-class"
                 className="image-wrapper-class"
+                src=""
                 {...rest}
             />
         );
@@ -107,9 +117,9 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
         // SVG (can be from anywhere)
         return (
             <img
-                src={publicURL}
+                src={imageSource}
                 alt={finalAlt}
-                style={backgroundImage && imageWrapperStyle}
+                style={{ ...bgStyle }}
                 {...rest}
             />
         );

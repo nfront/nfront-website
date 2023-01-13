@@ -12,7 +12,7 @@ import Thesis from '@sections/Thesis';
 import CoInvestors from '@sections/CoInvestors';
 import TransactionTestimonials from '@sections/TransactionTestimonials';
 
-const ThesisPage = ({ data }) => {
+const ThesisPage = ({ data, location }) => {
     const coInvestorsRef = useRef(null);
     const thesisRefs = { coInvestorsRef: coInvestorsRef };
     const navRef = useRef(null);
@@ -22,7 +22,7 @@ const ThesisPage = ({ data }) => {
     return (
         <Layout>
             <Seo title={title} />
-            <Navbar ref={navRef} fluid />
+            <Navbar ref={navRef} fluid location={location} />
             <Hero heroImage={heroImage}>
                 <h2>nFront Ventures</h2>
                 <p>

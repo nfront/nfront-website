@@ -9,14 +9,15 @@ import Hero from '@common/hero';
 import Link from '@common/link';
 import Seo from '@utils/SEO';
 import Contact from '@sections/Contact';
-import { device, Section, Container } from '@styles/global';
+import { Section, Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 50px;
 
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         grid-template-columns: repeat(2, 1fr);
     }
 

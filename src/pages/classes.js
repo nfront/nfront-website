@@ -1,17 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
+import { push } from 'gatsby-link';
+import { Field, Form, Formik } from 'formik';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
-import { useStaticQuery, graphql } from 'gatsby';
-import styled from 'styled-components';
-import { Container } from '@styles/global';
-import { Field, Form, Formik } from 'formik';
 import Link from '@common/link';
-import { push } from 'gatsby-link';
-import Class from '../components/common/class';
-import { device, Grid } from '@styles/global';
+import Class from '@components/common/class';
+import { Grid, Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import {
     Accordion,
     AccordionDetails,
@@ -43,7 +43,7 @@ const FormFields = styled(Container)`
     padding: 1rem;
     justify-items: center;
     align-items: center;
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         display: flex;
     }
     input,
@@ -117,7 +117,7 @@ const StyledContainer = styled(Container)`
     padding: 0 1rem;
     margin-top: 15px;
     margin-bottom: 15px;
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         text-align: left;
     }
 `;
@@ -152,7 +152,7 @@ const ClassesPage = ({ data, location }) => {
     return (
         <Layout>
             <Seo title={pageTitle} />
-            <Navbar fluid />
+            <Navbar fluid location={location}/>
             <Hero heroImage={heroImage}>
                 <h2>Courses</h2>
                 <p>

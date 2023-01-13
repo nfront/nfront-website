@@ -6,14 +6,19 @@ import {
     Overlay,
     OverlayText,
     BoxText,
-    FlexFlip,
-    BgImage,
-    Shading
+    FlexRow,
+    Shading,
 } from '@styles/global';
+import Image from '@common/image';
 import Fade from '@common/fade';
-import { getImage } from 'gatsby-plugin-image';
+import { getObjectCount } from '@utils/utils';
 
-export default function FeaturedCities({ cities, getPositionCount }) {
+const JobCities = ({ jobs, cities }) => {
+
+    // Get count of objects in array with property "outerProperty.innerProperty" matching "value"
+    const getPositionCount = (outerProperty, innerProperty, value) =>
+        getObjectCount(jobs, outerProperty, innerProperty, value);
+
     return (
         <Section shade>
             <SectionTitle>
@@ -21,25 +26,26 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                 <p>Openings across our {cities.length} locations</p>
             </SectionTitle>
             <Container>
-                <FlexFlip>
+                <FlexRow basis="360px" twoByTwo>
                     {cities.map((city) => {
                         const { title, featuredImage, slug } = city;
-                        const pluginImage = getImage(featuredImage);
                         return (
-                            <Overlay height="280px" className="rounded" key={slug}>
+                            <Overlay
+                                height="280px"
+                                className="rounded"
+                                key={slug}
+                            >
                                 <Shading />
-                                <BgImage
-                                    image={pluginImage}
-                                    alt={title}
-                                />
+                                <Image image={featuredImage} alt={title} backgroundImage />
                                 <OverlayText>
                                     <Fade left>
                                         <BoxText noArt white>
                                             <h3>{title}</h3>
                                             <p>
                                                 {getPositionCount(
-                                                    slug,
-                                                    'city'
+                                                    'city',
+                                                    'slug',
+                                                    slug
                                                 )}{' '}
                                                 Open Positions
                                             </p>
@@ -49,8 +55,10 @@ export default function FeaturedCities({ cities, getPositionCount }) {
                             </Overlay>
                         );
                     })}
-                </FlexFlip>
+                </FlexRow>
             </Container>
         </Section>
     );
-}
+};
+
+export default JobCities;

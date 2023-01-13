@@ -1,10 +1,11 @@
 /** Button styles **/
+@use 'variables.module' as *;
 
 $buttonColor: var(--button-color);
 $secondaryColor: var(--yellow);
 $buttonBorderRadius: 35px;
 
-.button {
+.button, .button[type='submit'] {
     border: $border-width solid;
     background-color: $buttonColor;
     color: $grey;

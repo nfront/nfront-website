@@ -1,10 +1,11 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { device, Section, Container, Grid, SectionTitle } from '@styles/global';
+import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import Image from '@common/image';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 // import ReadMore from '../../utils/readmore/ReadMore';
 
@@ -12,8 +13,7 @@ import CustomSwiper from '@common/swiper';
 import { SwiperSlide } from 'swiper/react';
 
 /** use if you need to style your section differently, otherwise leave it empty */
-const StyledSection = styled(Section)`
-`;
+const StyledSection = styled(Section)``;
 
 const StyledGrid = styled(Grid)`
     .grid-item {
@@ -25,31 +25,31 @@ const StyledContainer = styled(Container)`
     h2 {
         font-size: 1.5rem;
         margin-bottom: 5px;
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             font-size: 2rem;
         }
     }
 `;
 
 const Art = styled.div`
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         flex: 0 1 50%;
     }
     text-align: center;
     .gatsby-image-wrapper img {
         max-height: 300px;
         margin-bottom: 1rem !important;
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             max-height: 400px;
         }
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             margin-bottom: 0 !important;
         }
     }
 `;
 
 const Text = styled.div`
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         flex: 0 1 50%;
     }
 
@@ -61,7 +61,7 @@ const Text = styled.div`
     }
 
     p:last-child {
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             margin-bottom: 0;
         }
     }
@@ -69,14 +69,14 @@ const Text = styled.div`
     p,
     h2 {
         text-align: center;
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             text-align: left;
         }
     }
 
     .label {
         text-align: center;
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             text-align: left;
         }
         font-size: 12px;
@@ -97,7 +97,7 @@ const FundList = styled.div`
     ul {
         list-style-position: inside;
         list-style-type: none;
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             list-style-type: inherit;
         }
         padding: 0;
@@ -113,7 +113,7 @@ const Portfolio = (props) => {
     const { windowSize, isMobile } = useWindowSize();
     const { width: windowWidth } = windowSize;
 
-    const swiperNavigation = windowWidth > device.laptop;
+    const swiperNavigation = windowWidth > breakpoints.laptop;
 
     const data = useStaticQuery(graphql`
         query {
@@ -157,14 +157,13 @@ const Portfolio = (props) => {
                                         location,
                                         logo,
                                         cInvestors,
+                                        description: { description },
                                     } = val;
-                                    const { description } = val.description;
-                                    const image = getImage(logo);
                                     return (
-                                        <SwiperSlide>
+                                        <SwiperSlide key={brand}>
                                             <Art>
-                                                <GatsbyImage
-                                                    image={image}
+                                                <Image
+                                                    image={logo}
                                                     alt={brand}
                                                 />
                                             </Art>
@@ -198,20 +197,23 @@ const Portfolio = (props) => {
                     ) : (
                         <StyledContainer>
                             {result.map((val) => {
-                                const { brand, location, logo, cInvestors } =
-                                    val;
-                                const { description } = val.description;
-                                const image = getImage(logo);
+                                const {
+                                    brand,
+                                    location,
+                                    logo,
+                                    cInvestors,
+                                    description: { description },
+                                } = val;
                                 return (
-                                    <>
+                                    <div key={brand}>
                                         <Text>
                                             <h2>{brand}</h2>
                                             <p className="label">
                                                 <span>HQ:</span> {location}
                                             </p>
                                             <Art>
-                                                <GatsbyImage
-                                                    image={image}
+                                                <Image
+                                                    image={logo}
                                                     alt={brand}
                                                 />
                                             </Art>
@@ -230,7 +232,7 @@ const Portfolio = (props) => {
                                             <p>{description}</p>
                                         </Text>
                                         <Divider />
-                                    </>
+                                    </div>
                                 );
                             })}
                         </StyledContainer>
@@ -240,10 +242,14 @@ const Portfolio = (props) => {
                 <Container>
                     <StyledGrid>
                         {result.map((val) => {
-                            const { brand, link, icon } = val;
-                            const { description } = val.description;
+                            const {
+                                brand,
+                                link,
+                                icon,
+                                description: { description },
+                            } = val;
                             return (
-                                <>
+                                <div key={brand}>
                                     {isMobile ? (
                                         <div className="flip-card grid-item">
                                             <div className="flip-card-front">
@@ -302,7 +308,7 @@ const Portfolio = (props) => {
                                             </div>
                                         </div>
                                     )}
-                                </>
+                                </div>
                             );
                         })}
                     </StyledGrid>

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
-import { device, Section, Container, Grid, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
-import { useIsHome } from '@utils/hooks/useCheckLocation';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import { useIsHome } from '@utils/hooks/useCheckLocation';
 
 /** use if you need to style your section differently, otherwise leave it empty */
 const StyledSection = styled(Section)`
@@ -21,7 +22,7 @@ const StyledGrid = styled(Grid)`
 
 const Text = styled.div`
     padding: 1rem;
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         min-height: 300px;
     }
 

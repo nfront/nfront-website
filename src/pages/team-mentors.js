@@ -11,13 +11,13 @@ import Seo from '@utils/SEO';
 import Mentors from '@sections/Mentors';
 import Team from '@sections/Team';
 
-const TeamPage = ({ data }) => {
+const TeamPage = ({ data, location }) => {
     const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
             <Seo title={title} />
-            <Navbar fluid />
+            <Navbar fluid location={location}/>
             <Hero heroImage={heroImage}>
                 <h2>Team & Mentors</h2>
                 <p>

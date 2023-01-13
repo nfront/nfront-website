@@ -1,33 +1,7 @@
 import React, { forwardRef } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { device, Section, Container, FlexFlip, SectionTitle } from '@styles/global';
-import styled from 'styled-components';
-
-const StyledGrid = styled.div`
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: 1fr;
-    transition: transform 0.3s ease-in-out;
-
-    @media ${device.tablet} {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    label {
-        position: absolute;
-        top: -10px;
-        background: var(--secondary-color);
-        padding: 2px 12px;
-        font-size: 14px;
-        color: var(--alt-color);
-        text-align: center;
-    }
-
-    .box {
-        border: 1px solid rgba(225, 225, 225, 0.2);
-    }
-`;
+import Image from '@common/image';
+import { Section, Container, FlexRow, FlexColumn, SectionTitle } from '@styles/global';
 
 const REGIONS = [
     {
@@ -78,31 +52,24 @@ const CoInvestors = forwardRef((props, ref) => {
                 </p>
             </SectionTitle>
             <Container>
-                <StyledGrid>
+                <FlexRow basis="360px" maxWidth="360px">
                     {REGIONS.map(({ name, image }) => {
+
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;
-                        const svg =
-                            !img.childImageSharp && img.extension === 'svg';
-                        const pluginImage = svg ? null : getImage(image);
 
                         return (
-                            <FlexFlip className="rounded">
-                                <label>{name}</label>
-                                {svg && (
-                                    <img src={image.publicURL} alt={name} />
-                                )}
-                                {!svg && (
-                                    <GatsbyImage
-                                        image={pluginImage}
-                                        alt={name}
-                                    />
-                                )}
-                            </FlexFlip>
+                            <FlexColumn className="rounded bg-white pos-rel p-15">
+                                <label className="red-label">{name}</label>
+                                <Image className="rounded"
+                                    image={img}
+                                    alt={name}
+                                />
+                            </FlexColumn>
                         );
                     })}
-                </StyledGrid>
+                </FlexRow>
             </Container>
         </Section>
     );

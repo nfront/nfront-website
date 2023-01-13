@@ -15,7 +15,7 @@ import TransactionTestimonials from '@sections/TransactionTestimonials';
 import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, location }) => {
     const contactUsRef = useRef(null);
     const aboutUsRef = useRef(null);
     const frontPageRefs = {
@@ -31,6 +31,7 @@ const IndexPage = ({ data }) => {
             <Navbar
                 frontPageRefs={frontPageRefs}
                 fluid
+                location={location}
             />
             <Header heroImage={heroImage} />
             <About ref={aboutUsRef} />

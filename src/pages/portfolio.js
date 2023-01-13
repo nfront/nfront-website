@@ -8,13 +8,13 @@ import Footer from '@common/footer';
 import Seo from '@utils/SEO';
 import Portfolio from '@sections/Portfolio';
 
-const PortfolioPage = ({ data }) => {
+const PortfolioPage = ({ data, location }) => {
     const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
             <Seo title={title} />
-            <Navbar fluid />
+            <Navbar fluid location={location}/>
             <Hero heroImage={heroImage}>
                 <h2>{title}</h2>
                 <p>

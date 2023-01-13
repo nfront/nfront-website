@@ -2,18 +2,19 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { device, Section, Container } from '@styles/global';
 import Hero from '@common/hero';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
+import { Section, Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const StyledContainer = styled(Container)`
     img {
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             max-width: 800px;
         }
         margin-bottom: 3rem;

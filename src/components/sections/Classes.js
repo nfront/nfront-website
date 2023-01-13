@@ -8,6 +8,7 @@ const ClassesSection = styled(Section)`
     background: #f3f4f8;
 `;
 
+//FIXME: Replace with global comps
 const StyledGrid = styled(Grid)`
     .grid-item {
         background: white;

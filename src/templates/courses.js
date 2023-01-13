@@ -1,7 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
-import { device, Section, Container } from '@styles/global';
+import { Section, Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
@@ -18,14 +19,14 @@ import {
 import HomeIcon from '@mui/icons-material/Home';
 import BookIcon from '@mui/icons-material/Book';
 import LanguageIcon from '@mui/icons-material/Language';
-import Europe from '../images/nfront/europe.jpg';
+import Europe from '@images/nfront/europe.jpg';
 
 const StyledContainer = styled(Container)`
     img {
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             max-width: 800px;
         }
         margin-bottom: 3rem;

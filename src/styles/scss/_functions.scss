@@ -1,0 +1,20 @@
+@use "sass:math";
+@use "sass:meta";
+
+// Divide by the intended root px size
+// Not by the actual root size
+// As the returned rem should be fixed regardless of user's browser's font-size setting
+// As our root varies with (% of) browser's font-size setting
+// Our intended root font-size is in this app 18px
+@function pxToRem($pxValue) {
+    @return math.div($pxValue, 18px) * 1rem;
+}
+
+// To remove unit from 40px, just divide it by 1px (like any other fraction)
+@function strip-unit($number) {
+    @if type-of($number) == "number" and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}

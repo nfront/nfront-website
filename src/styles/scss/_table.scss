@@ -1,3 +1,7 @@
+@use 'variables.module' as *;
+@use 'breakpoints.module' as *;
+@use 'mixins' as *;
+
 table {
     width: 100%;
     margin-bottom: 1.666rem;
@@ -45,7 +49,7 @@ tfoot {
         flex-direction: row;
         justify-content: space-between;
 
-        @include breakpoint(mobile) {
+        @include breakpoint(mobileL) {
             flex-direction: column;
         }
     }

@@ -2,19 +2,20 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '@common/layout';
-import { device, Section, Container, Overlay, OverlayText } from '@styles/global';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
+import { Section, Container, Overlay, OverlayText } from '@styles/global';
 import Seo from '@utils/SEO';
 import slugify from '@utils/slugify';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-// import { FlexBox } from '../components/sections/Team';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         text-align: left;
     }
 `;

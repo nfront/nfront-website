@@ -1,4 +1,5 @@
 import React, { useState, forwardRef, useEffect, useContext, createContext } from 'react';
+
 import Link from '@common/link';
 import { useScrollMonitor } from '@utils/hooks/useScrollMonitor';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
@@ -23,7 +24,7 @@ const secondaryMenu = [
     {
         name: 'Home',
         path: '/',
-        id: 'top',
+        id: 'home',
     },
     {
         name: 'Thesis',
@@ -117,13 +118,18 @@ const Menu = (props) => {
     const scrollMonitorIdList = ['top', 'contact'];
     const activeId = useScrollMonitor(scrollMonitorIdList, props.navRef);
 
+    const {pathname} = props.location || '';
+
+    const clickHander = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     return (
         <>
             {isHome ? (
                 <ul>
                     <ListLink
                         to="#top"
-                        callback={() => setIsMenuOpen(false)}
                         anchorRef={props.frontPageRefs?.aboutUsRef}
                     >
                         Home
@@ -136,7 +142,6 @@ const Menu = (props) => {
                     <ListLink to="/news/">News</ListLink>
                     <ListLink
                         to="#contact"
-                        callback={() => setIsMenuOpen(false)}
                         anchorRef={props.frontPageRefs?.contactUsRef}
                     >
                         Contact
@@ -164,7 +169,8 @@ const Menu = (props) => {
                         return (
                             <NavItem
                                 key={id}
-                                className={clsx(id === activeId && 'active')}
+                                className={clsx(path !== '/academy/' && 'underscore', pathname?.includes(id) && 'active')}
+                                onClick={clickHander}
                             >
                                 <Link to={path}>{name}</Link>
                             </NavItem>

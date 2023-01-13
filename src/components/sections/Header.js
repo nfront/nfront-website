@@ -2,7 +2,7 @@ import React from 'react';
 import Fade from '@common/fade';
 import styled from 'styled-components';
 import Hero from '@common/hero';
-import { device } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 export const HeaderText = styled.div`
     h1 {
@@ -12,28 +12,28 @@ export const HeaderText = styled.div`
         letter-spacing: 2px;
         text-transform: uppercase;
 
-        @media ${device.tablet} {
+        @media ${breakpoints.tablet} {
             font-size: 3rem;
         }
 
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             font-size: 4rem;
         }
 
         span {
             color: var(--yellow);
             font-size: 2.5rem;
-            @media ${device.tablet} {
+            @media ${breakpoints.tablet} {
                 font-size: 4rem;
             }
-            @media ${device.tablet} {
+            @media ${breakpoints.laptop} {
                 font-size: 5rem;
             }
         }
 
         p {
             color: white;
-            @media ${device.laptop} {
+            @media ${breakpoints.laptop} {
                 font-size: 1.2rem;
             }
             font-size: 1rem;
@@ -58,7 +58,7 @@ export const SubHeaderText = styled.div`
 
 export default function Header({ heroImage }) {
     return (
-        <Hero heroImage={heroImage} height='long' left altShading>
+        <Hero heroImage={heroImage} height='long' left polygonShading>
             <Fade top>
                 <SubHeaderText>
                     <h2>we help businesses</h2>

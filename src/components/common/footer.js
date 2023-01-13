@@ -1,48 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from '@common/link';
+import Image from '@common/image';
 
 /** social icons */
 import Twitter from '@static/icons/twitter.svg';
 import Linkedin from '@static/icons/linkedin.svg';
 import Email from '@static/icons/email.svg';
 
-import {
-    Section,
-    Container,
-    FlexFlip,
-} from '@styles/global';
+import { Section, Container, FlexRow } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const SOCIAL = [
     {
-        icon: Linkedin,
+        iconUrl: Linkedin,
+        alt: "nFront LinkedIn",
         link: 'https://www.linkedin.com/company/nFrontVentures',
     },
     {
-        icon: Twitter,
+        iconUrl: Twitter,
+        alt: "nFront Twitter",
         link: 'https://twitter.com/nFrontVentures',
     },
     {
-        icon: Email,
+        iconUrl: Email,
+        alt: "nFront Email",
         link: '/contact/',
     },
 ];
-
-const SocialIcons = styled.div`
-    img {
-        width: 24px;
-        height: 24px;
-        margin-right: 16px;
-    }
-`;
 
 const StyledSection = styled(Section)`
     background: var(--footer-alt-color);
 
     font-size: 12px;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+
+    @media ${breakpoints.tablet} {
+        padding: 6rem 0rem;
+    }
 
     a {
         color: #af944f;
@@ -50,36 +45,39 @@ const StyledSection = styled(Section)`
 
     p {
         color: #6c757d;
-        margin-bottom: 1rem;
-    }
+        margin-bottom: 0;
 
-    .label {
-        font-size: 14px;
-        color: var(--accent-color);
-        margin-top: 1.66rem;
+        &.label {
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-bottom: 1rem;
+        }
     }
 
     ul {
         list-style-type: none;
-        margin-left: 0;
-
+        margin: 0;
         li {
             margin-bottom: 5px;
             padding-left: 0;
         }
     }
+`;
 
-    svg {
-        width: 50px;
+const SocialIcons = styled.div`
+    img {
+        width: 24px;
+        margin-right: 16px;
+        margin-bottom: 0px;
     }
 `;
 
-export default function Footer(props) {
+const Footer = (props) => {
     return (
         <footer>
-            <StyledSection>
+            <StyledSection className="uppercase ls-1">
                 <Container>
-                    <FlexFlip justifyContent="space-between">
+                    <FlexRow justifyContent="space-between" gap="3rem">
                         <div>
                             <p className="label">Headquarters</p>
                             <p>
@@ -98,7 +96,9 @@ export default function Footer(props) {
                                     <Link to="/">Portfolio</Link>
                                 </li>
                                 <li>
-                                    <Link to="/team-mentors/">Team & Mentors</Link>
+                                    <Link to="/team-mentors/">
+                                        Team & Mentors
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link to="/news/">News</Link>
@@ -122,16 +122,20 @@ export default function Footer(props) {
                         <div>
                             <p className="label">Social</p>
                             <SocialIcons>
-                                {SOCIAL.map(({ icon, link }) => (
-                                    <Link key={icon} to={link}>
-                                        <img src={icon} alt="link" />
-                                    </Link>
-                                ))}
+                                {SOCIAL.map(({ iconUrl, alt, link }) => {
+                                    return (
+                                        <Link key={iconUrl} to={link}>
+                                            <Image image={iconUrl} alt={alt} />
+                                        </Link>
+                                    );
+                                })}
                             </SocialIcons>
                         </div>
-                    </FlexFlip>
+                    </FlexRow>
                 </Container>
             </StyledSection>
         </footer>
     );
-}
+};
+
+export default Footer;

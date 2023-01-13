@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper } from 'swiper/react';
-import { device } from '@styles/global';
-import useWindowSize from '@utils/hooks/useWindowSize';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -29,13 +28,13 @@ const defaultSettings = {
 const ModifiedSwiper = styled(Swiper)`
     .swiper-slide {
         display: flex;
-        flex-direction: ${(props) => (props.row ? 'row' : 'column')};
+        flex-direction: ${(props) => (props.$row ? 'row' : 'column')};
         align-items: center;
-        justify-content: ${(props) => (props.row ? 'flex-start' : 'center')};
+        justify-content: ${(props) => (props.$row ? 'flex-start' : 'center')};
         overflow: hidden;
         text-align: center;
         padding: 0rem 0rem 2rem;
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             padding: ${(props) => props.navigation ? `2rem 4rem 5rem` : `2rem ${props.spacing}rem 5rem`};
         }
     }
@@ -54,7 +53,7 @@ const CustomSwiper = (props) => {
     const spacing = props.spacing || 0;
 
     return (
-        <ModifiedSwiper row={row} navigation={swiperSettings.navigation} spacing={spacing} {...swiperSettings}>
+        <ModifiedSwiper $row={row} navigation={swiperSettings.navigation} spacing={spacing} {...swiperSettings}>
             {children}
         </ModifiedSwiper>
     );

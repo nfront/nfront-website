@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { device, Section, Container, SectionTitle } from '@styles/global';
+import { Section, Container, SectionTitle } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 export const Divider = styled.hr`
     margin: 0 1.5rem 3rem 1.5rem;
@@ -10,14 +11,14 @@ export const Divider = styled.hr`
 `;
 
 const Divider2 = styled(Divider)`
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         display: none;
     }
 `;
 
 const StyledContainer = styled(Container)`
     text-align: center;
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         text-align: left;
     }
 `;
@@ -26,7 +27,7 @@ export const FlexBox = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         justify-content: left;
     }
     padding: 0 1.5rem;
@@ -53,7 +54,7 @@ export const FlexBox = styled.div`
         margin-bottom: 1.5rem;
         max-width: 250px;
         max-height: 250px;
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             margin-right: 3rem;
             /* text-align: left; */
         }
@@ -69,7 +70,7 @@ const Analysts = styled.div`
     flex: 1 1 400px;
     /* margin-right: 2rem; */
     /* margin-left: 2rem; */
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         margin-right: 2rem;
         text-align: left;
         margin-left: 0rem;

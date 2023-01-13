@@ -1,37 +1,38 @@
 import styled from 'styled-components';
-import { device } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 export const NavContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 1.5rem;
 
-    @media ${device.laptop} {
-        padding: 0 1.5rem;
+    @media ${breakpoints.laptop} {
+        padding: 0;
     }
 `;
 
 export const Nav = styled.nav`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: absolute;
     width: 100%;
-    max-width: var(--max-width);
     margin: 0 auto;
     z-index: 999;
-    padding: 1rem 1.5rem;
-
-    @media ${device.tablet} {
+    padding: 1rem 0;
+    
+    
+    @media ${breakpoints.tablet} {
         font-size: 90%;
     }
-
-    @media ${device.laptop} {
-        position: absolute;
+    
+    @media ${breakpoints.laptop} {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
     }
 
-    @media ${device.laptop} {
-        padding: 1rem 0;
+    @media ${breakpoints.laptop} {
+        padding: 1rem 1.5rem;
     }
 
     a,
@@ -70,38 +71,43 @@ export const Nav = styled.nav`
 
 export const NavList = styled.div`
     ul {
-        list-style: none;
         display: flex;
         flex-direction: column;
-        /* align-items: center; */
+        list-style: none;
         margin: 1rem 0;
 
         ${(props) =>
         props.desktop &&
         `
+        display: none;
+        margin: 0;
+        
+        @media ${breakpoints.laptop} {
+            align-items: center;
+            display: flex;
             flex-direction: row;
-            margin: 0;
-            
-            @media ${device.laptop} {
-                display: none;
-            }
+        }
         `};
     }
 `;
 
 export const NavItem = styled.li`
     position: relative;
+    margin-left: 0;
     margin-bottom: 0;
-    margin-left: 1.5rem;
-    padding-left: 0;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid rgba(225, 225, 225, 0.4);
 
-    @media ${device.laptop} {
-        margin-left: 0;
-        padding: 0.75rem 1.5rem;
-        border-bottom: 1px solid rgba(225, 225, 225, 0.4);
+    &:first-child {
+        border-top: 1px solid rgba(225, 225, 225, 0.4);
+    }
 
+    @media ${breakpoints.laptop} {
+        margin-left: 1.5rem;
+        padding: 0;
+        border: none;
         &:first-child {
-            border-top: 1px solid rgba(225, 225, 225, 0.4);
+            border: none;
         }
     }
 
@@ -111,7 +117,7 @@ export const NavItem = styled.li`
         }
     }
 
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         &.underscore::after {
             content: '';
             position: absolute;
@@ -144,7 +150,7 @@ export const Mobile = styled.div`
     display: block;
     visibility: visible;
 
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         opacity: 0;
         display: none;
         transition: all 0.25s ease;

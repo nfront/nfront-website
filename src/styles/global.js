@@ -1,27 +1,8 @@
 import styled from 'styled-components';
 import wave from '@images/art/wave.svg';
 import { GatsbyImage } from 'gatsby-plugin-image';
-
-const size = {
-    mobileS: '320px',
-    mobileM: '375px',
-    mobileL: '425px',
-    tablet: '768px',
-    laptop: '1024px',
-    laptopL: '1440px',
-    desktop: '2560px'
-}
-
-export const device = {
-    mobileS: `(min-width: ${size.mobileS})`,
-    mobileM: `(min-width: ${size.mobileM})`,
-    mobileL: `(min-width: ${size.mobileL})`,
-    tablet: `(min-width: ${size.tablet})`,
-    laptop: `(min-width: ${size.laptop})`,
-    laptopL: `(min-width: ${size.laptopL})`,
-    desktop: `(min-width: ${size.desktop})`,
-    desktopL: `(min-width: ${size.desktop})`
-};
+import { pxToRem } from '@utils/utils';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 export const Container = styled.div`
     max-width: var(--max-width);
@@ -39,10 +20,6 @@ export const Container = styled.div`
 export const Section = styled.section`
     padding-top: 3rem;
     padding-bottom: 3rem;
-
-    @media ${device.mobileL} {
-        padding-bottom: 6rem;
-    }
 
     ${(props) =>
         /* Same as accent-color */
@@ -73,7 +50,7 @@ export const SectionTitle = styled.div`
     margin: 0 auto;
     padding: 0 1.5rem;
 
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         margin-bottom: 3rem;
     }
 
@@ -89,7 +66,9 @@ export const SectionTitle = styled.div`
 export const Grid = styled.div`
     display: grid;
     grid-template-columns: ${(props) =>
-        `repeat(auto-fit, minmax(min(${props.minWidth || '360px'}, 100%), 1fr))`};
+        `repeat(auto-fit, minmax(min(${
+            props.minWidth || '360px'
+        }, 100%), 1fr))`};
     grid-gap: var(--spacer);
     align-items: ${(props) => props.alignItems || 'stretch'};
 `;
@@ -120,51 +99,50 @@ export const FlexColumn = styled.div`
     // Set defaults for flex children here
     // Can be overwritten in each component
     > * {
-        flex: 0 1 auto; // Default: 0 1 auto
+        flex: 0 1 ${(props) => props.basis || 'auto'};
     }
 `;
 
+// Use max-width instead of basis
+// Because, elements get too wide on small screens
+// Need basis as well, to avoid elements shrinking too narrow
+// TODO: Check if last line is needed and why thesis can be so broad
+// Better to change to flex grow, instead of changing direction
+// So the alignment input means the same between screen sizes
 export const FlexRow = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: ${(props) => props.justifyContent || 'flex-start'};
 
-    background: ${(props) => props.white && 'var(--alt-color)'};
-    padding: ${(props) => props.padding || '0px'};
+    justify-content: ${(props) => props.justifyContent || 'center'};
+    align-items: ${(props) => props.alignItems || 'stretch'};
+    grid-gap: ${(props) => props.gap || 'var(--spacer)'};
 
-    grid-gap: var(--spacer);
+    > * {
+        height: ${(props) => props.height || 'auto'};
+        max-width: ${(props) => props.maxWidth || 'none'};
+        flex: 0 1 100%;
+    }
+
+    @media ${breakpoints.tablet} {
+        > * {
+            flex: 0 1
+                ${(props) =>
+                    props.twoByTwo
+                        ? `calc(50% - ${props.gap || `var(--spacer)`}/2)`
+                        : props.basis || 'auto'};
+        }
+    }
+
+    @media ${breakpoints.laptop} {
+        flex-wrap: nowrap;
+        > * {
+            flex: 0 1 ${(props) => props.basis || 'auto'};
+        }
+    }
 
     .with-shadow {
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    // Set defaults for flex children here
-    // Can be overwritten in each component
-    > * {
-        flex: 1 1 350px; // Default: 0 1 auto
-    }
-
-    @media ${device.tablet} {
-        > * {
-            flex: 0 1 350px;
-        }
-    }
-`;
-
-export const FlexFlip = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: ${(props) => props.justifyContent || 'center'};
-    flex-wrap: wrap;
-    grid-gap: var(--spacer);
-
-    > * {
-        flex: 0 1 ${(props) => props.justifyContent || '350px'};
-    }
-
-    @media ${device.tablet} {
-        flex-direction: row;
     }
 `;
 
@@ -173,9 +151,7 @@ export const Overlay = styled.div`
     height: ${(props) => props.height || '100%'};
     border-radius: inherit;
 
-    * {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
+    div {
         border-radius: inherit;
     }
 `;
@@ -203,9 +179,9 @@ export const Shading = styled.div`
     transition: all 0.4s ease-in-out 0s;
 
     ${(props) =>
-        props.alt &&
+        props.polygonShading &&
         `
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             width: 70%;
             clip-path: polygon(0 0, 92% 0, 71% 100%, 0% 100%);
         }
@@ -218,7 +194,6 @@ export const BgImage = styled(GatsbyImage)`
 `;
 
 export const WaveBackground = styled.div`
-    height: 100%;
     background-image: url(${wave});
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -226,7 +201,6 @@ export const WaveBackground = styled.div`
 `;
 
 export const AnyBackground = styled.div`
-    height: 100%;
     background-image: url(${(props) => props.url});
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -242,7 +216,7 @@ export const AnyBackground = styled.div`
 export const BoxText = styled.div`
     text-align: center;
 
-    padding: 1.5rem 1.5rem 6rem 1.5rem;
+    padding: 1.5rem;
 
     h3 {
         font-weight: 500;
@@ -266,7 +240,7 @@ export const BoxArt = styled.div`
     text-align: center;
     margin: 0 auto;
 
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         max-width: 100px;
         margin-bottom: 0;
     }
@@ -287,19 +261,17 @@ export const ArtContainer = styled.div`
     flex-flow: column wrap;
     align-content: ${(props) => props.alignContent || `center`};
 
-    // Opinionated defaults
-    /* padding: 0 0 1.6rem 0; */
     margin-bottom: 1rem;
 
     .img-class {
         &:hover {
             ${(props) =>
-        props.hover &&
-        `
-            transition: all 0.3s ease-out 0s;
-            transform: scale(1.1);
-            // border: 5px solid ${props.hoverColor || 'var(--primary-color)'};
-            `};
+                props.hover &&
+                `
+                transition: all 0.3s ease-out 0s;
+                transform: scale(1.1);
+                // border: 5px solid ${props.hoverColor || 'var(--primary-color)'};
+                `};
         }
         ${(props) => props.grayscale && `filter: grayscale(100%);`};
         ${(props) => props.rounded && `border-radius: 0.375rem;`};
@@ -320,7 +292,7 @@ export const ArtContainer = styled.div`
     /* img {
         // Styles (size, rounded border, etc.) is set with prop on Image component
         
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             max-height: 400px;
         }
     } */
@@ -337,4 +309,36 @@ export const TextContainer = styled.p`
     align-items: stretch;
     color: var(--text-color);
     margin-bottom: 0;
+`;
+
+export const TooltipSwiperContainer = styled(Container)`
+    .swiper-slide-active .tooltip {
+        background-color: var(--primary-color);
+        color: white;
+        position: relative;
+        transition: all 0.5s;
+    }
+    .swiper-slide-active .tooltip::after {
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 15px solid var(--primary-color);
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        transform: translate(-50%, -0%);
+    }
+    .tooltip {
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+        @media ${breakpoints.laptop} {
+            font-size: ${pxToRem(14)};
+        }
+    }
 `;

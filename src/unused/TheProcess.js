@@ -1,9 +1,11 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import Slide from 'react-reveal/Slide';
-import { device, Section, Container, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
+import { useStaticQuery, graphql } from 'gatsby';
+import Slide from 'react-reveal/Slide';
+import { Section, Container, SectionTitle } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const Step = styled.div`
     display: grid;
@@ -11,7 +13,7 @@ const Step = styled.div`
     align-items: center;
     counter-increment: section;
 
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         grid-template-columns: repeat(2, 1fr);
         ${props =>
             props.accent === 'inverse' &&
@@ -46,12 +48,12 @@ const Art = styled.div`
         width: 100%;
     }
 
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         border-right: 1px solid hsla(0, 0%, 74%, 0.3);
         border-top: 0;
     }
 
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         .gatsby-image-wrapper {
             width: 70%;
             margin-left: 3rem;
@@ -78,7 +80,7 @@ const Art = styled.div`
         right: 0;
         width: 36px;
         height: 36px;
-        @media ${device.tablet} {
+        @media ${breakpoints.tablet} {
             top: 0;
             right: -18px;
         }
@@ -89,7 +91,7 @@ const Art = styled.div`
         width: 54px;
         height: 54px;
         opacity: 0.2;
-        @media ${device.tablet} {
+        @media ${breakpoints.tablet} {
             top: -18px;
             right: -36px;
             width: 72px;
@@ -100,7 +102,7 @@ const Art = styled.div`
 
 const Text = styled.div`
     padding: 3rem 0;
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         padding: 0 3rem;
     }
     p,

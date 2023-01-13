@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { device } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const GRID = styled.div`
     display: grid;
@@ -12,7 +12,7 @@ const GRID = styled.div`
     justify-items: center;
     background-color: var(--accent-color);
 
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         grid-template-columns: repeat(2, 1fr);
         /** reverse the order of grid layout */
         ${(props) =>
@@ -38,7 +38,7 @@ const Placeholder = styled.div`
 
 const Text = styled.div`
     padding: 5rem 1.5rem;
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
         width: 90%;
     }
 `;

@@ -1,29 +1,3 @@
-/** Media queries **/
-
-@mixin breakpoint($point) {
-    @if $point == desktop {
-        @media (min-width: 70em) { // 1120px
-            @content;
-        }
-    } @else if $point == lg {
-        @media (min-width: 64em) { // 1024px
-            @content;
-        }
-    } @else if $point == md {
-        @media (min-width: 50em) { // 800px
-            @content;
-        }
-    } @else if $point == sm {
-        @media (min-width: 37.5em) { // 600px
-            @content;
-        }
-    } @else if $point == mobile {
-        @media (max-width: 37.5em) { // 600px
-            @content;
-        }
-    }
-}
-
 @mixin border($value: top) {
     @if $value == top {
         border-top: 1px solid var(--border-color);

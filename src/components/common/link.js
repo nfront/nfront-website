@@ -9,7 +9,6 @@ import { NavBarContext } from '@context/myProviders.js';
 const Link = ({
     children,
     anchorRef,
-    navRef,
     to,
     activeClassName,
     partiallyActive,
@@ -24,7 +23,7 @@ const Link = ({
     // Smooth scroll if it starts with #
     const samePage = /^#/.test(to);
 
-    const navRef2 = useContext(NavBarContext); // Returns value of passed context
+    const { navRect } = useContext(NavBarContext); // Returns value of passed context
 
     // Use Gatsby Link for internal links, and <a> for others
     if (internal) {
@@ -44,8 +43,8 @@ const Link = ({
     const onClick = (e) => {
         e.preventDefault();
         callback();
-        console.log(`navRefState: ${navRef2}`);
-        const {height: headerOffset} = navRef2.current.getBoundingClientRect() || {height: 0};
+        console.log(`navRect: ${navRect}`);
+        const headerOffset = navRect?.height || '76';
         console.log(`headerOffset: ${headerOffset}`);
         const elementPosition = anchorRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;

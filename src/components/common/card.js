@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container, device } from '@styles/global';
-import styled from 'styled-components';
 import { Link } from 'gatsby';
+import styled from 'styled-components';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import Image from '@common/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 export const CardStyle = styled.div`
     padding: 25px;
@@ -19,11 +19,9 @@ export const CardStyle = styled.div`
     img {
         width: 60px;
         height: 60px;
-        @media ${device.laptop} {
-        }
     }
     .job-info {
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             display: flex;
         }
         padding-bottom: 1rem;
@@ -31,38 +29,17 @@ export const CardStyle = styled.div`
     .available {
         justify-content: space-between;
         h3 {
-            margin-top: 1rem;
+            margin: 0;
         }
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             display: flex;
-            margin-top: 0 !important;
-        }
-
-        a {
-            color: var(--blue);
-            background-color: var(--accent-color);
-            height: fit-content;
-            margin-top: 1rem;
-
-            padding: 0.2rem 0.5rem;
-        }
-    }
-    .job-details {
-        @media ${device.laptop} {
-            display: flex;
-        }
-        // color: var(--blue);
-
-        p {
-            // color: var(--blue);
-            width: 100% !important;
         }
     }
 `;
 
 export default function Card({ results }) {
     return (
-        <Container>
+        <>
             {results &&
                 results.map((val) => {
                     const {
@@ -75,17 +52,14 @@ export default function Card({ results }) {
                         availablity,
                     } = val;
 
-                    const iconImage = getImage(icon);
-
                     return (
-                        <CardStyle>
+                        <CardStyle key={slug}>
                             <div className="job-info">
-                                <GatsbyImage
-                                    image={iconImage}
+                                <Image
+                                    image={icon}
                                     alt={title}
                                     className={'mr-1'}
                                 />
-
                                 <div>
                                     <Link to={`/jobs/${slug}`}>
                                         <h3 className="mb-05">{title}</h3>{' '}
@@ -111,7 +85,8 @@ export default function Card({ results }) {
                                 </div>
                             </div>
                             <div className="available">
-                                <Link to="/">{availablity} </Link>
+                                {/* <Link to="/">{availablity} </Link> */}
+                                <label className="blue-label">{availablity}</label>
                                 <h3>
                                     {' '}
                                     {`$${price.min}`} - {`$${price.max}`}
@@ -120,6 +95,6 @@ export default function Card({ results }) {
                         </CardStyle>
                     );
                 })}
-        </Container>
+        </>
     );
 }

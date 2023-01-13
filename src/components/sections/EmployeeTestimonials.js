@@ -1,59 +1,20 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import styled from 'styled-components';
-import { getImage } from 'gatsby-plugin-image';
 import { SwiperSlide } from 'swiper/react';
 
 import CustomSwiper from '@common/swiper';
 import Image from '@common/image';
-import { device, SectionTitle, Container, Section, ArtContainer } from '@styles/global';
+import {
+    SectionTitle,
+    TooltipSwiperContainer,
+    Section,
+    ArtContainer,
+} from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
+import { breakpointToPxNum } from '@utils/utils';
 
-/** use if you need to style your section differently, otherwise leave it empty */
-const StyledSection = styled(Section)`
-    padding-bottom: 3rem;
-`;
 
-const StyledContainer = styled(Container)`
-    .swiper-slide-active .tooltip {
-        background-color: var(--primary-color);
-        color: white;
-        position: relative;
-        transition: all 0.5s;
-    }
-    .swiper-slide-active .tooltip::after {
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        border-top: 15px solid var(--primary-color);
-        content: '';
-        position: absolute;
-        bottom: -15px;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        transform: translate(-50%, -0%);
-    }
-    .tooltip {
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 2rem;
-        @media ${device.laptop} {
-            font-size: 14px;
-        }
-    }
-`;
-
-export default function EmployeeTestimonials() {
-    const { windowSize, isMobile } = useWindowSize();
-    const { width: windowWidth } = windowSize;
-
-    const swiperSettings = {
-        slidesPerView: windowWidth > device.laptopL ? 3 : 1,
-        loopAdditionalSlides: 5,
-        centeredSlides: true
-    };
+const EmployeeTestimonials = () => {
 
     const data = useStaticQuery(graphql`
         query {
@@ -73,28 +34,35 @@ export default function EmployeeTestimonials() {
             }
         }
     `);
-
     const results = data.allContentfulEmployeeTestimonials.nodes;
 
+    const { windowSize } = useWindowSize();
+    const { width: windowWidth } = windowSize;
+
+    const swiperSettings = {
+        slidesPerView: windowWidth > breakpointToPxNum('laptop') ? 3 : 1,
+        centeredSlides: true,
+    };
+
+    console.log('RENDER in EmpTest');
+
     return (
-        <StyledSection>
+        <Section>
             <SectionTitle>
                 <h2>Testimonials</h2>
                 <p>Feedback from previous and existing colleagues</p>
             </SectionTitle>
-            <StyledContainer>
+            <TooltipSwiperContainer>
                 <CustomSwiper spacing={3} settings={swiperSettings}>
-                    {results.map(({ title, candidate, avatar, tooltip }) => {
-                        const image = getImage(avatar);
+                    {results.map(({ candidate, avatar, tooltip }) => {
                         return (
-                            <SwiperSlide key={title}>
+                            <SwiperSlide key={candidate}>
                                 <p className="tooltip">
-                                    {' '}
                                     {tooltip.childMarkdownRemark.excerpt}
                                 </p>
                                 <ArtContainer>
                                     <Image
-                                        image={image}
+                                        image={avatar}
                                         alt={candidate}
                                         className="circled"
                                     />
@@ -104,7 +72,9 @@ export default function EmployeeTestimonials() {
                         );
                     })}
                 </CustomSwiper>
-            </StyledContainer>
-        </StyledSection>
+            </TooltipSwiperContainer>
+        </Section>
     );
 }
+
+export default EmployeeTestimonials;

@@ -1,3 +1,5 @@
+@use 'breakpoints.module' as *;
+
 .flip-card {
     background-color: transparent;
     width: 100%;
@@ -6,7 +8,7 @@
     perspective: 1000px;
     // padding: 1rem;
     cursor: pointer;
-    @include breakpoint(mobile) {
+    @include breakpoint(mobileL) {
         height: 400px;
         // padding: 1rem;
     }
@@ -53,7 +55,7 @@
     .avatar {
         margin-bottom: 0.5rem;
     }
-    @include breakpoint(mobile) {
+    @include breakpoint(mobileL) {
         p {
             margin-bottom: 0.5rem;
             padding: 0.5rem;

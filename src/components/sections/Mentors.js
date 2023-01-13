@@ -7,7 +7,7 @@ import {
     ArtContainer,
     TextContainer,
     Grid,
-    GridItem,
+    FlexColumn,
     SectionTitle,
 } from '@styles/global';
 import Link from '@common/link';
@@ -61,59 +61,57 @@ const Mentors = () => {
     const result = data.allContentfulMentors.nodes;
     result.sort((a, b) => (a.order > b.order ? 1 : -1));
     return (
-        <>
-            <Section id="mentors" accent="alt">
-                <SectionTitle>
-                    <h2>Advisors & Portfolio Mentors</h2>
-                    <p>
-                        nFront's advisors and portfolio company mentors include
-                        top-tier VC investors, successful entrepreneurs and
-                        technology influencers. Deal flow is frequently shared
-                        with these standout individuals, who also provide
-                        mentorship to portfolio companies and expert advice on
-                        new prospects.
-                    </p>
-                </SectionTitle>
-                <Container>
-                    <Grid minWidth="220px">
-                        {result.map(
-                            ({
-                                name,
-                                title,
-                                company,
-                                city,
-                                headshot,
-                                link,
-                            }) => {
-                                return (
-                                    <GridItem className="mt-2" key={title} alignItems="center">
-                                        <ArtContainer grayscale hover rounded>
-                                            <Link to={link}>
-                                                <Image
-                                                    image={headshot}
-                                                    alt={title}
-                                                />
-                                            </Link>
-                                        </ArtContainer>
-                                        <MotionComponent style={{ x: 0 }} animate={{ x: 100 }}>
-                                            <div>
-                                                <Link to={link}>{name}</Link>
-                                            </div>
-                                            <div>{title}</div>
-                                            <div>{company}</div>
-                                            <div>{city}</div>
-                                        </MotionComponent>
-                                    </GridItem>
-                                );
-                            }
-                        )}
-                    </Grid>
-                    <p className="mt-4 mb-0 text-uppercase text-center">
-                        ...And more
-                    </p>
-                </Container>
-            </Section>
-        </>
+        <Section id="mentors" accent="alt">
+            <SectionTitle className="text-white">
+                <h2>Advisors & Portfolio Mentors</h2>
+                <p>
+                    nFront's advisors and portfolio company mentors include
+                    top-tier VC investors, successful entrepreneurs and
+                    technology influencers. Deal flow is frequently shared
+                    with these standout individuals, who also provide
+                    mentorship to portfolio companies and expert advice on
+                    new prospects.
+                </p>
+            </SectionTitle>
+            <Container>
+                <Grid minWidth="220px">
+                    {result.map(
+                        ({
+                            name,
+                            title,
+                            company,
+                            city,
+                            headshot,
+                            link,
+                        }) => {
+                            return (
+                                <FlexColumn className="mt-2" key={title} alignItems="center">
+                                    <ArtContainer grayscale hover rounded>
+                                        <Link to={link}>
+                                            <Image
+                                                image={headshot}
+                                                alt={title}
+                                            />
+                                        </Link>
+                                    </ArtContainer>
+                                    <Text>
+                                        <div>
+                                            <Link to={link}>{name}</Link>
+                                        </div>
+                                        <div>{title}</div>
+                                        <div>{company}</div>
+                                        <div>{city}</div>
+                                    </Text>
+                                </FlexColumn>
+                            );
+                        }
+                    )}
+                </Grid>
+                <p className="mt-4 mb-0 ls-2 uppercase text-center text-white">
+                    ...And more
+                </p>
+            </Container>
+        </Section>
     );
 };
 

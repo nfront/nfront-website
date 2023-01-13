@@ -5,7 +5,8 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from '@common/image';
-import { ArtContainer, device } from '@styles/global';
+import { ArtContainer } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 //FIXME: Replace with components from global
 const ItemGrid = styled.div`
@@ -16,10 +17,10 @@ const ItemGrid = styled.div`
         margin-bottom: 0;
         color: #002e5f;
     }
-    @media ${device.tablet}{
+    @media ${breakpoints.tablet}{
         grid-template-columns: repeat(2, 1fr);
     }
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         grid-template-columns: repeat(2, 1fr);
     }
 `;
@@ -31,7 +32,7 @@ const Text = styled.div`
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 20px;
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             min-height: 2.5rem;
         }
     }
@@ -52,7 +53,7 @@ const Text = styled.div`
         text-align: right;
 
         font-size: 0.8rem;
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             font-size: 1rem;
         }
 

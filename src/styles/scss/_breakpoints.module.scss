@@ -1,0 +1,87 @@
+@use "sass:string";
+@use "sass:map";
+
+/*
+ * BREAKPOINTS (em)
+ * px conversion on RHS assumes 16px browser font-size
+*/
+$breakpoints: (
+    mobileS: 20,
+    // 320 px
+    mobileM: 24,
+    // 384 px
+    mobileL: 28,
+    // 448 px
+    tablet: 48,
+    // 768 px
+    laptop: 64,
+    // 1024 px
+    laptopL: 75,
+    // 1200 px
+    desktop: 100,
+    // 1600 px,
+);
+
+// Sass variables for writing out media queries
+$media: (
+    mobileS: '(min-width: #{map-get($breakpoints, mobileS)}em)',
+    mobileM: '(min-width: #{map-get($breakpoints, mobileM)}em)',
+    mobileL: '(min-width: #{map-get($breakpoints, mobileL)}em)',
+    tablet: '(min-width: #{map-get($breakpoints, tablet)}em)',
+    laptop: '(min-width: #{map-get($breakpoints, laptop)}em)',
+    laptopL: '(min-width: #{map-get($breakpoints, laptopL)}em)',
+    desktop: '(min-width: #{map-get($breakpoints, desktop)}em)'
+);
+
+@mixin breakpoint($point) {
+    @if $point == mobileS {
+        @media #{unquote(map-get($media, mobileS))} {
+            @content;
+        }
+    } @else if $point == mobileM {
+        @media #{unquote(map-get($media, mobileM))} {
+            @content;
+        }
+    } @else if $point == mobileL {
+        @media #{unquote(map-get($media, mobileL))} {
+            @content;
+        }
+    } @else if $point == tablet {
+        @media #{unquote(map-get($media, tablet))} {
+            @content;
+        }
+    } @else if $point == laptop {
+        @media #{unquote(map-get($media, laptop))} {
+            @content;
+        }
+    } @else if $point == laptopL {
+        @media #{unquote(map-get($media, laptopL))} {
+            @content;
+        }
+    } @else if $point == desktop {
+        @media #{unquote(map-get($media, desktop))} {
+            @content;
+        }
+    }
+}
+
+// The export module that makes Sass variables accessible in JavaScript
+:export {
+    mobileS: unquote(map-get($media, mobileS));
+    mobileM: unquote(map-get($media, mobileM));
+    mobileL: unquote(map-get($media, mobileL));
+    tablet: unquote(map-get($media, tablet));
+    laptop: unquote(map-get($media, laptop));
+    laptopL: unquote(map-get($media, laptopL));
+    desktop: unquote(map-get($media, desktop));
+}
+
+:export {
+    mobileSNum: map-get($breakpoints, mobileS);
+    mobileMNum: map-get($breakpoints, mobileM);
+    mobileLNum: map-get($breakpoints, mobileL);
+    tabletNum: map-get($breakpoints, tablet);
+    laptopNum: map-get($breakpoints, laptop);
+    laptopLNum: map-get($breakpoints, laptopL);
+    desktopNum: map-get($breakpoints, desktop);
+}

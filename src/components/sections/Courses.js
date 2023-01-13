@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { device, Section, Container, Grid, ArtContainer } from '@styles/global';
+import { Section, Container, Grid, ArtContainer } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import wave from '@images/art/wave.svg';
 import Fade from '@common/fade';
 import Image from '@common/image';
@@ -13,11 +14,11 @@ const StyledTitle = styled.div`
     display: flex;
     text-align: center;
     align-items: center;
-    @media ${device.laptop} {
+    @media ${breakpoints.laptop} {
         justify-content: space-between;
         flex-direction: row;
     }
-    @media ${device.tablet} {
+    @media ${breakpoints.tablet} {
     }
     ${(props) =>
         props.alt &&
@@ -83,16 +84,16 @@ const Text = styled.div`
 // FIXME: Need all this?
 // FIXME: Move max size to GraphQL
 const CustomArtContainer = styled(ArtContainer)`
-    @media ${device.mobileL} {
+    @media ${breakpoints.mobileL} {
         flex: 0 1 50%;
     }
     padding: 0.5rem;
     .img-wrapper-style {
         max-height: 300px;
-        @media ${device.laptop} {
+        @media ${breakpoints.laptop} {
             max-height: 400px;
         }
-        @media ${device.mobileL} {
+        @media ${breakpoints.mobileL} {
             margin-bottom: 0;
         }
     }

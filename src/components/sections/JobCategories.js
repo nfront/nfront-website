@@ -1,17 +1,24 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import {
     Section,
     SectionTitle,
     Container,
-    FlexFlip,
+    FlexRow,
     BoxArt,
     BoxText,
     WaveBackground,
 } from '@styles/global';
+import Image from '@common/image';
 import Fade from '@common/fade';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { getObjectCount } from '@utils/utils';
 
-const JobCategories = ({ categories, getPositionCount }) => {
+const JobCategories = ({ jobs, categories }) => {
+
+    // Get count of objects in array with property "outerProperty.innerProperty" matching "value"
+    const getPositionCount = (outerProperty, innerProperty, value) =>
+        getObjectCount(jobs, outerProperty, innerProperty, value);
+
     return (
         <Section>
             <Fade top>
@@ -26,17 +33,19 @@ const JobCategories = ({ categories, getPositionCount }) => {
                 </SectionTitle>
             </Fade>
             <Container>
-                <FlexFlip>
+                <FlexRow basis="360px" twoByTwo height="310px">
                     {categories?.map((category) => {
                         const { title, coverImg, slug } = category;
-                        const image = getImage(coverImg);
                         return (
-                            <WaveBackground className="rounded-and-shadow" key={slug}>
+                            <WaveBackground
+                                className="rounded-and-shadow"
+                                key={slug}
+                            >
                                 <BoxArt>
-                                    <GatsbyImage
-                                        className={'img-style'}
-                                        image={image}
+                                    <Image
+                                        image={coverImg}
                                         alt={title}
+                                        className={'img-style'}
                                     />
                                 </BoxArt>
                                 <BoxText>
@@ -44,8 +53,9 @@ const JobCategories = ({ categories, getPositionCount }) => {
                                         <h3>{title}</h3>
                                         <p>
                                             {getPositionCount(
-                                                slug,
-                                                'category'
+                                                'categories',
+                                                'slug',
+                                                slug
                                             )}{' '}
                                             Open Positions
                                         </p>
@@ -54,7 +64,7 @@ const JobCategories = ({ categories, getPositionCount }) => {
                             </WaveBackground>
                         );
                     })}
-                </FlexFlip>
+                </FlexRow>
             </Container>
         </Section>
     );

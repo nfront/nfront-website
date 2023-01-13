@@ -1,4 +1,7 @@
 /** Prcing table styles **/
+@use 'variables.module' as *;
+@use 'button' as *;
+@use 'breakpoints.module' as *;
 
 $panelPrimaryColor: $red;
 $panelBorderColor: #e1f1ff;
@@ -56,10 +59,10 @@ $panelButtonColor: $red;
         box-shadow: $box-shadow;
     }
 
-    @include breakpoint(sm) {
+    @include breakpoint(mobileL) {
         grid-template-columns: repeat(2, 1fr);
     }
-    @include breakpoint(md) {
+    @include breakpoint(tablet) {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -73,13 +76,13 @@ $panelButtonColor: $red;
             border-bottom: none;
         }
     }
-    @include breakpoint(sm) {
+    @include breakpoint(mobileL) {
         &:last-child,
         &:nth-child(3) {
             border-bottom: none;
         }
     }
-    @include breakpoint(lg) {
+    @include breakpoint(laptop) {
         border-bottom: none;
     }
 }

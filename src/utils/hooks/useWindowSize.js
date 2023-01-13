@@ -1,42 +1,35 @@
 import { useState, useEffect } from 'react';
-import { device } from '@styles/global';
-
-const mobileWidth = device.mobileL;
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const useWindowSize = () => {
-    // Initialize state with undefined width/height so server and client renders match
-    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    
+    // Only when script is evaluated by browser does window exist.
+    // Careful not to conditionally render anything, based on windowSize.
+    // Because: On server, windowSize will be undefined and on client-side hydration it will be have a value.
+    // Hydration done by React in browser, expects that DOM tree from server is identical to DOM tree from client.
+    // More here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+
     const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
+        width: window?.innerWidth,
+        height: window?.innerHeight,
     });
 
+    function handleResize() {
+        setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+    }
+
     useEffect(() => {
-        // only execute all the code below in client side
-        if (typeof window !== 'undefined') {
-            // Handler to call on window resize
-            function handleResize() {
-                // Set window width/height to state
-                setWindowSize({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
-            }
-
-            // Add event listener
-            window.addEventListener('resize', handleResize);
-
-            // Call handler right away so state gets updated with initial window size
-            handleResize();
-
-            // Remove event listener on cleanup
-            return () => window.removeEventListener('resize', handleResize);
-        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+        // Remove event listener on cleanup
     }, []);
-    // Empty array ensures that effect is only run on mount
-    // Because, the listener should only be created ONCE
+    // Empty array ensures that effect is only run on mount.
+    // Because, the listener should only be created once.
 
-    const isMobile = windowSize.width < mobileWidth;
+    const isMobile = windowSize.width < breakpoints.MobileLNum;
 
     return { windowSize, isMobile };
 };
