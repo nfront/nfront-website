@@ -7,27 +7,26 @@ const clamp = (value) => Math.max(0, value);
 // Check if number is between two values
 const isBetween = (value, floor, ceil) => value >= floor && value <= ceil;
 
-export const useScrollMonitor = (ids, navRef) => {
+export const useScrollMonitor = (ids) => {
     const [activeId, setActiveId] = useState('');
     const { navRect } = useContext(NavBarContext);
 
     useLayoutEffect(() => {
-        // console.log('IN SCROLLM: ', navRef);
+        const { height: navOffset } = navRect || { height: 0 };
+        const elements = ids.map((id) => document.getElementById(id));
+
         const listener = () => {
             const scroll = window.pageYOffset;
+            const windowHeight = window.innerHeight;
 
-            
-            // A HACK, NAVREF DOES NOT WORK
-            const {height: navOffset} = navRef?.current?.getBoundingClientRect() || {height: 0};
-
-            const position = ids
-                .map((id) => {
-                    const element = document.getElementById(id);
-
-                    if (!element) return { id, top: -1, bottom: -1 };
-
+            const position = elements
+                .map((element) => {
+                    if (!element) return { id: '', top: -1, bottom: -1 };
+                    
+                    const { id } = element;
                     const rect = element.getBoundingClientRect();
-                    const top = clamp(rect.top + scroll - navOffset);
+                    const top = clamp(rect.top + scroll - navOffset - (windowHeight - navOffset)*0.5);
+
                     const bottom = clamp(rect.bottom + scroll - navOffset);
 
                     return { id, top, bottom };
@@ -46,7 +45,7 @@ export const useScrollMonitor = (ids, navRef) => {
             window.removeEventListener('resize', listener);
             window.removeEventListener('scroll', listener);
         };
-    }, [ids, navRef]);
+    }, [ids, navRect]);
 
     return activeId;
 };

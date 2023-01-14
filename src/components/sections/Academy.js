@@ -4,8 +4,8 @@ import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Seo from '@utils/SEO';
 import Footer from '@common/footer';
-import Courses from './Courses';
-import Classes from './Classes';
+import Courses from '@sections/Courses';
+import Classes from '@sections/Classes';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
@@ -23,28 +23,61 @@ const Academy = ({ location, user }) => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulPages(filter: { slug: { eq: "academy" } }) {
-                nodes {
-                    heroImage {
-                        title
-                        gatsbyImageData(layout: FULL_WIDTH)
+                edges {
+                    node {
+                        heroImage {
+                            title
+                            gatsbyImageData(layout: FULL_WIDTH)
+                        }
                     }
                 }
             }
             allContentfulClasses {
-                nodes {
-                    # id
-                    slug
-                    title
-                    author
-                    coverImage {
-                        gatsbyImageData(layout: CONSTRAINED)
+                edges {
+                    node {
+                        # id
+                        slug
+                        title
+                        author
+                        coverImage {
+                            gatsbyImageData(layout: CONSTRAINED)
+                        }
+                        course {
+                            title
+                            tagLine
+                            slug
+                            icon {
+                                publicUrl
+                                mimeType
+                                gatsbyImageData(
+                                    layout: CONSTRAINED
+                                    height: 100
+                                )
+                            }
+                        }
                     }
-                    course {
+                }
+            }
+            allContentfulCourses {
+                edges {
+                    node {
+                        slug
                         title
                         tagLine
-                        slug
+                        courseDescription {
+                            courseDescription
+                        }
+                        relatedCourses {
+                            ... on ContentfulCourses {
+                                id
+                                slug
+                            }
+                        }
+                        language
                         icon {
-                            gatsbyImageData(layout: CONSTRAINED, height: 100)
+                            url
+                            mimeType
+                            gatsbyImageData(width: 100)
                         }
                     }
                 }
@@ -52,9 +85,14 @@ const Academy = ({ location, user }) => {
         }
     `);
 
-    const { title: pageTitle, heroImage } = data.allContentfulPages.edges[0].node;
+    const courses = data.allContentfulCourses.edges.map((edge) => edge.node);
+    const classes = data.allContentfulClasses.edges.map((edge) => edge.node);
 
-    const results = data.allContentfulClasses.nodes;
+    const { title: pageTitle, heroImage } =
+        data.allContentfulPages.edges[0].node;
+
+    const results = data.allContentfulClasses.edges;
+    console.log('results :>> ', results);
     const [filteredClasses, setFilteredClasses] = useState([]);
 
     const params = new URLSearchParams(location.search);
@@ -103,98 +141,19 @@ const Academy = ({ location, user }) => {
             <AcademySection>
                 <Hero heroImage={heroImage}>
                     <AcademyHeaderSection>
-                        <h2>Online Tutorial From Top Instructor.</h2>
+                        <h2>Fundraising Academy</h2>
                         <p>
-                            Meet university and cultural institutions, who'll
-                            share their experience.
+                            Everything you need for your next raise, in one place.
                         </p>
-                        {/* {isAcademy && ( */}
                         <Link to="/classes/">
                             <button className="button center">
                                 View All Classes
                             </button>
                         </Link>
-                        {/* )} */}
-                        {/* <SearchBox>
-                            <Formik
-                                onSubmit={values => {
-                                    const { course, title } = values;
-
-                                    const searchParams = {};
-                                    if (course) {
-                                        searchParams[
-                                            'course'
-                                        ] = course;
-                                    }
-                                    if (title) {
-                                        searchParams['title'] = title;
-                                    }
-
-                                    push(
-                                        `/academy?${new URLSearchParams(
-                                            searchParams
-                                        ).toString()}`
-                                    );
-                                }}
-                                initialValues={{ title, course }}
-                                enableReinitialize
-                            >
-                                {({ values, handleSubmit }) => (
-                                    <Form>
-                                        <FormFields>
-                                            <Field
-                                                type="text"
-                                                name="title"
-                                                id="title"
-                                                placeholder="Job Title, Keywords, or Phrase"
-                                                autoComplete="off"
-                                                value={values.title}
-                                            />
-                                            <Field
-                                                component="select"
-                                                name="course"
-                                                value={values.course}
-                                            >
-                                                <option
-                                                    value=""
-                                                    disabled
-                                                    selected
-                                                >
-                                                    Select category
-                                                </option>
-                                                <option value={''}>None</option>
-                                                {courseCategories.map(
-                                                    category => {
-                                                        const {
-                                                            title,
-                                                            slug,
-                                                        } = category;
-                                                        return (
-                                                            <option
-                                                                value={slug}
-                                                            >
-                                                                {title}
-                                                            </option>
-                                                        );
-                                                    }
-                                                )}
-                                            </Field>
-                                            <AnchorLink
-                                                href="#contact"
-                                                onClick={handleSubmit}
-                                                className="button"
-                                            >
-                                                Submit
-                                            </AnchorLink>
-                                        </FormFields>
-                                    </Form>
-                                )}
-                            </Formik>
-                        </SearchBox> */}
                     </AcademyHeaderSection>
                 </Hero>
             </AcademySection>
-            <Courses limit="6" results={results} />
+            <Courses limit="6" results={courses} />
             <Classes limit="6" results={filteredClasses} />
             <Footer />
         </Layout>

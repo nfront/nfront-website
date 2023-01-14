@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
 // Based on: https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
 // Returns a callback ref, that can be added to any element / component,

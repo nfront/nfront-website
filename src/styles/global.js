@@ -47,7 +47,8 @@ export const SectionTitle = styled.div`
     max-width: var(--max-width);
     margin-bottom: 3rem;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 auto 1.666rem auto;
+    
     padding: 0 1.5rem;
 
     @media ${breakpoints.tablet} {
@@ -135,7 +136,7 @@ export const FlexRow = styled.div`
     }
 
     @media ${breakpoints.laptop} {
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         > * {
             flex: 0 1 ${(props) => props.basis || 'auto'};
         }

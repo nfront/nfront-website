@@ -123,13 +123,12 @@ const StyledContainer = styled(Container)`
 `;
 
 const ClassesPage = ({ data, location }) => {
-
     const { title: pageTitle, heroImage } = data.allContentfulPages.edges[0].node;
-    
+
     const params = new URLSearchParams(location.search);
     const title = params.get('title');
 
-    const classes = data.allContentfulClasses.nodes;
+    const classes = data.allContentfulClasses.edges.map(edge => edge.node);
 
     // let uniqueChars = [];
     // classes.forEach((element) => {
@@ -152,7 +151,7 @@ const ClassesPage = ({ data, location }) => {
     return (
         <Layout>
             <Seo title={pageTitle} />
-            <Navbar fluid location={location}/>
+            <Navbar fluid location={location} />
             <Hero heroImage={heroImage}>
                 <h2>Courses</h2>
                 <p>
@@ -160,25 +159,8 @@ const ClassesPage = ({ data, location }) => {
                     and sectors, and are incredibly proud of the rockstar
                     founders we work with!
                 </p>
-                <SearchBox>
-                    <Formik
-                        onSubmit={(values) => {
-                            const { title } = values;
+                {/* <SearchBox>
 
-                            const searchParams = {};
-                            if (title) {
-                                searchParams['title'] = title;
-                            }
-
-                            push(
-                                `/courses?${new URLSearchParams(
-                                    searchParams
-                                ).toString()}`
-                            );
-                        }}
-                        initialValues={{ title }}
-                        enableReinitialize
-                    >
                         {({ values, handleSubmit }) => (
                             <Form style={{ marginBottom: '0' }}>
                                 <FormFields>
@@ -200,8 +182,7 @@ const ClassesPage = ({ data, location }) => {
                                 </FormFields>
                             </Form>
                         )}
-                    </Formik>
-                </SearchBox>
+                </SearchBox> */}
             </Hero>
             {result.map((courses, key) => {
                 return (
@@ -233,23 +214,27 @@ const ClassesPage = ({ data, location }) => {
 export const query = graphql`
     query {
         allContentfulPages(filter: { slug: { eq: "classes" } }) {
-            nodes {
-                title
-                heroImage {
-                    gatsbyImageData(layout: FULL_WIDTH)
+            edges {
+                node {
+                    title
+                    heroImage {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
                 }
             }
         }
         allContentfulClasses {
-            nodes {
-                title
-                slug
-                course {
+            edges {
+                node {
                     title
                     slug
-                }
-                coverImage {
-                    gatsbyImageData(layout: CONSTRAINED)
+                    course {
+                        title
+                        slug
+                    }
+                    coverImage {
+                        gatsbyImageData(layout: CONSTRAINED)
+                    }
                 }
             }
         }

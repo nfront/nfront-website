@@ -1,7 +1,13 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from '@common/image';
-import { Section, Container, FlexRow, FlexColumn, SectionTitle } from '@styles/global';
+import {
+    Section,
+    Container,
+    FlexRow,
+    FlexColumn,
+    SectionTitle,
+} from '@styles/global';
 
 const REGIONS = [
     {
@@ -18,12 +24,15 @@ const REGIONS = [
     },
 ];
 
-const CoInvestors = forwardRef((props, ref) => {
+const CoInvestors = (props) => {
     const data = useStaticQuery(
         graphql`
             query {
                 placeholderImage: allFile(
-                    filter: { sourceInstanceName: { eq: "nfront" }, extension: {ne: "svg"} }
+                    filter: {
+                        sourceInstanceName: { eq: "nfront" }
+                        extension: { ne: "svg" }
+                    }
                 ) {
                     edges {
                         node {
@@ -40,12 +49,12 @@ const CoInvestors = forwardRef((props, ref) => {
         `
     );
     return (
-        <Section accent="alt" ref={ref} id="co-investors">
+        <Section accent="alt" id="co-investors">
             <SectionTitle className="text-white">
                 <h2>Co-Investment Network</h2>
                 <p>
-                    As part of our value-add in investments, we bring in
-                    leading VCs and strategic high-net-worth individuals as
+                    As part of our value-add in investments, we bring in leading
+                    VCs and strategic high-net-worth individuals as
                     co-investors.
                     <br />
                     Here are some of the investors in our network:
@@ -54,7 +63,6 @@ const CoInvestors = forwardRef((props, ref) => {
             <Container>
                 <FlexRow basis="360px" maxWidth="360px">
                     {REGIONS.map(({ name, image }) => {
-
                         const img = data.placeholderImage.edges.find(
                             ({ node }) => node.relativePath === image
                         ).node;
@@ -62,7 +70,8 @@ const CoInvestors = forwardRef((props, ref) => {
                         return (
                             <FlexColumn className="rounded bg-white pos-rel p-15">
                                 <label className="red-label">{name}</label>
-                                <Image className="rounded"
+                                <Image
+                                    className="rounded"
                                     image={img}
                                     alt={name}
                                 />
@@ -73,6 +82,6 @@ const CoInvestors = forwardRef((props, ref) => {
             </Container>
         </Section>
     );
-});
+};
 
 export default CoInvestors;

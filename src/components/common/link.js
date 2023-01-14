@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { isSelectorValid } from '@utils/utils';
 import { Link as GatsbyLink } from 'gatsby';
 
 import { NavBarContext } from '@context/myProviders.js';
@@ -12,14 +13,14 @@ const Link = ({
     to,
     activeClassName,
     partiallyActive,
-    callback=()=>{},
+    callback = () => {},
     ...other
 }) => {
     // Tailor the following test to your environment.
     // This example assumes that any internal link (intended for Gatsby)
     // will start with exactly one slash, and that anything else is external.
     const internal = /^\/(?!\/)/.test(to);
-    
+
     // Smooth scroll if it starts with #
     const samePage = /^#/.test(to);
 
@@ -39,20 +40,29 @@ const Link = ({
         );
     }
 
-
     const onClick = (e) => {
         e.preventDefault();
         callback();
-        console.log(`navRect: ${navRect}`);
-        const headerOffset = navRect?.height || '76';
-        console.log(`headerOffset: ${headerOffset}`);
-        const elementPosition = anchorRef.current.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        // anchorRef.current.scrollIntoView({ behavior: 'smooth' });
+        const headerOffset = navRect?.height || '70';
+
+        if(!isSelectorValid(`${to}`)) return;
+
+        let target = document.querySelectorAll(`${to}`)[0];
+
+        if (!target) return;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition =
+            elementPosition + window.pageYOffset - headerOffset;
+        console.log(headerOffset);
+
+        const url = new URL(window.location);
+        url.hash = to;
+
+        window.history.pushState({}, '', url);
+
         window.scrollTo({
             top: offsetPosition,
-            behavior: 'smooth'
-
+            behavior: 'smooth',
         });
     };
 

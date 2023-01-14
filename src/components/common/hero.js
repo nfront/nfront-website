@@ -42,13 +42,13 @@ const Container = styled.div`
     }
 `;
 
-const Hero = ({ heroImage, children, height, small, left, polygonShading }) => {
+const Hero = ({ heroImage, children, height, small, left, polygonShading, id }) => {
     if (!heroImage) {
         return null;
     }
 
     return (
-        <Container height={height} small={small}>
+        <Container id={id} height={height} small={small}>
             <Overlay>
                 <Image image={heroImage} backgroundImage />
                 <Shading polygonShading={polygonShading} />

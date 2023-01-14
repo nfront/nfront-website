@@ -1,5 +1,6 @@
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import * as variables from '@styles/scss/_variables.module.scss';
+import React from 'react';
 
 // Get count of objects in array with property "outerProperty.innerProperty" matching "value"
 export const getObjectCount = (array, outerProperty, innerProperty, value) =>
@@ -54,3 +55,44 @@ const getDefaultFontSize = () => {
 
     return !isNaN(result) ? browserFontSize : null;
 };
+
+export function isClassComponent(component) {
+    return (
+        typeof component === 'function' &&
+        !!component.prototype.isReactComponent
+    );
+}
+
+export function isFunctionComponent(component) {
+    return (
+        typeof component === 'function' &&
+        String(component).includes('return React.createElement')
+    );
+}
+
+export function isReactComponent(component) {
+    return isClassComponent(component) || isFunctionComponent(component);
+}
+
+export function isElement(element) {
+    return React.isValidElement(element);
+}
+
+export function isDOMTypeElement(element) {
+    return isElement(element) && typeof element.type === 'string';
+}
+
+export function isCompositeTypeElement(element) {
+    return isElement(element) && typeof element.type === 'function';
+}
+
+const queryCheck = (s) => document.createDocumentFragment().querySelector(s);
+
+export function isSelectorValid(selector) {
+    try {
+        queryCheck(selector);
+    } catch {
+        return false;
+    }
+    return true;
+}

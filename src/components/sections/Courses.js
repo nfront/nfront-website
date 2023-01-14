@@ -1,12 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section, Container, Grid, ArtContainer } from '@styles/global';
+import { Grid, ArtContainer } from '@styles/global';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import wave from '@images/art/wave.svg';
 import Fade from '@common/fade';
 import Image from '@common/image';
-import { getImage } from 'gatsby-plugin-image';
-import { Link } from 'gatsby';
+
+import Link from '@common/link';
+
+import {
+    Section,
+    SectionTitle,
+    Container,
+    FlexRow,
+    BoxArt,
+    BoxText,
+    WaveBackground,
+} from '@styles/global';
 
 const StyledTitle = styled.div`
     padding-top: 1.5rem;
@@ -103,41 +113,46 @@ export default function Courses({ results, limit }) {
     return (
         <Section>
             <Fade top>
-                <StyledTitle>
+                <SectionTitle>
                     <div>
                         <h2>Explore Our Popular Courses</h2>
+                        <p>
+                            We hire across different position types. Keep an eye
+                            out to find something that excites you.
+                        </p>
                     </div>
                     <div>
                         <Link to="/classes">View All Courses</Link>
                     </div>
-                </StyledTitle>
+                </SectionTitle>
             </Fade>
             <Container>
-                <StyledGrid>
-                    {results.slice(0, limit).map((aClass) => {
-                        const { title, icon, tagLine, slug } = aClass.course;
-                        const image = getImage(icon);
+                <FlexRow basis="360px" twoByTwo height="310px">
+                    {results.slice(0, limit).map((course) => {
+                        const { title, icon, tagLine, slug } = course;
                         return (
-                            <div className="grid-item" key={title}>
-                                <Link to={`/academy/${slug}`}>
-                                    <CustomArtContainer>
+                            <Link to={`/academy/${slug}`} key={slug}>
+                                <WaveBackground
+                                    className="rounded-and-shadow y-100"
+                                >
+                                    <BoxArt>
                                         <Image
-                                            className="img-wrapper-style"
-                                            image={image}
+                                            image={icon}
                                             alt={title}
+                                            className={'img-style'}
                                         />
-                                    </CustomArtContainer>
-                                    <Text>
+                                    </BoxArt>
+                                    <BoxText className="pt-0">
                                         <Fade left>
                                             <h3>{title}</h3>
                                             <p>{tagLine}</p>
                                         </Fade>
-                                    </Text>
-                                </Link>
-                            </div>
+                                    </BoxText>
+                                </WaveBackground>
+                            </Link>
                         );
                     })}
-                </StyledGrid>
+                </FlexRow>
             </Container>
         </Section>
     );

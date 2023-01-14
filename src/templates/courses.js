@@ -40,7 +40,6 @@ const StyledContainer = styled(Container)`
 `;
 
 const courses = ({ data }) => {
-    const result = data.allContentfulCourses.edges;
     
     return (
         <Layout>

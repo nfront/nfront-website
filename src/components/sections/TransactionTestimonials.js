@@ -4,7 +4,6 @@ import { Section, Container, SectionTitle, ArtContainer } from '@styles/global';
 import { SwiperSlide } from 'swiper/react';
 import CustomSwiper from '@common/swiper';
 import Image from '@common/image';
-import { CommentsDisabledOutlined } from '@mui/icons-material';
 
 const TransactionTestimonials = () => {
     const data = useStaticQuery(

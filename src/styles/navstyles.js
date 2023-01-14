@@ -18,12 +18,11 @@ export const Nav = styled.nav`
     margin: 0 auto;
     z-index: 999;
     padding: 1rem 0;
-    
-    
+
     @media ${breakpoints.tablet} {
         font-size: 90%;
     }
-    
+
     @media ${breakpoints.laptop} {
         position: fixed;
         top: 0;
@@ -54,7 +53,8 @@ export const Nav = styled.nav`
         background-color: var(--alt-color) !important;
         height: 100vh;
         overflow: hidden;
-        a, .link-button {
+        a,
+        .link-button {
             color: var(--primary-color);
         }
         svg {
@@ -77,8 +77,8 @@ export const NavList = styled.div`
         margin: 1rem 0;
 
         ${(props) =>
-        props.desktop &&
-        `
+            props.desktop &&
+            `
         display: none;
         margin: 0;
         
@@ -112,7 +112,8 @@ export const NavItem = styled.li`
     }
 
     &.active {
-        a {
+        a,
+        > button {
             color: var(--yellow);
         }
     }

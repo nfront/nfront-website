@@ -13,8 +13,6 @@ import {
 import Link from '@common/link';
 import Image from '@common/image';
 
-import { motion } from 'framer-motion';
-
 const Text = styled(TextContainer)`
     width: 220px; // Needed, so text aligns with image
 
@@ -36,7 +34,7 @@ const Text = styled(TextContainer)`
     }
 `;
 
-const MotionComponent = motion(Text);
+// const MotionComponent = motion(Text);
 
 const Mentors = () => {
     const data = useStaticQuery(

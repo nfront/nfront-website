@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useEffect, useContext, createContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Link from '@common/link';
 import { useScrollMonitor } from '@utils/hooks/useScrollMonitor';
@@ -19,46 +19,48 @@ import {
     Hamburger,
 } from '@styles/navstyles.js';
 
-
-const secondaryMenu = [
-    {
+const menuItems = {
+    home: {
         name: 'Home',
         path: '/',
-        id: 'home',
+        scrollIfHome: true,
     },
-    {
+    thesis: {
         name: 'Thesis',
         path: '/thesis/',
-        id: 'thesis',
     },
-    {
+    portfolio: {
         name: 'Portfolio',
-        path: '/portfolio',
-        id: 'portfolio',
+        path: '/portfolio/',
     },
-    {
+    jobs: {
         name: 'Careers',
         path: '/jobs/',
-        id: 'jobs',
     },
-    {
+    team: {
         name: 'Team & Mentors',
         path: '/team-mentors/',
-        id: 'team',
     },
-    {
+    news: {
         name: 'News',
         path: '/news/',
-        id: 'news',
     },
-    {
+    contact: {
         name: 'Contact',
         path: '/contact/',
-        id: 'contact',
+        scrollIfHome: true,
     },
-];
+    academy: {
+        name: 'Academy',
+        path: '/academy/',
+    },
+    logout: {
+        name: 'Logout',
+        path: '#',
+    },
+};
 
-const Navbar = (props) => {
+const Navbar = ({ fluid, ...rest }) => {
     /** open dropdown menu on mobile */
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleClassName = isMenuOpen ? 'hamburger is-open' : 'hamburger';
@@ -69,9 +71,12 @@ const Navbar = (props) => {
 
     const { setNavRect } = useContext(NavBarContext);
 
+    console.log('RENDER NAVBAR');
+
     return (
         <Nav
-            {...props}
+            fluid={fluid}
+            {...rest}
             className={changeMenuColor}
             style={{
                 backgroundColor: navBackground
@@ -87,7 +92,7 @@ const Navbar = (props) => {
                     </Link>
                 </Brand>
                 <NavList desktop>
-                    <Menu {...props} />
+                    <Menu {...rest} />
                 </NavList>
             </NavContainer>
             <Mobile>
@@ -102,7 +107,7 @@ const Navbar = (props) => {
 
                 {isMenuOpen && (
                     <NavList>
-                        <Menu {...props} />
+                        <Menu closeMenu={setIsMenuOpen} {...rest} />
                     </NavList>
                 )}
             </Mobile>
@@ -111,103 +116,63 @@ const Navbar = (props) => {
 };
 
 const Menu = (props) => {
-    /** render different menu for other pages except home */
-    const { isHome } = useIsHome();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const scrollMonitorIdList = ['top', 'contact'];
-    const activeId = useScrollMonitor(scrollMonitorIdList, props.navRef);
-
-    const {pathname} = props.location || '';
-
-    const clickHander = () => {
-        setIsMenuOpen(!isMenuOpen);
-    }
-
     return (
-        <>
-            {isHome ? (
-                <ul>
-                    <ListLink
-                        to="#top"
-                        anchorRef={props.frontPageRefs?.aboutUsRef}
-                    >
-                        Home
-                    </ListLink>
-                    <ListLink to="/thesis/">Thesis</ListLink>
-                    <ListLink to="/portfolio/">Portfolio</ListLink>
-                    {/* <ListLink to="/academy/">Academy</ListLink> */}
-                    <ListLink to="/jobs">careers</ListLink>
-                    <ListLink to="/team-mentors/">Team & Mentors</ListLink>
-                    <ListLink to="/news/">News</ListLink>
-                    <ListLink
-                        to="#contact"
-                        anchorRef={props.frontPageRefs?.contactUsRef}
-                    >
-                        Contact
-                    </ListLink>
-                    {isAuthenticated() && (
-                        <ListLink
-                            to="#"
-                            callback={(e) => {
-                                logout();
-                                e.preventDefault();
-                            }}
-                        >
-                            Logout
-                        </ListLink>
-                    )}
-                    <ListLink to="/academy/">
-                        <button className="call-to-action-button">
-                            Academy
-                        </button>
-                    </ListLink>
-                </ul>
-            ) : (
-                <ul>
-                    {secondaryMenu.map(({ name, path, id }) => {
-                        return (
-                            <NavItem
-                                key={id}
-                                className={clsx(path !== '/academy/' && 'underscore', pathname?.includes(id) && 'active')}
-                                onClick={clickHander}
-                            >
-                                <Link to={path}>{name}</Link>
-                            </NavItem>
-                        );
-                    })}
-                    {isAuthenticated() && (
-                        <NavItem
-                            onClick={(e) => {
-                                logout();
-                                e.preventDefault();
-                            }}
-                        >
-                            <Link href="#">Logout</Link>
-                        </NavItem>
-                    )}
-                    <ListLink to="/academy/">
-                        <button className="call-to-action-button">
-                            Academy
-                        </button>
-                    </ListLink>
-                </ul>
-            )}
-        </>
+        <ul>
+            {Object.entries(menuItems).map(([id, pathObject]) => (
+                <ListLink key={id} id={id} pathObject={pathObject} {...props} />
+            ))}
+        </ul>
     );
 };
 
-const ListLink = (props) => {
+const ListLink = ({
+    id,
+    pathObject,
+    location,
+    children,
+    closeMenu = () => {},
+    ...rest
+}) => {
+    const scrollMonitorIdList = ['home', 'contact'];
+    const activeId = useScrollMonitor(scrollMonitorIdList);
+
+    const { name, path, scrollIfHome } = pathObject;
+
+    const { pathname } = location || '';
+
+    const { isHome } = useIsHome();
+
+    const replacedPath =
+        isHome && scrollIfHome
+            ? id === 'home'
+                ? '#home'
+                : path.replace(/^\/(\w+)\/$/, '#$1')
+            : path;
+
+    if (pathObject === menuItems.logout && !isAuthenticated()) return null;
+
+    const combinedClickHandler =
+        pathObject === menuItems.logout
+            ? () => {
+                  closeMenu();
+                  logout();
+              }
+            : () => closeMenu();
 
     return (
         <NavItem
+            onClick={combinedClickHandler}
             className={clsx(
-                props.to !== '/academy/' && 'underscore',
-                // props.to === activeId && 'active'
+                pathObject === menuItems.academy && 'underscore',
+                (pathname?.includes(id) || activeId?.includes(id)) && 'active'
             )}
         >
-            <Link {...props}>
-                {props.children}
+            <Link to={replacedPath} {...rest}>
+                {pathObject === menuItems.academy ? (
+                    <button className="call-to-action-button">{name}</button>
+                ) : (
+                    <>{name}</>
+                )}
             </Link>
         </NavItem>
     );

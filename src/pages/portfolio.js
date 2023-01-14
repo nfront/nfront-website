@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';

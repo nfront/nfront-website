@@ -64,6 +64,8 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
         extension,
         mimeType,
         publicURL,
+        publicUrl,
+        url,
         childImageSharp,
     } = image;
 
@@ -76,12 +78,11 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
 
     const finalAlt = alt || name || title || '';
     console.log('imageAlt', finalAlt);
+    console.log('mimeType', mimeType);
 
-    const imageSource = isSvg
-        ? publicURL
-            ? publicURL
-            : image
-        : getImage(image);
+    const imageSource = isSvg ? (publicURL || publicUrl || url) ? (publicURL || publicUrl || url): image : getImage(image);
+    console.log('isSvg', isSvg);
+    console.log('imageSource', imageSource);
 
     const bgStyle = backgroundImage && imageWrapperStyle;
 
@@ -115,6 +116,7 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
         );
     } else if (!childImageSharp && isSvg) {
         // SVG (can be from anywhere)
+        console.log('imageSource', imageSource);
         return (
             <img
                 src={imageSource}

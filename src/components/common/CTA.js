@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Section, SectionTitle } from '@styles/global';
 
@@ -7,13 +7,13 @@ const StyledSection = styled(Section)`
     padding-top: 6rem;
 `;
 
-const CTA = forwardRef((props, ref) => {
+const CTA = (props) => {
     const { id } = props;
     return (
-        <StyledSection ref={ref} id={id} accent="alt">
+        <StyledSection id={id} accent="alt">
             <SectionTitle className="text-white">{props.children}</SectionTitle>
         </StyledSection>
     );
-});
+};
 
 export default CTA;

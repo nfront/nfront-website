@@ -16,12 +16,6 @@ import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
 
 const IndexPage = ({ data, location }) => {
-    const contactUsRef = useRef(null);
-    const aboutUsRef = useRef(null);
-    const frontPageRefs = {
-        aboutUsRef: aboutUsRef,
-        contactUsRef: contactUsRef,
-    };
 
     const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
@@ -29,18 +23,17 @@ const IndexPage = ({ data, location }) => {
         <Layout>
             <Seo title={title} />
             <Navbar
-                frontPageRefs={frontPageRefs}
                 fluid
                 location={location}
             />
             <Header heroImage={heroImage} />
-            <About ref={aboutUsRef} />
+            <About />
             <Wave />
             <Portfolio />
             <News accent="alt" limit="6" />
             <Wave />
             <TransactionTestimonials />
-            <Cta ref={contactUsRef} id="contact">
+            <Cta id="contact">
                 <h2>Contact</h2>
                 <p>
                     Are you an early-to-growth stage company, with global

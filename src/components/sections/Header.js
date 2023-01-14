@@ -58,7 +58,7 @@ export const SubHeaderText = styled.div`
 
 export default function Header({ heroImage }) {
     return (
-        <Hero heroImage={heroImage} height='long' left polygonShading>
+        <Hero id="home" heroImage={heroImage} height='long' left polygonShading>
             <Fade top>
                 <SubHeaderText>
                     <h2>we help businesses</h2>

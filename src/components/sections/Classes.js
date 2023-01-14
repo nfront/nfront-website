@@ -51,7 +51,7 @@ export default function Classes(props) {
                     </div>
                 )}
             </Container>
-            {limit == '6' && (
+            {limit === '6' && (
                 <Link to="/classes/">
                     <button className="button center">View All Classes</button>
                 </Link>

@@ -10,6 +10,7 @@ import slugify from '@utils/slugify';
 import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import { isReactComponent } from '@utils/utils';
 
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
@@ -65,12 +66,12 @@ const createJumpLink = (children) => {
     console.log(combined);
 
     function unWrapReact(child) {
-        if (typeof child === 'Symbol(react.element)') {
+        if (isReactComponent(child)) {
             const flatChildArray = child.props.children.flat();
             unWrapReact(flatChildArray);
         } else {
             if (child.length <= 1) {
-                if (typeof child[0] === 'Symbol(react.element)')
+                if (isReactComponent(child[0]))
                     unWrapReact(child[0]);
                 else return child[0];
             } else {
