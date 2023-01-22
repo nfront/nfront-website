@@ -1,26 +1,24 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import { SwiperSlide } from 'swiper/react';
+import {
+    Section,
+    Container,
+    Grid,
+    SectionTitle,
+    FlexColumn,
+    ArtContainer,
+    BulletList,
+} from '@styles/global';
 import Image from '@common/image';
+import Link from '@common/link';
+import CustomSwiper from '@common/swiper';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import { breakpointToPxNum } from '@utils/utils';
 
-// import ReadMore from '../../utils/readmore/ReadMore';
-
-import CustomSwiper from '@common/swiper';
-import { SwiperSlide } from 'swiper/react';
-
-/** use if you need to style your section differently, otherwise leave it empty */
-const StyledSection = styled(Section)``;
-
-const StyledGrid = styled(Grid)`
-    .grid-item {
-        background: white;
-        border: 1px solid var(--border-color);
-    }
-`;
 const StyledContainer = styled(Container)`
     h2 {
         font-size: 1.5rem;
@@ -31,90 +29,11 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const Art = styled.div`
-    @media ${breakpoints.mobileL} {
-        flex: 0 1 50%;
-    }
-    text-align: center;
-    .gatsby-image-wrapper img {
-        max-height: 300px;
-        margin-bottom: 1rem !important;
-        @media ${breakpoints.laptop} {
-            max-height: 400px;
-        }
-        @media ${breakpoints.mobileL} {
-            margin-bottom: 0 !important;
-        }
-    }
-`;
-
-const Text = styled.div`
-    @media ${breakpoints.mobileL} {
-        flex: 0 1 50%;
-    }
-
-    p {
-        font-size: 15px;
-        span {
-            font-weight: 700;
-        }
-    }
-
-    p:last-child {
-        @media ${breakpoints.mobileL} {
-            margin-bottom: 0;
-        }
-    }
-
-    p,
-    h2 {
-        text-align: center;
-        @media ${breakpoints.mobileL} {
-            text-align: left;
-        }
-    }
-
-    .label {
-        text-align: center;
-        @media ${breakpoints.mobileL} {
-            text-align: left;
-        }
-        font-size: 12px;
-    }
-`;
-
 const Divider = styled.hr`
-    &:last-child {
-        display: none;
-    }
+    align-self: stretch;
 `;
 
-const FundList = styled.div`
-    margin-bottom: 1.666rem;
-    span {
-        font-weight: 700;
-    }
-    ul {
-        list-style-position: inside;
-        list-style-type: none;
-        @media ${breakpoints.mobileL} {
-            list-style-type: inherit;
-        }
-        padding: 0;
-        margin: 0;
-        li {
-            padding: 0rem;
-            margin: 0rem;
-        }
-    }
-`;
-
-const Portfolio = (props) => {
-    const { windowSize, isMobile } = useWindowSize();
-    const { width: windowWidth } = windowSize;
-
-    const swiperNavigation = windowWidth > breakpoints.laptop;
-
+const Portfolio = () => {
     const data = useStaticQuery(graphql`
         query {
             allContentfulPortfolioCompanies {
@@ -125,9 +44,9 @@ const Portfolio = (props) => {
                         description
                     }
                     icon {
-                        file {
-                            url
-                        }
+                        url
+                        mimeType
+                        gatsbyImageData(width: 500)
                     }
                     logo {
                         gatsbyImageData
@@ -142,179 +61,208 @@ const Portfolio = (props) => {
     const isHome = useIsHome().isHome;
 
     return (
-        <StyledSection id="portfolio">
+        <Section id="portfolio">
             {isHome ? (
-                <>
-                    <SectionTitle>
-                        <h2>Recent Transactions</h2>
-                    </SectionTitle>
-                    {!isMobile ? (
-                        <StyledContainer>
-                            <CustomSwiper row navigation={swiperNavigation}>
-                                {result.map((val) => {
-                                    const {
-                                        brand,
-                                        location,
-                                        logo,
-                                        cInvestors,
-                                        description: { description },
-                                    } = val;
-                                    return (
-                                        <SwiperSlide key={brand}>
-                                            <Art>
-                                                <Image
-                                                    image={logo}
-                                                    alt={brand}
-                                                />
-                                            </Art>
-                                            <Text>
-                                                <h2>{brand}</h2>
-                                                <p className="label">
-                                                    <span>HQ:</span> {location}
-                                                </p>
-                                                <FundList className="label">
-                                                    <span>Lead Investors:</span>
-                                                    <ul>
-                                                        {cInvestors.map(
-                                                            (
-                                                                investor,
-                                                                index
-                                                            ) => (
-                                                                <li key={index}>
-                                                                    {investor}
-                                                                </li>
-                                                            )
-                                                        )}
-                                                    </ul>
-                                                </FundList>
-                                                <p>{description}</p>
-                                            </Text>
-                                        </SwiperSlide>
-                                    );
-                                })}
-                            </CustomSwiper>
-                        </StyledContainer>
-                    ) : (
-                        <StyledContainer>
-                            {result.map((val) => {
-                                const {
-                                    brand,
-                                    location,
-                                    logo,
-                                    cInvestors,
-                                    description: { description },
-                                } = val;
-                                return (
-                                    <div key={brand}>
-                                        <Text>
-                                            <h2>{brand}</h2>
-                                            <p className="label">
-                                                <span>HQ:</span> {location}
-                                            </p>
-                                            <Art>
-                                                <Image
-                                                    image={logo}
-                                                    alt={brand}
-                                                />
-                                            </Art>
-                                            <FundList className="label">
-                                                <span>Lead Investors:</span>
-                                                <ul>
-                                                    {cInvestors.map(
-                                                        (investor, index) => (
-                                                            <li key={index}>
-                                                                {investor}
-                                                            </li>
-                                                        )
-                                                    )}
-                                                </ul>
-                                            </FundList>
-                                            <p>{description}</p>
-                                        </Text>
-                                        <Divider />
-                                    </div>
-                                );
-                            })}
-                        </StyledContainer>
-                    )}
-                </>
+                <PortfolioSlider result={result} />
             ) : (
-                <Container>
-                    <StyledGrid>
+                <PortfolioGrid result={result} />
+            )}
+        </Section>
+    );
+};
+
+const PortfolioSlider = ({ result }) => {
+    const { windowSize, isMobile } = useWindowSize();
+    const { width: windowWidth } = windowSize;
+
+    const isLaptopSize = windowWidth > breakpointToPxNum('tablet');
+
+    return (
+        <>
+            <SectionTitle>
+                <h2>Recent Transactions</h2>
+            </SectionTitle>
+            {!isMobile ? (
+                <StyledContainer>
+                    <CustomSwiper row wrap navigation={isLaptopSize}>
                         {result.map((val) => {
                             const {
                                 brand,
-                                link,
-                                icon,
+                                location,
+                                logo,
+                                cInvestors,
                                 description: { description },
                             } = val;
                             return (
-                                <div key={brand}>
-                                    {isMobile ? (
-                                        <div className="flip-card grid-item">
-                                            <div className="flip-card-front">
-                                                <img
-                                                    src={icon.file.url}
-                                                    alt="Avatar"
-                                                    className="avatar"
-                                                    style={{
-                                                        width: '40%',
-                                                        height: '40%',
-                                                        objectFit: 'contain',
-                                                    }}
-                                                />
-
-                                                <Text>
-                                                    <a href={link}>
-                                                        <p>{description}</p>
-                                                        <a href={link}>
-                                                            {'Learn More'}
-                                                        </a>
-                                                    </a>
-                                                </Text>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="flip-card grid-item">
-                                            <div className="flip-card-inner">
-                                                <div className="flip-card-front">
-                                                    <img
-                                                        src={icon.file.url}
-                                                        alt="Avatar"
-                                                        style={{
-                                                            width: '50%',
-                                                            height: '50%',
-                                                            objectFit:
-                                                                'contain',
-                                                        }}
-                                                    />
-                                                </div>
-
-                                                <div className="flip-card-back">
-                                                    <Text>
-                                                        <a href={link}>
-                                                            <h2>{brand}</h2>
-                                                            <p>{description}</p>
-                                                            <span>
-                                                                {'Learn More'}
-                                                            </span>
-                                                        </a>{' '}
-                                                        {/* <ReadMore
-                                                            link={link}
-                                                            text={description}
-                                                        /> */}
-                                                    </Text>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
+                                <SwiperSlide key={brand}>
+                                    <ArtContainer
+                                        maxHeight="300px"
+                                        maxHeightLaptop="400px"
+                                        itemBasis="50%"
+                                        className={`mb-15-latop ${
+                                            isLaptopSize ? 'pr-1' : ''
+                                        }`}
+                                    >
+                                        <Image image={logo} alt={brand} />
+                                    </ArtContainer>
+                                    <FlexColumn>
+                                        <h2>{brand}</h2>
+                                        <p className="label xs-font mb-15">
+                                            <span className="bold">HQ:</span>{' '}
+                                            {location}
+                                        </p>
+                                        <BulletList
+                                            className={`label xs-font mb-15 ${
+                                                isLaptopSize ? '' : ''
+                                            }`}
+                                        >
+                                            <span>{`Lead Investors${
+                                                isLaptopSize ? ':' : ''
+                                            }`}</span>
+                                            <ul>
+                                                {cInvestors.map(
+                                                    (investor, index) => (
+                                                        <li key={index}>
+                                                            {investor}
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </BulletList>
+                                        <p className="small-font">
+                                            {description}
+                                        </p>
+                                    </FlexColumn>
+                                </SwiperSlide>
                             );
                         })}
-                    </StyledGrid>
-                </Container>
+                    </CustomSwiper>
+                </StyledContainer>
+            ) : (
+                <StyledContainer>
+                    {result.map((val, index, {length}) => {
+                        const {
+                            brand,
+                            location,
+                            logo,
+                            cInvestors,
+                            description: { description },
+                        } = val;
+                        return (
+                            <FlexColumn
+                                key={brand}
+                                alignItems="center"
+                                className="center-tablet"
+                            >
+                                <h2>{brand}</h2>
+                                <p className="label xs-font mb-15 ">
+                                    <span className="bold">HQ:</span> {location}
+                                </p>
+                                <ArtContainer
+                                    maxHeight="300px"
+                                    maxHeightLaptop="400px"
+                                >
+                                    <Image image={logo} alt={brand} />
+                                </ArtContainer>
+                                <BulletList className="label xs-font mb-15">
+                                    <span>{`Lead Investors${
+                                        isLaptopSize ? ':' : ''
+                                    }`}</span>
+                                    <ul>
+                                        {cInvestors.map((investor, index) => (
+                                            <li key={index}>{investor}</li>
+                                        ))}
+                                    </ul>
+                                </BulletList>
+                                <p className="small-font">{description}</p>
+                                {index !== length - 1 && <Divider />}
+                            </FlexColumn>
+                        );
+                    })}
+                </StyledContainer>
             )}
-        </StyledSection>
+        </>
+    );
+};
+
+// For some reason, adding "display: flex" with "justify-content: center" will cause text to
+// nudge when it rotated (flip-card) upon hover, so we use normal divs with padding on each sub-element.
+const PortfolioGrid = ({ result }) => {
+    const { isMobile } = useWindowSize();
+
+    return (
+        <Container>
+            <Grid minWidth="320px">
+                {result.map((val) => {
+                    const {
+                        brand,
+                        link,
+                        icon,
+                        description: { description },
+                    } = val;
+                    return isMobile ? (
+                        <FlexColumn
+                            gap="2.5rem"
+                            alignItems="center"
+                            className="grey-border py-15 px-25"
+                            key={brand}
+                        >
+                            <ArtContainer
+                                maxWidth="min(70%, 12rem)"
+                                maxHeight="8rem"
+                                className="mb-0"
+                            >
+                                <Image image={icon} alt={`${brand} logo`} />
+                            </ArtContainer>
+
+                            <p className="small-font center mb-0">
+                                {description}
+                            </p>
+                            <Link className="small-font light-bold" to={link}>
+                                {'Learn More'}
+                            </Link>
+                        </FlexColumn>
+                    ) : (
+                        <div
+                            key={brand}
+                            className="grey-border flip-card center-tablet"
+                        >
+                            <div gap="1rem" className="flip-card-front p-15">
+                                <ArtContainer
+                                    maxWidth="min(70%, 12rem)"
+                                    maxHeight="8rem"
+                                    className="mb-0"
+                                >
+                                    <Image image={icon} alt={`${brand} logo`} />
+                                </ArtContainer>
+                            </div>
+
+                            <div
+                                gap="1rem"
+                                className="flip-card-back py-15 px-15"
+                            >
+                                <Link to={link}>
+                                    <h2 className="mb-1">{brand}</h2>
+                                    <p className="small-font mb-1">
+                                        {description}
+                                    </p>
+                                    <Link
+                                        className="small-font light-bold"
+                                        to={link}
+                                    >
+                                        {'Learn More'}
+                                    </Link>
+                                </Link>
+                                {/* <ReadMore
+                                    link={link}
+                                    text={description}
+                                /> */}
+                            </div>
+                        </div>
+                    );
+                })}
+            </Grid>
+        </Container>
     );
 };
 

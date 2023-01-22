@@ -18,7 +18,7 @@ const defaultSettings = {
     // navigation: true,
     // scrollbar: true,
     rewind: true,
-    autoplay: { delay: 4000, disableOnInteraction: false },
+    // autoplay: { delay: 4000, disableOnInteraction: false },
     speed: 500,
     slidesPerView: 1,
     grabCursor: true,
@@ -29,19 +29,23 @@ const ModifiedSwiper = styled(Swiper)`
     .swiper-slide {
         display: flex;
         flex-direction: ${(props) => (props.$row ? 'row' : 'column')};
+        flex-wrap: ${(props) => (props.wrap ? 'wrap' : 'nowrap')};
         align-items: center;
         justify-content: ${(props) => (props.$row ? 'flex-start' : 'center')};
         overflow: hidden;
         text-align: center;
         padding: 0rem 0rem 2rem;
-        @media ${breakpoints.mobileL} {
+        /* @media ${breakpoints.mobileL} {
+            padding: ${(props) => props.navigation ? `2rem 4rem 5rem` : `2rem ${props.spacing}rem 5rem`};
+        } */
+        @media ${breakpoints.tablet} {
             padding: ${(props) => props.navigation ? `2rem 4rem 5rem` : `2rem ${props.spacing}rem 5rem`};
         }
     }
 `;
 
 const CustomSwiper = (props) => {
-    const { settings, row, navigation, children } = props;
+    const { settings, row, navigation, children, ...rest } = props;
     
     const swiperSettings = { ...defaultSettings, ...settings };
 
@@ -53,7 +57,7 @@ const CustomSwiper = (props) => {
     const spacing = props.spacing || 0;
 
     return (
-        <ModifiedSwiper $row={row} navigation={swiperSettings.navigation} spacing={spacing} {...swiperSettings}>
+        <ModifiedSwiper $row={row} navigation={swiperSettings.navigation} spacing={spacing} {...swiperSettings} {...rest}>
             {children}
         </ModifiedSwiper>
     );

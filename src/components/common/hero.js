@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Overlay, OverlayText, Shading } from '@styles/global';
+import { OverlayContainer, Overlay, Shading, Container } from '@styles/global';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import Image from '@common/image';
 
-const Container = styled.div`
+const HeroContainer = styled.div`
     height: ${(props) => (props.height === 'long' ? '100vh' : '70vh')};
 
     @media ${breakpoints.tablet} {
@@ -42,21 +42,33 @@ const Container = styled.div`
     }
 `;
 
-const Hero = ({ heroImage, children, height, small, left, polygonShading, id }) => {
+const Hero = ({
+    heroImage,
+    children,
+    height,
+    small,
+    left,
+    polygonShading,
+    id,
+}) => {
     if (!heroImage) {
         return null;
     }
 
     return (
-        <Container id={id} height={height} small={small}>
-            <Overlay>
+        <HeroContainer id={id} height={height} small={small}>
+            <OverlayContainer>
                 <Image image={heroImage} backgroundImage />
                 <Shading polygonShading={polygonShading} />
-                <OverlayText left={left} className={`${small && 'text-light'}`}>
+                <Overlay
+                    as={Container}
+                    left={left}
+                    className={`${small && 'text-light'}`}
+                >
                     {children}
-                </OverlayText>
-            </Overlay>
-        </Container>
+                </Overlay>
+            </OverlayContainer>
+        </HeroContainer>
     );
 };
 

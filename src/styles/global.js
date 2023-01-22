@@ -1,6 +1,6 @@
+import React from 'react';
 import styled from 'styled-components';
 import wave from '@images/art/wave.svg';
-import { GatsbyImage } from 'gatsby-plugin-image';
 import { pxToRem } from '@utils/utils';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
@@ -48,7 +48,7 @@ export const SectionTitle = styled.div`
     margin-bottom: 3rem;
     text-align: center;
     margin: 0 auto 1.666rem auto;
-    
+
     padding: 0 1.5rem;
 
     @media ${breakpoints.tablet} {
@@ -72,7 +72,12 @@ export const Grid = styled.div`
         }, 100%), 1fr))`};
     grid-gap: var(--spacer);
     align-items: ${(props) => props.alignItems || 'stretch'};
+
+    > * {
+        aspect-ratio: ${(props) => (props.square ? '1' : 'auto')};
+    }
 `;
+
 
 // It is OK that the Fade (and other elements) become grid items,
 // because the below grid item (now called FlexColumn) does not have any props specific to grid.
@@ -80,13 +85,25 @@ export const Grid = styled.div`
 // like when stretching an item over seleveral tracks, or when not placing items in turn.
 // (grid-area names on children and grid-template-areas on parent)
 // (or just grid-column/row-start/end)
-// Note: We could set the defaults for any children (*) inside
+// Note: We could set the defaults for any children (*) inside.
+// Can be used as flex item, alongside ArtContainer, each with their own inner flex layout.
 export const FlexColumn = styled.div`
+    /* When FlexColumn is itself a flex item. */
+        @media ${breakpoints.mobileL} {
+        ${(props) => props.itemBasis && `flex-basis: 100%;`}
+    }
+
+    @media ${breakpoints.tablet} {
+        ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis};`}
+    }
+    
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+
     justify-content: ${(props) => props.justifyContent || 'flex-start'};
     align-items: ${(props) => props.alignItems || 'stretch'};
+    grid-gap: ${(props) => props.gap || '0'};
 
     background: ${(props) => props.white && 'var(--alt-color)'};
     padding: ${(props) => props.padding || '0px'};
@@ -95,10 +112,10 @@ export const FlexColumn = styled.div`
         box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
     }
 
-    // For wrapping to happen in a coulmn, a height (or max-height) must be set on container
+    /* For wrapping to happen in a coulmn, a height (or max-height) must be set on container */
 
-    // Set defaults for flex children here
-    // Can be overwritten in each component
+    /* Set defaults for flex children here */
+    /* Can be overwritten in each component */
     > * {
         flex: 0 1 ${(props) => props.basis || 'auto'};
     }
@@ -117,17 +134,18 @@ export const FlexRow = styled.div`
 
     justify-content: ${(props) => props.justifyContent || 'center'};
     align-items: ${(props) => props.alignItems || 'stretch'};
+    align-content: ${(props) => props.alignContent || 'stretch'};
     grid-gap: ${(props) => props.gap || 'var(--spacer)'};
 
     > * {
         height: ${(props) => props.height || 'auto'};
         max-width: ${(props) => props.maxWidth || 'none'};
-        flex: 0 1 100%;
+        flex: ${(props) => (props.grow ? '1' : '0')} 1 100%;
     }
 
     @media ${breakpoints.tablet} {
         > * {
-            flex: 0 1
+            flex: ${(props) => (props.grow ? '1' : '0')} 1
                 ${(props) =>
                     props.twoByTwo
                         ? `calc(50% - ${props.gap || `var(--spacer)`}/2)`
@@ -138,7 +156,8 @@ export const FlexRow = styled.div`
     @media ${breakpoints.laptop} {
         flex-wrap: wrap;
         > * {
-            flex: 0 1 ${(props) => props.basis || 'auto'};
+            flex: ${(props) => (props.grow ? '1' : '0')} 1
+                ${(props) => props.basis || 'auto'};
         }
     }
 
@@ -147,26 +166,52 @@ export const FlexRow = styled.div`
     }
 `;
 
-export const Overlay = styled.div`
+export const OverlayContainer = styled.div`
     display: grid;
     height: ${(props) => props.height || '100%'};
     border-radius: inherit;
+    box-shadow: inherit;
+    position: relative;
 
-    div {
+    > * {
         border-radius: inherit;
     }
 `;
 
-export const OverlayText = styled(Container)`
-    // By using the same grid area for both, they are stacked on top of each other
+export const Overlay = styled.div`
+    /* By using the same grid area for both, they are stacked on top of each other */
     grid-area: 1/1;
     z-index: 2;
+    grid-gap: ${(props) => props.gap || 'var(--spacer)'};
 
     position: relative;
     opacity: 1;
     display: flex;
     flex-flow: column;
-    justify-content: center;
+    justify-content: ${(props) => props.justifyContent || 'center'};
+    align-items: ${(props) => (props.left ? 'left' : 'center')};
+    text-align: ${(props) => (props.left ? 'left' : 'center')};
+`;
+
+// Have to use this for animations, because grid+transform cause nudging.
+export const AbsoluteOverlay = styled.div`
+    /* By using the same grid area for both, they are stacked on top of each other */
+    grid-area: 1/1;
+    z-index: 2;
+    grid-gap: ${(props) => props.gap || 'var(--spacer)'};
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    /* width: 500px; */
+    /* height: 320px; */
+
+    display: flex;
+    flex-flow: column;
+    justify-content: ${(props) => props.justifyContent || 'center'};
     align-items: ${(props) => (props.left ? 'left' : 'center')};
     text-align: ${(props) => (props.left ? 'left' : 'center')};
 `;
@@ -189,10 +234,10 @@ export const Shading = styled.div`
     `};
 `;
 
-export const BgImage = styled(GatsbyImage)`
-    grid-area: 1/1;
-    z-index: 0;
-`;
+// export const BgImage = styled(GatsbyImage)`
+//     grid-area: 1/1;
+//     z-index: 0;
+// `;
 
 export const WaveBackground = styled.div`
     background-image: url(${wave});
@@ -247,16 +292,43 @@ export const BoxArt = styled.div`
     }
 `;
 
-// See Image component for notes
+
+// ArtContainer
+// =======================================================================
+// Can be used with FlexColumn, as two flex items, each with their own inner flex layout.
+// See Image component for notes.
 // GatsbyImage: A max width is set through GraphQL (width property), which then serves as the max width of the img (it scales down when container scales down)
 // If no width is set, source size is its max
 // To change width of container in JS, just change container size (ArtContainer), or add styles to GatsbyImage wrapper (see below)
 // ArtContainer is display: flex
-// Styles for GatsbyImage wrapper and img can be set via the classes "img-class" and "image-wrapper-class"
+// Styles for GatsbyImage wrapper and img can be set via the classes "img-class" and "image-wrapper-class" <-- Latter does not work, use "gatsby-image-wrapper" instead.
 // Those classes are defined below and are passed to GatsbyImage (in Image component)
 // See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-plugin-image/#shared-props
 // SVG is not controlled by GatsbyImage, so OK to define styles here / with StyledComponents
+
+
+// Note on images
+// =======================================================================
+// 1) img size === Wrapper size
+// 	- object-fit sets how image resizes inside wrapper
+// 	- object-position sets how image is placed inside wrapper
+// 	- In truth, they apply to how image is placed in img, not in wrapper, but img is by default set to be as large as wrapper
+// 2) Wrapper width can be kept at auto, which for div means width of screen | container
+// 3) Wrapper height should be set explicitly
+// 4) Use "object-fit: contain" to resize image inside wrapper div
+// 5) Image will be centered by default <-- "object-position: 50% 50%"
+
 export const ArtContainer = styled.div`
+
+    /* When ArtContainer is itself a flex item. */
+    @media ${breakpoints.mobileL} {
+        ${(props) => props.itemBasis && `flex-basis: 100%;`}
+    }
+
+    @media ${breakpoints.tablet} {
+        ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis};`}
+    }
+
     display: flex;
     justify-content: center;
     flex-flow: column wrap;
@@ -265,38 +337,47 @@ export const ArtContainer = styled.div`
     margin-bottom: 1rem;
 
     .img-class {
+        object-fit: contain !important;
+
         &:hover {
             ${(props) =>
                 props.hover &&
                 `
                 transition: all 0.3s ease-out 0s;
                 transform: scale(1.1);
-                // border: 5px solid ${props.hoverColor || 'var(--primary-color)'};
+                // border: 5px solid ${
+                    props.hoverColor || 'var(--primary-color)'
+                };
                 `};
         }
         ${(props) => props.grayscale && `filter: grayscale(100%);`};
         ${(props) => props.rounded && `border-radius: 0.375rem;`};
     }
 
-    .image-wrapper-class {
+    .gatsby-image-wrapper {
         ${(props) => props.minWidth && `min-width: ${props.minWidth};`};
         ${(props) => props.maxWidth && `max-width: ${props.maxWidth};`};
+        ${(props) => props.maxHeight && `max-height: ${props.maxHeight};`};
+
+        @media ${breakpoints.laptop} {
+            ${(props) =>
+                props.maxHeightLaptop &&
+                `max-height: ${props.maxHeightLaptop};`};
+        }
+    }
+
+    /* for svg images via Image component, as they don't get wrapped in a GatsbyImage div. */
+    > img {
+        width: 100%;
+        margin-bottom: 0;
     }
 
     svg {
-        // opinionated defaults
+        /* opinionated defaults */
         fill: var(--secondary-color);
         width: 70px;
         height: 70px;
     }
-
-    /* img {
-        // Styles (size, rounded border, etc.) is set with prop on Image component
-        
-        @media ${breakpoints.laptop} {
-            max-height: 400px;
-        }
-    } */
 
     &:hover {
         /* border-color: var(--primary-color); */
@@ -340,6 +421,37 @@ export const TooltipSwiperContainer = styled(Container)`
         font-size: 1rem;
         @media ${breakpoints.laptop} {
             font-size: ${pxToRem(14)};
+        }
+    }
+`;
+
+export const RedSvg = ({ svgReactComponent, width }) => {
+    const StyledSvg = styled(svgReactComponent)`
+        fill: var(--secondary-color);
+        width: ${(props) => props.width || '100px'};
+        padding-bottom: 0.5rem;
+        flex: 0 1 auto;
+    `;
+
+    return <StyledSvg width={width} />;
+};
+
+export const BulletList = styled.div`
+    span {
+        /* Headline */
+        font-weight: 700;
+    }
+    ul {
+        list-style-position: inside;
+        list-style-type: none;
+        @media ${breakpoints.tablet} {
+            list-style-type: disc;
+        }
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 0rem;
+            margin: 0rem;
         }
     }
 `;

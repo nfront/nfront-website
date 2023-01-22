@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import { breakpointToPxNum } from '@utils/utils';
 
 const useWindowSize = () => {
     
@@ -29,7 +30,7 @@ const useWindowSize = () => {
     // Empty array ensures that effect is only run on mount.
     // Because, the listener should only be created once.
 
-    const isMobile = windowSize.width < breakpoints.MobileLNum;
+    const isMobile = windowSize.width < breakpointToPxNum('mobileL');
 
     return { windowSize, isMobile };
 };

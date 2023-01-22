@@ -42,7 +42,6 @@ const SearchBoxWrapper = styled.div`
     select {
         border: none;
         color: var(--text-color) !important;
-        width: 100%;
         border-bottom: 1px solid var(--button-color);
     }
 
@@ -61,7 +60,7 @@ const SearchBox = ({ children, handleSubmit, setFormData, className }) => {
     return (
         <SearchBoxWrapper className={className}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FlexRow>
+                <FlexRow grow>
                     {children}
                     <input type="submit" className="button" value="Filter" />
                 </FlexRow>

@@ -47,7 +47,7 @@ const imageWrapperStyle = {
 // - SVG is not controlled by GatsbyImage, so define styles with StyledComponents
 // - ArtContainer is "display: flex"
 
-const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
+const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
     // If image comes from Contentful, pass in image field, which will not contain childImageSharp
     // If image coming from allFile, pass in file node which contains childImageSharp
     // If any such image field contains an svg field that is not null, then it is an svg
@@ -74,9 +74,10 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
         (ext && ext.includes('svg')) ||
         (extension && extension.includes('svg')) ||
         (mimeType && mimeType.includes('svg')) ||
-        (typeof image === 'string' && image.includes('svg'));
+        (typeof image === 'string' && image.includes('svg')) || (publicURL && publicURL.includes('svg')) || asSvg;
 
     const finalAlt = alt || name || title || '';
+    console.log('image', image);
     console.log('imageAlt', finalAlt);
     console.log('mimeType', mimeType);
 
@@ -96,7 +97,6 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
                 alt={finalAlt}
                 style={backgroundImage && imageWrapperStyle}
                 imgClassName="img-class"
-                className="image-wrapper-class"
                 src=""
                 {...rest}
             />
@@ -109,14 +109,12 @@ const Image = ({ image, backgroundImage = false, alt, ...rest }) => {
                 alt={finalAlt}
                 style={backgroundImage && imageWrapperStyle}
                 imgClassName="img-class"
-                className="image-wrapper-class"
                 src=""
                 {...rest}
             />
         );
     } else if (!childImageSharp && isSvg) {
         // SVG (can be from anywhere)
-        console.log('imageSource', imageSource);
         return (
             <img
                 src={imageSource}

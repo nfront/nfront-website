@@ -3,8 +3,8 @@ import {
     Section,
     Container,
     SectionTitle,
+    OverlayContainer,
     Overlay,
-    OverlayText,
     BoxText,
     FlexRow,
     Shading,
@@ -14,7 +14,6 @@ import Fade from '@common/fade';
 import { getObjectCount } from '@utils/utils';
 
 const JobCities = ({ jobs, cities }) => {
-
     // Get count of objects in array with property "outerProperty.innerProperty" matching "value"
     const getPositionCount = (outerProperty, innerProperty, value) =>
         getObjectCount(jobs, outerProperty, innerProperty, value);
@@ -30,14 +29,18 @@ const JobCities = ({ jobs, cities }) => {
                     {cities.map((city) => {
                         const { title, featuredImage, slug } = city;
                         return (
-                            <Overlay
-                                height="280px"
+                            <OverlayContainer
                                 className="rounded"
+                                height="280px"
                                 key={slug}
                             >
                                 <Shading />
-                                <Image image={featuredImage} alt={title} backgroundImage />
-                                <OverlayText>
+                                <Image
+                                    image={featuredImage}
+                                    alt={title}
+                                    backgroundImage
+                                />
+                                <Overlay>
                                     <Fade left>
                                         <BoxText noArt white>
                                             <h3>{title}</h3>
@@ -51,8 +54,8 @@ const JobCities = ({ jobs, cities }) => {
                                             </p>
                                         </BoxText>
                                     </Fade>
-                                </OverlayText>
-                            </Overlay>
+                                </Overlay>
+                            </OverlayContainer>
                         );
                     })}
                 </FlexRow>

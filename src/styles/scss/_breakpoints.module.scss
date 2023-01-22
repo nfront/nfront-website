@@ -1,5 +1,6 @@
-@use "sass:string";
-@use "sass:map";
+@use 'sass:string';
+@use 'sass:map';
+@use 'functions';
 
 /*
  * BREAKPOINTS (em)
@@ -30,7 +31,7 @@ $media: (
     tablet: '(min-width: #{map-get($breakpoints, tablet)}em)',
     laptop: '(min-width: #{map-get($breakpoints, laptop)}em)',
     laptopL: '(min-width: #{map-get($breakpoints, laptopL)}em)',
-    desktop: '(min-width: #{map-get($breakpoints, desktop)}em)'
+    desktop: '(min-width: #{map-get($breakpoints, desktop)}em)',
 );
 
 @mixin breakpoint($point) {
