@@ -60,7 +60,7 @@ const ContactForm = () => (
                         id="firstname"
                         placeholder="Your First Name"
                         className={
-                            errors.name && touched.name ? ' has-error' : ''
+                            errors.name && touched.name ? 'x-100 has-error' : 'x-100'
                         }
                         autocomplete="off"
                     />
@@ -78,7 +78,7 @@ const ContactForm = () => (
                         id="lastname"
                         placeholder="Your Last Name"
                         className={
-                            errors.name && touched.name ? ' has-error' : ''
+                            errors.name && touched.name ? 'x-100 has-error' : 'x-100'
                         }
                         autocomplete="off"
                     />
@@ -96,7 +96,7 @@ const ContactForm = () => (
                         id="email"
                         placeholder="Your Email"
                         className={
-                            errors.email && touched.email ? ' has-error' : ''
+                            errors.email && touched.email ? 'x-100 has-error' : 'x-100'
                         }
                         autocomplete="off"
                     />
@@ -115,8 +115,8 @@ const ContactForm = () => (
                         id="message"
                         className={
                             errors.message && touched.message
-                                ? ' has-error'
-                                : ''
+                                ? 'x-100 has-error'
+                                : 'x-100'
                         }
                     />
                     <ErrorMessage

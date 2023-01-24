@@ -19,15 +19,15 @@ import { useIsHome } from '@utils/hooks/useCheckLocation';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import { breakpointToPxNum } from '@utils/utils';
 
-const StyledContainer = styled(Container)`
-    h2 {
-        font-size: 1.5rem;
-        margin-bottom: 5px;
-        @media ${breakpoints.laptop} {
-            font-size: 2rem;
-        }
-    }
-`;
+// const StyledContainer = styled(Container)`
+//     h2 {
+//         font-size: 1.5rem;
+//         margin-bottom: 5px;
+//         @media ${breakpoints.laptop} {
+//             font-size: 2rem;
+//         }
+//     }
+// `;
 
 const Divider = styled.hr`
     align-self: stretch;
@@ -83,7 +83,7 @@ const PortfolioSlider = ({ result }) => {
                 <h2>Recent Transactions</h2>
             </SectionTitle>
             {!isMobile ? (
-                <StyledContainer>
+                <Container>
                     <CustomSwiper row wrap navigation={isLaptopSize}>
                         {result.map((val) => {
                             const {
@@ -105,8 +105,15 @@ const PortfolioSlider = ({ result }) => {
                                     >
                                         <Image image={logo} alt={brand} />
                                     </ArtContainer>
-                                    <FlexColumn>
-                                        <h2>{brand}</h2>
+                                    <FlexColumn
+                                        itemBasis="50%"
+                                        className="center-tablet"
+                                    >
+                                        {isLaptopSize ? (
+                                            <h2 className="mb-03">{brand}</h2>
+                                        ) : (
+                                            <h3 className="mb-03">{brand}</h3>
+                                        )}
                                         <p className="label xs-font mb-15">
                                             <span className="bold">HQ:</span>{' '}
                                             {location}
@@ -129,7 +136,7 @@ const PortfolioSlider = ({ result }) => {
                                                 )}
                                             </ul>
                                         </BulletList>
-                                        <p className="small-font">
+                                        <p className="small-font margin-laptop">
                                             {description}
                                         </p>
                                     </FlexColumn>
@@ -137,10 +144,10 @@ const PortfolioSlider = ({ result }) => {
                             );
                         })}
                     </CustomSwiper>
-                </StyledContainer>
+                </Container>
             ) : (
-                <StyledContainer>
-                    {result.map((val, index, {length}) => {
+                <Container>
+                    {result.map((val, index, { length }) => {
                         const {
                             brand,
                             location,
@@ -154,7 +161,7 @@ const PortfolioSlider = ({ result }) => {
                                 alignItems="center"
                                 className="center-tablet"
                             >
-                                <h2>{brand}</h2>
+                                <h3 className="mb-03">{brand}</h3>
                                 <p className="label xs-font mb-15 ">
                                     <span className="bold">HQ:</span> {location}
                                 </p>
@@ -179,7 +186,7 @@ const PortfolioSlider = ({ result }) => {
                             </FlexColumn>
                         );
                     })}
-                </StyledContainer>
+                </Container>
             )}
         </>
     );

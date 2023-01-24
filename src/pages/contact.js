@@ -1,34 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Link from '@common/link';
-import { Section, Container } from '@styles/global';
+import { Section, Container, Grid } from '@styles/global';
 import Contact from '@sections/Contact';
 import Seo from '@utils/SEO';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
-const StyledSection = styled(Section)`
-    padding: 5rem 0;
-    @media ${breakpoints.tablet} {
-        padding: 7rem 0;
-    }
-`;
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 50px;
-
-    @media ${breakpoints.tablet} {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    a {
-        font-weight: 500;
-    }
-`;
 
 const ContactPage = ({ data, location }) => {
     const { title, heroImage } = data.allContentfulPages.edges[0].node;
@@ -44,7 +24,7 @@ const ContactPage = ({ data, location }) => {
                     as possible.
                 </p>
             </Hero>
-            <StyledSection>
+            <Section>
                 <Container>
                     <Grid>
                         <Contact />
@@ -53,7 +33,7 @@ const ContactPage = ({ data, location }) => {
                             <p>info@nfrontventures.com</p>
                             <div class="label">Visit us at</div>
                             <p>
-                                <Link href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
+                                <Link className="light-bold" href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157
                                     <br />
                                     Oslo, Norway
@@ -62,7 +42,7 @@ const ContactPage = ({ data, location }) => {
                         </div>
                     </Grid>
                 </Container>
-            </StyledSection>
+            </Section>
             <Footer />
         </Layout>
     );

@@ -78,7 +78,6 @@ export const Grid = styled.div`
     }
 `;
 
-
 // It is OK that the Fade (and other elements) become grid items,
 // because the below grid item (now called FlexColumn) does not have any props specific to grid.
 // Grid item properties are only needed when explicitly positioning items in a grid,
@@ -89,14 +88,14 @@ export const Grid = styled.div`
 // Can be used as flex item, alongside ArtContainer, each with their own inner flex layout.
 export const FlexColumn = styled.div`
     /* When FlexColumn is itself a flex item. */
-        @media ${breakpoints.mobileL} {
+    @media ${breakpoints.mobileL} {
         ${(props) => props.itemBasis && `flex-basis: 100%;`}
     }
 
     @media ${breakpoints.tablet} {
         ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis};`}
     }
-    
+
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -292,7 +291,6 @@ export const BoxArt = styled.div`
     }
 `;
 
-
 // ArtContainer
 // =======================================================================
 // Can be used with FlexColumn, as two flex items, each with their own inner flex layout.
@@ -306,7 +304,6 @@ export const BoxArt = styled.div`
 // See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-plugin-image/#shared-props
 // SVG is not controlled by GatsbyImage, so OK to define styles here / with StyledComponents
 
-
 // Note on images
 // =======================================================================
 // 1) img size === Wrapper size
@@ -319,7 +316,6 @@ export const BoxArt = styled.div`
 // 5) Image will be centered by default <-- "object-position: 50% 50%"
 
 export const ArtContainer = styled.div`
-
     /* When ArtContainer is itself a flex item. */
     @media ${breakpoints.mobileL} {
         ${(props) => props.itemBasis && `flex-basis: 100%;`}
