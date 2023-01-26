@@ -37,9 +37,7 @@ export default function Classes(props) {
                 {results.length ? (
                     <StyledGrid>
                         {results.slice(0, limit).map((aClass) => {
-                            return (
-                                <Class results={aClass} />
-                            );
+                            return <Class results={aClass} />;
                         })}
                     </StyledGrid>
                 ) : (

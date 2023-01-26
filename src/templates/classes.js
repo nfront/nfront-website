@@ -13,6 +13,15 @@ import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import { isReactComponent } from '@utils/utils';
 
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import Hero from '@common/hero';
+import Seo from '@utils/SEO';
+import slugify from '@utils/slugify';
+import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
+// import { FlexBox } from '../components/sections/Team';
+import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import CourseCard from '../components/common/courseSummaryCard';
+import RelatedCourse from '../components/common/relatedCourse';
 
 const StyledContainer = styled(Container)`
     text-align: center;
@@ -22,11 +31,18 @@ const StyledContainer = styled(Container)`
 `;
 
 const DetailedSection = styled.div`
-    flex: 1 1 500px;
-    @media (min-width: 708px) {
-        margin-left: 1.5rem;
-    }
+    width: 100%;
+    display: flex;
+    justify-content: center;
     text-align: left;
+`;
+
+const CourseDetail = styled.div`
+    width: 70%;
+`;
+
+const CourseSuggestion = styled.div`
+    width: 30%;
 `;
 
 const IframeContainer = styled.span`
@@ -366,17 +382,15 @@ const renderOptions = (body) => {
 };
 
 const classes = ({ data }) => {
+    console.log('🚀 ~ data', data);
     const { title, coverImage, body, course } = data.contentfulClasses;
-
-    // console.log('body:');
-    // console.log(body);
     const pluginImage = getImage(coverImage);
 
     return (
         <Layout>
             <Seo title={title} />
             <Navbar fluid />
-            {coverImage != null && (
+            {pluginImage ? (
                 <div style={{ display: 'grid' }}>
                     <GatsbyImage
                         image={pluginImage}
@@ -387,21 +401,58 @@ const classes = ({ data }) => {
                     />
                     <Overlay />
                     <OverlayText className="text-light">
-                        {/* <p>{publishDate}</p> */}
+                        <h2 className="mb-0">{title}</h2>
+                    </OverlayText>
+                    {/* <GatsbyImage
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                        image={pluginImage}
+                    /> */}
+                </div>
+            ) : (
+                <div style={{ display: 'grid' }}>
+                    <Hero
+                        fileName="LA.jpg"
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                    />
+                    <Overlay />
+                    <OverlayText className="text-light">
                         <h2 className="mb-0">{title}</h2>
                     </OverlayText>
                 </div>
             )}
+            {/* {coverImage != null && (
+                <div style={{ display: 'grid' }}>
+                    <GatsbyImage
+                        image={pluginImage}
+                        style={{
+                            gridArea: '1/1',
+                            height: `50vh`,
+                        }}
+                    />
+                    <Overlay />
+                    <OverlayText className="text-light">
+                        <h2 className="mb-0">{title}</h2>
+                    </OverlayText>
+                </div>
+            )} */}
             <Section>
                 <StyledContainer>
-                    {/* <ModifiedFlexBox> */}
                     <DetailedSection>
-                        <p className="category">{course.title}</p>
-                        <div>
+                        <CourseDetail>
+                            <p className="category">{course.title}</p>
                             {body && renderRichText(body, renderOptions(body))}
-                        </div>
+                        </CourseDetail>
+                        {/* <CourseSuggestion>
+                            <CourseCard props={data} />
+                            <RelatedCourse props={data} />
+                        </CourseSuggestion> */}
                     </DetailedSection>
-                    {/* </ModifiedFlexBox> */}
                 </StyledContainer>
             </Section>
             <Footer />
@@ -416,6 +467,7 @@ export const query = graphql`
         contentfulClasses(slug: { eq: $slug }) {
             title
             slug
+            subTitle
             course {
                 title
             }

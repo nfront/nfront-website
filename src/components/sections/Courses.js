@@ -71,6 +71,7 @@ const StyledGrid = styled(Grid)`
     .grid-item:hover {
         box-shadow: 0 0 42px 6px rgba(0, 0, 0, 0.1);
         transform: translateY(-5px);
+        transition: 0.5s;
     }
 `;
 
@@ -110,6 +111,13 @@ const CustomArtContainer = styled(ArtContainer)`
 `;
 
 export default function Courses({ results, limit }) {
+    const uniqueArray = results.filter(
+        (v, key, courses) =>
+            courses.findIndex(
+                (course) => course?.course?.title === v?.course?.title
+            ) === key
+    );
+
     return (
         <Section>
             <Fade top>

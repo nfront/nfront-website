@@ -9,7 +9,7 @@ import { Section, Container } from '@styles/global';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import Seo from '@utils/SEO';
 
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import { FlexBox } from '@components/sections/Team';
 
@@ -26,6 +26,7 @@ const StyledContainer = styled(Container)`
         text-align: left;
     }
 `;
+
 const InfoSection = styled.div`
     flex: 0 1 300px;
     margin-right: 0rem;
@@ -55,18 +56,21 @@ const DetailedSection = styled.div`
     }
     text-align: left;
 `;
+
 const StyledImg = styled(GatsbyImage)`
     @media ${breakpoints.mobileL} {
         /* margin-right: 3rem; */
         /* text-align: left; */
     }
 `;
+
 const ModifiedFlexBox = styled(FlexBox)`
     padding: 0;
     @media ${breakpoints.mobileL} {
         padding: 0 1.5rem;
     }
 `;
+
 const jobs = ({ data }) => {
     const {
         title,
