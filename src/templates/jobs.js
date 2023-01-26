@@ -57,7 +57,7 @@ const DetailedSection = styled.div`
 `;
 const StyledImg = styled(GatsbyImage)`
     @media ${breakpoints.mobileL} {
-        // margin-right: 3rem;
+        /* margin-right: 3rem; */
         /* text-align: left; */
     }
 `;
@@ -79,8 +79,6 @@ const jobs = ({ data }) => {
         streetAddress,
     } = data.contentfulJobs;
 
-    const iconImage = getImage(icon);
-
     return (
         <Layout>
             <Seo title={title} />
@@ -95,7 +93,7 @@ const jobs = ({ data }) => {
                 <StyledContainer>
                     <ModifiedFlexBox>
                         <InfoSection>
-                            <StyledImg image={iconImage} alt="profile image" />
+                            <StyledImg image={icon} alt="profile image" />
                             <div className="info-card">
                                 <h2>Job Details</h2>
                                 <h3>
