@@ -279,6 +279,7 @@ export const BoxText = styled.div`
     `};
 `;
 
+// Are these box classes needed?
 export const BoxArt = styled.div`
     padding-top: 1.5rem;
     max-width: 80px;
@@ -332,7 +333,8 @@ export const ArtContainer = styled.div`
 
     margin-bottom: 1rem;
 
-    .img-class {
+    /* Applies to BOTH svg images (directly in ArtContainer) and img in div wrapper (GatsbyImage) */
+    > img, .img-class {
         object-fit: contain !important;
 
         &:hover {
@@ -344,7 +346,7 @@ export const ArtContainer = styled.div`
                 // border: 5px solid ${
                     props.hoverColor || 'var(--primary-color)'
                 };
-                `};
+            `};
         }
         ${(props) => props.grayscale && `filter: grayscale(100%);`};
         ${(props) => props.rounded && `border-radius: 0.375rem;`};
@@ -366,6 +368,7 @@ export const ArtContainer = styled.div`
     > img {
         width: 100%;
         margin-bottom: 0;
+        ${(props) => props.maxHeight && `max-height: ${props.maxHeight};`};
     }
 
     svg {

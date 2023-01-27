@@ -287,10 +287,10 @@ hr {
 }
 
 iframe {
-    @include breakpoints.breakpoint(mobileL) {
-        width: 100%;
-        height: auto;
-    }
+    // @include breakpoints.breakpoint(mobileL) {
+    //     width: 100%;
+    //     height: auto;
+    // }
 }
 
 code,
@@ -405,12 +405,20 @@ ul > li::before {
     margin-bottom: -3rem !important;
 }
 
+.mb-m2 {
+    margin-bottom: -2rem !important;
+}
+
 .mb-0 {
     margin-bottom: 0 !important;
 }
 
 .mb-03 {
     margin-bottom: 0.3rem !important;
+}
+
+.mb-05 {
+    margin-bottom: 0.5rem !important;
 }
 
 .mb-1 {
@@ -435,16 +443,24 @@ ul > li::before {
     }
 }
 
-.mb-05 {
-    margin-bottom: 0.5rem !important;
-}
-
 .mb-3 {
     margin-bottom: 3rem !important;
 }
 
+.mb-4 {
+    margin-bottom: 4rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 5rem !important;
+}
+
 .my-3 {
     margin: 3rem 0 !important;
+}
+
+.m-15 {
+    margin: 1.5rem !important;
 }
 
 .pt-0 {
@@ -473,6 +489,14 @@ ul > li::before {
 
 .pb-3 {
     padding-bottom: 3rem !important;
+}
+
+.pb-4 {
+    padding-bottom: 4rem !important;
+}
+
+.pb-5 {
+    padding-bottom: 5rem !important;
 }
 
 .px-15 {
@@ -512,6 +536,7 @@ ul > li::before {
 .p-25 {
     padding: 2.5rem !important;
 }
+
 .grey-border {
     border: 1px solid var(--border-color) !important;
 }
@@ -632,10 +657,18 @@ label.blue-label {
 .bg-alt {
     background-color: var(--alt-color);
 }
+
 .bg-accent {
     background-color: var(--accent-color);
 }
 
 .flex-100 {
     flex: 0 1 100% !important;
+}
+
+.scale-img {
+    &:hover img {
+        transform: scale(1.1);
+        transition: all 0.3s ease-out 0s;
+    }
 }

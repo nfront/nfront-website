@@ -17,7 +17,7 @@ const ItemGrid = styled.div`
         margin-bottom: 0;
         color: #002e5f;
     }
-    @media ${breakpoints.tablet}{
+    @media ${breakpoints.tablet} {
         grid-template-columns: repeat(2, 1fr);
     }
     @media ${breakpoints.laptop} {
@@ -71,54 +71,38 @@ const Text = styled.div`
 `;
 
 // FIXME: NEEDED?
-const CustomArtContainer = styled(ArtContainer)`
-    .img-wrapper-style {
-        margin-bottom: 0;
-        border-top-left-radius: 0.375rem;
-        border-top-right-radius: 0.375rem;
-        transition: all 0.3s ease-out 0s;
-        vertical-align: middle;
-    }
-`;
+// const CustomArtContainer = styled(ArtContainer)`
+//     .img-wrapper-style {
+//         margin-bottom: 0;
+//         border-top-left-radius: 0.375rem;
+//         border-top-right-radius: 0.375rem;
+//         transition: all 0.3s ease-out 0s;
+//         vertical-align: middle;
+//     }
+// `;
 
-export default function Class({ results }) {
-    const { coverImage } = results;
+const Class = ({ aClass }) => {
+    const { coverImage, title, slug, course } = aClass;
     return (
-        <div key={results.title} className="grid-item">
-            <Link to={`/academy/${results.slug}`}>
-                <CustomArtContainer>
-                    {coverImage ? (
-                        <Image
-                            className="img-wrapper-style"
-                            image={coverImage}
-                            alt={results.title}
-                        />
-                    ) : (
-                        // NEEDED???
-                        // TODO: FIX
-                        <StaticImage
-                            width={800}
-                            height={476}
-                            src="../../images/nfront/no-image-found.jpg"
-                            alt="preview"
-                        />
-                    )}
-                </CustomArtContainer>
-                <Text>
-                    <h3>{results.title}</h3>
+        <div key={title} className="rounded-and-shadow">
+            <Link to={`/academy/${slug}`} className="scale-img">
+                <ArtContainer className="p-15 mb-0" maxHeight="10rem">
+                    <Image image={coverImage} alt={title} />
+                </ArtContainer>
+                <div className="py-15 pb-15">
+                    <h3>{title}</h3>
                     <hr />
                     <ItemGrid>
-                        <p className="category">{results?.course?.title}</p>
-                        <Link
-                            className="know-details"
-                            to={`/academy/${results.slug}`}
-                        >
+                        <p className="category">{course?.title}</p>
+                        <Link className="know-details" to={`/academy/${slug}`}>
                             Know Details
                             <FontAwesomeIcon icon={faArrowRight} size="1px" />
                         </Link>
                     </ItemGrid>
-                </Text>
+                </div>
             </Link>
         </div>
     );
-}
+};
+
+export default Class;

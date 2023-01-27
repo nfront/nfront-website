@@ -1,25 +1,21 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
+
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
-import { Section, Container, Overlay, OverlayText } from '@styles/global';
+import Hero from '@common/hero';
+import Image from '@common/image';
+
+import { Section, Container, Overlay } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import Seo from '@utils/SEO';
 import slugify from '@utils/slugify';
-import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
-import { renderRichText } from 'gatsby-source-contentful/rich-text';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import { isReactComponent } from '@utils/utils';
 
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import Hero from '@common/hero';
-import Seo from '@utils/SEO';
-import slugify from '@utils/slugify';
-import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
-// import { FlexBox } from '../components/sections/Team';
-import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types';
-import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import CourseCard from '../components/common/courseSummaryCard';
 import RelatedCourse from '../components/common/relatedCourse';
 
@@ -74,57 +70,56 @@ const createJumpLink = (children) => {
     //     ? children[0].filter((value) => typeof value === 'string').join(' ')
     //     : children[0];
 
-    if (!Array.isArray(children)) children = [children];
+    // if (!Array.isArray(children)) children = [children];
 
-    console.log(children);
-    console.log({ children });
-    const combined = unWrapReact(children);
-    console.log(combined);
+    // const combined = unWrapReact(children);
+    // console.log('combined', combined);
 
-    function unWrapReact(child) {
-        if (isReactComponent(child)) {
-            const flatChildArray = child.props.children.flat();
-            unWrapReact(flatChildArray);
-        } else {
-            if (child.length <= 1) {
-                if (isReactComponent(child[0]))
-                    unWrapReact(child[0]);
-                else return child[0];
-            } else {
-                //call combineEntries again
-                if (typeof child[0] === 'string')
-                    return child[0] + unWrapReact(child.slice(1));
-
-                return unWrapReact(child.slice(1));
-            }
-        }
-    }
-
-    // const flatArray = Array.isArray(children) ? children.flat() : children;
-
-    // console.log(children);
-    // console.log(flatArray);
-
-    // const string = combineEntries(children);
-    // console.log(string);
-
-    // function combineEntries(array) {
-    //     if (array.length <= 1) {
-    //         return array[0];
+    // function unWrapReact(child) {
+    //     if (isReactComponent(child)) {
+    //         const flatChildArray = child.props.children.flat();
+    //         unWrapReact(flatChildArray);
     //     } else {
-    //         //call combineEntries again
-    //         if (typeof array[0] === 'string')
-    //             return array[0] + combineEntries(array.slice(1));
+    //         if (child.length <= 1) {
+    //             if (isReactComponent(child[0]))
+    //                 unWrapReact(child[0]);
+    //             else return child[0];
+    //         } else {
+    //             //call combineEntries again
+    //             if (typeof child[0] === 'string')
+    //                 return child[0] + unWrapReact(child.slice(1));
 
-    //         return combineEntries(array.slice(1));
+    //             return unWrapReact(child.slice(1));
+    //         }
     //     }
     // }
 
-    // if (typeof string != 'string')
-    //     return <a href={`#${Math.random().toString()}`}>{children}</a>;
+    // const flatArray = Array.isArray(children) ? children.flat() : children;
+
+    // console.log('children', children);
+    // console.log('flatArray', flatArray);
+
+    const string = combineEntries(children);
+    console.log(string);
+
+    function combineEntries(array) {
+        if (array.length <= 1) {
+            return array[0];
+        } else {
+            //call combineEntries again
+            if (typeof array[0] === 'string')
+                return array[0] + combineEntries(array.slice(1));
+
+            return combineEntries(array.slice(1));
+        }
+    }
+
+    if (typeof string != 'string')
+        return <a href={`#${Math.random().toString()}`}>{children}</a>;
+
     return (
         <a
-            href={`#${slugify(combined, { lower: true })}`}
+            href={`#${slugify(string, { lower: true })}`}
             className="
           relative
           before:md:content-['#']
@@ -325,8 +320,8 @@ const renderOptions = (body) => {
 
                 if (!gatsbyImageData) return null;
                 return (
-                    <GatsbyImage
-                        image={getImage(gatsbyImageData)}
+                    <Image
+                        image={gatsbyImageData}
                         alt={description}
                     />
                 );
@@ -384,32 +379,37 @@ const renderOptions = (body) => {
 const classes = ({ data }) => {
     console.log('🚀 ~ data', data);
     const { title, coverImage, body, course } = data.contentfulClasses;
-    const pluginImage = getImage(coverImage);
 
     return (
         <Layout>
             <Seo title={title} />
             <Navbar fluid />
-            {pluginImage ? (
+            {coverImage != null && (
+                <Hero heroImage={coverImage} height='short' small>
+                    <h2 className="mb-0">{title}</h2>
+                </Hero>
+            )}
+            {/* {coverImage ? (
                 <div style={{ display: 'grid' }}>
-                    <GatsbyImage
-                        image={pluginImage}
+                    <Image
+                        image={coverImage}
+                        alt={title}
                         style={{
                             gridArea: '1/1',
                             height: `50vh`,
                         }}
                     />
                     <Overlay />
-                    <OverlayText className="text-light">
+                    <Overlay className="text-light">
                         <h2 className="mb-0">{title}</h2>
-                    </OverlayText>
-                    {/* <GatsbyImage
+                    </Overlay>
+                    <GatsbyImage
                         style={{
                             gridArea: '1/1',
                             height: `50vh`,
                         }}
                         image={pluginImage}
-                    /> */}
+                    />
                 </div>
             ) : (
                 <div style={{ display: 'grid' }}>
@@ -421,11 +421,11 @@ const classes = ({ data }) => {
                         }}
                     />
                     <Overlay />
-                    <OverlayText className="text-light">
+                    <Overlay className="text-light">
                         <h2 className="mb-0">{title}</h2>
-                    </OverlayText>
+                    </Overlay>
                 </div>
-            )}
+            )} */}
             {/* {coverImage != null && (
                 <div style={{ display: 'grid' }}>
                     <GatsbyImage

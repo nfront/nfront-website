@@ -25,6 +25,9 @@ const StyledContainer = styled(Container)`
         transform: translateX(-50%);
         margin: 3rem 0;
     }
+    ul {
+        margin-left: 1.666rem
+    }
 `;
 
 const news = ({ data }) => {

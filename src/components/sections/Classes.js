@@ -1,29 +1,15 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
+import { Section, Container, FlexRow, SectionTitle } from '@styles/global';
 import styled from 'styled-components';
-import Class from '../common/class';
+import Class from '@common/class';
 
 const ClassesSection = styled(Section)`
     background: #f3f4f8;
 `;
 
-//FIXME: Replace with global comps
-const StyledGrid = styled(Grid)`
-    .grid-item {
-        background: white;
-        border: 1px transparent var(--border-color);
-        border-radius: 0.375rem;
-        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
-    }
-    .grid-item:hover img {
-        transform: scale(1.1);
-        transition: all 0.3s ease-out 0s;
-    }
-`;
-
 export default function Classes(props) {
-    const { results, limit } = props;
+    const { classes, limit } = props;
     return (
         <ClassesSection id="classes" {...props}>
             <SectionTitle>
@@ -34,22 +20,13 @@ export default function Classes(props) {
                 </p>
             </SectionTitle>
             <Container>
-                {results.length ? (
-                    <StyledGrid>
-                        {results.slice(0, limit).map((aClass) => {
-                            return <Class results={aClass} />;
-                        })}
-                    </StyledGrid>
-                ) : (
-                    <div className="center">
-                        No List Found{' '}
-                        <span role="img" aria-label="emoji name">
-                            ❗️
-                        </span>
-                    </div>
-                )}
+                <FlexRow basis="360px" twoByTwo>
+                    {classes.slice(0, limit).map((aClass) => {
+                        return <Class key={aClass.slug} aClass={aClass} />;
+                    })}
+                </FlexRow>
             </Container>
-            {limit === '6' && (
+            {limit && (
                 <Link to="/classes/">
                     <button className="button center">View All Classes</button>
                 </Link>

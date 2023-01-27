@@ -16,18 +16,7 @@ import Link from '@common/link';
 import CustomSwiper from '@common/swiper';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import { breakpointToPxNum } from '@utils/utils';
-
-// const StyledContainer = styled(Container)`
-//     h2 {
-//         font-size: 1.5rem;
-//         margin-bottom: 5px;
-//         @media ${breakpoints.laptop} {
-//             font-size: 2rem;
-//         }
-//     }
-// `;
 
 const Divider = styled.hr`
     align-self: stretch;

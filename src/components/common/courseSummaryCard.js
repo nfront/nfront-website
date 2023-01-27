@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container } from '../../styles/global';
-import { getImage } from 'gatsby-plugin-image';
+
+import { Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+
 import {
     Card,
     CardActionArea,
@@ -19,10 +21,12 @@ const StyledContainer = styled(Container)`
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+
+        margin-bottom: 3rem;
+        
+        @media ${breakpoints.tablet} {
             max-width: 800px;
         }
-        margin-bottom: 3rem;
     }
     iframe {
         position: relative;
@@ -33,7 +37,7 @@ const StyledContainer = styled(Container)`
 `;
 
 export default function CourseCard({ props }) {
-    const cardImage = require('../../images/nfront/no-image-found.jpg');
+    const cardImage = require('@images/nfront/no-image-found.jpg');
 
     return (
         <StyledContainer>

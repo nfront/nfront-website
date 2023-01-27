@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container } from '../../styles/global';
+
+import { Container } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import Link from '@common/link';
+
 import {
     Button,
     Card,
@@ -8,17 +12,18 @@ import {
     CardContent,
     Typography,
 } from '@mui/material';
-import { Link } from 'gatsby';
 
 const StyledContainer = styled(Container)`
     img {
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media (min-width: ${(props) => props.theme.screen.md}) {
+        
+        margin-bottom: 3rem;
+        
+        @media ${breakpoints.tablet} {
             max-width: 800px;
         }
-        margin-bottom: 3rem;
     }
     iframe {
         position: relative;

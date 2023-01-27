@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Section, Container } from '@styles/global';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+
 import Layout from '@common/layout';
+import Hero from '@common/hero';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
-import Hero from '@common/hero';
+import Link from '@common/link';
+
 import Seo from '@utils/SEO';
-import { OverlayText } from '../styles/global';
-import DescriptionIcon from '@mui/icons-material/Description';
-import StarRateIcon from '@mui/icons-material/StarRate';
-import BookIcon from '@mui/icons-material/Book';
+
+import { Section, Container, Overlay } from '@styles/global';
+import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+
+import CourseCard from '@common/courseSummaryCard';
+import RelatedCourse from '@common/relatedCourse';
+
 import LanguageIcon from '@mui/icons-material/Language';
 import Europe from '@images/nfront/europe.jpg';
 import FeedIcon from '@mui/icons-material/Feed';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
-import CourseCard from '../components/common/courseSummaryCard';
-import RelatedCourse from '../components/common/relatedCourse';
+
+import DescriptionIcon from '@mui/icons-material/Description';
+import StarRateIcon from '@mui/icons-material/StarRate';
+import BookIcon from '@mui/icons-material/Book';
+
 
 const StyledContainer = styled(Container)`
     display: flex;
@@ -45,7 +52,7 @@ const CourseDetail = styled.div`
     width: 100%;
 `;
 
-const CourseTagline = styled(OverlayText)`
+const CourseTagline = styled(Overlay)`
     padding: 0;
     display: block;
     text-align: left;
@@ -204,9 +211,9 @@ const Courses = ({ data }) => {
             <Seo title={title} />
             <Navbar fluid />
             <Hero fileName="LA.jpg">
-                <OverlayText className="text-light">
+                <Overlay className="text-light">
                     <h2 className="mb-0">{title}</h2>
-                </OverlayText>
+                </Overlay>
             </Hero>
             <Section>
                 <StyledContainer>
