@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import styled from 'styled-components';
 import { SwiperSlide } from 'swiper/react';
 import {
     Section,
@@ -10,17 +9,13 @@ import {
     FlexColumn,
     ArtContainer,
     BulletList,
+    Divider
 } from '@styles/global';
 import Image from '@common/image';
 import Link from '@common/link';
 import CustomSwiper from '@common/swiper';
 import useWindowSize from '@utils/hooks/useWindowSize';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
-import { breakpointToPxNum } from '@utils/utils';
-
-const Divider = styled.hr`
-    align-self: stretch;
-`;
 
 const Portfolio = () => {
     const data = useStaticQuery(graphql`
@@ -61,10 +56,7 @@ const Portfolio = () => {
 };
 
 const PortfolioSlider = ({ result }) => {
-    const { windowSize, isMobile } = useWindowSize();
-    const { width: windowWidth } = windowSize;
-
-    const isLaptopSize = windowWidth > breakpointToPxNum('tablet');
+    const { isMobile, isLaptop, isDesktop } = useWindowSize();
 
     return (
         <>
@@ -73,7 +65,7 @@ const PortfolioSlider = ({ result }) => {
             </SectionTitle>
             {!isMobile ? (
                 <Container>
-                    <CustomSwiper row wrap navigation={isLaptopSize}>
+                    <CustomSwiper row wrap navigation={(isLaptop || isDesktop)}>
                         {result.map((val) => {
                             const {
                                 brand,
@@ -89,7 +81,7 @@ const PortfolioSlider = ({ result }) => {
                                         maxHeightLaptop="400px"
                                         itemBasis="50%"
                                         className={`mb-15-latop ${
-                                            isLaptopSize ? 'pr-1' : ''
+                                            (isLaptop || isDesktop) ? 'pr-1' : ''
                                         }`}
                                     >
                                         <Image image={logo} alt={brand} />
@@ -98,10 +90,10 @@ const PortfolioSlider = ({ result }) => {
                                         itemBasis="50%"
                                         className="center-tablet"
                                     >
-                                        {isLaptopSize ? (
+                                        {(isLaptop || isDesktop) ? (
                                             <h2 className="mb-03">{brand}</h2>
                                         ) : (
-                                            <h3 className="mb-03">{brand}</h3>
+                                            <h3 className="mb-03 h3-large">{brand}</h3>
                                         )}
                                         <p className="label xs-font mb-15">
                                             <span className="bold">HQ:</span>{' '}
@@ -109,11 +101,11 @@ const PortfolioSlider = ({ result }) => {
                                         </p>
                                         <BulletList
                                             className={`label xs-font mb-15 ${
-                                                isLaptopSize ? '' : ''
+                                                (isLaptop || isDesktop) ? '' : ''
                                             }`}
                                         >
                                             <span>{`Lead Investors${
-                                                isLaptopSize ? ':' : ''
+                                                (isLaptop || isDesktop) ? ':' : ''
                                             }`}</span>
                                             <ul>
                                                 {cInvestors.map(
@@ -125,7 +117,7 @@ const PortfolioSlider = ({ result }) => {
                                                 )}
                                             </ul>
                                         </BulletList>
-                                        <p className="small-font margin-laptop">
+                                        <p className="small-font mb-0">
                                             {description}
                                         </p>
                                     </FlexColumn>
@@ -150,7 +142,7 @@ const PortfolioSlider = ({ result }) => {
                                 alignItems="center"
                                 className="center-tablet"
                             >
-                                <h3 className="mb-03">{brand}</h3>
+                                <h3 className="mb-03 h3-large">{brand}</h3>
                                 <p className="label xs-font mb-15 ">
                                     <span className="bold">HQ:</span> {location}
                                 </p>
@@ -162,7 +154,7 @@ const PortfolioSlider = ({ result }) => {
                                 </ArtContainer>
                                 <BulletList className="label xs-font mb-15">
                                     <span>{`Lead Investors${
-                                        isLaptopSize ? ':' : ''
+                                        (isLaptop || isDesktop) ? ':' : ''
                                     }`}</span>
                                     <ul>
                                         {cInvestors.map((investor, index) => (
@@ -170,8 +162,8 @@ const PortfolioSlider = ({ result }) => {
                                         ))}
                                     </ul>
                                 </BulletList>
-                                <p className="small-font">{description}</p>
-                                {index !== length - 1 && <Divider />}
+                                <p className="small-font mb-0">{description}</p>
+                                {index !== length - 1 && <Divider spacing="2rem" />}
                             </FlexColumn>
                         );
                     })}
@@ -200,7 +192,7 @@ const PortfolioGrid = ({ result }) => {
                         <FlexColumn
                             gap="2.5rem"
                             alignItems="center"
-                            className="grey-border py-15 px-25"
+                            className="grey-border px-15 py-25"
                             key={brand}
                         >
                             <ArtContainer

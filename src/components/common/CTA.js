@@ -10,9 +10,9 @@ const StyledSection = styled(Section)`
 const CTA = (props) => {
     const { id } = props;
     return (
-        <StyledSection id={id} accent="alt">
-            <SectionTitle className="text-white">{props.children}</SectionTitle>
-        </StyledSection>
+        <Section id={id} accent="alt" className="pt-6">
+            <SectionTitle className="text-white mb-0">{props.children}</SectionTitle>
+        </Section>
     );
 };
 

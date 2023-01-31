@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Cta from '@common/CTA';
+import Link from '@common/link'
 import Wave from '@utils/divider/wave';
 import Seo from '@utils/SEO';
 import Thesis from '@sections/Thesis';
@@ -23,7 +24,7 @@ const ThesisPage = ({ data, location }) => {
         <Layout>
             <Seo title={title} />
             <Navbar ref={navRef} fluid location={location} />
-            <Hero heroImage={heroImage}>
+            <Hero heroImage={heroImage} alt={title}>
                 <h2>nFront Ventures</h2>
                 <p>
                     We invest time and capital in exceptional entrepreneurs with
@@ -39,8 +40,10 @@ const ThesisPage = ({ data, location }) => {
                     Are you an early-to-growth stage company looking to raise
                     capital from local or top-tier international VC funds?
                 </p>
-                <Link to="/contact/">
-                    <button className="button center mt-0">Get in touch</button>
+                <Link to="/contact/" display="block" className="mt-3">
+                    <button className="button center">
+                        Get in touch
+                    </button>
                 </Link>
             </Cta>
             <Wave accent="dark" />

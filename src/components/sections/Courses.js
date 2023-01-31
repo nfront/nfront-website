@@ -1,11 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Grid, ArtContainer } from '@styles/global';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
-import wave from '@images/art/wave.svg';
 import Fade from '@common/fade';
 import Image from '@common/image';
-
 import Link from '@common/link';
 
 import {
@@ -14,15 +9,19 @@ import {
     Container,
     FlexRow,
     WaveBackground,
+    ArtContainer,
 } from '@styles/global';
 
-export default function Courses({ courses, limit }) {
+export default function Courses({ courses, limit, classes }) {
     const uniqueCourseList = courses.filter(
         (v, key, arr) =>
             arr.findIndex(
                 (course) => course?.course?.title === v?.course?.title
             ) != key
     );
+
+    const classesInCourse = (course) =>
+        classes.filter((aClass) => aClass.course.slug === course.slug);
 
     return (
         <Section>
@@ -31,8 +30,9 @@ export default function Courses({ courses, limit }) {
                     <div>
                         <h2>Explore Our Popular Courses</h2>
                         <p>
-                            We hire across different position types. Keep an eye
-                            out to find something that excites you.
+                            Each course represents an important fundraising
+                            topic, and contains one or more classes addressing
+                            specific sub-topics.
                         </p>
                     </div>
                     <div>
@@ -45,21 +45,31 @@ export default function Courses({ courses, limit }) {
                     {uniqueCourseList.slice(0, limit).map((course) => {
                         const { title, icon, tagLine, slug } = course;
                         return (
-                            <Link to={`/academy/${slug}`} key={slug}>
-                                <WaveBackground
-                                    className="rounded-and-shadow y-100"
-                                >
-                                    <ArtContainer className="p-15 mb-0" maxHeight="5rem">
-                                        <Image
-                                            image={icon}
-                                            alt={title}
-                                            className={'img-style'}
-                                        />
+                            <Link
+                                to={`/academy/${slug}`}
+                                key={slug}
+                                className="hover-box-shadow"
+                            >
+                                <WaveBackground className="rounded-and-shadow y-100">
+                                    <ArtContainer
+                                        className="p-15 mb-0"
+                                        maxHeight="5rem"
+                                    >
+                                        <Image image={icon} alt={title} />
                                     </ArtContainer>
-                                    <div className="py-15 pb-15 center">
+                                    <div className="px-15 pb-15 center">
                                         <Fade left>
-                                            <h3 className="light-bold mb-03">{title}</h3>
-                                            <p className="small-font pb-4 mb-0">{tagLine}</p>
+                                            <h3 className="light-bold mb-03">
+                                                {title}
+                                            </h3>
+                                            <p className="small-font pb-4 mb-0">{`${
+                                                classesInCourse(course).length
+                                            } ${
+                                                classesInCourse(course)
+                                                    .length === 1
+                                                    ? 'class'
+                                                    : 'classes'
+                                            }`}</p>
                                         </Fade>
                                     </div>
                                 </WaveBackground>

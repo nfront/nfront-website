@@ -44,6 +44,7 @@ const HeroContainer = styled.div`
 
 const Hero = ({
     heroImage,
+    alt,
     children,
     height,
     small,
@@ -58,7 +59,7 @@ const Hero = ({
     return (
         <HeroContainer id={id} height={height} small={small}>
             <OverlayContainer>
-                <Image image={heroImage} backgroundImage />
+                <Image image={heroImage} alt={alt} backgroundImage />
                 <Shading polygonShading={polygonShading} />
                 <Overlay
                     as={Container}

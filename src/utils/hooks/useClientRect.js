@@ -11,7 +11,9 @@ import { useState, useCallback } from 'react';
 // You either use ref or callback ref, not both.
 
 function useClientRect() {
-    const [rect, setRect] = useState(null);
+    const [rect, setRect] = useState({
+        top: 0
+    });
 
     const ref = useCallback(node => {
         const updateRect = () => {
@@ -19,8 +21,8 @@ function useClientRect() {
         }
         if (node !== null) {
             // Runs on mount of node (i.e. element)
-            window.addEventListener("resize", updateRect);
             updateRect();
+            window.addEventListener("resize", updateRect);
         }
         else {
             // Runs on unmount of node (i.e. element)

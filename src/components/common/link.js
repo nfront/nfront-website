@@ -13,6 +13,11 @@ const Link = ({
     to,
     activeClassName,
     partiallyActive,
+    display,
+    flexDirection,
+    gap,
+    justifyContent,
+    alignItems,
     callback = () => {},
     ...other
 }) => {
@@ -26,11 +31,19 @@ const Link = ({
 
     const { navRect } = useContext(NavBarContext); // Returns value of passed context
 
+    const style = {};
+    if(Boolean(display)) style.display = display;
+    if(Boolean(gap)) style.gap = gap;
+    if(Boolean(alignItems)) style.alignItems = alignItems;
+    if(Boolean(flexDirection)) style.flexDirection = flexDirection;
+    if(Boolean(justifyContent)) style.justifyContent = justifyContent;
+
     // Use Gatsby Link for internal links, and <a> for others
     if (internal) {
         return (
             <GatsbyLink
                 to={to}
+                style={{...style}}
                 activeClassName={activeClassName}
                 partiallyActive={partiallyActive}
                 {...other}
@@ -70,7 +83,7 @@ const Link = ({
     // Best to switch to "button" element.
     if (samePage) {
         return (
-            <button className="link-button" onClick={onClick} {...other}>
+            <button style={{...style}} className="link-button" onClick={onClick} {...other}>
                 {children}
             </button>
         );
@@ -78,7 +91,7 @@ const Link = ({
 
     // <a> for external links
     return (
-        <a href={to} {...other} rel="noreferrer noopener" target="_blank">
+        <a href={to} style={{...style}} {...other} rel="noreferrer noopener" target="_blank">
             {children}
         </a>
     );

@@ -1,53 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link, useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Section, Container, Grid, SectionTitle } from '@styles/global';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import { useStaticQuery, graphql } from 'gatsby';
+import Link from '@common/link';
+import Image from '@common/image'
+import { Section, Container, Grid, SectionTitle, ArtContainer } from '@styles/global';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 
 /** use if you need to style your section differently, otherwise leave it empty */
-const StyledSection = styled(Section)`
-    padding-bottom: 6rem;
-`;
-
-const StyledGrid = styled(Grid)`
-    .grid-item {
-        background: white;
-        border: 1px transparent var(--border-color);
-        border-radius: 0.375rem;
-        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1);
-    }
-`;
-
-const Text = styled.div`
-    padding: 1rem;
-    @media ${breakpoints.laptop} {
-        min-height: 300px;
-    }
-
-    h3 {
-        font-size: 100%;
-        font-weight: 500;
-        margin-bottom: 0.4rem;
-    }
-
-    .label {
-        font-weight: 500;
-    }
-
-    p:not(.label) {
-        font-size: 16px;
-    }
-`;
-
-const Art = styled.div`
-    img {
-        margin-bottom: 0;
-        border-top-left-radius: 0.375rem;
-        border-top-right-radius: 0.375rem;
-    }
-`;
+// const StyledSection = styled(Section)`
+//     padding-bottom: 6rem;
+// `;
 
 // ALLWAYS USE IMAGES THAT ARE 16:9 FOR NEWS (PPT SLIDE SIZE. USE PPT TO MAKE IT.)
 
@@ -68,7 +29,7 @@ export default function News(props) {
                             }
                         }
                         heroImage {
-                            gatsbyImageData(layout: FULL_WIDTH)
+                            gatsbyImageData
                         }
                     }
                 }
@@ -78,46 +39,45 @@ export default function News(props) {
     const results = data.allContentfulNewsPosts.edges;
     const isHome = useIsHome().isHome;
     return (
-        <StyledSection {...props}>
+        <Section {...props}>
             <SectionTitle>
                 <h2>News</h2>
             </SectionTitle>
             <Container>
-                <StyledGrid>
+                <Grid minWidth="300px" minHeight="" gap="1.3rem">
                     {results.slice(0, limit).map(({ node: news }) => {
-                        const image = getImage(news.heroImage);
                         return (
-                            <div key={news.id} className="grid-item">
+                            <div key={news.id} className="rounded-and-shadow bg-white">
                                 <Link to={`/news/${news.slug}`}>
-                                    <Art>
-                                        <GatsbyImage
-                                            image={image}
+                                    <ArtContainer roundedTop className="mb-0">
+                                        <Image
+                                            image={news.heroImage}
                                             alt={news.title}
                                         />
-                                    </Art>
-                                    <Text>
-                                        <h3>{news.title}</h3>
-                                        <p className="label">
+                                    </ArtContainer>
+                                    <div className="p-1">
+                                        <h4 className="light-bold mb-03">{news.title}</h4>
+                                        <label className="mb-2">
                                             {news.publishDate}
-                                        </p>
-                                        <p>
+                                        </label>
+                                        <p className="small-font mb-0">
                                             {
                                                 news.metaDescription
                                                     .childMarkdownRemark.excerpt
                                             }
                                         </p>
-                                    </Text>
+                                    </div>
                                 </Link>
                             </div>
                         );
                     })}
-                </StyledGrid>
+                </Grid>
             </Container>
             {isHome && (
-                <Link to="/news/">
+                <Link to="/news/" display="block" className="mt-3">
                     <button className="button center">View All News</button>
                 </Link>
             )}
-        </StyledSection>
+        </Section>
     );
 }

@@ -40,7 +40,7 @@ const sweetSpot = () => {
         <Container>
             <StyledGrid minWidth="300px">
                 <Fade bottom>
-                    <FlexColumn white className="pt-15 py-15 pb-2 rounded">
+                    <FlexColumn white className="pt-15 px-15 pb-2 rounded">
                         <CustomArtContainer alignContent="flex-start">
                             <IconOne />
                         </CustomArtContainer>
@@ -55,7 +55,7 @@ const sweetSpot = () => {
                     </FlexColumn>
                 </Fade>
                 <Fade bottom>
-                    <FlexColumn white className="pt-15 py-15 pb-2 rounded">
+                    <FlexColumn white className="pt-15 px-15 pb-2 rounded">
                         <CustomArtContainer alignContent="flex-start">
                             <IconTwo />
                         </CustomArtContainer>
@@ -69,7 +69,7 @@ const sweetSpot = () => {
                     </FlexColumn>
                 </Fade>
                 <Fade bottom>
-                    <FlexColumn white className="pt-15 py-15 pb-2 rounded">
+                    <FlexColumn white className="pt-15 px-15 pb-2 rounded">
                         <CustomArtContainer alignContent="flex-start">
                             <IconThree />
                         </CustomArtContainer>

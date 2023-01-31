@@ -77,12 +77,13 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
         (typeof image === 'string' && image.includes('svg')) || (publicURL && publicURL.includes('svg')) || asSvg;
 
     const finalAlt = alt || name || title || '';
-    console.log('image', image);
-    console.log('imageAlt', finalAlt);
-    console.log('mimeType', mimeType);
-
+    
     const imageSource = isSvg ? (publicURL || publicUrl || url) ? (publicURL || publicUrl || url): image : getImage(image);
+    console.log('========== NEW IMAGE =========');
+    console.log('mimeType', mimeType);
     console.log('isSvg', isSvg);
+    console.log('imageAlt', finalAlt);
+    console.log('image', image);
     console.log('imageSource', imageSource);
 
     const bgStyle = backgroundImage && imageWrapperStyle;
@@ -115,6 +116,9 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
         );
     } else if (!childImageSharp && isSvg) {
         // SVG (can be from anywhere)
+        // SVG images by default become size of container
+        // Thus, do not force img with svg content to be 100% width
+        // Instead, just set max-height and width is calcuated by maintaining aspect ratio
         return (
             <img
                 src={imageSource}

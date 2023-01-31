@@ -15,7 +15,7 @@ const PortfolioPage = ({ data, location }) => {
         <Layout>
             <Seo title={title} />
             <Navbar fluid location={location}/>
-            <Hero heroImage={heroImage}>
+            <Hero heroImage={heroImage} alt={title}>
                 <h2>{title}</h2>
                 <p>
                     We have had the privilege to invest across a range of stages

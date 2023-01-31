@@ -18,7 +18,7 @@ const TeamPage = ({ data, location }) => {
         <Layout>
             <Seo title={title} />
             <Navbar fluid location={location}/>
-            <Hero heroImage={heroImage}>
+            <Hero heroImage={heroImage} alt={title}>
                 <h2>Team & Mentors</h2>
                 <p>
                     Mentors are available to portfolio companies, including

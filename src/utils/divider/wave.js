@@ -5,7 +5,7 @@ import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const WaveWrapper = styled.div`
     background: var(--primary-color);
-    padding-top: 3rem;
+    /* padding-top: 3rem; */
 
     svg {
         width: 100%;

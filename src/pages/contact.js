@@ -17,7 +17,7 @@ const ContactPage = ({ data, location }) => {
         <Layout>
             <Seo title={title} />
             <Navbar fluid location={location}/>
-            <Hero heroImage={heroImage}>
+            <Hero heroImage={heroImage} alt={title}>
                 <h2>{title}</h2>
                 <p>
                     Please reach out below and we will get back to you as soon

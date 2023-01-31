@@ -7,26 +7,31 @@ import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Seo from '@utils/SEO';
 import { Section, Container } from '@styles/global';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 const StyledContainer = styled(Container)`
     img {
+        max-width: 800px;
+
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        @media ${breakpoints.laptop} {
-            max-width: 800px;
-        }
         margin-bottom: 3rem;
     }
     iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        
+        max-width: 800px;
+
         position: relative;
         left: 50%;
         transform: translateX(-50%);
         margin: 3rem 0;
     }
     ul {
-        margin-left: 1.666rem
+        margin-left: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 `;
 
@@ -38,8 +43,8 @@ const news = ({ data }) => {
             <Seo title={title} />
             <Navbar fluid />
             {heroImage != null && (
-                <Hero heroImage={heroImage} height='short' small>
-                    <p>{publishDate}</p>
+                <Hero heroImage={heroImage} height="short" small>
+                    <p className="mb-0">{publishDate}</p>
                     <h2 className="mb-0">{title}</h2>
                 </Hero>
             )}
@@ -71,6 +76,7 @@ export const query = graphql`
                 }
             }
             heroImage {
+                title
                 gatsbyImageData(layout: FULL_WIDTH)
             }
         }

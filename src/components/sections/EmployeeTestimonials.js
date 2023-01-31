@@ -36,11 +36,10 @@ const EmployeeTestimonials = () => {
     `);
     const results = data.allContentfulEmployeeTestimonials.nodes;
 
-    const { windowSize } = useWindowSize();
-    const { width: windowWidth } = windowSize;
+    const { isDesktop } = useWindowSize();
 
     const swiperSettings = {
-        slidesPerView: windowWidth > breakpointToPxNum('laptop') ? 3 : 1,
+        slidesPerView: isDesktop ? 3 : 1,
         centeredSlides: true,
     };
 

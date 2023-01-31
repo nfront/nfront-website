@@ -3,41 +3,22 @@ import styled from 'styled-components';
 import { graphql } from 'gatsby';
 
 import Layout from '@common/layout';
-import Menu from '@common/navbar';
+import Navbar from '@common/navbar';
 import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Link from '@common/link';
 import Seo from '@utils/SEO';
 import Contact from '@sections/Contact';
-import { Section, Container } from '@styles/global';
-import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import { Section, Container, Grid } from '@styles/global';
 
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 50px;
-
-    @media ${breakpoints.tablet} {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    a {
-        font-weight: 500;
-    }
-
-    .button {
-        border-radius: 0;
-    }
-`;
-
-const ThanksPage = ({ data }) => {
+const ThanksPage = ({ data, location }) => {
     const { title, heroImage } = data.allContentfulPages.edges[0].node;
 
     return (
         <Layout>
             <Seo title={title} />
-            <Menu fluid />
-            <Hero heroImage={heroImage}>
+            <Navbar fluid location={location} />
+            <Hero heroImage={heroImage} alt={title}>
                 <h2>{title}</h2>
                 <p>
                     We appreciate you contacting us. We will be in touch as soon
@@ -47,13 +28,15 @@ const ThanksPage = ({ data }) => {
             <Section>
                 <Container>
                     <Grid>
-                        <Contact />
                         <div className="">
                             <div class="label">Drop us an email at</div>
                             <p>info@nfrontventures.com</p>
                             <div class="label">Visit us at</div>
                             <p>
-                                <Link to="https://goo.gl/maps/X1k1eo7YebbSehEP9">
+                                <Link
+                                    className="light-bold"
+                                    href="https://goo.gl/maps/X1k1eo7YebbSehEP9"
+                                >
                                     Tollbugata 24, 0157
                                     <br />
                                     Oslo, Norway

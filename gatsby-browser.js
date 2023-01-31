@@ -28,12 +28,17 @@ export const wrapRootElement = ({ element }) => {
 
 export const onRouteUpdate = ({ location }) => {
     // This is only to smooth-scroll in the scenarios where we come from another page (or load url directly in address field),
-    // to a url with a hash fragment. It is not for on-same-page scroll.
+    // to a url with a hash fragment. It is not for same-page scroll.
+    console.log('SCROLL TO');
+    window.scrollTo({
+        top: 0
+    });
     const { hash } = location;
     if (!hash || hash === '' || !isSelectorValid(`${location.hash}`)) return true;
 
     const target = document.querySelectorAll(`${location.hash}`)[0];
     if (!target) return true;
+    console.log('SCROLLLLL');
 
     const navBarOffset = 76;
     const elementPosition = target.getBoundingClientRect().top;

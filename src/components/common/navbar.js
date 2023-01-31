@@ -60,14 +60,14 @@ const menuItems = {
     },
 };
 
-const Navbar = ({ fluid, ...rest }) => {
+const Navbar = ({ fluid, threshold, ...rest }) => {
     /** open dropdown menu on mobile */
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleClassName = isMenuOpen ? 'hamburger is-open' : 'hamburger';
     const changeMenuColor = isMenuOpen ? 'is-open' : '';
 
     /** change navbar background on scroll */
-    const navBackground = useIsScroll();
+    const navBackground = useIsScroll(threshold);
 
     const { setNavRect } = useContext(NavBarContext);
 

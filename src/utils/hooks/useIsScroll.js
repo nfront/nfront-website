@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 
-export const useIsScroll = () => {
+export const useIsScroll = (threshold = 300) => {
     const [navBackground, setNavBackground] = useState(false);
-
-    const handleScroll = () => {
-        const scrollY = window.scrollY;
-        scrollY > 300 ? setNavBackground(true) : setNavBackground(false);
-    };
-
+    
     useEffect(() => {
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            scrollY >= threshold
+                ? setNavBackground(true)
+                : setNavBackground(false);
+        };
+
+        handleScroll();
         document.addEventListener('scroll', handleScroll);
         return () => document.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [threshold]);
 
     return navBackground;
 };

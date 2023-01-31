@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 
 import Link from '@common/link';
@@ -40,8 +40,8 @@ const IndexPage = ({ data, location }) => {
                     ambitions, looking for funding?
                     {/* <br/>Don't hesitate to reach out, we would be happy to dive in and see if we can help. */}
                 </p>
-                <Link to="/contact/">
-                    <button className="button center mt-0">
+                <Link to="/contact/" display="block" className="mt-3">
+                    <button className="button center">
                         Get in touch
                     </button>
                 </Link>

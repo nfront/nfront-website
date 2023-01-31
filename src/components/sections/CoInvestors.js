@@ -69,7 +69,7 @@ const CoInvestors = (props) => {
 
                         return (
                             <FlexColumn className="rounded bg-white pos-rel p-15">
-                                <label className="red-label">{name}</label>
+                                <label className="red-label abs-label">{name}</label>
                                 <Image
                                     className="rounded"
                                     image={img}

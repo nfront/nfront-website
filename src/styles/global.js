@@ -1,8 +1,12 @@
 import React from 'react';
+import { navigate } from 'gatsby';
 import styled from 'styled-components';
 import wave from '@images/art/wave.svg';
 import { pxToRem } from '@utils/utils';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Link from '@common/link';
 
 export const Container = styled.div`
     max-width: var(--max-width);
@@ -58,7 +62,6 @@ export const SectionTitle = styled.div`
     ${(props) =>
         props.alt &&
         `
-        padding-left: 0;
         text-align: left;  
     `};
 `;
@@ -66,15 +69,61 @@ export const SectionTitle = styled.div`
 // min() makes it 100% on small screens
 export const Grid = styled.div`
     display: grid;
+
+    /* Ensures rows are of equal height */
+    grid-auto-rows: 1fr;
+
     grid-template-columns: ${(props) =>
         `repeat(auto-fit, minmax(min(${
             props.minWidth || '360px'
         }, 100%), 1fr))`};
-    grid-gap: var(--spacer);
+
+    min-height: ${(props) => props.minHeight || '0'};
+    grid-gap: ${(props) => props.gap || 'var(--spacer)'};
     align-items: ${(props) => props.alignItems || 'stretch'};
 
     > * {
         aspect-ratio: ${(props) => (props.square ? '1' : 'auto')};
+    }
+`;
+
+export const GridLayoutWrapper = styled.div`
+    display: grid;
+    gap: 3rem;
+    grid-auto-columns: 100%;
+    grid-template-areas:
+        'sidebar'
+        'content';
+
+    @media ${(props) => breakpoints[props.breakpoint || 'tablet']} {
+        ${(props) => {
+            switch (props.side) {
+                case 'left':
+                    return `grid-template-columns: minmax(250px, min(25%, 300px)) 1fr; grid-template-areas: 'sidebar content';`;
+                case 'right':
+                    return `grid-template-columns: 1fr minmax(250px, min(25%, 300px)); grid-template-areas: 'content sidebar';`;
+            }
+        }}
+    }
+`;
+
+export const GridLayoutContent = styled.div`
+    grid-area: content;
+    position: relative;
+    width: 100%;
+`;
+
+export const GridLayoutSide = styled.div`
+    grid-area: sidebar;
+    position: relative;
+    width: 100%;
+    max-width: ${(props) => props.maxWidth || '300px'};
+`;
+
+export const Sticky = styled.div`
+    @media ${breakpoints.laptop} {
+        position: sticky;
+        top: ${(props) => props.top || '1rem'};
     }
 `;
 
@@ -130,33 +179,58 @@ export const FlexRow = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    position: relative;
+
+    /* If image should be on same line as other flex items, display must be inline-flex. */
+    /* Note that if item itself is as wide as its container, it will not sit on its own line. */
+    /* Which will happen if this element is "flex-basis: auto" and children are 100% width (i.e. circular). */
+    display: ${(props) => (props.inline ? `inline-flex` : `flex`)};
 
     justify-content: ${(props) => props.justifyContent || 'center'};
     align-items: ${(props) => props.alignItems || 'stretch'};
     align-content: ${(props) => props.alignContent || 'stretch'};
     grid-gap: ${(props) => props.gap || 'var(--spacer)'};
 
+    /* FlexRow makes flex items 100% width on small screens, by default. */
+    /* To enforce "flex-basis: auto" on all screen sizes, don't change this.
+       Instead use CSS class "flex-item-auto" on flex item. */
     > * {
         height: ${(props) => props.height || 'auto'};
         max-width: ${(props) => props.maxWidth || 'none'};
         flex: ${(props) => (props.grow ? '1' : '0')} 1 100%;
     }
 
+    /* By default, 100% is kept on tablets. */
+    @media ${breakpoints.mobileL} {
+        > * {
+            flex: ${(props) => (props.grow ? '1' : '0')} 1
+                ${(props) => (props.mobileAuto ? 'auto' : '100%')};
+        }
+    }
+
+    /* Above tablet sizes, items are laid out at their full max-content width (i.e. auto). */
+    /* TwoByTwo makes two items lay on same line (unless their min-content is too wide, in which case they wrap). */
+    /* If basis prop is set, and fifty or twoByTwo are not set, the set basis is used. */
+    /* If none of those props are set, auto is used, meaning items are laid out at their max-content size. */
     @media ${breakpoints.tablet} {
         > * {
             flex: ${(props) => (props.grow ? '1' : '0')} 1
                 ${(props) =>
                     props.twoByTwo
                         ? `calc(50% - ${props.gap || `var(--spacer)`}/2)`
+                        : props.fifty
+                        ? `calc(50% - ${props.gap || `var(--spacer)`}/2)`
                         : props.basis || 'auto'};
         }
     }
 
     @media ${breakpoints.laptop} {
-        flex-wrap: wrap;
         > * {
             flex: ${(props) => (props.grow ? '1' : '0')} 1
-                ${(props) => props.basis || 'auto'};
+                ${(props) =>
+                    props.fifty
+                        ? `calc(50% - ${props.gap || `var(--spacer)`}/2)`
+                        : props.basis || 'auto'};
         }
     }
 
@@ -167,6 +241,9 @@ export const FlexRow = styled.div`
 
 export const OverlayContainer = styled.div`
     display: grid;
+    grid-template-rows: 100%;
+    overflow: hidden;
+
     height: ${(props) => props.height || '100%'};
     border-radius: inherit;
     box-shadow: inherit;
@@ -318,6 +395,7 @@ export const BoxArt = styled.div`
 
 export const ArtContainer = styled.div`
     /* When ArtContainer is itself a flex item. */
+    /* If next to flex items that grow, set a item basis. */
     @media ${breakpoints.mobileL} {
         ${(props) => props.itemBasis && `flex-basis: 100%;`}
     }
@@ -326,15 +404,22 @@ export const ArtContainer = styled.div`
         ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis};`}
     }
 
-    display: flex;
+    /* If next to flex items that grow, set a basis */
+
+    /* For labels etc. that are position absolute. */
+    position: relative;
+
+    /* If image should be on same line as other flex items, display must be inline-flex. */
+    display: ${(props) => (props.inline ? `inline-flex` : `flex`)};
     justify-content: center;
-    flex-flow: column wrap;
+    flex-flow: ${(props) => (props.row ? `row` : `column`)} wrap;
     align-content: ${(props) => props.alignContent || `center`};
 
     margin-bottom: 1rem;
 
     /* Applies to BOTH svg images (directly in ArtContainer) and img in div wrapper (GatsbyImage) */
-    > img, .img-class {
+    > img,
+    .img-class {
         object-fit: contain !important;
 
         &:hover {
@@ -350,12 +435,17 @@ export const ArtContainer = styled.div`
         }
         ${(props) => props.grayscale && `filter: grayscale(100%);`};
         ${(props) => props.rounded && `border-radius: 0.375rem;`};
+        ${(props) =>
+            props.roundedTop &&
+            `border-top-left-radius: 0.375rem;
+             border-top-right-radius: 0.375rem;`};
     }
 
     .gatsby-image-wrapper {
         ${(props) => props.minWidth && `min-width: ${props.minWidth};`};
         ${(props) => props.maxWidth && `max-width: ${props.maxWidth};`};
         ${(props) => props.maxHeight && `max-height: ${props.maxHeight};`};
+        flex: 0 1 ${(props) => props.basis || 'auto'};
 
         @media ${breakpoints.laptop} {
             ${(props) =>
@@ -454,3 +544,102 @@ export const BulletList = styled.div`
         }
     }
 `;
+
+export const Divider = styled.hr`
+    align-self: stretch;
+    width: 100%;
+    border-width: 0;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.12);
+    border-bottom-width: thin;
+
+    margin-top: ${(props) => props.spacing || '1rem'} !important;
+    margin-bottom: ${(props) => props.spacing || '1rem'} !important;
+
+    @media ${breakpoints.mobileL} {
+        ${(props) => {
+            if (props.mobile) return 'display: none';
+        }};
+    }
+
+    @media ${breakpoints.tablet} {
+        ${(props) => {
+            if (props.tablet) return 'display: none';
+        }};
+    }
+
+    @media ${breakpoints.laptop} {
+        ${(props) => {
+            if (props.laptop) return 'display: none';
+        }};
+    }
+`;
+
+export const DividerVertical = styled.span`
+    align-self: stretch;
+    flex: 0 0 auto;
+    border-width: 0;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.12);
+    border-left-width: thin;
+
+    padding-left: ${(props) => props.spacing || '0rem'} !important;
+    padding-right: ${(props) => props.spacing || '0rem'} !important;
+
+    @media ${breakpoints.mobileL} {
+        ${(props) => {
+            if (props.mobile) return 'display: none';
+        }};
+    }
+
+    @media ${breakpoints.tablet} {
+        ${(props) => {
+            if (props.tablet) return 'display: none';
+        }};
+    }
+
+    @media ${breakpoints.laptop} {
+        ${(props) => {
+            if (props.laptop) return 'display: none';
+        }};
+    }
+`;
+
+export const BackLink = ({ children, className }) => {
+    return (
+        <div>
+            <button
+                className={`small-font link-button hover-bold ${className}`}
+                onClick={() => navigate(-1)}
+            >
+                <ArrowBackIcon
+                    sx={{ fontSize: 15 }}
+                    className="vertical-middle"
+                />
+                <span className="ml-03">{children}</span>
+            </button>
+        </div>
+    );
+};
+
+export const StartLink = ({
+    children,
+    to,
+    linkClass = '',
+    buttonClass = '',
+}) => {
+    return (
+        <Link to={to} className={` ${linkClass}`}>
+            <button
+                className={`small-font link-button ${buttonClass}`}
+                onClick={() => navigate(-1)}
+            >
+                <span className="ml-03">{children}</span>
+                <ArrowForwardIcon
+                    sx={{ fontSize: 15 }}
+                    className="vertical-middle"
+                />
+            </button>
+        </Link>
+    );
+};

@@ -254,7 +254,7 @@
 //                                         classes?.title
 //                                     }`}</h3>
 //                                     <Link
-//                                         className="know-details"
+//                                         className=""
 //                                         to={`/academy/${classes.slug}`}
 //                                     >
 //                                         <button className="button">

@@ -25,7 +25,7 @@ const JobsPage = ({ data, location }) => {
         <Layout>
             <Seo title={pageTitle} />
             <Navbar fluid location={location} />
-            <Hero heroImage={heroImage}>
+            <Hero heroImage={heroImage} alt={pageTitle}>
                 <h2>Work with us</h2>
                 <p>
                     Below follows a list of open positions. We look forward to

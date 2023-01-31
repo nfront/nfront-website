@@ -1,10 +1,11 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 
 import Layout from '@common/layout';
 import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
+import Link from '@common/link';
 
 import Seo from '@utils/SEO';
 
@@ -82,67 +83,24 @@ const Academy = ({ location, user }) => {
     const { title: pageTitle, heroImage } =
         data.allContentfulPages.edges[0].node;
 
-    // const results = data.allContentfulClasses.edges;
-    // console.log('results :>> ', results);
-    // const [filteredClasses, setFilteredClasses] = useState([]);
-
-    // const params = new URLSearchParams(location.search);
-    // const course = params.get('course');
-    // const title = params.get('title');
-
-    // useEffect(() => {
-    //     if (results.length && !course && !title) {
-    //         setFilteredClasses(results);
-    //         return;
-    //     }
-    //     if (course && title) {
-    //         setFilteredClasses(
-    //             results.filter(
-    //                 (aClass) =>
-    //                     aClass?.course?.slug === course &&
-    //                     course?.title
-    //                         .toLocaleLowerCase()
-    //                         .includes(title.toLocaleLowerCase())
-    //             )
-    //         );
-    //         return;
-    //     }
-    //     if (title) {
-    //         setFilteredClasses(
-    //             results.filter((aClass) =>
-    //                 aClass?.title
-    //                     .toLocaleLowerCase()
-    //                     .includes(title.toLocaleLowerCase())
-    //             )
-    //         );
-    //         return;
-    //     }
-    //     if (course) {
-    //         setFilteredClasses(
-    //             results.filter((aClass) => aClass?.course?.slug === course)
-    //         );
-    //         return;
-    //     }
-    // }, [results, course, title]);
-
     return (
         <Layout>
             <Seo title={pageTitle} />
             <Navbar fluid location={location} />
-            <Hero heroImage={heroImage}>
+            <Hero heroImage={heroImage} alt={pageTitle}>
                 <div className="mb-m2">
                     <h2>Fundraising Academy</h2>
                     <p>
                         Everything you need for your next raise, in one place.
                     </p>
-                    <Link to="/classes/">
+                    <Link to="/classes/" display="block" className="mt-3">
                         <button className="button center">
                             View All Classes
                         </button>
                     </Link>
                 </div>
             </Hero>
-            <Courses limit="6" courses={courses} />
+            <Courses limit="6" courses={courses} classes={classes} />
             <Classes limit="6" classes={classes} />
             <Footer />
         </Layout>
