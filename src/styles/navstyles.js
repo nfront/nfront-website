@@ -112,7 +112,7 @@ export const NavItem = styled.li`
     }
 
     &.active {
-        a,
+        > a,
         > button {
             color: var(--yellow);
         }

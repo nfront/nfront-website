@@ -1,13 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
+import styled from 'styled-components';
 
 import Link from '@common/link';
+import { Divider } from '@styles/global';
 import { useScrollMonitor } from '@utils/hooks/useScrollMonitor';
 import { useIsHome } from '@utils/hooks/useCheckLocation';
 import { useIsScroll } from '@utils/hooks/useIsScroll';
 import { logout, isAuthenticated } from '@utils/auth';
 import { ReactComponent as Logo } from '@static/nfront-logo.svg';
 import { NavBarContext } from '@context/myProviders';
-import clsx from 'clsx';
+import useMenuCloser from '@utils/hooks/useMenuCloser';
 
 import {
     NavContainer,
@@ -52,13 +54,25 @@ const menuItems = {
     },
     academy: {
         name: 'Academy',
-        path: '/academy/',
-    },
-    logout: {
-        name: 'Logout',
-        path: '#',
+        subMenu: {
+            academy: {
+                name: 'Academy',
+                path: '/academy/',
+            },
+            logout: {
+                name: 'Logout',
+                path: '/',
+                dividerTop: true,
+                condition: isAuthenticated,
+                action: () => isAuthenticated && logout(),
+            },
+        },
     },
 };
+
+const scrollIfHomeIds = Object.entries(menuItems)
+    .filter(([key, menuObject]) => menuObject.scrollIfHome)
+    .map(([key, menuObject]) => key.toString());
 
 const Navbar = ({ fluid, threshold, ...rest }) => {
     /** open dropdown menu on mobile */
@@ -116,11 +130,26 @@ const Navbar = ({ fluid, threshold, ...rest }) => {
 };
 
 const Menu = (props) => {
+    const activeId = useScrollMonitor(scrollIfHomeIds);
+
+    console.log('props', props);
+
     return (
         <ul>
-            {Object.entries(menuItems).map(([id, pathObject]) => (
-                <ListLink key={id} id={id} pathObject={pathObject} {...props} />
-            ))}
+            {Object.entries(menuItems).map(([id, pathObject], index, arr) => {
+                return (
+                    <ListLink
+                        key={id}
+                        id={id}
+                        pathObject={pathObject}
+                        onClick={() => {
+                            props?.closeMenu && props.closeMenu();
+                        }}
+                        activeId={activeId}
+                        {...props}
+                    />
+                );
+            })}
         </ul>
     );
 };
@@ -131,17 +160,21 @@ const ListLink = ({
     location,
     children,
     closeMenu = () => {},
+    activeId,
     ...rest
 }) => {
-    const scrollMonitorIdList = ['home', 'contact'];
-    const activeId = useScrollMonitor(scrollMonitorIdList);
+    const [subMenuOpen, subMenuToggle] = useState(false);
 
-    const { name, path, scrollIfHome } = pathObject;
+    const closeSubMenu = useCallback(() => subMenuToggle(false), []);
+    const refCallback = useMenuCloser(closeSubMenu);
+
+    const { name, path, scrollIfHome, subMenu } = pathObject;
 
     const { pathname } = location || '';
 
     const { isHome } = useIsHome();
 
+    // To scroll to top, when already on home page
     const replacedPath =
         isHome && scrollIfHome
             ? id === 'home'
@@ -149,33 +182,117 @@ const ListLink = ({
                 : path.replace(/^\/(\w+)\/$/, '#$1')
             : path;
 
-    if (pathObject === menuItems.logout && !isAuthenticated()) return null;
-
-    const combinedClickHandler =
-        pathObject === menuItems.logout
-            ? () => {
-                  closeMenu();
-                  logout();
-              }
-            : () => closeMenu();
+    // const combinedClickHandler =
+    //     pathObject === menuItems.logout
+    //         ? () => {
+    //               closeMenu();
+    //               logout();
+    //           }
+    //         : () => {
+    //               closeMenu();
+    //               subMenuToggle((prevVal) => !prevVal);
+    //           };
 
     return (
         <NavItem
-            onClick={combinedClickHandler}
-            className={clsx(
-                pathObject === menuItems.academy && 'underscore',
+            className={`${
                 (pathname?.includes(id) || activeId?.includes(id)) && 'active'
-            )}
+            } underscore`}
         >
-            <Link to={replacedPath} {...rest}>
-                {pathObject === menuItems.academy ? (
-                    <button className="call-to-action-button">{name}</button>
-                ) : (
-                    <>{name}</>
-                )}
-            </Link>
+            {!subMenu ? (
+                <Link to={replacedPath} {...rest}>
+                    {name}
+                </Link>
+            ) : (
+                <>
+                    <button
+                        ref={refCallback}
+                        className="link-button"
+                        onClick={() => {
+                            subMenuToggle((isOpen) => !isOpen);
+                        }}
+                    >
+                        {name}
+                    </button>{' '}
+                    <SubMenu
+                        subMenu={subMenu}
+                        subMenuOpen={subMenuOpen}
+                        subMenuToggle={subMenuToggle}
+                    />
+                </>
+            )}
+
         </NavItem>
     );
+};
+
+const StyledContainer = styled.div`
+    position: absolute;
+    z-index: 1000;
+    top: 100%;
+    right: 0;
+
+    min-width: 10rem;
+    margin: 0;
+    padding: 0.5rem 0rem;
+
+    text-align: left;
+    list-style: none;
+
+    font-size: 1rem;
+    color: #212529;
+    background-color: #212529;
+
+    border-color: var(--light-grey);
+    border-radius: 0.375rem;
+    border-width: 1px;
+
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+    .subMenuItem:hover {
+        background-color: #e9ecef;
+        color: #1e2125;
+    }
+    .subMenuItem:active {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+    .subMenuItem:disabled {
+        color: #adb5bd;
+    }
+
+`;
+
+const SubMenu = ({ subMenu, subMenuOpen, subMenuToggle }) => {
+
+    return subMenuOpen ? (
+        <StyledContainer>
+            {Object.entries(subMenu).map(
+                ([
+                    subMenuKey,
+                    { name, path, dividerTop, condition, action },
+                ]) => {
+                    return condition === undefined || condition() === true ? (
+                        <div key={subMenuKey}>
+                            {dividerTop && <Divider spacing="0" />}
+                            <Link
+                                display="block"
+                                to={`${path}`}
+                                className="px-1 py-05 subMenuItem"
+                                onClick={() => {
+                                    if (action) action();
+                                    if (subMenuToggle)
+                                        subMenuToggle((isOpen) => !isOpen);
+                                }}
+                            >
+                                {name}
+                            </Link>
+                        </div>
+                    ) : null;
+                }
+            )}
+        </StyledContainer>
+    ) : null;
 };
 
 export default Navbar;

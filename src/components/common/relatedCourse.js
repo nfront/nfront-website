@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from '@common/link';
 
-import { FlexRow, Divider, ArtContainer } from '@styles/global';
+import { Divider, ArtContainer } from '@styles/global';
 import Image from '@common/image';
 
 export default function RelatedCourse({ relatedCourses }) {
