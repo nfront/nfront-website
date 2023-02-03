@@ -66,7 +66,10 @@ const ClassesPage = ({ data, location }) => {
                                 >
                                     <Typography>{courses?.title}</Typography>
                                 </AccordionSummary>
-                                <AccordionDetails style={{maxWidth: '50rem'}} className="center pb-15 px-15">
+                                <AccordionDetails
+                                    style={{ maxWidth: '50rem' }}
+                                    className="center pb-15 px-15"
+                                >
                                     <FlexRow basis="100%">
                                         {courses?.classes.map(
                                             (aClass, index) => {
@@ -74,7 +77,9 @@ const ClassesPage = ({ data, location }) => {
                                                     <Class
                                                         key={aClass.slug}
                                                         aClass={aClass}
-                                                        courseTitle={courses?.title}
+                                                        courseTitle={
+                                                            courses?.title
+                                                        }
                                                         index={index}
                                                     />
                                                 );
@@ -122,6 +127,25 @@ export const query = graphql`
                             url
                             mimeType
                             gatsbyImageData(height: 100)
+                        }
+                        files {
+                            ... on ContentfulAsset {
+                                title
+                                filename
+                                id
+                            }
+                        }
+                        relatedCourses {
+                            ... on ContentfulCourses {
+                                id
+                                title
+                                slug
+                                icon {
+                                    mimeType
+                                    url
+                                    gatsbyImageData(width: 100)
+                                }
+                            }
                         }
                     }
                 }

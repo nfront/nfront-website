@@ -12,6 +12,12 @@ import DescriptionIcon from '@mui/icons-material/Description';
 
 const FileList = ({ files, courseTitle }) => {
     const { isMobile, isLaptop, isDesktop } = useWindowSize();
+    console.log('files', files);
+    
+    files.map(({id, title, filename}) => {
+
+    });
+
     return (
         <div>
             <FlexRow

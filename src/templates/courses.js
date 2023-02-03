@@ -63,7 +63,7 @@ const StyledContainer = styled(Container)`
     }
 `;
 
-const Courses = ({ data }) => {
+const Courses = ({ data, location }) => {
     const { isMobile } = useWindowSize();
 
     const {
@@ -81,7 +81,8 @@ const Courses = ({ data }) => {
             icon: <HomeIcon className="vertical-middle" />,
             title: 'Description',
             content: (
-                <div id="courseDescription"
+                <div
+                    id="courseDescription"
                     dangerouslySetInnerHTML={{
                         __html: courseDescription.childMarkdownRemark.html,
                     }}
@@ -166,7 +167,7 @@ const Courses = ({ data }) => {
                                 ) : null}
                             </Sticky>
                         </GridLayoutSide>
-                        {isMobile ? <Divider className="m-0"/> : null}
+                        {isMobile ? <Divider className="m-0" /> : null}
                         {isMobile ? (
                             <RelatedCourse relatedCourses={relatedCourses} />
                         ) : null}
@@ -205,6 +206,10 @@ export const query = graphql`
             }
             files {
                 title
+                fileAsset {
+                    filename
+                    publicUrl
+                }
             }
             icon {
                 mimeType
