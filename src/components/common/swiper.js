@@ -18,7 +18,7 @@ const defaultSettings = {
     // navigation: true,
     // scrollbar: true,
     rewind: true,
-    // autoplay: { delay: 4000, disableOnInteraction: false },
+    autoplay: { delay: 4000, disableOnInteraction: false },
     speed: 500,
     slidesPerView: 1,
     grabCursor: true,

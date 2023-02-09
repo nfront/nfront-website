@@ -50,6 +50,7 @@ const Hero = ({
     small,
     left,
     polygonShading,
+    gap,
     id,
 }) => {
     if (!heroImage) {
@@ -64,6 +65,7 @@ const Hero = ({
                 <Overlay
                     as={Container}
                     left={left}
+                    gap={gap}
                     className={`${small && 'text-light'}`}
                 >
                     {children}

@@ -27,10 +27,10 @@ const useWindowSize = () => {
     // Empty array ensures that effect is only run on mount.
     // Because, the listener should only be created once.
 
-    let isMobile,
-        isTablet,
-        isLaptop,
-        isDesktop = false;
+    let isMobile = false;
+    let isTablet = false;
+    let isLaptop = false;
+    let isDesktop = false;
     if (windowSize.width <= breakpointToPxNum('mobileL')) {
         isMobile = true;
     } else if (windowSize.width <= breakpointToPxNum('tablet')) {

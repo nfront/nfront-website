@@ -17,7 +17,7 @@ const TabContainer = ({ tabs }) => {
             <FlexRow gap="0" className="mb-15 mt-1">
                 {tabs.map((tab, index, arr) => {
                     return (
-                        <>
+                        <FlexRow gap="0" key={`tabList-${index}`} className="flex-basis-0 flex-grow ">
                             <button
                                 className={`${
                                     activeTab === index
@@ -34,7 +34,7 @@ const TabContainer = ({ tabs }) => {
                                 {tab.icon}
                                 <span
                                     className={`${
-                                        (isTablet || isLaptop || isDesktop)
+                                        isTablet || isLaptop || isDesktop
                                             ? 'display-inline ml-05'
                                             : 'display-none'
                                     }`}
@@ -44,7 +44,7 @@ const TabContainer = ({ tabs }) => {
                                 </span>
                             </button>
                             {index + 1 != arr.length && <DividerVertical />}
-                        </>
+                        </FlexRow>
                     );
                 })}
             </FlexRow>
@@ -52,6 +52,7 @@ const TabContainer = ({ tabs }) => {
                 {tabs.map((tab, index, arr) => {
                     return (
                         <div
+                            key={`tabContainer-${index}`}
                             className={
                                 activeTab === index ? '' : 'display-none'
                             }

@@ -129,10 +129,10 @@ export const query = graphql`
                             gatsbyImageData(height: 100)
                         }
                         files {
-                            ... on ContentfulAsset {
-                                title
+                            title
+                            fileAsset {
                                 filename
-                                id
+                                publicUrl
                             }
                         }
                         relatedCourses {

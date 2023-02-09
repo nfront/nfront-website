@@ -120,7 +120,7 @@ const Courses = ({ data, location }) => {
             <Navbar fluid threshold={0} />
             <Section className="py-6">
                 <StyledContainer>
-                    <SectionTitle alt className="p-0 mb-2">
+                    <SectionTitle className="p-0 mb-2 text-left">
                         <div className="mb-1">
                             <Link
                                 to="/academy/"
@@ -140,7 +140,7 @@ const Courses = ({ data, location }) => {
                     <GridLayoutWrapper side="right" className="center-mobile">
                         <GridLayoutContent>
                             <Fade left>
-                                <SectionTitle alt className="p-0 mb-2">
+                                <SectionTitle className="p-0 mb-2 text-left">
                                     <p className="category--blue mb-1 rounded xs-font">
                                         {title}
                                     </p>
@@ -209,6 +209,10 @@ export const query = graphql`
                 fileAsset {
                     filename
                     publicUrl
+                }
+                relatedClasses {
+                    slug
+                    title
                 }
             }
             icon {

@@ -16,8 +16,6 @@ import { ReactComponent as IconFour } from '@images/nfront/speed.svg';
 
 
 const Thesis = (props) => {
-    const { coInvestorsRef } = props.thesisRefs;
-    const { navRef } = props;
 
     return (
         <Section>
@@ -31,8 +29,6 @@ const Thesis = (props) => {
                     With one of Europe's largest{' '}
                     <Link
                         to="#co-investors"
-                        navRef={navRef}
-                        anchorRef={coInvestorsRef}
                     >
                         deal-sharing
                     </Link>{' '}

@@ -1,40 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import {
     Section,
     Container,
     ArtContainer,
-    TextContainer,
     Grid,
     FlexColumn,
     SectionTitle,
 } from '@styles/global';
 import Link from '@common/link';
 import Image from '@common/image';
-
-const Text = styled(TextContainer)`
-    width: 220px; // Needed, so text aligns with image
-
-    div {
-        color: var(--border-color);
-        font-weight: 400;
-    }
-    div:first-child a {
-        color: var(--yellow);
-        margin-bottom: 5px;
-    }
-    div:not(:first-child) {
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    div:last-child {
-        font-weight: bold;
-    }
-`;
-
-// const MotionComponent = motion(Text);
 
 const Mentors = () => {
     const data = useStaticQuery(
@@ -72,7 +47,7 @@ const Mentors = () => {
                 </p>
             </SectionTitle>
             <Container>
-                <Grid minWidth="220px">
+                <Grid minWidth="12rem">
                     {result.map(
                         ({
                             name,
@@ -83,7 +58,7 @@ const Mentors = () => {
                             link,
                         }) => {
                             return (
-                                <FlexColumn className="mt-2" key={title} alignItems="center">
+                                <FlexColumn className="mt-2" key={name} alignItems="center">
                                     <ArtContainer grayscale hover rounded>
                                         <Link to={link}>
                                             <Image
@@ -92,14 +67,14 @@ const Mentors = () => {
                                             />
                                         </Link>
                                     </ArtContainer>
-                                    <Text>
+                                    <FlexColumn width="12rem">
                                         <div>
-                                            <Link to={link}>{name}</Link>
+                                            <Link to={link} className="color-yellow normal-font-weight mb-05">{name}</Link>
                                         </div>
-                                        <div>{title}</div>
-                                        <div>{company}</div>
-                                        <div>{city}</div>
-                                    </Text>
+                                        <div className="color-border-color xs-font uppercase ls-1">{title}</div>
+                                        <div className="color-border-color xs-font uppercase ls-1">{company}</div>
+                                        <div className="color-border-color xs-font uppercase ls-1 bold">{city}</div>
+                                    </FlexColumn>
                                 </FlexColumn>
                             );
                         }

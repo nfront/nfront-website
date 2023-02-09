@@ -182,17 +182,6 @@ const ListLink = ({
                 : path.replace(/^\/(\w+)\/$/, '#$1')
             : path;
 
-    // const combinedClickHandler =
-    //     pathObject === menuItems.logout
-    //         ? () => {
-    //               closeMenu();
-    //               logout();
-    //           }
-    //         : () => {
-    //               closeMenu();
-    //               subMenuToggle((prevVal) => !prevVal);
-    //           };
-
     return (
         <NavItem
             className={`${

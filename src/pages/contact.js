@@ -29,9 +29,9 @@ const ContactPage = ({ data, location }) => {
                     <Grid>
                         <Contact />
                         <div className="">
-                            <div class="label">Drop us an email at</div>
+                            <div className="label">Drop us an email at</div>
                             <p>info@nfrontventures.com</p>
-                            <div class="label">Visit us at</div>
+                            <div className="label">Visit us at</div>
                             <p>
                                 <Link className="light-bold" href="https://goo.gl/maps/X1k1eo7YebbSehEP9">
                                     Tollbugata 24, 0157

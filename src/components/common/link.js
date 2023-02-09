@@ -9,7 +9,6 @@ import { NavBarContext } from '@context/myProviders.js';
 // pass it only to GatsbyLink
 const Link = ({
     children,
-    anchorRef,
     to,
     activeClassName,
     partiallyActive,
@@ -24,9 +23,13 @@ const Link = ({
     // Tailor the following test to your environment.
     // This example assumes that any internal link (intended for Gatsby)
     // will start with exactly one slash, and that anything else is external.
-    const internal = /^\/(?!\/)/.test(to);
+    const internal = /^\/(?!\/)(?!_)/.test(to);
+    console.log('to', to);
+    console.log('internal', internal);
 
-    // Smooth scroll if it starts with #
+    // Smooth scroll if it starts with #.
+    // Handles smoothscroll for links from page X to fragment on same page X.
+    // When linking to fragments on other pages, the code in gatsby-browser.js handles smooth scroll.
     const samePage = /^#/.test(to);
 
     const { navRect } = useContext(NavBarContext); // Returns value of passed context
@@ -66,7 +69,6 @@ const Link = ({
         const elementPosition = target.getBoundingClientRect().top;
         const offsetPosition =
             elementPosition + window.pageYOffset - headerOffset;
-        console.log(headerOffset);
 
         const url = new URL(window.location);
         url.hash = to;
@@ -79,8 +81,10 @@ const Link = ({
         });
     };
 
-    // <a> with ref, for same page links.
-    // Best to switch to "button" element.
+    // Button element for same page links (when "to" prop starts with "#").
+    // Simply fires a smooth scroll action, and adds path to navigation history.
+    // This does not handle smooth scroll when linking to hash fragment on another page.
+    // That is handled by code in gatsby-browser.js.
     if (samePage) {
         return (
             <button style={{...style}} className="link-button" onClick={onClick} {...other}>
@@ -89,9 +93,9 @@ const Link = ({
         );
     }
 
-    // <a> for external links
+    // <a> for external links and for download links.
     return (
-        <a href={to} style={{...style}} {...other} rel="noreferrer noopener" target="_blank">
+        <a href={to} style={{...style}} {...other}>
             {children}
         </a>
     );

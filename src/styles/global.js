@@ -145,6 +145,8 @@ export const FlexColumn = styled.div`
         ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis};`}
     }
 
+    ${(props) => props.width && `width: ${props.width};`}
+
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -473,6 +475,7 @@ export const ArtContainer = styled.div`
     }
 `;
 
+// Don't use this, use FlexColumn or FlexRow instead.
 export const TextContainer = styled.p`
     display: flex;
     justify-content: center;
@@ -628,18 +631,25 @@ export const StartLink = ({
     linkClass = '',
     buttonClass = '',
 }) => {
-    return (
+    
+    const ButtonElement = () => (
+        <button
+            className={`small-font link-button ${buttonClass}`}
+            onClick={() => navigate(-1)}
+        >
+            <span className="ml-03">{children}</span>
+            <ArrowForwardIcon
+                sx={{ fontSize: 15 }}
+                className="vertical-middle"
+            />
+        </button>
+    );
+
+    return to ? (
         <Link to={to} className={` ${linkClass}`}>
-            <button
-                className={`small-font link-button ${buttonClass}`}
-                onClick={() => navigate(-1)}
-            >
-                <span className="ml-03">{children}</span>
-                <ArrowForwardIcon
-                    sx={{ fontSize: 15 }}
-                    className="vertical-middle"
-                />
-            </button>
+            <ButtonElement />
         </Link>
+    ) : (
+        <ButtonElement />
     );
 };

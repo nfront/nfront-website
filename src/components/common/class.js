@@ -71,11 +71,10 @@ const RectangularCard = ({
                             {courseTitle}
                         </p>
                         <StartLink
-                            to={`/academy/${slug}`}
-                            linkClass={`hover-color-yellow ${
+                            className={`${
                                 !isMobile ? 'flex-basis-auto' : 'flex-basis-100'
                             }`}
-                            buttonClass="light-bold"
+                            buttonClass="light-bold hover-color-yellow"
                         >
                             Start
                         </StartLink>
@@ -111,15 +110,12 @@ const SquareCard = ({ aClass: { coverImage, title, slug, course }, index }) => {
                     <p className="category--blue m-0 rounded xs-font">
                         {course?.title}
                     </p>
-                    <Link
-                        className="small-font hover-bold"
-                        to={`/academy/${slug}`}
-                    >
+                    <button className="small-font link-button hover-bold">
                         Start class{' '}
                         {!isMobile && (
                             <FontAwesomeIcon icon={faArrowRight} size="1x" />
                         )}
-                    </Link>
+                    </button>
                 </FlexRow>
             </div>
         </Link>

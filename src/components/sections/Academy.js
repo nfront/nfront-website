@@ -71,6 +71,17 @@ const Academy = ({ location, user }) => {
                             mimeType
                             gatsbyImageData(width: 100)
                         }
+                        files {
+                            title
+                            fileAsset {
+                                filename
+                                publicUrl
+                            }
+                            relatedClasses {
+                                slug
+                                title
+                            }
+                        }
                     }
                 }
             }

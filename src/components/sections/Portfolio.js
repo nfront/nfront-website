@@ -9,7 +9,7 @@ import {
     FlexColumn,
     ArtContainer,
     BulletList,
-    Divider
+    Divider,
 } from '@styles/global';
 import Image from '@common/image';
 import Link from '@common/link';
@@ -65,7 +65,7 @@ const PortfolioSlider = ({ result }) => {
             </SectionTitle>
             {!isMobile ? (
                 <Container>
-                    <CustomSwiper row wrap navigation={(isLaptop || isDesktop)}>
+                    <CustomSwiper row navigation={isLaptop || isDesktop}>
                         {result.map((val) => {
                             const {
                                 brand,
@@ -81,7 +81,7 @@ const PortfolioSlider = ({ result }) => {
                                         maxHeightLaptop="400px"
                                         itemBasis="50%"
                                         className={`mb-15-latop ${
-                                            (isLaptop || isDesktop) ? 'pr-1' : ''
+                                            isLaptop || isDesktop ? 'pr-1' : ''
                                         }`}
                                     >
                                         <Image image={logo} alt={brand} />
@@ -90,10 +90,12 @@ const PortfolioSlider = ({ result }) => {
                                         itemBasis="50%"
                                         className="center-tablet"
                                     >
-                                        {(isLaptop || isDesktop) ? (
+                                        {isLaptop || isDesktop ? (
                                             <h2 className="mb-03">{brand}</h2>
                                         ) : (
-                                            <h3 className="mb-03 h3-large">{brand}</h3>
+                                            <h3 className="mb-03 h3-large">
+                                                {brand}
+                                            </h3>
                                         )}
                                         <p className="label xs-font mb-15">
                                             <span className="bold">HQ:</span>{' '}
@@ -101,11 +103,11 @@ const PortfolioSlider = ({ result }) => {
                                         </p>
                                         <BulletList
                                             className={`label xs-font mb-15 ${
-                                                (isLaptop || isDesktop) ? '' : ''
+                                                isLaptop || isDesktop ? '' : ''
                                             }`}
                                         >
                                             <span>{`Lead Investors${
-                                                (isLaptop || isDesktop) ? ':' : ''
+                                                isLaptop || isDesktop ? ':' : ''
                                             }`}</span>
                                             <ul>
                                                 {cInvestors.map(
@@ -154,7 +156,7 @@ const PortfolioSlider = ({ result }) => {
                                 </ArtContainer>
                                 <BulletList className="label xs-font mb-15">
                                     <span>{`Lead Investors${
-                                        (isLaptop || isDesktop) ? ':' : ''
+                                        isLaptop || isDesktop ? ':' : ''
                                     }`}</span>
                                     <ul>
                                         {cInvestors.map((investor, index) => (
@@ -163,7 +165,9 @@ const PortfolioSlider = ({ result }) => {
                                     </ul>
                                 </BulletList>
                                 <p className="small-font mb-0">{description}</p>
-                                {index !== length - 1 && <Divider spacing="2rem" />}
+                                {index !== length - 1 && (
+                                    <Divider spacing="2rem" />
+                                )}
                             </FlexColumn>
                         );
                     })}
@@ -234,17 +238,10 @@ const PortfolioGrid = ({ result }) => {
                                     <p className="small-font mb-1">
                                         {description}
                                     </p>
-                                    <Link
-                                        className="small-font light-bold"
-                                        to={link}
-                                    >
+                                    <span className="small-font light-bold">
                                         {'Learn More'}
-                                    </Link>
+                                    </span>
                                 </Link>
-                                {/* <ReadMore
-                                    link={link}
-                                    text={description}
-                                /> */}
                             </div>
                         </div>
                     );
