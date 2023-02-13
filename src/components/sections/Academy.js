@@ -6,6 +6,7 @@ import Navbar from '@common/navbar';
 import Hero from '@common/hero';
 import Footer from '@common/footer';
 import Link from '@common/link';
+import Files from '@sections/Files';
 
 import Seo from '@utils/SEO';
 
@@ -85,11 +86,27 @@ const Academy = ({ location, user }) => {
                     }
                 }
             }
+            allContentfulFiles {
+                edges {
+                    node {
+                        title
+                        fileAsset {
+                            filename
+                            publicUrl
+                        }
+                        relatedClasses {
+                            slug
+                            title
+                        }
+                    }
+                }
+            }
         }
     `);
 
     const courses = data.allContentfulCourses.edges.map((edge) => edge.node);
     const classes = data.allContentfulClasses.edges.map((edge) => edge.node);
+    const files = data.allContentfulFiles.edges.map((edge) => edge.node);
 
     const { title: pageTitle, heroImage } =
         data.allContentfulPages.edges[0].node;
@@ -113,6 +130,7 @@ const Academy = ({ location, user }) => {
             </Hero>
             <Courses limit="6" courses={courses} classes={classes} />
             <Classes limit="6" classes={classes} />
+            <Files files={files} courses={courses} />
             <Footer />
         </Layout>
     );

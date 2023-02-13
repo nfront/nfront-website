@@ -28,7 +28,7 @@ import {
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 
 import CourseCard from '@common/courseSummaryCard';
-import RelatedCourse from '@common/relatedCourse';
+import RelatedCourses from '@common/relatedCourses';
 import Fade from '@common/fade';
 
 import HomeIcon from '@mui/icons-material/Home';
@@ -161,7 +161,7 @@ const Courses = ({ data, location }) => {
                             <Sticky top={`100px`}>
                                 <CourseCard courses={data.contentfulCourses} />
                                 {!isMobile ? (
-                                    <RelatedCourse
+                                    <RelatedCourses
                                         relatedCourses={relatedCourses}
                                     />
                                 ) : null}
@@ -169,7 +169,7 @@ const Courses = ({ data, location }) => {
                         </GridLayoutSide>
                         {isMobile ? <Divider className="m-0" /> : null}
                         {isMobile ? (
-                            <RelatedCourse relatedCourses={relatedCourses} />
+                            <RelatedCourses relatedCourses={relatedCourses} />
                         ) : null}
                     </GridLayoutWrapper>
                 </StyledContainer>

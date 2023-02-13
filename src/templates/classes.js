@@ -10,14 +10,10 @@ import Footer from '@common/footer';
 import Hero from '@common/hero';
 import Image from '@common/image';
 
-import { Section, Container, Overlay } from '@styles/global';
+import { Section, Container } from '@styles/global';
 import * as breakpoints from '@styles/scss/_breakpoints.module.scss';
 import Seo from '@utils/SEO';
 import slugify from '@utils/slugify';
-import { isReactComponent } from '@utils/utils';
-
-import CourseCard from '../components/common/courseSummaryCard';
-import RelatedCourse from '../components/common/relatedCourse';
 
 const StyledContainer = styled(Container)`
     text-align: center;

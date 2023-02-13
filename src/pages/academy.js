@@ -25,7 +25,6 @@ const AcademyPage = () => {
     const user = getProfile();
 
     return (
-        // <Academy path="/academy/" user={user} />
         <Router>
             <Academy path="/academy/" user={user} />
         </Router>

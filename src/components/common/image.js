@@ -47,7 +47,14 @@ const imageWrapperStyle = {
 // - SVG is not controlled by GatsbyImage, so define styles with StyledComponents
 // - ArtContainer is "display: flex"
 
-const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
+const Image = ({
+    image,
+    backgroundImage = false,
+    asSvg,
+    alt,
+    maxHeight,
+    ...rest
+}) => {
     // If image comes from Contentful, pass in image field, which will not contain childImageSharp
     // If image coming from allFile, pass in file node which contains childImageSharp
     // If any such image field contains an svg field that is not null, then it is an svg
@@ -74,11 +81,17 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
         (ext && ext.includes('svg')) ||
         (extension && extension.includes('svg')) ||
         (mimeType && mimeType.includes('svg')) ||
-        (typeof image === 'string' && image.includes('svg')) || (publicURL && publicURL.includes('svg')) || asSvg;
+        (typeof image === 'string' && image.includes('svg')) ||
+        (publicURL && publicURL.includes('svg')) ||
+        asSvg;
 
     const finalAlt = alt || name || title || '';
-    
-    const imageSource = isSvg ? (publicURL || publicUrl || url) ? (publicURL || publicUrl || url): image : getImage(image);
+
+    const imageSource = isSvg
+        ? publicURL || publicUrl || url
+            ? publicURL || publicUrl || url
+            : image
+        : getImage(image);
     console.log('========== NEW IMAGE =========');
     console.log('mimeType', mimeType);
     console.log('isSvg', isSvg);
@@ -87,6 +100,9 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
     console.log('imageSource', imageSource);
 
     const bgStyle = backgroundImage && imageWrapperStyle;
+    const otherStyles = {
+        ...(maxHeight && { maxHeight: maxHeight }),
+    };
 
     // Image from filesystem contains ChildImageSharp
     // SVG: ChildImageSharp is null
@@ -96,7 +112,10 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
             <GatsbyImage
                 image={imageSource}
                 alt={finalAlt}
-                style={backgroundImage && imageWrapperStyle}
+                style={{
+                    ...bgStyle,
+                    ...otherStyles,
+                }}
                 imgClassName="img-class"
                 src=""
                 {...rest}
@@ -108,7 +127,10 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
             <GatsbyImage
                 image={imageSource}
                 alt={finalAlt}
-                style={backgroundImage && imageWrapperStyle}
+                style={{
+                    ...bgStyle,
+                    ...otherStyles,
+                }}
                 imgClassName="img-class"
                 src=""
                 {...rest}
@@ -123,7 +145,7 @@ const Image = ({ image, backgroundImage = false, asSvg, alt, ...rest }) => {
             <img
                 src={imageSource}
                 alt={finalAlt}
-                style={{ ...bgStyle }}
+                style={{ ...bgStyle, ...otherStyles }}
                 {...rest}
             />
         );

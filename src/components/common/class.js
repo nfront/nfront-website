@@ -6,7 +6,7 @@ import Image from '@common/image';
 import { FlexRow, ArtContainer, StartLink, Divider } from '@styles/global';
 import useWindowSize from '@utils/hooks/useWindowSize';
 
-const Class = ({ aClass, type = 'rectangular', index, courseTitle }) => {
+const Class = ({ aClass, aCourse, type = 'rectangular', index, courseTitle }) => {
     let classComponent = null;
     switch (type) {
         case 'square':
@@ -22,6 +22,7 @@ const Class = ({ aClass, type = 'rectangular', index, courseTitle }) => {
             classComponent = (
                 <RectangularCard
                     aClass={aClass}
+                    aCourse={aCourse}
                     index={index}
                     courseTitle={courseTitle}
                 />
@@ -31,15 +32,16 @@ const Class = ({ aClass, type = 'rectangular', index, courseTitle }) => {
 };
 
 const RectangularCard = ({
-    aClass: { coverImage, title, slug },
+    aClass: { coverImage: classIcon, title: classTitle, slug: classSlug } = {},
+    aCourse: { icon: courseIcon, title: courseCardTitle, slug: courseSlug } = {},
     index,
     courseTitle,
 }) => {
     const { isMobile } = useWindowSize();
     return (
         <Link
-            to={`/academy/${slug}`}
-            className="p-1 rounded-shadow-3 bg-white hover-box-shadow hover-color-yellow center-mobile"
+            to={`/academy/${classSlug || courseSlug}`}
+            className={`p-1 rounded-shadow-3 bg-white hover-box-shadow hover-color-yellow center-mobile ${courseSlug ? 'bg-alt' : ''}`}
         >
             <FlexRow justifyContent="flex-start" alignItems="center" gap="1rem">
                 {/* Needed itemBasis to ensure width does not become 0, when next to item that grows. */}
@@ -48,9 +50,9 @@ const RectangularCard = ({
                     className="p-0 m-0"
                     maxHeight="4rem"
                     alignItems="flex-start"
-                    alignContent={`${!isMobile ? 'flex-start' : 'center'}`}
+                    alignContent={`${!isMobile ? 'center' : 'center'}`}
                 >
-                    <Image image={coverImage} alt={title} className="x-auto" />
+                    <Image image={classIcon || courseIcon} alt={classTitle || courseCardTitle} className="x-auto" />
                 </ArtContainer>
                 {/* basis prop is for children. flex-basis-0 class is for element itself. */}
                 <FlexRow
@@ -60,23 +62,20 @@ const RectangularCard = ({
                     className="flex-grow flex-basis-0"
                 >
                     <h4 className="h4-large mb-03 center-mobile">{`${
-                        index + 1
-                    }. ${title}`}</h4>
+                        classTitle ? `${index + 1}.` : 'Course Introduction'
+                    } ${classTitle || ''}`}</h4>
                     <FlexRow
                         alignItems="center"
                         className="justify-content-center-mobile-else-space-between"
                         gap="1rem"
                     >
-                        <p className="category--blue m-0 rounded xs-font flex-basis-auto">
+                        {courseTitle && <p className="category--blue m-0 rounded xs-font flex-basis-auto">
                             {courseTitle}
-                        </p>
+                        </p>}
                         <StartLink
-                            className={`${
-                                !isMobile ? 'flex-basis-auto' : 'flex-basis-100'
-                            }`}
-                            buttonClass="light-bold hover-color-yellow"
+                            buttonClass="light-bold hover-color-yellow flex-basis-100-mobile"
                         >
-                            Start
+                            {`${classSlug ? 'Start' : 'Visit'}`}
                         </StartLink>
                     </FlexRow>
                 </FlexRow>

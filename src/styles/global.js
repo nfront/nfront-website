@@ -138,14 +138,19 @@ export const Sticky = styled.div`
 export const FlexColumn = styled.div`
     /* When FlexColumn is itself a flex item. */
     @media ${breakpoints.mobileL} {
-        ${(props) => props.itemBasis && `flex-basis: 100%;`}
+        ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis} !important;`}
     }
 
     @media ${breakpoints.tablet} {
-        ${(props) => props.itemBasis && `flex-basis: ${props.itemBasis};`}
+        ${(props) =>
+            props.itemBasisTablet
+                ? `flex-basis: ${props.itemBasisTablet} !important;`
+                : props.itemBasis
+                ? `flex-basis: ${props.itemBasis} !important;`
+                : {}}
     }
 
-    ${(props) => props.width && `width: ${props.width};`}
+    ${(props) => props.width && `width: ${props.width} !important;`}
 
     display: flex;
     flex-direction: column;
@@ -206,7 +211,8 @@ export const FlexRow = styled.div`
     @media ${breakpoints.mobileL} {
         > * {
             flex: ${(props) => (props.grow ? '1' : '0')} 1
-                ${(props) => (props.mobileAuto ? 'auto' : '100%')};
+                ${(props) =>
+                    props.mobileAuto ? 'auto' : props.basis || '100%'};
         }
     }
 
@@ -550,7 +556,7 @@ export const BulletList = styled.div`
 
 export const Divider = styled.hr`
     align-self: stretch;
-    width: 100%;
+    width: ${(props) => props.width || '100%'} !important;
     border-width: 0;
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.12);
@@ -631,13 +637,12 @@ export const StartLink = ({
     linkClass = '',
     buttonClass = '',
 }) => {
-    
     const ButtonElement = () => (
         <button
             className={`small-font link-button ${buttonClass}`}
             onClick={() => navigate(-1)}
         >
-            <span className="ml-03">{children}</span>
+            <span>{children}</span>
             <ArrowForwardIcon
                 sx={{ fontSize: 15 }}
                 className="vertical-middle"

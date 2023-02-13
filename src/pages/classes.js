@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { graphql } from 'gatsby';
 
 import Class from '@components/common/class';
@@ -15,27 +15,44 @@ import {
     AccordionSummary,
     Typography,
 } from '@mui/material';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const ClassesPage = ({ data, location }) => {
-    const { title: pageTitle, heroImage } =
-        data.allContentfulPages.edges[0].node;
+// Object mapping courses to classes
+// const coursesToClassesMap = (classList) => {
+//     return classList?.reduce((coursesObj, currentClass) => {
+//         coursesObj[currentClass?.course.slug] = coursesObj[currentClass?.course.slug] || {
+//             course: currentClass?.course,
+//             classes: [],
+//         };
+//         coursesObj[currentClass?.course.slug].classes.push(currentClass);
+//         return coursesObj;
+//     }, {});
+// }
 
-    const params = new URLSearchParams(location.search);
-    const title = params.get('title');
+const coursesToClassesMap = (classList) => {
+    return classList.reduce((courseList, aClass) => {
+        !courseList.some((course) => course.slug === aClass.course.slug)
+            ? courseList.push({ ...aClass.course, classList: [] })
+            : courseList
+                  .find((course) => course.slug === aClass.course.slug)
+                  .classList.push(aClass);
+
+        return courseList;
+        // courseObj[aClass.course.slug] = courseObj[aClass.course.slug] || {...aClass.course, classList: []};
+        // courseObj[aClass.course.slug].classList.push(aClass);
+        // return courseObj;
+    }, []);
+};
+
+const ClassesPage = ({ data, location }) => {
+    const { title: pageTitle } = data.allContentfulPages.edges[0].node;
 
     const classList = data.allContentfulClasses.edges.map((edge) => edge.node);
 
-    const classes = Object.values(
-        classList?.reduce((acc, clas) => {
-            acc[clas?.course?.title] = acc[clas?.course?.title] || {
-                title: clas?.course?.title,
-                classes: [],
-            };
-            acc[clas?.course?.title].classes.push(clas);
-            return acc;
-        }, {})
-    );
+    const courses = useMemo(() => coursesToClassesMap(classList), [classList]);
+
+    console.log('courses', courses);
 
     return (
         <Layout>
@@ -56,35 +73,44 @@ const ClassesPage = ({ data, location }) => {
                     </SectionTitle>
                 </Fade>
                 <Container className="center-mobile">
-                    {classes.map((courses, key) => {
+                    {courses.map((course) => {
+                        
+                        const {
+                            title: courseTitle,
+                            icon: courseIcon,
+                            slug: courseSlug,
+                            classList,
+                        } = course;
+
                         return (
-                            <Accordion key={key}>
+                            <Accordion key={courseSlug}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1a-content"
                                     id="panel1a-header"
                                 >
-                                    <Typography>{courses?.title}</Typography>
+                                    <Typography>{courseTitle}</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails
                                     style={{ maxWidth: '50rem' }}
                                     className="center pb-15 px-15"
                                 >
                                     <FlexRow basis="100%">
-                                        {courses?.classes.map(
-                                            (aClass, index) => {
-                                                return (
-                                                    <Class
-                                                        key={aClass.slug}
-                                                        aClass={aClass}
-                                                        courseTitle={
-                                                            courses?.title
-                                                        }
-                                                        index={index}
-                                                    />
-                                                );
-                                            }
-                                        )}
+                                        <Class
+                                            aCourse={course}
+                                            courseTitle={courseTitle}
+                                            index={0}
+                                        />
+                                        {classList.map((aClass, index) => {
+                                            return (
+                                                <Class
+                                                    key={aClass.slug}
+                                                    aClass={aClass}
+                                                    courseTitle={courseTitle}
+                                                    index={index}
+                                                />
+                                            );
+                                        })}
                                     </FlexRow>
                                 </AccordionDetails>
                             </Accordion>

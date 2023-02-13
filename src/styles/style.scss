@@ -432,6 +432,13 @@ strong {
     box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
+.rounded-shadow-1 {
+    border-radius: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    overflow: hidden;
+}
+
 .rounded-shadow-2 {
     border-radius: 4px;
     box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
@@ -442,6 +449,13 @@ strong {
 .rounded-shadow-3 {
     border-radius: 0.375rem !important;
     box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.1) !important;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    overflow: hidden;
+}
+
+.rounded-shadow-4 {
+    border-radius: 0.375rem !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     overflow: hidden;
 }
@@ -560,7 +574,7 @@ ul > li::before {
     left: 0;
 }
 
-ul.custom-bullet-list  {
+ul.custom-bullet-list {
     list-style: none;
 
     & > li {
@@ -569,14 +583,20 @@ ul.custom-bullet-list  {
         margin: 0;
     }
 
-    & > li::before {
-        position: relative !important;
-        top: 0;
-        content: "\2022"; /* \2022 is the CSS Code/unicode for a bullet */
-        color: var(--text-color) !important;
-        display: inline-block; /* Needed to add space between the bullet and the text */
-        width: 1rem; /* Also needed for space (tweak if needed) */
-        margin-left: -1rem; /* Also needed for space (tweak if needed) */
+    // Bullets only when screen is wider than mobile
+    @include breakpoints.breakpoint(mobileL) {
+        & > li::before {
+            position: relative !important;
+            font-size: 200% !important;
+            line-height: 50%;
+            vertical-align: -40%;
+            top: 0;
+            content: "\2022"; /* \2022 is the CSS Code/unicode for a bullet */
+            color: var(--text-color) !important;
+            display: inline-block; /* Needed to add space between the bullet and the text */
+            width: 1rem; /* Also needed for space (tweak if needed) */
+            margin-left: -1rem; /* Also needed for space (tweak if needed) */
+        }
     }
 }
 
@@ -684,6 +704,14 @@ ul.custom-bullet-list  {
     margin-left: 0.5rem !important;
 }
 
+.ml-07 {
+    margin-left: 0.7rem !important;
+}
+
+.ml-08 {
+    margin-left: 0.8rem !important;
+}
+
 .ml-09 {
     margin-left: 0.9rem !important;
 }
@@ -704,9 +732,19 @@ ul.custom-bullet-list  {
     margin-right: 1rem !important;
 }
 
+.mx-1 {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+}
+
 .mx-3 {
     margin-left: 3rem !important;
     margin-right: 3rem !important;
+}
+
+.my-0 {
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
 }
 
 .my-15 {
@@ -889,6 +927,24 @@ ul.custom-bullet-list  {
     }
 }
 
+.justify-content-center-mobile {
+    text-align: center !important;
+    justify-content: center !important;
+    @include breakpoints.breakpoint(mobileL) {
+        text-align: left !important;
+        justify-content: left !important;
+    }
+}
+
+.align-items-center-mobile {
+    text-align: center !important;
+    align-items: center !important;
+    @include breakpoints.breakpoint(mobileL) {
+        text-align: left !important;
+        align-items: flex-start !important;
+    }
+}
+
 .justify-items-center-mobile {
     text-align: center !important;
     justify-items: center !important;
@@ -988,6 +1044,7 @@ ul.custom-bullet-list  {
     flex-basis: auto !important;
 }
 
+
 .flex-basis-0 {
     flex-basis: 0 !important;
 }
@@ -996,8 +1053,27 @@ ul.custom-bullet-list  {
     flex-basis: 50% !important;
 }
 
+.flex-33 {
+    flex-basis: 33% !important;
+}
+
+.flex-basis-max-content {
+    flex-basis: max-content !important;
+}
+
+.flex-basis-100 {
+    flex-basis: 100% !important;
+}
+
 .flex-100 {
     flex: 0 1 100% !important;
+}
+
+.flex-basis-100-mobile {
+    flex-basis: 100% !important;
+    @include breakpoints.breakpoint(mobileL) {
+        flex-basis: auto !important;
+    }
 }
 
 .flex-grow {

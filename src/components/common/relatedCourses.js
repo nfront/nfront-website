@@ -4,7 +4,7 @@ import Link from '@common/link';
 import { Divider, ArtContainer } from '@styles/global';
 import Image from '@common/image';
 
-export default function RelatedCourse({ relatedCourses }) {
+const RelatedCourses = ({ relatedCourses }) => {
     return (
         <div className="p-15 rounded-shadow-2 x-100">
             <h4 className="h4-large">Related Courses</h4>
@@ -33,3 +33,5 @@ export default function RelatedCourse({ relatedCourses }) {
         </div>
     );
 }
+
+export default RelatedCourses;
